@@ -17,7 +17,7 @@ module.exports = {
     "plugins": [
         "react"
     ],
-    "ignorePattern": [".eslintrc.js"],
+    "ignorePatterns": [".eslintrc.js"],
     "rules": {
         // "no-trailing-spaces": ["error", { "skipBlankLines": true } ],
         "no-return-assign": 0,
