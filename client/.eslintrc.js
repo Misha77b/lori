@@ -3,7 +3,10 @@ module.exports = {
         "browser": true,
         "es2021": true
     },
-    "extends": "plugin:react/recommended",
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended"
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -14,6 +17,7 @@ module.exports = {
     "plugins": [
         "react"
     ],
+    "ignorePattern": [".eslintrc.js"],
     "rules": {
         // "no-trailing-spaces": ["error", { "skipBlankLines": true } ],
         "no-return-assign": 0,
@@ -21,6 +25,7 @@ module.exports = {
         "semi": 0,
         "camelcase": 0,
         "object-curly-spacing": 0,
-        "comma-dangle": 0
-    }
+        "comma-dangle": 0,
+        "react/react-in-jsx-scope": "off",
+    },
 }
