@@ -9,7 +9,8 @@ module.exports = {
         "react-app/jest",
         "plugin:react/recommended",
         "plugin:react-hooks/recommended",
-        "airbnb"
+        "airbnb",
+        "plugin:prettier/recommended",
     ],
     "overrides": [
     ],
@@ -21,7 +22,8 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier"
     ],
     "ignorePatterns": [".eslintrc.js"],
     "rules": {
