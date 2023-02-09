@@ -25,7 +25,9 @@ module.exports = {
     ],
     "ignorePatterns": [".eslintrc.js"],
     "rules": {
+        "linebreak-style": "off",
         "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+        "no-trailing-spaces": ["error", { "ignoreComments": true }],
         "quotes": [
             "error", 
             "double"
@@ -34,8 +36,8 @@ module.exports = {
             "error", 
             "prefer-double"
         ],
+        "react/function-component-definition": 'off',
         'react/jsx-filename-extension': [2, { 'extensions': ['.js', '.jsx', '.ts', '.tsx'] }],
-        "rlinebreak-style": "off",
         "indent": "off",
         "arrow-body-style": "off",
         "no-return-assign": 0,
