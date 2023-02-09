@@ -5,15 +5,13 @@ import Header from "../Header/Header";
 import Pages from "../Pages/Pages";
 
 function App() {
-  return (
-    <BrowserRouter>
-
-      <Header />
-      <Pages />
-      <Footer />
-
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Header />
+			<Pages />
+			<Footer />
+		</BrowserRouter>
+	);
 }
 
 export default App;
