@@ -11,7 +11,7 @@ const Pages = () => {
       <Route path='/' element={ <Home /> } />
 
       {/* example route */}
-      <Route path='/another-page' element={ <TestFileAnotherPage /> } />
+      <Route path='another-page' element={ <TestFileAnotherPage /> } />
 
     </Routes>
   )
