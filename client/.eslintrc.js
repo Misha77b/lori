@@ -25,7 +25,7 @@ module.exports = {
     ],
     "ignorePatterns": [".eslintrc.js"],
     "rules": {
-        // "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+        "no-trailing-spaces": ["error", { "skipBlankLines": true }],
         "quotes": [
             "error", 
             "double"
@@ -35,6 +35,7 @@ module.exports = {
             "prefer-double"
         ],
         'react/jsx-filename-extension': [2, { 'extensions': ['.js', '.jsx', '.ts', '.tsx'] }],
+        "rlinebreak-style": "off",
         "indent": "off",
         "arrow-body-style": "off",
         "no-return-assign": 0,
