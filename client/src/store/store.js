@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-import thunk from 'redux-thunk'; 
+import { configureStore } from "@reduxjs/toolkit"
+import thunk from "redux-thunk";
 
-import rootReducer from './rootreducer';
+import rootReducer from "./rootreducer";
 
-const reduxDevToolsCompose = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'];
+const reduxDevToolsCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 
 const store = configureStore({
     devTools: reduxDevToolsCompose,
@@ -11,5 +11,4 @@ const store = configureStore({
     middleware: [thunk],
 })
 
-
-export default store; 
+export default store;

@@ -1,13 +1,9 @@
-import { combineReducers } from 'redux'; 
- 
-// import exampleReducer from '..API/example/example';  
+import { combineReducers } from "redux";
 
-
-
+// import exampleReducer from '..API/example/example';
 
 const rootReducer = combineReducers({
-    // exampleReducer, 
-}); 
+    // exampleReducer,
+});
 
-
-export default rootReducer; 
+export default rootReducer;

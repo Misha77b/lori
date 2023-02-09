@@ -1,11 +1,17 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest":  true
     },
     "extends": [
+        "react-app",
+        "react-app/jest",
         "plugin:react/recommended",
-        "plugin:react-hooks/recommended"
+        "plugin:react-hooks/recommended",
+        "airbnb"
+    ],
+    "overrides": [
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -19,7 +25,18 @@ module.exports = {
     ],
     "ignorePatterns": [".eslintrc.js"],
     "rules": {
-        // "no-trailing-spaces": ["error", { "skipBlankLines": true } ],
+        // "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+        "quotes": [
+            "error", 
+            "double"
+        ],
+        "jsx-quotes": [
+            "error", 
+            "prefer-double"
+        ],
+        'react/jsx-filename-extension': [2, { 'extensions': ['.js', '.jsx', '.ts', '.tsx'] }],
+        "indent": "off",
+        "arrow-body-style": "off",
         "no-return-assign": 0,
         "eol-last": 0,
         "semi": 0,
@@ -27,5 +44,5 @@ module.exports = {
         "object-curly-spacing": 0,
         "comma-dangle": 0,
         "react/react-in-jsx-scope": "off",
-    },
+    }
 }
