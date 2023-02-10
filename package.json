@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server.js",
-    "pre-commit": "lint-staged"
+    "pre-commit": "pnpm run --filter \"@product/*\" pre-commit",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,6 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "fs-extra": "^8.1.0",
-    "husky": "^8.0.3",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",

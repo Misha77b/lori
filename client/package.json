@@ -40,7 +40,8 @@
 		"eslint:fix": "eslint --fix .",
 		"prettier": "prettier --write .",
 		"prepare": "cd .. && husky install client/.husky",
-		"lint-client": "lint-staged"
+		"lint-client": "lint-staged",
+		"pre-commit": "lint-staged"
 	},
 	"lint-staged": {
 		"*.{js,ts,tsx, jsx}": [
@@ -53,7 +54,7 @@
 	"watch": {
 		"eslint": {
 			"patterns": [
-				"/src/**/*.{js,jsx}"
+				"/src/**/*.{js, jsx}"
 			],
 			"development": [
 				"last 1 chrome version",
