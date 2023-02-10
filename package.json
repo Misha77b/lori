@@ -34,10 +34,5 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

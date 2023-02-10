@@ -49,6 +49,10 @@
 		"*.{json,md,html,js,jsx,ts,tsx}": [
 			"prettier --write"
 		]
+	},"husky": {
+		"hooks": {
+		  "pre-commit": "lint-staged"
+		}
 	},
 	"watch": {
 		"eslint": {
