@@ -39,7 +39,8 @@
 		"eslint": "eslint .",
 		"eslint:fix": "eslint --fix .",
 		"prepare": "cd .. && husky install client/.husky",
-		"lint-client": "lint-staged"
+		"lint-client": "lint-staged",
+		"prettier": "prettier --write ."
 	},
 	"lint-staged": {
 		"*.{js,ts,tsx, jsx}": [
