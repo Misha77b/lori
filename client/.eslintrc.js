@@ -42,5 +42,9 @@ module.exports = {
 		"object-curly-spacing": 0,
 		"comma-dangle": 0,
 		"react/react-in-jsx-scope": "off",
+		"no-unused-vars": "off",
+		"no-undef": "off",
+		"no-restricted-exports": "off",
+		"no-param-reassign": "off",
 	},
 };
