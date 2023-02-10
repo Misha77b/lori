@@ -37,7 +37,17 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"eslint": "eslint .",
-		"eslint:fix": "eslint --fix ."
+		"eslint:fix": "eslint --fix .",
+		"prepare": "cd .. && husky install client/.husky",
+		"lint-staged": {
+			"*.{js,ts,tsx, jsx}": [
+				"eslint --quiet --fix"
+			],
+			"*.{json,md,html,js,jsx,ts,tsx}": [
+				"prettier --write"
+			]
+		},
+		"lint-client": "lint-staged"
 	},
 	"watch": {
 		"eslint": {
@@ -79,7 +89,7 @@
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react": "^7.32.2",
 		"eslint-plugin-react-hooks": "^4.6.0",
-		"husky": "^8.0.3",
+		"husky": "^8.0.0",
 		"prettier": "2.8.4"
 	}
 }
