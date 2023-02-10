@@ -38,10 +38,9 @@
 		"eject": "react-scripts eject",
 		"eslint": "eslint .",
 		"eslint:fix": "eslint --fix .",
-		"prepare": "cd .. && husky install client/.husky",
-		"lint-client": "lint-staged",
 		"prettier": "prettier --write .",
-		"pre-commit": "lint-staged"
+		"prepare": "cd .. && husky install client/.husky",
+		"lint-client": "lint-staged"
 	},
 	"lint-staged": {
 		"*.{js,ts,tsx, jsx}": [
@@ -54,7 +53,7 @@
 	"watch": {
 		"eslint": {
 			"patterns": [
-				"/src/**/*.js"
+				"/src/**/*.{js,jsx}"
 			],
 			"development": [
 				"last 1 chrome version",
