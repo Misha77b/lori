@@ -6,19 +6,20 @@ import theme from "../../theming";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import Pages from "../Pages/Pages";
+
 const App = () => {
-  return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Header />
-        <Button color="secondary" variant="contained">
-          Детальніше
-        </Button>
-        <Pages />
-        <Footer />
-      </BrowserRouter>
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				<Header />
+				<Button color="secondary" variant="contained">
+					Детальніше
+				</Button>
+				<Pages />
+				<Footer />
+			</BrowserRouter>
+		</ThemeProvider>
+	);
 };
 
 export default App;
