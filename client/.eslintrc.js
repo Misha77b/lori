@@ -25,17 +25,11 @@ module.exports = {
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
 		"linebreak-style": "off",
-				"no-trailing-spaces": ["error", { skipBlankLines: true }],
+		"no-trailing-spaces": ["error", { skipBlankLines: true }],
 		"no-trailing-spaces": ["error", { ignoreComments: true }],
-		quotes: [
-			"error", 
-			"double"
-		],
-		"jsx-quotes": [
-			"error", 
-			"prefer-double"
-		],
-					"react/function-component-definition": "off",
+		quotes: ["error", "double"],
+		"jsx-quotes": ["error", "prefer-double"],
+		"react/function-component-definition": "off",
 		"react/jsx-filename-extension": [2, { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
 		indent: [2, "tab"],
 		"no-tabs": 0,
