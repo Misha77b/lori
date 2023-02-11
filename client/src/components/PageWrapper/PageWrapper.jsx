@@ -1,8 +1,7 @@
-function PageWrapper({ children }) {
+function PageWrapper({ pageName }) {
 	return (
 		<div>
 			<div className="page-name">{pageName}</div>
-			{children}
 		</div>
 	);
 }
