@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, Button, Typography } from "@mui/material";
-
+import RootRouters from "../Router/Router";
 import theme from "../theming";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
@@ -12,8 +12,7 @@ const App = () => {
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Header />
-
-				<Home />
+				<RootRouters />
 				<Footer />
 			</BrowserRouter>
 		</ThemeProvider>
