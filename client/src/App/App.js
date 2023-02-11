@@ -2,20 +2,18 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider, Button, Typography } from "@mui/material";
 
-import theme from "../../theming";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
-import Pages from "../Pages/Pages";
+import theme from "../theming";
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
+import Home from "../pages/Home/Home";
 
 const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Header />
-				<Button color="secondary" variant="contained">
-					Детальніше
-				</Button>
-				<Pages />
+
+				<Home />
 				<Footer />
 			</BrowserRouter>
 		</ThemeProvider>
