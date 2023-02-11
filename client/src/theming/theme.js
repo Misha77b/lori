@@ -18,6 +18,7 @@ const theme = createTheme({
 	palette: {
 		primary: {
 			main: "#FFFFFF",
+			contrastText: " #007042",
 		},
 		grey: { main: "#57646E" },
 		lightgrey: { main: "#D3D7DA" },
@@ -37,7 +38,7 @@ const theme = createTheme({
 		fontFamily: "Open Sans, Montserrat",
 		fontWeightBold: 800,
 		fontWeightRegular: 400,
-		fontWeightMedium: 500,
+		fontWeightMedium: 600,
 		fontWeightLight: 300,
 	},
 });

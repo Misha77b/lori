@@ -1,0 +1,87 @@
+@mixin hover-white {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.6);
+}
+@mixin background-img {
+	background-size: cover;
+	position: relative;
+	background-position: center;
+	background-attachment: inherit;
+}
+.popular {
+	height: 380px;
+	position: relative;
+	&--overlay {
+		background-color: rgba(0, 0, 0, 0.4);
+		width: 100%;
+		height: 100%;
+	}
+	&--text {
+		position: absolute;
+		color: #fff;
+		left: 20px;
+		bottom: 5%;
+		width: 50%;
+	}
+	&--samsung {
+		background: url("./img/s.png") no-repeat;
+		@include background-img;
+		&:hover::before {
+			@include hover-white;
+		}
+		&:hover .typography {
+			color: #2e3438;
+			&--p {
+				color: #2e3438;
+				font-weight: 800;
+			}
+		}
+	}
+	&--mi {
+		background: url("./img/mi_redmi.jpg") no-repeat;
+		@include background-img;
+		&:hover::before {
+			@include hover-white;
+		}
+		&:hover .typography {
+			color: #2e3438;
+			&--p {
+				color: #2e3438;
+				font-weight: 800;
+			}
+		}
+	}
+	&--apple {
+		background: url("./img/a.png") no-repeat;
+		@include background-img;
+		&:hover::before {
+			@include hover-white;
+		}
+		&:hover .typography {
+			color: #2e3438;
+			&--p {
+				color: #2e3438;
+				font-weight: 800;
+			}
+		}
+	}
+	&--huawei {
+		background: url("./img/h.png") no-repeat;
+		@include background-img;
+		&:hover::before {
+			@include hover-white;
+		}
+		&:hover .typography {
+			color: #2e3438;
+			&--p {
+				color: #2e3438;
+				font-weight: 800;
+			}
+		}
+	}
+}
