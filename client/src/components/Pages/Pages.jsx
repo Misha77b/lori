@@ -1,16 +1,14 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom'; 
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import Home from '../Home/Home';
+import Home from "../Home/Home";
 
 const Pages = () => {
-  return (
-    <Routes>
+	return (
+		<Routes>
+			<Route path="/" element={<Home />} />
+		</Routes>
+	);
+};
 
-      <Route path='/' element={ <Home /> } />
-
-    </Routes>
-  )
-}
-
-export default Pages
+export default Pages;
