@@ -8,7 +8,7 @@ const theme = createTheme({
 				root: {
 					padding: "20px 35px",
 					fontWeight: 700,
-					fontFamily: "Open Sans",
+					fontFamily: "Open Sans, sans-serif",
 					fontSize: "15px",
 					borderRadius: "3px",
 				},
@@ -19,13 +19,14 @@ const theme = createTheme({
 		primary: {
 			main: "#FFFFFF",
 		},
+		secondary: {
+			main: colors.green[800],
+		},
 		grey: { main: "#57646E" },
 		lightgrey: { main: "#D3D7DA" },
 		mediumgrey: { main: "#A0A9AF" },
 		darkgrey: { main: "rgba(33, 39, 40, 0.6)" },
-		secondary: {
-			main: colors.green[800],
-		},
+
 		graphite: { main: "#2E3438" },
 		black: { main: "#000000" },
 		warning: {
@@ -34,7 +35,7 @@ const theme = createTheme({
 	},
 	error: { main: colors.red[700] },
 	typography: {
-		fontFamily: "Open Sans, Montserrat",
+		fontFamily: "Open Sans, Montserrat, sans-serif",
 		fontWeightBold: 800,
 		fontWeightRegular: 400,
 		fontWeightMedium: 500,

@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "../Home/Home";
+import Home from "../pages/Home/Home";
 
-const Pages = () => {
+const Router = () => {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
@@ -11,4 +11,4 @@ const Pages = () => {
 	);
 };
 
-export default Pages;
+export default Router;
