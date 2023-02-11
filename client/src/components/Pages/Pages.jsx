@@ -6,8 +6,8 @@ import Home from "../Home/Home";
 const Pages = () => {
 	return (
 		<Routes>
-								<Route path="/" element={<Home />} />
-				</Routes>
+			<Route path="/" element={<Home />} />
+		</Routes>
 	);
 };
 
