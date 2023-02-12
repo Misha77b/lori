@@ -1,20 +1,16 @@
 import React from "react";
+import styled from "styled-components";
+
+const PriceWrapper = styled.div`
+	font-family: Montserrat, sans-serif;
+	font-size: 30px;
+	font-weight: 900;
+	line-height: 29px;
+	color: #007042;
+`;
 
 const ProductPrice = ({ price, color }) => {
-	return (
-		<div
-			className="price__wrapper"
-			style={{
-				fontFamily: "Montserrat, sans-serif",
-				fontSize: "30px",
-				fontWeight: "900",
-				lineHeight: "29px",
-				color: "#007042",
-			}}
-		>
-			53 199 грн
-		</div>
-	);
+	return <PriceWrapper>53 199 грн</PriceWrapper>;
 };
 
 export default ProductPrice;
