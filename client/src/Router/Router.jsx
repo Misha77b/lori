@@ -1,14 +1,14 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import Home from "../pages/Home";
+import OneProduct from "../pages/OneProduct";
 
-import Home from "../pages/Home/Home";
-
-const Router = () => {
+function RootRouters() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
+			<Route path="/product" element={<OneProduct />} />
 		</Routes>
 	);
-};
-
-export default Router;
+}
+export default RootRouters;
