@@ -7,7 +7,7 @@ function RootRouters() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/home/product" element={<OneProduct />} />
+			<Route path="/product" element={<OneProduct />} />
 		</Routes>
 	);
 }
