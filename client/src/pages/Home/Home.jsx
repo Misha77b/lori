@@ -6,7 +6,7 @@ const Home = () => {
 	return (
 		<>
 			<Link to="/product">One product</Link>
-			<PopularBrands></PopularBrands>
+			<PopularBrands />
 		</>
 	);
 };
