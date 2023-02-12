@@ -29,7 +29,8 @@
 		width: 50%;
 	}
 	&--samsung {
-		background: url("./img/s.png") no-repeat;
+		background-image: url("https://asset.cloudinary.com/dsx708og4/f761488a466a05607597babc3b7529c0");
+		/* no-repeat; */
 		@include background-img;
 		&:hover::before {
 			@include hover-white;
@@ -43,7 +44,8 @@
 		}
 	}
 	&--mi {
-		background: url("./img/mi_redmi.jpg") no-repeat;
+		background: url("https://asset.cloudinary.com/dsx708og4/95f4b9a8cc879a43ea39c24146bdd847")
+			no-repeat;
 		@include background-img;
 		&:hover::before {
 			@include hover-white;
@@ -57,7 +59,8 @@
 		}
 	}
 	&--apple {
-		background: url("./img/a.png") no-repeat;
+		background: url("https://asset.cloudinary.com/dsx708og4/28f8d503cd939d2d1fec1f6a660b1d16")
+			no-repeat;
 		@include background-img;
 		&:hover::before {
 			@include hover-white;
@@ -71,7 +74,8 @@
 		}
 	}
 	&--huawei {
-		background: url("./img/h.png") no-repeat;
+		background: url("https://asset.cloudinary.com/dsx708og4/76eeb997ec59673eb3a581b6fa053e8e")
+			no-repeat;
 		@include background-img;
 		&:hover::before {
 			@include hover-white;
