@@ -3,7 +3,6 @@ import styled from "styled-components";
 import ProductImageBox from "./components/ProductImageBox";
 import ProductDescription from "./components/ProductDescription";
 import ProductPrice from "../ProductPrice";
-import ProductFlag from "./components/ProductFlag";
 
 const ProductCardWrapper = styled.div`
 	display: flex;
@@ -12,10 +11,9 @@ const ProductCardWrapper = styled.div`
 	padding: 0.5%;
 	position: relative;
 `;
-const ProductCard = ({ flagStatus }) => {
+const ProductCard = () => {
 	return (
 		<ProductCardWrapper>
-			<ProductFlag flagStatus={flagStatus} />
 			<ProductImageBox />
 			<ProductDescription />
 			<ProductPrice />
