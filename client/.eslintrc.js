@@ -67,5 +67,8 @@ module.exports = {
 		"no-undef": "off",
 		"no-restricted-exports": "off",
 		"no-param-reassign": "off",
+		"jsx-a11y/no-noninteractive-element-interactions": "off",
+		"prettier/prettier": ["error", { endOfLine: "auto" }],
+		"no-debugger": "off",
 	},
 };
