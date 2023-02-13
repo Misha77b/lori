@@ -1,11 +1,10 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
+import { Button, Stack } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typography from "@mui/material/Typography";
+import CategoryTitle from "../CategoryTitle";
 import "./PopularBrands.scss";
-import { red } from "@mui/material/colors";
-import { Button, Stack } from "@mui/material";
 
 const paragraph = {
 	margin: "0",
@@ -30,19 +29,8 @@ const button = {
 };
 const PopularBrands = () => {
 	return (
-		<Box sx={{ flexGrow: 1, width: "90%", margin: "0 auto 80px" }}>
-			<Typography
-				variant="h4"
-				fontWeight="fontWeightBold"
-				fontFamily="Montserrat"
-				sx={{
-					"font-size": "30px",
-					color: "#2E3438",
-					margin: "77px 0 32px 0",
-				}}
-			>
-				Популярні бренди
-			</Typography>
+		<Box>
+			<CategoryTitle text="Популярні бренди" />
 			<Grid
 				className="popular-block"
 				container
