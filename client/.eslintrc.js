@@ -24,6 +24,7 @@ module.exports = {
 	plugins: ["react", "prettier"],
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
+		"operator-linebreak": "off",
 		"linebreak-style": "off",
 		"no-trailing-spaces": ["error", { skipBlankLines: true }],
 		"object-curly-newline": 0,
@@ -42,6 +43,16 @@ module.exports = {
 		"react/no-array-index-key": 0,
 		"arrow-body-style": "off",
 		"no-return-assign": 0,
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				js: "never",
+				jsx: "never",
+				ts: "never",
+				tsx: "never",
+			},
+		],
 		"react/self-closing-comp": [
 			"error",
 			{
