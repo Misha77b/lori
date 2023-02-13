@@ -22,6 +22,7 @@ const Slider = () => {
 			<Swiper
 				navigation={true}
 				slidesPerView={1}
+				loop={true}
 				speed={600}
 				spaceBetween={30}
 				pagination={{
