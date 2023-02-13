@@ -1,10 +1,11 @@
-@import "src/boilerplates/styles/colors";
+@import "../../../../boilerplates/styles/variables";
+@import "src/components/ProductCard/components/ProductFlag/ProductFlag";
 
 .logo__box {
 	background-color: $light-grey-color;
 	padding: 30px;
 	display: grid;
-	transition: all 0.3s ease;
+	transition: $transition-image;
 	cursor: pointer;
 	&:before {
 		content: "";
@@ -14,14 +15,14 @@
 	&:hover {
 		transform: scale(1.1);
 		box-shadow: 0 10px 40px 0 $shadowed-black-color;
-		z-index: 3;
 		border-color: $base-color !important;
+		& .ribbon {
+			transform: scale(1.1);
+		}
 	}
 	.logo {
 		width: 100%;
 		height: 100%;
-		//width: 120px;
-		//height: 120px;
 		object-fit: contain;
 	}
 }
