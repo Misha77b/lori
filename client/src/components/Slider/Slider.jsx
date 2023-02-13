@@ -23,19 +23,25 @@ const Slider = () => {
 				<SwiperSlide>
 					<img
 						style={{ width: "100%", height: "100%" }}
-						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676212059/Lori_project/Slide1_iPhone-14-pro-max_ricall.png"
+						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676222627/Lori_project/Slide1_iPhone-14-pro-max_paqdb6.jpg"
 					/>
 				</SwiperSlide>
 				<SwiperSlide>
 					<img
 						style={{ width: "100%", height: "100%" }}
-						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676212071/Lori_project/Slide2_Samsung-s23-ultra_lgxfhu.png"
+						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676222653/Lori_project/Slide2_Samsung-s23-ultra_nlgwjf.jpg"
 					/>
 				</SwiperSlide>
 				<SwiperSlide>
 					<img
 						style={{ width: "100%", height: "100%" }}
-						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676212138/Lori_project/Slide3_Huawei-mate-50-series_jweyvh.png"
+						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676222787/Lori_project/slide3_Huawei-mate-50-series_whoidn.jpg"
+					/>
+				</SwiperSlide>
+				<SwiperSlide>
+					<img
+						style={{ width: "100%", height: "100%" }}
+						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676223534/Lori_project/Slide4_Xiaomi-11-lite_d23daa.jpg"
 					/>
 				</SwiperSlide>
 			</Swiper>
