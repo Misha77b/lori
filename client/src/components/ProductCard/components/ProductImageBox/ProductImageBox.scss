@@ -1,5 +1,7 @@
+@import "src/boilerplates/styles/colors";
+
 .logo__box {
-	background-color: #f5f5f5;
+	background-color: $light-grey-color;
 	padding: 30px;
 	display: grid;
 	transition: all 0.3s ease;
@@ -11,9 +13,9 @@
 	}
 	&:hover {
 		transform: scale(1.1);
-		box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
+		box-shadow: 0 10px 40px 0 $shadowed-black-color;
 		z-index: 3;
-		border-color: #007042 !important;
+		border-color: $base-color !important;
 	}
 	.logo {
 		width: 100%;

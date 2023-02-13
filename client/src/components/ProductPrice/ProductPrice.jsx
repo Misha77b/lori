@@ -6,7 +6,7 @@ const PriceWrapper = styled.div`
 	font-size: 30px;
 	font-weight: 900;
 	line-height: 29px;
-	color: #007042;
+	color: $base-color;
 `;
 
 const ProductPrice = ({ price, color }) => {
