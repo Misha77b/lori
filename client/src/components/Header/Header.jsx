@@ -38,8 +38,8 @@ const Header = () => {
 	return (
 		<Box component="header">
 			<AppBar position="static">
-				<Container maxWidth="lg">
-					<Toolbar sx={{ display: { sm: "flex", lg: "flex" } }}>
+				<Container>
+					<Toolbar>
 						<img
 							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
 							alt="logo"
@@ -52,14 +52,14 @@ const Header = () => {
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
-							sx={{ color: " #2E3438", display: { sx: "none", lg: "block" } }}
+							sx={{ color: " #2E3438", display: { xs: "none", lg: "block" } }}
 						>
 							(096)166-64-16
 						</Typography>
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
-							sx={{ m: " 0 10px", color: " #2E3438", display: { sx: "none", lg: "block" } }}
+							sx={{ m: " 0 10px", color: " #2E3438", display: { xs: "none", lg: "block" } }}
 						>
 							(098)259-25-99
 						</Typography>
@@ -68,7 +68,7 @@ const Header = () => {
 							sx={{
 								"& > :not(style)": { m: 1, width: "442px" },
 								position: "relative",
-								display: { sm: "none", lg: "block" },
+								display: { xs: "none", sm: "block" },
 							}}
 							noValidate
 							autoComplete="off"
@@ -103,22 +103,23 @@ const Header = () => {
 						<Box>
 							<IconButton size="large" color="inherit">
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
-								<Typography sx={{ color: "#57646E", display: { sm: "none", lg: "block" } }}>
+								<Typography sx={{ color: "#57646E", display: { xs: "none", md: "block" } }}>
 									Увійти
 								</Typography>
 							</IconButton>
 						</Box>
-						<IconButton size="large" aria-label="show 4 new mails" color="inherit">
+						<IconButton size="large" aria-label="Basket" color="inherit">
 							<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
-						<IconButton size="large" aria-label="show 4 new mails" color="inherit">
+						<IconButton size="large" aria-label="Favorites" color="inherit">
 							{/* <StarOutlinedIcon sx={menuLinkItem} /> */}
 							<StarBorderOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
 					</Toolbar>
 				</Container>
 			</AppBar>
-			<Box sx={{ backgroundColor: "#57646E", display: { lg: "none", sm: "block" } }}>
+
+			<Box sx={{ backgroundColor: "#57646E", display: { sm: "none", xs: "block" } }}>
 				<Container>
 					<Box
 						component="form"
@@ -157,7 +158,7 @@ const Header = () => {
 					</Box>
 				</Container>
 			</Box>
-			<Box sx={{ backgroundColor: "#57646E", display: { sm: "none", lg: "block" } }}>
+			<Box sx={{ backgroundColor: "#57646E", display: { xs: "none", sm: "block" } }}>
 				<Container>
 					<Box component="nav">
 						<List sx={{ display: "flex" }}>
