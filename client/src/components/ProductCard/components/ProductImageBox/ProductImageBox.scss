@@ -1,0 +1,32 @@
+@import "../../../../boilerplates/styles/variables";
+@import "src/components/ProductCard/components/ProductFlag/ProductFlag";
+
+.logo__box {
+	background-color: $light-grey-color;
+	padding: 30px;
+	display: grid;
+	transition: $transition-image;
+	cursor: pointer;
+	&:before {
+		content: "";
+		padding-bottom: 100%;
+		display: block;
+	}
+	&:hover {
+		transform: scale(1.1);
+		box-shadow: 0 10px 40px 0 $shadowed-black-color;
+		border-color: $base-color !important;
+		& .ribbon {
+			transform: scale(1.1);
+		}
+	}
+	.logo {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+}
+.logo__box:before,
+.logo {
+	grid-area: 1 / 1 / 2 / 2;
+}

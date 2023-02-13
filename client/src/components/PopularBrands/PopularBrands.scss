@@ -1,23 +1,11 @@
-@mixin hover-white {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 0.6);
-}
-@mixin background-img {
-	background-size: cover;
-	position: relative;
-	background-position: center;
-	background-attachment: inherit;
-}
+@import "src/boilerplates/styles/mixins";
+@import "../../boilerplates/styles/variables";
+
 .popular {
 	height: 380px;
 	position: relative;
 	&--overlay {
-		background-color: rgba(0, 0, 0, 0.4);
+		background-color: $shadowed-black-color;
 		width: 100%;
 		height: 100%;
 	}
@@ -29,63 +17,35 @@
 		width: 50%;
 	}
 	&--samsung {
-		background-image: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676213563/s_gdhmuz.png");
-		/* no-repeat; */
+		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229446/Lori_project/s_ux5ipg.png")
+			no-repeat;
+	}
+	&--samsung,
+	&--mi,
+	&--apple,
+	&--huawei {
 		@include background-img;
 		&:hover::before {
 			@include hover-white;
 		}
 		&:hover .typography {
-			color: #2e3438;
+			color: $light-black-color;
 			&--p {
-				color: #2e3438;
+				color: $light-black-color;
 				font-weight: 800;
 			}
 		}
 	}
 	&--mi {
-		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676213540/mi_redmi_hm9txj.jpg")
+		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229440/Lori_project/mi_redmi_cytssb.jpg")
 			no-repeat;
-		@include background-img;
-		&:hover::before {
-			@include hover-white;
-		}
-		&:hover .typography {
-			color: #2e3438;
-			&--p {
-				color: #2e3438;
-				font-weight: 800;
-			}
-		}
 	}
 	&--apple {
-		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676213517/a_phmxcz.png")
+		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229401/Lori_project/a_dvoykt.png")
 			no-repeat;
-		@include background-img;
-		&:hover::before {
-			@include hover-white;
-		}
-		&:hover .typography {
-			color: #2e3438;
-			&--p {
-				color: #2e3438;
-				font-weight: 800;
-			}
-		}
 	}
 	&--huawei {
-		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676213528/h_vq4y48.png")
+		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229433/Lori_project/h_jirrej.png")
 			no-repeat;
-		@include background-img;
-		&:hover::before {
-			@include hover-white;
-		}
-		&:hover .typography {
-			color: #2e3438;
-			&--p {
-				color: #2e3438;
-				font-weight: 800;
-			}
-		}
 	}
 }

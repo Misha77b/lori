@@ -27,7 +27,6 @@ export const userSlice = createSlice({
 		builder.addCase(fetchAuth.fulfilled, (state, action) => {
 			state.user = action.payload;
 			state.loader = false;
-			console.log("payload", action.payload);
 		});
 	},
 });
