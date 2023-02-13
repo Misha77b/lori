@@ -39,7 +39,7 @@ const Footer = () => {
 					spacing={1}
 					sx={{ flexGrow: 1, justifyContent: "space-between", pt: "55px" }}
 				>
-					<Box>
+					<Box sx={{ display: { xs: "none", md: "block" } }}>
 						<Box
 							component="img"
 							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
@@ -47,10 +47,9 @@ const Footer = () => {
 							align="center"
 							sx={{
 								maxWidth: "150px",
-								display: { xs: "none", md: "block" },
 							}}
 						/>
-						<Box sx={{ maxWidth: "150px", display: { xs: "none", md: "block" } }}>
+						<Box sx={{ maxWidth: "150px" }}>
 							<Typography
 								fontWeight="fontWeightRegular"
 								fontFamily="Open Sans, sans-serif"
