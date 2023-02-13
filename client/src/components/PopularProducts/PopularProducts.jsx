@@ -21,15 +21,17 @@ const PopularProducts = () => {
 		},
 		[],
 	);
+	// const cards = products.map(({ name, currentPrice, sale, popular, color }) => {
+	// 	if (popular) name, currentPrice, sale, color;
+	// });
 	return (
 		<div>
 			<Container>
 				<CategoryTitle text="Популярні товари" />
 				<CardsContainer>
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
-					<ProductCard />
+					{products.map((card, index) => (
+						<ProductCard key={index} card={card} />
+					))}
 				</CardsContainer>
 			</Container>
 		</div>
