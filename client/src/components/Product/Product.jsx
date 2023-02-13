@@ -4,17 +4,10 @@ import Rating from "@mui/material/Rating";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { useState } from "react";
 import CategoryTitle from "../CategoryTitle";
+import ProductPrice from "../ProductPrice/ProductPrice";
 import Discription from "./Discription";
 import Selection from "./Select";
 import "./Product.scss";
-
-const Price = styled.div`
-	font-family: Montserrat, sans-serif;
-	font-size: 40px;
-	font-weight: 900;
-	line-height: 29px;
-	color: #007042;
-`;
 
 function Product() {
 	const [product, setProduct] = useState(
@@ -68,7 +61,7 @@ function Product() {
 				</div>
 				<div className="block__description">
 					<Stack spacing={4}>
-						<Price>23 5677</Price>
+						<ProductPrice />
 						<Typography
 							variant="h4"
 							fontWeight="fontWeightBold"
