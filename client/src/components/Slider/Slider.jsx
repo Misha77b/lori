@@ -32,44 +32,46 @@ const Slider = () => {
 				className="mySwiper"
 			>
 				<SwiperSlide className="swiper-item">
-					<Box
+					{/* <Box
 						component="div"
 						className="slide-box"
+					> */}
+					<img
+						className="swiper-slide-img"
+						style={{ width: "100%", height: "100%" }}
+						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676222627/Lori_project/Slide1_iPhone-14-pro-max_paqdb6.jpg"
+					/>
+					<Box
+						component="div"
+						className="slide-content"
+						sx={slideTextContentStyle}
 					>
-						<img
-							className="swiper-slide-img"
-							style={{ width: "100%", height: "100%" }}
-							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676222627/Lori_project/Slide1_iPhone-14-pro-max_paqdb6.jpg"
-						/>
-						<Box
-							className="slide-text-content"
-							sx={slideTextContentStyle}
+						<Typography
+							variant="h3"
+							fontWeight="fontWeightBold"
+							sx={lightSlideTitle}
+							className="slide-content-title"
 						>
-							<Typography
-								variant="h3"
-								fontWeight="fontWeightBold"
-								sx={lightSlideTitle}
-								className="slide-ingo-title"
-							>
-								iPhone 14 Pro Max
-							</Typography>
+							iPhone 14 Pro Max
+						</Typography>
 
-							<Typography
-								sx={lightSlideDescription}
-								className="slide-info-descr"
-							>
-								Не пропустіть нашу гарячу пропозицію!
-							</Typography>
+						<Typography
+							sx={lightSlideDescription}
+							className="slide-content-descr"
+						>
+							Не пропустіть нашу гарячу пропозицію!
+						</Typography>
 
-							<Button
-								color="primary"
-								variant="contained"
-								sx={darkBackButton}
-							>
-								Детальніше
-							</Button>
-						</Box>
+						<Button
+							color="primary"
+							variant="contained"
+							sx={darkBackButton}
+							className="slide-content-button"
+						>
+							Детальніше
+						</Button>
 					</Box>
+					{/* </Box> */}
 				</SwiperSlide>
 
 				<SwiperSlide className="swiper-item">
@@ -133,7 +135,7 @@ const Slider = () => {
 								sx={darkSlideTitle}
 								className="slide-ingo-title"
 							>
-								Huawei Mate 50 Series
+								Huawei Mate 50
 							</Typography>
 
 							<Typography
