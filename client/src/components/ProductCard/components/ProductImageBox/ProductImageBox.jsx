@@ -2,10 +2,10 @@ import React from "react";
 import "./ProductImageBox.scss";
 import ProductFlag from "../ProductFlag";
 
-const ProductImageBox = ({ saleStatus, image, brand, newItem }) => {
+const ProductImageBox = ({ sale, image, brand, newItem }) => {
 	return (
 		<div className="logo__box">
-			<ProductFlag saleStatus={saleStatus} newItem={newItem} />
+			<ProductFlag sale={sale} newItem={newItem} />
 			<img className="logo" src={image} alt={brand} />
 		</div>
 	);

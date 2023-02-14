@@ -29,9 +29,7 @@ const PopularProducts = () => {
 			<Container>
 				<CategoryTitle text="Популярні товари" />
 				<CardsContainer>
-					{products.map((card, index) => (
-						<ProductCard key={index} card={card} />
-					))}
+					{products?.map((card, index) => card.popular && <ProductCard key={index} card={card} />)}
 				</CardsContainer>
 			</Container>
 		</div>
