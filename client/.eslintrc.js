@@ -39,6 +39,7 @@ module.exports = {
 		"jsx-a11y/no-static-element-interactions": 0,
 		"react/jsx-no-useless-fragment": "off",
 		"import/no-unresolved": "off",
+		"import/prefer-default-export": "off",
 		"react/jsx-boolean-value": "off",
 		"react/no-array-index-key": 0,
 		"arrow-body-style": "off",
