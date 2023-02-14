@@ -7,13 +7,13 @@ import { styled } from "@mui/material/styles";
 const Footer = () => {
 	const сontact = {
 		fontSize: "14px",
-		p: "8px 16px",
+		// p: "8px 16px",
 	};
 
 	const menuTitle = {
 		fontSize: "16px",
 		fontWeight: "700",
-		pb: "17px",
+		p: " 0 0 17px 0",
 		textTransform: "uppercase",
 	};
 
@@ -21,6 +21,7 @@ const Footer = () => {
 		color: "#ffffff",
 		fontSize: "14px",
 		textDecoration: "none",
+		p: "0",
 		"&: hover": {
 			textDecoration: "underline",
 		},
@@ -35,11 +36,18 @@ const Footer = () => {
 		<Box component="footer" sx={{ backgroundColor: "#57646E" }}>
 			<Container sx={{ color: "#ffffff" }}>
 				<Grid
+					align="center"
+					xs={11}
+					sm={12}
+					md={14}
 					container
-					spacing={5}
-					sx={{ flexGrow: 1, justifyContent: "space-between", pt: "55px" }}
+					sx={{
+						display: { xs: "flex" },
+						justifyContent: { xs: "center", sm: "space-between" },
+						paddingTop: { xs: "20px", sm: "55px" },
+					}}
 				>
-					<Grid item sx={{ display: { xs: "none", md: "block" } }}>
+					<Grid item sx={{ display: { xs: "none", lg: "block" } }}>
 						<Box
 							component="img"
 							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
@@ -59,62 +67,71 @@ const Footer = () => {
 							</Typography>
 						</Box>
 					</Grid>
-					<Grid item fontWeight="fontWeightRegular" fontFamily="Open Sans, sans-serif">
-						<Typography gutterBottom sx={menuTitle}>
-							Інформація
-						</Typography>
+					<Grid
+						item
+						sx={{ display: { xs: "none", sm: "block" } }}
+						fontWeight="fontWeightRegular"
+						fontFamily="Open Sans, sans-serif"
+					>
 						<List>
+							<ListItem gutterBottom sx={menuTitle}>
+								Інформація
+							</ListItem>
 							<ListItem>
-								{/* <Link href="#" sx={menuLink}> */}
-								Про нас
-								{/* </Link> */}
+								<Link href="/" sx={menuLink}>
+									Про нас
+								</Link>
 							</ListItem>
 						</List>
 					</Grid>
-					<Grid item fontWeight="fontWeightRegular" fontFamily="Open Sans, sans-serif">
-						<Typography gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
-							Покупцям
-						</Typography>
+					<Grid
+						item
+						sx={{ display: { xs: "none", sm: "block" } }}
+						fontWeight="fontWeightRegular"
+						fontFamily="Open Sans, sans-serif"
+					>
 						<List>
-							<ListItem>
-								{/* <Link href="#" sx={menuLink}> */}
-								Гарантія
-								{/* </Link> */}
+							<ListItem gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
+								Покупцям
 							</ListItem>
 							<ListItem>
-								{/* <Link href="#" sx={menuLink}> */}
-								Оплата та доставка
-								{/* </Link> */}
+								<Link href="/" sx={menuLink}>
+									Гарантія
+								</Link>
 							</ListItem>
 							<ListItem>
-								{/* <Link href="#" sx={menuLink}> */}
-								Обмін та повернення
-								{/* </Link> */}
+								<Link href="/" sx={menuLink}>
+									Оплата та доставка
+								</Link>
+							</ListItem>
+							<ListItem>
+								<Link href="/" sx={menuLink}>
+									Обмін та повернення
+								</Link>
 							</ListItem>
 						</List>
 					</Grid>
-					<Grid item fontWeight="fontWeightRegular" fontFamily="Open Sans, sans-serif">
-						<Typography gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
-							Контакти
-						</Typography>
-						<Typography gutterBottom sx={сontact}>
-							Україна,
-						</Typography>
-						<Typography gutterBottom sx={сontact}>
-							м.Київ,
-						</Typography>
-						<Typography gutterBottom sx={сontact}>
-							вул.Козаків 20,
-						</Typography>
-						<Typography gutterBottom sx={сontact}>
-							info@mobilegalaxy.com.ua
-						</Typography>
+					<Grid
+						item
+						sx={{ display: { xs: "none", sm: "block" } }}
+						fontWeight="fontWeightRegular"
+						fontFamily="Open Sans, sans-serif"
+					>
+						<List sx={сontact}>
+							<ListItem gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
+								Контакти
+							</ListItem>
+							<ListItem>Україна,</ListItem>
+							<ListItem>м.Київ,</ListItem>
+							<ListItem>вул.Козаків 20,</ListItem>
+							<ListItem>info@mobilegalaxy.com.ua</ListItem>
+						</List>
 					</Grid>
 					<Grid item>
-						<Typography align="center" gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
-							Стежте за нами
-						</Typography>
 						<List>
+							<ListItem gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
+								Стежте за нами
+							</ListItem>
 							<ListItem sx={{ display: "flex", justifyContent: "space-around" }}>
 								<Link href="https://uk-ua.facebook.com/" target="_blank">
 									<FacebookIcon sx={menuLinkItem} />
