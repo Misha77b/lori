@@ -24,6 +24,7 @@ module.exports = {
 	plugins: ["react", "prettier"],
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
+		"prettier/prettier": ["error", { endOfLine: "auto" }],
 		"linebreak-style": "off",
 		"no-trailing-spaces": ["error", { skipBlankLines: true }],
 		"object-curly-newline": 0,
