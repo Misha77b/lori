@@ -1,10 +1,10 @@
-import { Typography, Container, List, ListItem, ListItemText } from "@mui/material";
+import { Typography, Container, List, ListItem } from "@mui/material";
 import React from "react";
 
 const About = () => {
 	return (
 		<Container>
-			<Typography variant="h4">
+			<Typography variant="h5">
 				Магазин електроніки Mobile Galaxy – максимум можливостей.
 			</Typography>
 			<Typography
@@ -41,7 +41,7 @@ const About = () => {
 				Для кожного клієнта створена зручна можливість покупки на сайті, яка дозволяє забрати
 				техніку в обраному магазині або отримати замовлення з курьером.
 			</Typography>
-			<Typography variant="h4">Асортимент інтернет-магазину Mobile Galaxy.</Typography>
+			<Typography variant="h5">Асортимент інтернет-магазину Mobile Galaxy.</Typography>
 			<Typography
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
@@ -52,7 +52,7 @@ const About = () => {
 			>
 				Cмартфони, мобільні телефони – від простих пристроїв до нових прогресивних моделей;
 			</Typography>
-			<Typography variant="h4">Повний перелік послуг магазину гаджетів Mobile Galaxy.</Typography>
+			<Typography variant="h5">Повний перелік послуг магазину гаджетів Mobile Galaxy.</Typography>
 			<List
 				sx={{
 					color: "gray",
