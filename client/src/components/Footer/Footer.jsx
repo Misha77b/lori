@@ -8,7 +8,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 const Footer = () => {
 	const сontact = {
 		fontSize: "14px",
-		// p: "8px 16px",
 	};
 
 	const menuTitle = {
