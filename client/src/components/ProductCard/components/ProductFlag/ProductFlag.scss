@@ -7,14 +7,25 @@
 	position: absolute;
 	transition: $transition-image;
 }
+.ribbon.ribbon-top-right.orange {
+	span {
+		background: $orange-color;
+	}
+}
+.ribbon.ribbon-top-right.red {
+	span {
+		background: $red-color;
+	}
+}
 .ribbon::before,
 .ribbon::after {
 	position: absolute;
 	z-index: -1;
 	content: "";
 	display: block;
-	border: 3px solid $orange-color;
+	border: 3px solid transparent;
 }
+
 .ribbon span {
 	text-align: center;
 	font-family: $base-font;
@@ -27,10 +38,10 @@
 	display: block;
 	width: 165px;
 	padding: 5px 0;
-	background-color: $orange-color;
 	box-shadow: 0 5px 10px $shadowed-black-color;
 	z-index: 4;
 }
+
 .ribbon-top-right {
 	top: -3px;
 	right: -3px;

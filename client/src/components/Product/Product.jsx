@@ -2,23 +2,19 @@ import { Box, Typography, Stack, Button } from "@mui/material";
 import styled from "styled-components";
 import Rating from "@mui/material/Rating";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { useState } from "react";
 import CategoryTitle from "../CategoryTitle";
+import ProductPrice from "../ProductPrice/ProductPrice";
 import Discription from "./Discription";
 import Selection from "./Select";
 import "./Product.scss";
 
-const Price = styled.div`
-	font-family: Montserrat, sans-serif;
-	font-size: 40px;
-	font-weight: 900;
-	line-height: 29px;
-	color: #007042;
-`;
-
 function Product() {
+	const [product, setProduct] = useState(
+		"https://res.cloudinary.com/dsx708og4/image/fetch/v1676120727/https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone13ProBlue_iofhgk.webp",
+	);
 	const handerMoving = (ev) => {
-		const product = document.querySelector("#product");
-		product.src = ev.target.src;
+		setProduct(ev.target.src);
 	};
 	return (
 		<Box>
@@ -60,17 +56,12 @@ function Product() {
 						</div>
 					</div>
 					<div className="block__product">
-						<img
-							id="product"
-							src="https://res.cloudinary.com/dsx708og4/image/fetch/v1676120727/https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone13ProBlue_iofhgk.webp"
-							alt="ed"
-							title="ed"
-						/>
+						<img id="product" src={product} alt="ed" title="ed" />
 					</div>
 				</div>
 				<div className="block__description">
 					<Stack spacing={4}>
-						<Price>23 5677</Price>
+						<ProductPrice />
 						<Typography
 							variant="h4"
 							fontWeight="fontWeightBold"
