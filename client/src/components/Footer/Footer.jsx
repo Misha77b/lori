@@ -48,24 +48,33 @@ const Footer = () => {
 					}}
 				>
 					<Grid item sx={{ display: { xs: "none", lg: "block" } }}>
-						<Box
-							component="img"
-							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
-							alt="logo"
-							align="center"
+						<CustomLink
+							to="/"
 							sx={{
-								maxWidth: "150px",
+								"&: hover": {
+									textDecoration: "none",
+								},
 							}}
-						/>
-						<Box sx={{ maxWidth: "150px" }}>
-							<Typography
-								fontWeight="fontWeightRegular"
-								fontFamily="Open Sans, sans-serif"
-								sx={{ fontSize: "14px", pb: "45px" }}
-							>
-								MOBILE GALAXY - український магазин європейська якість!
-							</Typography>
-						</Box>
+						>
+							<Box
+								component="img"
+								src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
+								alt="logo"
+								align="center"
+								sx={{
+									maxWidth: "150px",
+								}}
+							/>
+							<Box sx={{ maxWidth: "150px" }}>
+								<Typography
+									fontWeight="fontWeightRegular"
+									fontFamily="Open Sans, sans-serif"
+									sx={{ fontSize: "14px", pb: "45px" }}
+								>
+									MOBILE GALAXY - український магазин європейська якість!
+								</Typography>
+							</Box>
+						</CustomLink>
 					</Grid>
 					<Grid
 						item
