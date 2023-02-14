@@ -76,11 +76,7 @@ function Product() {
 							}}
 						>
 							<Typography component="legend">Рейтинг</Typography>
-							<Rating
-								name="read-only"
-								value={3}
-								readOnly
-							/>
+							<Rating name="read-only" value={3} readOnly />
 						</Box>
 						<Selection />
 						<Button
@@ -97,11 +93,7 @@ function Product() {
 					</Stack>
 				</div>
 			</div>
-			<Typography
-				variant="h5"
-				gutterBottom
-				sx={{ marginTop: "40px" }}
-			>
+			<Typography variant="h5" gutterBottom sx={{ marginTop: "40px" }}>
 				Характеристика товару:
 			</Typography>
 			<Discription />
