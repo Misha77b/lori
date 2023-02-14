@@ -36,10 +36,10 @@ const Footer = () => {
 			<Container sx={{ color: "#ffffff" }}>
 				<Grid
 					container
-					spacing={1}
+					spacing={5}
 					sx={{ flexGrow: 1, justifyContent: "space-between", pt: "55px" }}
 				>
-					<Box sx={{ display: { xs: "none", md: "block" } }}>
+					<Grid item sx={{ display: { xs: "none", md: "block" } }}>
 						<Box
 							component="img"
 							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
@@ -58,9 +58,11 @@ const Footer = () => {
 								MOBILE GALAXY - український магазин європейська якість!
 							</Typography>
 						</Box>
-					</Box>
-					<Box fontWeight="fontWeightRegular" fontFamily="Open Sans, sans-serif">
-						<Typography sx={menuTitle}>Інформація</Typography>
+					</Grid>
+					<Grid item fontWeight="fontWeightRegular" fontFamily="Open Sans, sans-serif">
+						<Typography gutterBottom sx={menuTitle}>
+							Інформація
+						</Typography>
 						<List>
 							<ListItem>
 								{/* <Link href="#" sx={menuLink}> */}
@@ -68,9 +70,9 @@ const Footer = () => {
 								{/* </Link> */}
 							</ListItem>
 						</List>
-					</Box>
-					<Box>
-						<Typography fontWeight="fontWeightBold" sx={menuTitle}>
+					</Grid>
+					<Grid item fontWeight="fontWeightRegular" fontFamily="Open Sans, sans-serif">
+						<Typography gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
 							Покупцям
 						</Typography>
 						<List>
@@ -90,18 +92,26 @@ const Footer = () => {
 								{/* </Link> */}
 							</ListItem>
 						</List>
-					</Box>
-					<Box>
-						<Typography fontWeight="fontWeightBold" sx={menuTitle}>
+					</Grid>
+					<Grid item fontWeight="fontWeightRegular" fontFamily="Open Sans, sans-serif">
+						<Typography gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
 							Контакти
 						</Typography>
-						<Typography sx={сontact}>Україна,</Typography>
-						<Typography sx={сontact}>м.Київ,</Typography>
-						<Typography sx={сontact}>вул.Козаків 20,</Typography>
-						<Typography sx={сontact}>info@mobilegalaxy.com.ua</Typography>
-					</Box>
-					<Box>
-						<Typography fontWeight="fontWeightBold" sx={menuTitle}>
+						<Typography gutterBottom sx={сontact}>
+							Україна,
+						</Typography>
+						<Typography gutterBottom sx={сontact}>
+							м.Київ,
+						</Typography>
+						<Typography gutterBottom sx={сontact}>
+							вул.Козаків 20,
+						</Typography>
+						<Typography gutterBottom sx={сontact}>
+							info@mobilegalaxy.com.ua
+						</Typography>
+					</Grid>
+					<Grid item>
+						<Typography align="center" gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
 							Стежте за нами
 						</Typography>
 						<List>
@@ -114,7 +124,7 @@ const Footer = () => {
 								</Link>
 							</ListItem>
 						</List>
-					</Box>
+					</Grid>
 				</Grid>
 				<Typography
 					sx={{
