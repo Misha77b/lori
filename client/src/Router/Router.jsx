@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 import OneProduct from "../pages/OneProduct";
 import About from "../pages/About";
 import Guarantee from "../pages/Guarantee";
-import PaymentAndDelivery from "../pages/ExchangeAndReturn";
+import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ExchangeAndReturn from "../pages/ExchangeAndReturn";
 
 function RootRouters() {

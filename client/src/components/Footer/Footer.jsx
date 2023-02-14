@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Link, List, ListItem, Grid, Typography, Container } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { Box, List, ListItem, Grid, Typography, Container } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { styled } from "@mui/material/styles";
 
 const Footer = () => {
 	const сontact = {
@@ -17,15 +18,15 @@ const Footer = () => {
 		textTransform: "uppercase",
 	};
 
-	const menuLink = {
+	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
 		fontSize: "14px",
 		textDecoration: "none",
-		p: "0",
+		padding: "0",
 		"&: hover": {
 			textDecoration: "underline",
 		},
-	};
+	}));
 
 	const menuLinkItem = {
 		color: "#ffffff",
@@ -78,9 +79,7 @@ const Footer = () => {
 								Інформація
 							</ListItem>
 							<ListItem>
-								<Link href="/" sx={menuLink}>
-									Про нас
-								</Link>
+								<CustomLink to="/about">Про нас</CustomLink>
 							</ListItem>
 						</List>
 					</Grid>
@@ -95,19 +94,13 @@ const Footer = () => {
 								Покупцям
 							</ListItem>
 							<ListItem>
-								<Link href="/" sx={menuLink}>
-									Гарантія
-								</Link>
+								<CustomLink to="/guarantee">Гарантія</CustomLink>
 							</ListItem>
 							<ListItem>
-								<Link href="/" sx={menuLink}>
-									Оплата та доставка
-								</Link>
+								<CustomLink to="/paymentAndDelivery">Оплата та доставка</CustomLink>
 							</ListItem>
 							<ListItem>
-								<Link href="/" sx={menuLink}>
-									Обмін та повернення
-								</Link>
+								<CustomLink to="/exchangeAndReturn">Обмін та повернення</CustomLink>
 							</ListItem>
 						</List>
 					</Grid>
@@ -133,12 +126,12 @@ const Footer = () => {
 								Стежте за нами
 							</ListItem>
 							<ListItem sx={{ display: "flex", justifyContent: "space-around" }}>
-								<Link href="https://uk-ua.facebook.com/" target="_blank">
+								<CustomLink to="https://uk-ua.facebook.com/" target="_blank">
 									<FacebookIcon sx={menuLinkItem} />
-								</Link>
-								<Link href="https://www.instagram.com/" target="_blank">
+								</CustomLink>
+								<CustomLink to="https://www.instagram.com/" target="_blank">
 									<InstagramIcon sx={menuLinkItem} />
-								</Link>
+								</CustomLink>
 							</ListItem>
 						</List>
 					</Grid>
