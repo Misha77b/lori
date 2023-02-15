@@ -7,9 +7,10 @@ import ProductPrice from "../ProductPrice";
 import ToCartButton from "../ToCartButton";
 
 const ProductCard = ({ card, withCart = true, priceColor }) => {
-	const { name, currentPrice, previousPrice, newItem, itemNo, sale, article, brand, imageUrls } = card;
+	const { name, currentPrice, previousPrice, newItem, itemNo, sale, article, brand, imageUrls } =
+		card;
 	return (
-		<Link to={`/products/${itemNo}`}>
+		<Link style={{ textDecoration: "none" }} to={`/products/${itemNo}`}>
 			<ProductCardWrapper id={article}>
 				<ProductImageBox image={imageUrls[0]} brand={brand} sale={sale} newItem={newItem} />
 				<ProductDescription name={name} />
