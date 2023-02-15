@@ -18,6 +18,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import React from "react";
+import HeaderMenu from "./components/HeaderMenu";
 
 const Header = () => {
 	const menuLink = {
@@ -161,33 +162,34 @@ const Header = () => {
 			<Box backgroundColor="grey" sx={{ display: { xs: "none", sm: "block" } }}>
 				<Container>
 					<Box component="nav">
-						<List sx={{ display: "flex" }}>
+						<HeaderMenu />
+						{/* <List sx={{ display: "flex" }}>
 							<ListItem>
 								<NavLink href="" sx={menuLink}>
 									Головна
 								</NavLink>
 							</ListItem>
 							<ListItem>
-								{/* <NavLink href="" sx={menuLink}> */}
-								Каталог
-								{/* </NavLink> */}
+								<NavLink href="" sx={menuLink}>
+									Каталог
+								</NavLink>
 							</ListItem>
 							<ListItem>
-								{/* <NavLink href="" sx={menuLink}> */}
-								Про нас
-								{/* </NavLink> */}
+								<NavLink href="" sx={menuLink}>
+									Про нас
+								</NavLink>
 							</ListItem>
 							<ListItem>
-								{/* <NavLink href="" sx={menuLink}> */}
-								Покупцям
-								{/* </NavLink> */}
+								<NavLink href="" sx={menuLink}>
+									Покупцям
+								</NavLink>
 							</ListItem>
 							<ListItem>
-								{/* <NavLink href="" sx={menuLink}> */}
-								Контакти
-								{/* </NavLink> */}
+								<NavLink href="" sx={menuLink}>
+									Контакти
+								</NavLink>
 							</ListItem>
-						</List>
+						</List> */}
 					</Box>
 				</Container>
 			</Box>
