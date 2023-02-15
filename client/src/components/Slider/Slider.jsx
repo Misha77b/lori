@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./Slider.scss";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Container, Box, Button, Typography } from "@mui/material";
 
 import { lightSlideTitle, darkSlideTitle } from "./sxMuiComponents/slideTitle";
 import { lightSlideDescription, darkSlideDescription } from "./sxMuiComponents/slideDescription";
@@ -32,7 +32,7 @@ const Slider = () => {
 	console.log(slides);
 
 	return (
-		<Box sx={{ maxWidth: "1200px", margin: "0 auto" }}>
+		<Container>
 			<Swiper
 				navigation={true}
 				slidesPerView={1}
@@ -85,7 +85,7 @@ const Slider = () => {
 					);
 				})}
 			</Swiper>
-		</Box>
+		</Container>
 	);
 };
 
