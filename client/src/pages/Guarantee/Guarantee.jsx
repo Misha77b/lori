@@ -7,7 +7,7 @@ const Guarantee = () => {
 			<Typography variant="h5">Гарантійні зобовязання не поширюється на Товар у разі:</Typography>
 			<List
 				sx={{
-					color: "gray",
+					color: "grey",
 					fontFamily: "Open Sans, sans-serif",
 					fontSize: "14px",
 					fontWeight: "fontWeightRegular",
