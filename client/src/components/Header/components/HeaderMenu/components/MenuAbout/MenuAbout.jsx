@@ -20,6 +20,7 @@ const MenuAbout = () => {
 				aria-haspopup="true"
 				aria-expanded={openAbout ? "true" : undefined}
 				onClick={handleClickAbout}
+				sx={{ padding: { sm: "20px 25px", md: "20px 35px" } }}
 			>
 				Про нас
 			</Button>

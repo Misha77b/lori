@@ -17,6 +17,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import React from "react";
 import HeaderMenu from "./components/HeaderMenu";
+import BurgerMenu from "./components/BurgerMenu";
 
 const Header = () => {
 	const menuLink = {
@@ -40,13 +41,14 @@ const Header = () => {
 			<AppBar position="static">
 				<Container>
 					<Toolbar>
-						<img
+						<BurgerMenu />
+						<Box
+							component="img"
 							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
 							alt="logo"
-							style={{
-								maxWidth: "150px",
-								maxHeight: "150px",
-								margin: "5px 0",
+							sx={{
+								width: { xs: "80px", sm: "150px" },
+								m: "5px 0",
 							}}
 						/>
 						<Typography
@@ -65,7 +67,8 @@ const Header = () => {
 						>
 							(098)259-25-99
 						</Typography>
-						<Box
+
+						{/* <Box
 							component="form"
 							sx={{
 								"& > :not(style)": { m: 1, width: "442px" },
@@ -100,7 +103,7 @@ const Header = () => {
 									<SearchIcon sx={menuLinkItem} />
 								</IconButton>
 							</Box>
-						</Box>
+						</Box> */}
 
 						<Box>
 							<IconButton size="large" color="inherit">
@@ -120,7 +123,7 @@ const Header = () => {
 				</Container>
 			</AppBar>
 
-			<Box backgroundColor="grey" sx={{ display: { sm: "none", lg: "block" } }}>
+			{/* <Box backgroundColor="grey" sx={{ display: { sm: "none", lg: "block" } }}>
 				<Container>
 					<Box
 						component="form"
@@ -158,8 +161,8 @@ const Header = () => {
 						</Box>
 					</Box>
 				</Container>
-			</Box>
-			<Box backgroundColor="grey" sx={{ display: { xs: "none", sm: "block" } }}>
+			</Box> */}
+			<Box backgroundColor="grey" sx={{ display: { xs: "none", sm: "flex" } }}>
 				<Container>
 					<HeaderMenu />
 				</Container>

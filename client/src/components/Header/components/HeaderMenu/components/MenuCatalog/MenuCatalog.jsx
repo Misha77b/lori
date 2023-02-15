@@ -20,6 +20,7 @@ const MenuCatalog = () => {
 				aria-haspopup="true"
 				aria-expanded={openCatalog ? "true" : undefined}
 				onClick={handleClickCatalog}
+				sx={{ padding: { sm: "20px 25px", md: "20px 35px" } }}
 			>
 				Каталог
 			</Button>

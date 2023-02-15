@@ -19,6 +19,7 @@ const MenuBayer = () => {
 				aria-haspopup="true"
 				aria-expanded={openBayer ? "true" : undefined}
 				onClick={handleClickBayer}
+				sx={{ padding: { sm: "20px 25px", md: "20px 35px" } }}
 			>
 				Покупцям
 			</Button>

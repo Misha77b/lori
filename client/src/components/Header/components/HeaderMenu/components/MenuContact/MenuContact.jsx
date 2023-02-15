@@ -20,6 +20,7 @@ const MenuContact = () => {
 				aria-haspopup="true"
 				aria-expanded={openContacts ? "true" : undefined}
 				onClick={handleClickContacts}
+				sx={{ padding: { sm: "20px 25px", md: "20px 35px" } }}
 			>
 				Контакти
 			</Button>
