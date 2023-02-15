@@ -4,8 +4,7 @@ import { ThemeProvider } from "@mui/material";
 import RootRouters from "../Router/Router";
 import theme from "../theming";
 import Header from "../components/Header";
-
-// import Footer from "../components/Footer/Footer";
+import Footer from "../components/Footer/Footer";
 
 const App = () => {
 	return (
@@ -13,6 +12,7 @@ const App = () => {
 			<BrowserRouter>
 				<Header />
 				<RootRouters />
+				<Footer />
 			</BrowserRouter>
 		</ThemeProvider>
 	);

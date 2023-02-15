@@ -14,9 +14,9 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import React from "react";
+import HeaderMenu from "./components/HeaderMenu";
 
 const Header = () => {
 	const menuLink = {
@@ -52,14 +52,16 @@ const Header = () => {
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
-							sx={{ color: " #2E3438", display: { xs: "none", lg: "block" } }}
+							color="graphite"
+							sx={{ display: { xs: "none", lg: "block" } }}
 						>
 							(096)166-64-16
 						</Typography>
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
-							sx={{ m: " 0 10px", color: " #2E3438", display: { xs: "none", lg: "block" } }}
+							color="graphite"
+							sx={{ m: " 0 10px", display: { xs: "none", lg: "block" } }}
 						>
 							(098)259-25-99
 						</Typography>
@@ -83,8 +85,8 @@ const Header = () => {
 							/>
 							<Box sx={{ position: "absolute", top: "0", right: "0" }}>
 								<IconButton
+									backgroundColor="mediumgrey"
 									sx={{
-										backgroundColor: "#A0A9AF",
 										borderRadius: "0",
 										p: "13px",
 										position: "absolute",
@@ -103,7 +105,7 @@ const Header = () => {
 						<Box>
 							<IconButton size="large" color="inherit">
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
-								<Typography sx={{ color: "#57646E", display: { xs: "none", md: "block" } }}>
+								<Typography color="grey" sx={{ display: { xs: "none", md: "block" } }}>
 									Увійти
 								</Typography>
 							</IconButton>
@@ -112,14 +114,13 @@ const Header = () => {
 							<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
 						<IconButton size="large" aria-label="Favorites" color="inherit">
-							{/* <StarOutlinedIcon sx={menuLinkItem} /> */}
 							<StarBorderOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
 					</Toolbar>
 				</Container>
 			</AppBar>
 
-			<Box sx={{ backgroundColor: "#57646E", display: { sm: "none", xs: "block" } }}>
+			<Box backgroundColor="grey" sx={{ display: { sm: "none", lg: "block" } }}>
 				<Container>
 					<Box
 						component="form"
@@ -140,8 +141,8 @@ const Header = () => {
 						/>
 						<Box sx={{ position: "absolute", top: "0", right: "0" }}>
 							<IconButton
+								backgroundColor="mediumgrey"
 								sx={{
-									backgroundColor: "#A0A9AF",
 									borderRadius: "0",
 									p: "13px",
 									position: "absolute",
@@ -158,37 +159,9 @@ const Header = () => {
 					</Box>
 				</Container>
 			</Box>
-			<Box sx={{ backgroundColor: "#57646E", display: { xs: "none", sm: "block" } }}>
+			<Box backgroundColor="grey" sx={{ display: { xs: "none", sm: "block" } }}>
 				<Container>
-					<Box component="nav">
-						<List sx={{ display: "flex" }}>
-							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
-								Головна
-								{/* </Link> */}
-							</ListItem>
-							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
-								Каталог
-								{/* </Link> */}
-							</ListItem>
-							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
-								Про нас
-								{/* </Link> */}
-							</ListItem>
-							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
-								Покупцям
-								{/* </Link> */}
-							</ListItem>
-							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
-								Контакти
-								{/* </Link> */}
-							</ListItem>
-						</List>
-					</Box>
+					<HeaderMenu />
 				</Container>
 			</Box>
 		</Box>
