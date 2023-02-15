@@ -7,7 +7,6 @@ import CategoryTitle from "../CategoryTitle";
 import ProductCard from "../ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { selectProductsData, selectFavorite, selectShoppingCart } from "../../store/selectors";
-import { selectorCurrentProd } from "../../store/selectors/products.selectors";
 
 const CardsContainer = styled.div`
 	display: grid;
