@@ -9,8 +9,8 @@ const Description = styled.p`
 	line-height: 14px;
 `;
 
-const ProductDescription = ({ description }) => {
-	return <Description>iPhone 14 Pro 256GB Deep Purple</Description>;
+const ProductDescription = ({ name }) => {
+	return <Description>{name}</Description>;
 };
 
 export default ProductDescription;

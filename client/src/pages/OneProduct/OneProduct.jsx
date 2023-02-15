@@ -1,7 +1,11 @@
-import PageWrapper from "../../components/PageWrapper";
+import Product from "../../components/Product";
 import "./OneProduct.scss";
 
 function OneProduct() {
-	return <div>Hello</div>;
+	return (
+		<div>
+			<Product />
+		</div>
+	);
 }
 export default OneProduct;

@@ -11,12 +11,13 @@ const ProductCardWrapper = styled.div`
 	padding: 0.5%;
 	position: relative;
 `;
-const ProductCard = () => {
+const ProductCard = ({ card }) => {
+	const { name, currentPrice, newItem, sale, article, brand, imageUrls } = card;
 	return (
-		<ProductCardWrapper>
-			<ProductImageBox />
-			<ProductDescription />
-			<ProductPrice />
+		<ProductCardWrapper id={article}>
+			<ProductImageBox image={imageUrls[0]} brand={brand} sale={sale} newItem={newItem} />
+			<ProductDescription name={name} />
+			<ProductPrice currentPrice={currentPrice} />
 		</ProductCardWrapper>
 	);
 };
