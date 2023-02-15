@@ -8,6 +8,7 @@ export {
 
 export { selectSlidesData, selectSlidesLoader } from "./slides.selectors";
 
+export { selectorLoading, selectorPageObj } from "./oneProduct.selector";
 // export {
 // 	selectAuth,
 // 	selectAuthLoader,

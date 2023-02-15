@@ -45,13 +45,14 @@ export const productsSlice = createSlice({
 		});
 	},
 });
-
 export const {
+	actionPage,
 	setShoppingCart,
 	setFavorite,
 	removeItemShoppingCart,
 	removeItemFavorite,
 	removeProduct,
+	actionCurrentProd,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

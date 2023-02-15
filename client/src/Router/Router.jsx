@@ -11,7 +11,7 @@ function RootRouters() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/product" element={<OneProduct />} />
+			<Route path="/products/:id" element={<OneProduct />} />
 
 			<Route path="/about" element={<About />} />
 			<Route path="/guarantee" element={<Guarantee />} />

@@ -9,7 +9,6 @@ const Home = () => {
 		<div>
 			<Slider />
 			<PopularProducts />
-			<Link to="/product">One product</Link>
 			<PopularBrands />
 		</div>
 	);
