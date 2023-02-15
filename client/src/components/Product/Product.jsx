@@ -6,8 +6,8 @@ import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
 import Amount from "./Amount";
 import Selection from "./Select";
-
 import "./Product.scss";
+import ToCartButton from "../ToCartButton";
 
 function Product({ props }) {
 	const { currentPrice, imageUrls, name, rating } = props;
