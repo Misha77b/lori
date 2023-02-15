@@ -1,103 +1,87 @@
-import { Box, Typography, Stack, Button } from "@mui/material";
-import styled from "styled-components";
+import { Box, Typography, Stack, Button, Container } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { useState } from "react";
-import CategoryTitle from "../CategoryTitle";
+import { useEffect, useState, React } from "react";
 import ProductPrice from "../ProductPrice/ProductPrice";
-import Discription from "./Discription";
+import Description from "./Description";
+import Amount from "./Amount";
 import Selection from "./Select";
 import "./Product.scss";
+import ToCartButton from "../ToCartButton";
 
-function Product() {
-	const [product, setProduct] = useState(
-		"https://res.cloudinary.com/dsx708og4/image/fetch/v1676120727/https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone13ProBlue_iofhgk.webp",
-	);
+function Product({ props }) {
+	const { currentPrice, imageUrls, name, rating } = props;
+	let color = "";
+	const [mainPhoto, setMainPhoto] = useState();
+
 	const handerMoving = (ev) => {
-		setProduct(ev.target.src);
+		setMainPhoto(ev.target.src);
+	};
+	useEffect(() => {
+		setMainPhoto(imageUrls[0]);
+	}, [imageUrls]);
+	const images = imageUrls?.map((item, index) => (
+		<div className="block__imgs--img">
+			<img src={item} key={index} onClick={handerMoving} />
+		</div>
+	));
+
+	const setCurrentColor = (CurrentColor) => {
+		color = CurrentColor;
 	};
 	return (
-		<Box>
-			<CategoryTitle text="Modile example" />
-			<div className="block">
-				<div className="block__imgs">
-					<div className="block__imgs--small">
-						<div className="block__imgs--img">
-							<img
-								src="https://res.cloudinary.com/dsx708og4/image/fetch/v1676120727/https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone13ProBlue_iofhgk.webp"
-								alt="ed"
-								title="ed"
-								onClick={handerMoving}
-							/>
-						</div>
-						<div className="block__imgs--img">
-							<img
-								src="https://res.cloudinary.com/dsx708og4/image/fetch/v1676120726/https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone13Green_znqyz6.jpg"
-								alt="ed"
-								title="ed"
-								onClick={handerMoving}
-							/>
-						</div>
-						<div className="block__imgs--img">
-							<img
-								src="https://res.cloudinary.com/dsx708og4/image/fetch/v1676120726/https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone13red_dndirv.webp"
-								alt="ed"
-								title="ed"
-								onClick={handerMoving}
-							/>
-						</div>
-						<div className="block__imgs--img">
-							<img
-								src="https://res.cloudinary.com/dsx708og4/image/fetch/v1676120726/https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone14ProMax_ciicnu.jpg"
-								alt="ed"
-								title="ed"
-								onClick={handerMoving}
-							/>
+		<Container>
+			<Box>
+				<div className="block">
+					<div className="block__imgs">
+						<div className="block__imgs--small">{images}</div>
+						<div className="block__product">
+							<img id="product" src={mainPhoto} alt="ed" title="ed" />
 						</div>
 					</div>
-					<div className="block__product">
-						<img id="product" src={product} alt="ed" title="ed" />
+					<div className="block__description">
+						<Stack spacing={4}>
+							<ProductPrice currentPrice={currentPrice} />
+							<Typography
+								variant="h3"
+								fontWeight="fontWeightBold"
+								sx={{ fontSize: "30px" }}
+								gutterBottom
+							>
+								{name}
+							</Typography>
+							<Box
+								sx={{
+									"& > legend": { mt: 2 },
+								}}
+							>
+								<Typography component="legend">Рейтинг</Typography>
+								<Rating name="read-only" value={rating} readOnly />
+							</Box>
+
+							<Amount />
+							<Selection allColors={props.allColors} setCurrentColor={setCurrentColor} />
+
+							<Button
+								color="secondary"
+								variant="contained"
+								sx={{
+									width: "245px",
+									height: "46px",
+								}}
+							>
+								У кошик
+								<ShoppingCartCheckoutIcon sx={{ marginLeft: "10px" }} />
+							</Button>
+						</Stack>
 					</div>
 				</div>
-				<div className="block__description">
-					<Stack spacing={4}>
-						<ProductPrice />
-						<Typography
-							variant="h4"
-							fontWeight="fontWeightBold"
-							sx={{ fontSize: "40px" }}
-							gutterBottom
-						>
-							Samsung G23
-						</Typography>
-						<Box
-							sx={{
-								"& > legend": { mt: 2 },
-							}}
-						>
-							<Typography component="legend">Рейтинг</Typography>
-							<Rating name="read-only" value={3} readOnly />
-						</Box>
-						<Selection />
-						<Button
-							color="secondary"
-							variant="contained"
-							sx={{
-								width: "245px",
-								height: "46px",
-							}}
-						>
-							У кошик
-							<ShoppingCartCheckoutIcon sx={{ marginLeft: "10px" }} />
-						</Button>
-					</Stack>
-				</div>
-			</div>
-			<Typography variant="h5" gutterBottom sx={{ marginTop: "40px" }}>
-				Характеристика товару:
-			</Typography>
-			<Discription />
-		</Box>
+				<Typography variant="h5" gutterBottom sx={{ marginTop: "40px" }}>
+					Характеристика товару:
+				</Typography>
+				<Description props={props} />
+			</Box>
+		</Container>
 	);
 }
 export default Product;

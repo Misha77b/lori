@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Container } from "@mui/material";
+import { Button, Container, Box } from "@mui/material";
 import CategoryTitle from "../CategoryTitle";
 import ProductCard from "../ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectProductsData, selectFavorite, selectShoppingCart } from "../../store/selectors";
+import { selectProductsData } from "../../store/selectors";
 
-const CardsContainer = styled.div`
-	display: grid;
-	gap: 24px;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-`;
 const PopularProducts = () => {
 	const dispatch = useDispatch();
 	const products = useSelector(selectProductsData);
@@ -21,19 +17,27 @@ const PopularProducts = () => {
 		},
 		[],
 	);
-	// const cards = products.map(({ name, currentPrice, sale, popular, color }) => {
-	// 	if (popular) name, currentPrice, sale, color;
-	// });
 	return (
-		<div>
-			<Container>
+		<Container>
+			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 				<CategoryTitle text="Популярні товари" />
-				<CardsContainer>
-					{products?.map((card, index) => card.popular && <ProductCard key={index} card={card} />)}
-				</CardsContainer>
-			</Container>
-		</div>
+				<Link style={{ textDecoration: "none" }} to="/products">
+					<Button color="secondary" variant="contained">
+						Усі товари
+					</Button>
+				</Link>
+			</Box>
+			<CardsContainer>
+				{products?.map(
+					(card, index) => card.popular && <ProductCard key={index} card={card} withCart={false} />,
+				)}
+			</CardsContainer>
+		</Container>
 	);
 };
-
+export const CardsContainer = styled.div`
+	display: grid;
+	gap: 30px;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+`;
 export default PopularProducts;
