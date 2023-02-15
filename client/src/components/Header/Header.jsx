@@ -11,6 +11,7 @@ import {
 	Container,
 	Grid,
 } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -112,14 +113,13 @@ const Header = () => {
 							<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
 						<IconButton size="large" aria-label="Favorites" color="inherit">
-							{/* <StarOutlinedIcon sx={menuLinkItem} /> */}
 							<StarBorderOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
 					</Toolbar>
 				</Container>
 			</AppBar>
 
-			<Box sx={{ backgroundColor: "#57646E", display: { sm: "none", xs: "block" } }}>
+			<Box sx={{ display: { sm: "none", xs: "block" } }}>
 				<Container>
 					<Box
 						component="form"
@@ -158,34 +158,34 @@ const Header = () => {
 					</Box>
 				</Container>
 			</Box>
-			<Box sx={{ backgroundColor: "#57646E", display: { xs: "none", sm: "block" } }}>
+			<Box backgroundColor="grey" sx={{ display: { xs: "none", sm: "block" } }}>
 				<Container>
 					<Box component="nav">
 						<List sx={{ display: "flex" }}>
 							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
-								Головна
-								{/* </Link> */}
+								<NavLink href="" sx={menuLink}>
+									Головна
+								</NavLink>
 							</ListItem>
 							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
+								{/* <NavLink href="" sx={menuLink}> */}
 								Каталог
-								{/* </Link> */}
+								{/* </NavLink> */}
 							</ListItem>
 							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
+								{/* <NavLink href="" sx={menuLink}> */}
 								Про нас
-								{/* </Link> */}
+								{/* </NavLink> */}
 							</ListItem>
 							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
+								{/* <NavLink href="" sx={menuLink}> */}
 								Покупцям
-								{/* </Link> */}
+								{/* </NavLink> */}
 							</ListItem>
 							<ListItem>
-								{/* <Link href="" sx={menuLink}> */}
+								{/* <NavLink href="" sx={menuLink}> */}
 								Контакти
-								{/* </Link> */}
+								{/* </NavLink> */}
 							</ListItem>
 						</List>
 					</Box>

@@ -36,6 +36,7 @@ const Footer = () => {
 		<Box component="footer" backgroundColor="grey">
 			<Container sx={{ color: "#ffffff" }}>
 				<Grid
+					item
 					align="center"
 					xs={11}
 					sm={12}
@@ -83,9 +84,7 @@ const Footer = () => {
 						fontFamily="Open Sans, sans-serif"
 					>
 						<List>
-							<ListItem gutterBottom sx={menuTitle}>
-								Інформація
-							</ListItem>
+							<ListItem sx={menuTitle}>Інформація</ListItem>
 							<ListItem>
 								<CustomLink to="/about">Про нас</CustomLink>
 							</ListItem>
@@ -98,7 +97,7 @@ const Footer = () => {
 						fontFamily="Open Sans, sans-serif"
 					>
 						<List>
-							<ListItem gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
+							<ListItem fontWeight="fontWeightBold" sx={menuTitle}>
 								Покупцям
 							</ListItem>
 							<ListItem>
@@ -119,7 +118,7 @@ const Footer = () => {
 						fontFamily="Open Sans, sans-serif"
 					>
 						<List sx={сontact}>
-							<ListItem gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
+							<ListItem fontWeight="fontWeightBold" sx={menuTitle}>
 								Контакти
 							</ListItem>
 							<ListItem>Україна,</ListItem>
@@ -130,7 +129,7 @@ const Footer = () => {
 					</Grid>
 					<Grid item>
 						<List>
-							<ListItem gutterBottom fontWeight="fontWeightBold" sx={menuTitle}>
+							<ListItem fontWeight="fontWeightBold" sx={menuTitle}>
 								Стежте за нами
 							</ListItem>
 							<ListItem sx={{ display: "flex", justifyContent: "space-around" }}>
