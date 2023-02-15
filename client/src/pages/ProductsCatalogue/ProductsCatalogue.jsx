@@ -22,7 +22,7 @@ const ProductsCatalogue = () => {
 		<Container>
 			<CardsContainer>
 				{products?.map((card, index) => (
-					<ProductCard key={index} card={card} />
+					<ProductCard priceColor="#57646E" key={index} card={card} />
 				))}
 			</CardsContainer>
 		</Container>

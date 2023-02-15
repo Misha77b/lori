@@ -8,11 +8,6 @@ import ProductCard from "../ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { selectProductsData } from "../../store/selectors";
 
-export const CardsContainer = styled.div`
-	display: grid;
-	gap: 24px;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-`;
 const PopularProducts = () => {
 	const dispatch = useDispatch();
 
@@ -42,4 +37,9 @@ const PopularProducts = () => {
 		</Container>
 	);
 };
+export const CardsContainer = styled.div`
+	display: grid;
+	gap: 30px;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+`;
 export default PopularProducts;
