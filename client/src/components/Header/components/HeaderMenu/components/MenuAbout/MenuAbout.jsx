@@ -1,0 +1,43 @@
+import React from "react";
+import { Button, Menu, MenuItem } from "@mui/material";
+
+const MenuAbout = () => {
+	const [about, setAbout] = React.useState(null);
+	const openAbout = Boolean(about);
+
+	const handleClickAbout = (event) => {
+		setAbout(event.currentTarget);
+	};
+	const handleCloseAbout = () => {
+		setAbout(null);
+	};
+
+	return (
+		<>
+			<Button
+				id="button-about"
+				aria-controls={openAbout ? "menu-about" : undefined}
+				aria-haspopup="true"
+				aria-expanded={openAbout ? "true" : undefined}
+				onClick={handleClickAbout}
+			>
+				Про нас
+			</Button>
+			<Menu
+				id="menu-about"
+				anchorEl={about}
+				open={openAbout}
+				onClose={handleCloseAbout}
+				MenuListProps={{
+					"aria-labelledby": "button-about",
+				}}
+			>
+				<MenuItem divider onClick={handleCloseAbout}>
+					Про нас
+				</MenuItem>
+			</Menu>
+		</>
+	);
+};
+
+export default MenuAbout;
