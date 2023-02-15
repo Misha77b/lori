@@ -29,8 +29,6 @@ const Slider = () => {
 		[],
 	);
 
-	console.log(slides);
-
 	return (
 		<Container>
 			<Swiper

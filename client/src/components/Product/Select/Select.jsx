@@ -15,10 +15,7 @@ export default function Selection() {
 	return (
 		<div>
 			<FormControl sx={{ width: "200px", color: "blue" }}>
-				<InputLabel
-					color="secondary"
-					id="demo-simple-select-autowidth-label"
-				>
+				<InputLabel color="secondary" id="demo-simple-select-autowidth-label">
 					Оберіть колір
 				</InputLabel>
 				<Select
@@ -30,22 +27,13 @@ export default function Selection() {
 					color="secondary"
 					onChange={handleChange}
 				>
-					<MenuItem
-						value={10}
-						sx={{ width: "200px" }}
-					>
+					<MenuItem value={10} sx={{ width: "200px" }}>
 						Red
 					</MenuItem>
-					<MenuItem
-						value={21}
-						sx={{ width: "200px" }}
-					>
+					<MenuItem value={21} sx={{ width: "200px" }}>
 						White
 					</MenuItem>
-					<MenuItem
-						value={22}
-						sx={{ width: "200px" }}
-					>
+					<MenuItem value={22} sx={{ width: "200px" }}>
 						Black
 					</MenuItem>
 				</Select>

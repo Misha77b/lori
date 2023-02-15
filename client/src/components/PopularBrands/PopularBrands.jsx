@@ -37,12 +37,7 @@ const PopularBrands = () => {
 					rowSpacing={{ xs: 1, sm: 1, md: 3 }}
 					columnSpacing={{ xs: 3, sm: 3, md: 1, lg: 4 }}
 				>
-					<Grid
-						item
-						xs={12}
-						sm={12}
-						md={6}
-					>
+					<Grid item xs={12} sm={12} md={6}>
 						<div className="popular popular--samsung">
 							<div className="popular--overlay">
 								<div className="popular--text">
@@ -67,11 +62,7 @@ const PopularBrands = () => {
 											</Typography>
 										</Stack>
 
-										<Button
-											color="primary"
-											variant="contained"
-											sx={button}
-										>
+										<Button color="primary" variant="contained" sx={button}>
 											Детальніше
 										</Button>
 									</Stack>
@@ -79,12 +70,7 @@ const PopularBrands = () => {
 							</div>
 						</div>
 					</Grid>
-					<Grid
-						item
-						xs={12}
-						sm={12}
-						md={6}
-					>
+					<Grid item xs={12} sm={12} md={6}>
 						<div className="popular popular--mi">
 							<div className="popular--overlay">
 								<div className="popular--text">
@@ -108,11 +94,7 @@ const PopularBrands = () => {
 												Смартфон Xiaomi Mi 11i 8/256GB Cosmic Black...
 											</Typography>
 										</Stack>
-										<Button
-											color="primary"
-											variant="contained"
-											sx={button}
-										>
+										<Button color="primary" variant="contained" sx={button}>
 											Детальніше
 										</Button>
 									</Stack>
@@ -120,12 +102,7 @@ const PopularBrands = () => {
 							</div>
 						</div>
 					</Grid>
-					<Grid
-						item
-						xs={12}
-						sm={12}
-						md={6}
-					>
+					<Grid item xs={12} sm={12} md={6}>
 						<div className="popular popular--apple">
 							<div className="popular--overlay">
 								<div className="popular--text">
@@ -149,11 +126,7 @@ const PopularBrands = () => {
 												iPhone 13; iPhone 14; iPhone 14 Plus, iPhone 14 Pro, iPhone 14 Max...
 											</Typography>
 										</Stack>
-										<Button
-											color="primary"
-											variant="contained"
-											sx={button}
-										>
+										<Button color="primary" variant="contained" sx={button}>
 											Детальніше
 										</Button>
 									</Stack>
@@ -161,12 +134,7 @@ const PopularBrands = () => {
 							</div>
 						</div>
 					</Grid>
-					<Grid
-						item
-						xs={12}
-						sm={12}
-						md={6}
-					>
+					<Grid item xs={12} sm={12} md={6}>
 						<div className="popular popular--huawei">
 							<div className="popular--overlay">
 								<div className="popular--text">
@@ -190,11 +158,7 @@ const PopularBrands = () => {
 												Huawei Honor 80 SE; Huawei Honor 80 Pro; Huawei Honor 80...
 											</Typography>
 										</Stack>
-										<Button
-											color="primary"
-											variant="contained"
-											sx={button}
-										>
+										<Button color="primary" variant="contained" sx={button}>
 											Детальніше
 										</Button>
 									</Stack>
