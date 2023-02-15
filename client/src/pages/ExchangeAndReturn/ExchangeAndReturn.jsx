@@ -9,7 +9,7 @@ const ExchangeAndReturn = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="gray"
+				color="grey"
 				align="justify"
 			>
 				Так, ви можете обміняти або повернути товар протягом 14 днів з моменту покупки. Це право
@@ -19,7 +19,7 @@ const ExchangeAndReturn = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="gray"
+				color="grey"
 				align="justify"
 			>
 				Щоб скористатися цією можливістю обміну чи повернення товару належної якості будь ласка,
@@ -27,7 +27,7 @@ const ExchangeAndReturn = () => {
 			</Typography>
 			<List
 				sx={{
-					color: "gray",
+					color: "grey",
 					fontFamily: "Open Sans, sans-serif",
 					fontSize: "14px",
 					fontWeight: "fontWeightRegular",
@@ -49,7 +49,7 @@ const ExchangeAndReturn = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="gray"
+				color="grey"
 				align="justify"
 				pb={2}
 			>
@@ -59,7 +59,7 @@ const ExchangeAndReturn = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="gray"
+				color="grey"
 				align="justify"
 				pb={2}
 			>
@@ -70,7 +70,7 @@ const ExchangeAndReturn = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="gray"
+				color="grey"
 				pb={5}
 				align="justify"
 			>
