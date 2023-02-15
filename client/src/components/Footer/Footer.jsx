@@ -33,7 +33,7 @@ const Footer = () => {
 	};
 
 	return (
-		<Box component="footer" backgroundColor="grey">
+		<Box mt={14} component="footer" backgroundColor="grey">
 			<Container sx={{ color: "#ffffff" }}>
 				<Grid
 					item
