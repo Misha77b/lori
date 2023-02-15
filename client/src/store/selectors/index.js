@@ -2,10 +2,11 @@ export {
 	selectProductsData,
 	selectShoppingCart,
 	selectFavorite,
+	selectLoader,
 	selectStateProducts,
 } from "./products.selectors";
 
-export { selectSlidesData, selectLoader } from "./slides.selectors";
+export { selectSlidesData, selectSlidesLoader } from "./slides.selectors";
 
 // export {
 // 	selectAuth,
