@@ -5,16 +5,20 @@ import FormControl from "@mui/material/FormControl";
 import { MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-export default function Selection() {
+export default function Selection({ allColors, setCurrentColor }) {
 	const [color, setColor] = React.useState("");
-
+	const colorsTag = allColors?.map((el) => (
+		<MenuItem key={el} value={el} sx={{ width: "200px" }}>
+			{el}
+		</MenuItem>
+	));
 	const handleChange = (event) => {
-		debugger;
 		setColor(event.target.value);
+		setCurrentColor(event.target.value);
 	};
 	return (
 		<div>
-			<FormControl sx={{ width: "200px", color: "blue" }}>
+			<FormControl sx={{ width: "200px" }}>
 				<InputLabel color="secondary" id="demo-simple-select-autowidth-label">
 					Оберіть колір
 				</InputLabel>
@@ -27,15 +31,7 @@ export default function Selection() {
 					color="secondary"
 					onChange={handleChange}
 				>
-					<MenuItem value={10} sx={{ width: "200px" }}>
-						Red
-					</MenuItem>
-					<MenuItem value={21} sx={{ width: "200px" }}>
-						White
-					</MenuItem>
-					<MenuItem value={22} sx={{ width: "200px" }}>
-						Black
-					</MenuItem>
+					{colorsTag}
 				</Select>
 			</FormControl>
 		</div>

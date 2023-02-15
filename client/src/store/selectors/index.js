@@ -6,6 +6,7 @@ export {
 	selectStateProducts,
 } from "./products.selectors";
 
+export { selectorLoading, selectorPageObj } from "./oneProduct.selector";
 // export {
 // 	selectAuth,
 // 	selectAuthLoader,
