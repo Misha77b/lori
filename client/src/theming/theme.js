@@ -3,7 +3,7 @@ import React from "react";
 
 const theme = createTheme({
 	components: {
-		MuiButton: {
+		Button: {
 			styleOverrides: {
 				root: {
 					padding: "20px 35px",

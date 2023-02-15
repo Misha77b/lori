@@ -8,6 +8,7 @@ import ProductPrice from "../ProductPrice/ProductPrice";
 import Discription from "./Discription";
 import Selection from "./Select";
 import "./Product.scss";
+import ToCartButton from "../ToCartButton";
 
 function Product() {
 	const [product, setProduct] = useState(
@@ -18,7 +19,7 @@ function Product() {
 	};
 	return (
 		<Box>
-			<CategoryTitle text="Modile example" />
+			<CategoryTitle text="Mobile example" />
 			<div className="block">
 				<div className="block__imgs">
 					<div className="block__imgs--small">
@@ -79,17 +80,7 @@ function Product() {
 							<Rating name="read-only" value={3} readOnly />
 						</Box>
 						<Selection />
-						<Button
-							color="secondary"
-							variant="contained"
-							sx={{
-								width: "245px",
-								height: "46px",
-							}}
-						>
-							У кошик
-							<ShoppingCartCheckoutIcon sx={{ marginLeft: "10px" }} />
-						</Button>
+						<ToCartButton />
 					</Stack>
 				</div>
 			</div>
