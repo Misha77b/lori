@@ -1,7 +1,17 @@
 import React from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
 const MenuBayer = () => {
+	const CustomLink = styled(NavLink)(({ theme }) => ({
+		color: "inherit",
+		textDecoration: "none",
+		"&: hover": {
+			textDecoration: "underline",
+		},
+	}));
+
 	const [bayer, setBayer] = React.useState(null);
 	const openBayer = Boolean(bayer);
 	const handleClickBayer = (event) => {
@@ -33,13 +43,13 @@ const MenuBayer = () => {
 				}}
 			>
 				<MenuItem divider onClick={handleCloseBayer}>
-					Гарантія
+					<CustomLink to="/guarantee">Гарантія</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBayer}>
-					Оплата та доставка
+					<CustomLink to="/paymentAndDelivery">Оплата та доставка</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBayer}>
-					Обмін та повернення
+					<CustomLink to="/exchangeAndReturn">Обмін та повернення</CustomLink>
 				</MenuItem>
 			</Menu>
 		</>

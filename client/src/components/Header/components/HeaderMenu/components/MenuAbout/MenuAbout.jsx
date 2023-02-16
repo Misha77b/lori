@@ -1,7 +1,17 @@
 import React from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
 const MenuAbout = () => {
+	const CustomLink = styled(NavLink)(({ theme }) => ({
+		color: "inherit",
+		textDecoration: "none",
+		"&: hover": {
+			textDecoration: "underline",
+		},
+	}));
+
 	const [about, setAbout] = React.useState(null);
 	const openAbout = Boolean(about);
 
@@ -34,7 +44,7 @@ const MenuAbout = () => {
 				}}
 			>
 				<MenuItem divider onClick={handleCloseAbout}>
-					Про нас
+					<CustomLink to="/about">Про нас</CustomLink>
 				</MenuItem>
 			</Menu>
 		</>

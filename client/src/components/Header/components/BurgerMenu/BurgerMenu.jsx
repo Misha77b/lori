@@ -1,13 +1,22 @@
 import React from "react";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from "@mui/material/styles";
+import { NavLink } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const CustomizedMenu = styled(Menu)`
 	& .MuiMenu-paper {
 		width: 100%;
 	}
 `;
+
+const CustomLink = styled(NavLink)(({ theme }) => ({
+	color: "inherit",
+	textDecoration: "none",
+	"&: hover": {
+		textDecoration: "underline",
+	},
+}));
 
 const BurgerMenu = () => {
 	const [burgerMenu, setBurgerMenu] = React.useState(null);
@@ -43,19 +52,19 @@ const BurgerMenu = () => {
 				}}
 			>
 				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					Головна
+					<CustomLink to="/">Головна</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					Гарантія
+					<CustomLink to="/guarantee">Гарантія</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					Оплата та доставка
+					<CustomLink to="/paymentAndDelivery">Оплата та доставка</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					Обмін та повернення
+					<CustomLink to="/exchangeAndReturn">Обмін та повернення</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					Контакти
+					<CustomLink to="/contacts">Контакти</CustomLink>
 				</MenuItem>
 			</CustomizedMenu>
 		</Box>

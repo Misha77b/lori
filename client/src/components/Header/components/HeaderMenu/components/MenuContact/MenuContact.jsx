@@ -1,7 +1,17 @@
 import React from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
 const MenuContact = () => {
+	const CustomLink = styled(NavLink)(({ theme }) => ({
+		color: "inherit",
+		textDecoration: "none",
+		"&: hover": {
+			textDecoration: "underline",
+		},
+	}));
+
 	const [contacts, setContacts] = React.useState(null);
 	const openContacts = Boolean(contacts);
 
@@ -34,7 +44,7 @@ const MenuContact = () => {
 				}}
 			>
 				<MenuItem divider onClick={handleCloseContacts}>
-					Контакти
+					<CustomLink to="/contacts">Контакти</CustomLink>
 				</MenuItem>
 			</Menu>
 		</>
