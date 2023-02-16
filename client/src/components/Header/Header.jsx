@@ -55,7 +55,7 @@ const Header = () => {
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
-							color="gray"
+							color="graphite.main"
 							sx={{ display: { xs: "none", lg: "block" } }}
 						>
 							(096)166-64-16
@@ -63,7 +63,7 @@ const Header = () => {
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
-							color="graphite"
+							color="graphite.main"
 							sx={{ m: " 0 10px", display: { xs: "none", lg: "block" } }}
 						>
 							(098)259-25-99
@@ -87,7 +87,7 @@ const Header = () => {
 				</Container>
 			</AppBar>
 
-			<Box backgroundColor="grey" sx={{ display: { xs: "none", sm: "flex" } }}>
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" } }}>
 				<Container>
 					<HeaderMenu />
 				</Container>
