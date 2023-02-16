@@ -73,9 +73,7 @@ const Slider = () => {
 									variant="contained"
 									sx={darkBackButton}
 									component={Link}
-									// Link to check the place-an-order page? only for testing
-									// to={brandPageLink}
-									to="/palce-an-order"
+									to={brandPageLink}
 									className="slide-content-button"
 								>
 									Детальніше

@@ -5,7 +5,7 @@ import { Container, Grid, Box, Typography, TextField, OutlinedInput } from "@mui
 import * as yup from "yup";
 
 import PropTypes from "prop-types";
-import CategoryTitle from "../../components/CategoryTitle";
+import CategoryTitle from "../CategoryTitle";
 
 import "./PlacingAnOrder.scss";
 
