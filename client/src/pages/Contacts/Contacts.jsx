@@ -11,7 +11,7 @@ const Contacts = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				align="center"
 			>
 				Україна,
@@ -20,7 +20,7 @@ const Contacts = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				align="center"
 			>
 				м.Київ
@@ -29,7 +29,7 @@ const Contacts = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				align="center"
 			>
 				вул.Козаків 20
@@ -38,7 +38,7 @@ const Contacts = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				align="center"
 			>
 				info@mobilegalaxy.com.ua

@@ -11,7 +11,7 @@ const About = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				align="justify"
 			>
 				Mobile Galaxy – це найсучасніший магазин електроніки та аксесуарів в Україні. Сучасний
@@ -23,7 +23,7 @@ const About = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				align="justify"
 			>
 				Ми працюємо в двох напрямках – інтернет-магазин розумних гаджетів та мережа
@@ -34,7 +34,7 @@ const About = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				align="justify"
 				pb={5}
 			>
@@ -46,7 +46,7 @@ const About = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				pb={5}
 				align="justify"
 			>
@@ -55,7 +55,7 @@ const About = () => {
 			<Typography variant="h5">Повний перелік послуг магазину гаджетів Mobile Galaxy.</Typography>
 			<List
 				sx={{
-					color: "grey",
+					color: "grey.main",
 					fontFamily: "Open Sans, sans-serif",
 					fontSize: "14px",
 					fontWeight: "fontWeightRegular",

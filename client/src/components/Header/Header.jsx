@@ -1,17 +1,4 @@
-import {
-	TextField,
-	AppBar,
-	Toolbar,
-	Typography,
-	Box,
-	IconButton,
-	List,
-	ListItem,
-	Link,
-	Container,
-	Grid,
-} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { AppBar, Toolbar, Typography, Box, IconButton, Container } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
@@ -70,17 +57,17 @@ const Header = () => {
 						</Typography>
 						<Search />
 						<Box>
-							<IconButton size="large" color="inherit">
+							<IconButton color="grey.main">
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
-								<Typography color="grey" sx={{ display: { xs: "none", md: "block" } }}>
+								<Typography color="grey.main" sx={{ display: { xs: "none", md: "block" } }}>
 									Увійти
 								</Typography>
 							</IconButton>
 						</Box>
-						<IconButton size="large" aria-label="Basket" color="inherit">
+						<IconButton size="large" aria-label="Basket" color="grey.main">
 							<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
-						<IconButton size="large" aria-label="Favorites" color="inherit">
+						<IconButton size="large" aria-label="Favorites" color="grey.main">
 							<StarBorderOutlinedIcon sx={menuLinkItem} />
 						</IconButton>
 					</Toolbar>
@@ -88,9 +75,7 @@ const Header = () => {
 			</AppBar>
 
 			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" } }}>
-				<Container>
-					<HeaderMenu />
-				</Container>
+				<Container>{/* {display:xs ? <Search /> : <HeaderMenu />} */}</Container>
 			</Box>
 		</Box>
 	);
