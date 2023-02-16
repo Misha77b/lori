@@ -1,8 +1,18 @@
 import React from "react";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Box, IconButton, makeStyles, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		MuiMenuRoot: {
+			minWidth: "100%",
+		},
+	},
+}));
+
 const BurgerMenu = () => {
+	const classes = useStyles();
+
 	const [burgerMenu, setBurgerMenu] = React.useState(null);
 	const openBurgerMenu = Boolean(burgerMenu);
 
@@ -14,33 +24,45 @@ const BurgerMenu = () => {
 	};
 
 	return (
-		<>
-			<Button
-				id="button-burger"
-				aria-controls={openBurgerMenu ? "menu-burger" : undefined}
+		<Box>
+			<IconButton
+				sx={{ p: "15px 0", display: { xs: "block", sm: "none" } }}
+				id="button-burgerMenu"
+				aria-controls={openBurgerMenu ? "menu-burgerMenu" : undefined}
 				aria-haspopup="true"
 				aria-expanded={openBurgerMenu ? "true" : undefined}
 				onClick={handleClickBurgerMenu}
-				color="inherit"
-				aria-label="menu"
-				sx={{ display: { xs: "block", sm: "none" }, p: "0" }}
 			>
 				<MenuIcon fontSize="large" color="grey" />
-			</Button>
+			</IconButton>
 			<Menu
-				id="menu-about"
+				className=""
+				sx={{ minWidth: "100%" }}
+				id="menu-burgerMenu"
 				anchorEl={burgerMenu}
 				open={openBurgerMenu}
-				onClose={handleClickBurgerMenu}
+				onClose={handleCloseBurgerMenu}
 				MenuListProps={{
-					"aria-labelledby": "button-burger",
+					"aria-labelledby": "button-burgerMenu",
 				}}
 			>
-				<MenuItem divider onClick={handleCloseBurgerMenu} fontSize="large" color="grey">
-					Про нас
+				<MenuItem divider onClick={handleCloseBurgerMenu}>
+					Головна
+				</MenuItem>
+				<MenuItem divider onClick={handleCloseBurgerMenu}>
+					Гарантія
+				</MenuItem>
+				<MenuItem divider onClick={handleCloseBurgerMenu}>
+					Оплата та доставка
+				</MenuItem>
+				<MenuItem divider onClick={handleCloseBurgerMenu}>
+					Обмін та повернення
+				</MenuItem>
+				<MenuItem divider onClick={handleCloseBurgerMenu}>
+					Контакти
 				</MenuItem>
 			</Menu>
-		</>
+		</Box>
 	);
 };
 
