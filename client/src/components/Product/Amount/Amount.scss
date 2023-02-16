@@ -1,15 +1,24 @@
 .inpt {
-	box-sizing: border-box;
-	width: 122px;
-	height: 36px;
-	border: 1px solid #e0e1e2;
+	display: grid;
+	grid-template-columns: 26% 48% 26%;
+	background-color: #e0e1e2;
 	border-radius: 2px;
-	&__text {
-		outline: none;
-		width: 50%;
-		text-align: center;
-	}
+	text-align: center;
+	width: 100px;
+	height: 30px;
 	&__button {
-		width: 25%;
+		font-size: 18px;
 	}
+	&__text {
+		align-self: center;
+		background-color: #fff;
+		border-radius: 2px;
+		font-weight: 900;
+		padding: 5.5px 0;
+	}
+}
+
+button {  //add to global
+	border: none;
+	background: transparent;
 }
