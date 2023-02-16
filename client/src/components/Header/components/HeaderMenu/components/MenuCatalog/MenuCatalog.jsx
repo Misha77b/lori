@@ -1,7 +1,17 @@
 import React from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
 const MenuCatalog = () => {
+	const CustomLink = styled(NavLink)(({ theme }) => ({
+		color: "inherit",
+		textDecoration: "none",
+		"&: hover": {
+			textDecoration: "underline",
+		},
+	}));
+
 	const [сatalog, setCatalog] = React.useState(null);
 	const openCatalog = Boolean(сatalog);
 
@@ -34,7 +44,7 @@ const MenuCatalog = () => {
 				}}
 			>
 				<MenuItem divider onClick={handleCloseCatalog}>
-					Телефони
+					<CustomLink to="/products">Телефони</CustomLink>
 				</MenuItem>
 			</Menu>
 		</>

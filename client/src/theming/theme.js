@@ -3,7 +3,7 @@ import React from "react";
 
 const theme = createTheme({
 	components: {
-		MuiButton: {
+		Button: {
 			styleOverrides: {
 				root: {
 					padding: "20px 35px",
@@ -18,7 +18,7 @@ const theme = createTheme({
 	palette: {
 		primary: {
 			main: "#FFFFFF",
-			contrastText: " #007042",
+			contrastText: "#007042",
 		},
 		secondary: {
 			main: colors.green[800],

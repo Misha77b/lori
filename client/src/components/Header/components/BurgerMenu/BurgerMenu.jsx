@@ -55,6 +55,9 @@ const BurgerMenu = () => {
 					<CustomLink to="/">Головна</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBurgerMenu}>
+					<CustomLink to="/products">Каталог</CustomLink>
+				</MenuItem>
+				<MenuItem divider onClick={handleCloseBurgerMenu}>
 					<CustomLink to="/guarantee">Гарантія</CustomLink>
 				</MenuItem>
 				<MenuItem divider onClick={handleCloseBurgerMenu}>

@@ -6,6 +6,7 @@ import About from "../pages/About";
 import Guarantee from "../pages/Guarantee";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ExchangeAndReturn from "../pages/ExchangeAndReturn";
+import ProductsCatalogue from "../pages/ProductsCatalogue";
 import Contacts from "../pages/Contacts/Contacts";
 
 function RootRouters() {

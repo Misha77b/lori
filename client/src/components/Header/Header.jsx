@@ -55,7 +55,7 @@ const Header = () => {
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
-							color="graphite"
+							color="gray"
 							sx={{ display: { xs: "none", lg: "block" } }}
 						>
 							(096)166-64-16
