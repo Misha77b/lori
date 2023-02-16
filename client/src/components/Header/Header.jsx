@@ -8,17 +8,6 @@ import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 
 const Header = () => {
-	const menuLink = {
-		color: "#ffffff",
-		textTransform: "uppercase",
-		fontSize: "16px",
-		fontWeight: "700",
-		textDecoration: "none",
-		"&: hover": {
-			textDecoration: "underline",
-		},
-	};
-
 	const menuLinkItem = {
 		color: "#57646E",
 		fontSize: "30px",
@@ -74,8 +63,17 @@ const Header = () => {
 				</Container>
 			</AppBar>
 
-			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" } }}>
-				<Container>{/* {display:xs ? <Search /> : <HeaderMenu />} */}</Container>
+			{/* <Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" } }}>
+				<Container>
+					<HeaderMenu />
+				</Container> */}
+			{/* <Container> {display ? <HeaderMenu /> : <Search />}</Container> */}
+			{/* </Box> */}
+
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", md: "none" } }}>
+				<Container>
+					<Search />
+				</Container>
 			</Box>
 		</Box>
 	);
