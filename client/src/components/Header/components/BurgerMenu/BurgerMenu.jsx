@@ -1,18 +1,15 @@
 import React from "react";
-import { Box, IconButton, makeStyles, Menu, MenuItem } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { styled } from "@mui/material/styles";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		MuiMenuRoot: {
-			minWidth: "100%",
-		},
-	},
-}));
+const CustomizedMenu = styled(Menu)`
+	& .MuiMenu-paper {
+		width: 100%;
+	}
+`;
 
 const BurgerMenu = () => {
-	const classes = useStyles();
-
 	const [burgerMenu, setBurgerMenu] = React.useState(null);
 	const openBurgerMenu = Boolean(burgerMenu);
 
@@ -35,9 +32,8 @@ const BurgerMenu = () => {
 			>
 				<MenuIcon fontSize="large" color="grey" />
 			</IconButton>
-			<Menu
-				className=""
-				sx={{ minWidth: "100%" }}
+			<CustomizedMenu
+				sx={{ display: { xs: "block", sm: "none" } }}
 				id="menu-burgerMenu"
 				anchorEl={burgerMenu}
 				open={openBurgerMenu}
@@ -61,7 +57,7 @@ const BurgerMenu = () => {
 				<MenuItem divider onClick={handleCloseBurgerMenu}>
 					Контакти
 				</MenuItem>
-			</Menu>
+			</CustomizedMenu>
 		</Box>
 	);
 };
