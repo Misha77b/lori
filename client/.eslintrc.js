@@ -24,6 +24,7 @@ module.exports = {
 	plugins: ["react", "prettier"],
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
+		"operator-linebreak": "off",
 		"linebreak-style": "off",
 		"no-trailing-spaces": ["error", { skipBlankLines: true }],
 		"object-curly-newline": 0,
@@ -38,10 +39,21 @@ module.exports = {
 		"jsx-a11y/no-static-element-interactions": 0,
 		"react/jsx-no-useless-fragment": "off",
 		"import/no-unresolved": "off",
+		"import/prefer-default-export": "off",
 		"react/jsx-boolean-value": "off",
 		"react/no-array-index-key": 0,
 		"arrow-body-style": "off",
 		"no-return-assign": 0,
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				js: "never",
+				jsx: "never",
+				ts: "never",
+				tsx: "never",
+			},
+		],
 		"react/self-closing-comp": [
 			"error",
 			{
@@ -56,7 +68,7 @@ module.exports = {
 		"no-tabs": 0,
 		ignoredNodes: 0,
 		"react/prop-types": [0],
-		"react/jsx-indent": [2, "tab"],
+		"react/jsx-indent": [0],
 		"react/jsx-indent-props": [2, "tab"],
 		semi: 0,
 		camelcase: 0,
@@ -67,5 +79,8 @@ module.exports = {
 		"no-undef": "off",
 		"no-restricted-exports": "off",
 		"no-param-reassign": "off",
+		"jsx-a11y/no-noninteractive-element-interactions": "off",
+		"prettier/prettier": ["error", { endOfLine: "auto" }],
+		"no-debugger": "off",
 	},
 };
