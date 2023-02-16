@@ -1,8 +1,9 @@
 import React from "react";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { Button } from "@mui/material";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { setLocalItem } from "../../helpers/utils";
 
-const ToCartButton = () => {
+const ToCartButton = ({ id }) => {
 	return (
 		<Button
 			color="secondary"
@@ -10,6 +11,9 @@ const ToCartButton = () => {
 			sx={{
 				width: "max-content",
 				height: "46px",
+			}}
+			onClick={() => {
+				setLocalItem("cart", id);
 			}}
 		>
 			У кошик
