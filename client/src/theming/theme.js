@@ -37,7 +37,7 @@ const theme = createTheme({
 	error: { main: colors.red[700] },
 	typography: {
 		fontFamily: "Open Sans, Montserrat, sans-serif",
-		fontWeightBold: 800,
+		fontWeightBold: 700,
 		fontWeightRegular: 400,
 		fontWeightMedium: 600,
 		fontWeightLight: 300,

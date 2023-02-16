@@ -18,6 +18,7 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import React from "react";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
+import Search from "./components/Search";
 
 const Header = () => {
 	const menuLink = {
@@ -67,44 +68,7 @@ const Header = () => {
 						>
 							(098)259-25-99
 						</Typography>
-
-						{/* <Box
-							component="form"
-							sx={{
-								"& > :not(style)": { m: 1, width: "442px" },
-								position: "relative",
-								display: { xs: "none", sm: "block" },
-							}}
-							noValidate
-							autoComplete="off"
-						>
-							<TextField
-								sx={{ position: "relative" }}
-								inputProps={{ "aria-label": "search" }}
-								id="outlined-basic"
-								label="Пошук..."
-								variant="outlined"
-								color="success"
-							/>
-							<Box sx={{ position: "absolute", top: "0", right: "0" }}>
-								<IconButton
-									backgroundColor="mediumgrey"
-									sx={{
-										borderRadius: "0",
-										p: "13px",
-										position: "absolute",
-										right: "0",
-										top: "0",
-									}}
-									size="large"
-									aria-label="show 4 new mails"
-									color="inherit"
-								>
-									<SearchIcon sx={menuLinkItem} />
-								</IconButton>
-							</Box>
-						</Box> */}
-
+						<Search />
 						<Box>
 							<IconButton size="large" color="inherit">
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
@@ -123,45 +87,6 @@ const Header = () => {
 				</Container>
 			</AppBar>
 
-			{/* <Box backgroundColor="grey" sx={{ display: { sm: "none", lg: "block" } }}>
-				<Container>
-					<Box
-						component="form"
-						sx={{
-							"& > :not(style)": { m: 1, width: "442px" },
-							position: "relative",
-						}}
-						noValidate
-						autoComplete="off"
-					>
-						<TextField
-							sx={{ position: "relative" }}
-							inputProps={{ "aria-label": "search" }}
-							id="outlined-basic"
-							label="Пошук..."
-							variant="outlined"
-							color="success"
-						/>
-						<Box sx={{ position: "absolute", top: "0", right: "0" }}>
-							<IconButton
-								backgroundColor="mediumgrey"
-								sx={{
-									borderRadius: "0",
-									p: "13px",
-									position: "absolute",
-									right: "0",
-									top: "0",
-								}}
-								size="large"
-								aria-label="show 4 new mails"
-								color="inherit"
-							>
-								<SearchIcon sx={menuLinkItem} />
-							</IconButton>
-						</Box>
-					</Box>
-				</Container>
-			</Box> */}
 			<Box backgroundColor="grey" sx={{ display: { xs: "none", sm: "flex" } }}>
 				<Container>
 					<HeaderMenu />
