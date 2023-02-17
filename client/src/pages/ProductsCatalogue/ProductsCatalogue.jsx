@@ -7,7 +7,7 @@ import CategoryTitle from "../../components/CategoryTitle";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { selectProductsData } from "../../store/selectors";
-// import { CardsContainer } from "../../components/PopularProducts/PopularProducts";
+import { CardsContainer } from "../../components/PopularProducts/PopularProducts";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -19,14 +19,13 @@ const ProductsCatalogue = () => {
 		[],
 	);
 	return (
-		<Container> delete</Container>
-		// <Container>
-		// 	<CardsContainer>
-		// 		{products?.map((card, index) => (
-		// 			<ProductCard priceColor="#57646E" key={index} card={card} />
-		// 		))}
-		// 	</CardsContainer>
-		// </Container>
+		<Container>
+			<CardsContainer>
+				{products?.map((card, index) => (
+					<ProductCard priceColor="#57646E" key={index} card={card} />
+				))}
+			</CardsContainer>
+		</Container>
 	);
 };
 
