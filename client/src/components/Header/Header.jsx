@@ -2,6 +2,8 @@ import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import { styled } from "@mui/material/styles";
+import { NavLink } from "react-router-dom";
 import React from "react";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
@@ -13,21 +15,31 @@ const Header = () => {
 		fontSize: "30px",
 	};
 
+	const CustomLink = styled(NavLink)(({ theme }) => ({
+		color: "#ffffff",
+		"&: hover": {
+			textDecoration: "underline",
+		},
+	}));
+
 	return (
 		<Box component="header">
 			<AppBar position="static">
 				<Container>
 					<Toolbar disableGutters={true} sx={{ justifyContent: "space-between" }}>
 						<BurgerMenu />
-						<Box
-							component="img"
-							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
-							alt="logo"
-							sx={{
-								width: { xs: "80px", sm: "150px" },
-								m: "5px 0",
-							}}
-						/>
+						<CustomLink to="/">
+							<Box
+								component="img"
+								src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
+								alt="logo"
+								sx={{
+									width: { xs: "80px", sm: "150px" },
+									m: "5px 0",
+								}}
+							/>
+						</CustomLink>
+
 						<Typography
 							fontWeight="fontWeightBold"
 							fontFamily="Open Sans"
@@ -59,7 +71,6 @@ const Header = () => {
 									<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 								</Badge>
 							</IconButton>
-
 							<IconButton size="large" aria-label="Favorites" color="grey.main">
 								<Badge badgeContent={4} color="secondary">
 									<StarBorderOutlinedIcon sx={menuLinkItem} />
