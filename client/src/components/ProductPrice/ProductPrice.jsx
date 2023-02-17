@@ -1,7 +1,9 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styled from "styled-components";
+// import {styled} from "@mui/material/styles;
 
-const ProductPrice = ({ currentPrice, previousPrice = "", priceColor }) => {
+const ProductPrice = ({ currentPrice, previousPrice = "", priceColor, id }) => {
+	console.log("id", id);
 	return (
 		<PriceWrapper>
 			<CurrentPrice priceColor={priceColor} previousPrice={previousPrice}>
