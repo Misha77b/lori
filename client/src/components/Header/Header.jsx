@@ -17,7 +17,7 @@ const Header = () => {
 		<Box component="header">
 			<AppBar position="static">
 				<Container>
-					<Toolbar>
+					<Toolbar disableGutters={true} sx={{ justifyContent: "space-between" }}>
 						<BurgerMenu />
 						<Box
 							component="img"
@@ -44,7 +44,9 @@ const Header = () => {
 						>
 							(098)259-25-99
 						</Typography>
-						<Search />
+						<Box sx={{ display: { xs: "none", sm: "flex" } }}>
+							<Search />
+						</Box>
 						<Box>
 							<IconButton color="grey.main">
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
@@ -52,27 +54,28 @@ const Header = () => {
 									Увійти
 								</Typography>
 							</IconButton>
+							<IconButton size="large" aria-label="Basket" color="grey.main">
+								<ShoppingCartOutlinedIcon sx={menuLinkItem} />
+							</IconButton>
+							<IconButton size="large" aria-label="Favorites" color="grey.main">
+								<StarBorderOutlinedIcon sx={menuLinkItem} />
+							</IconButton>
 						</Box>
-						<IconButton size="large" aria-label="Basket" color="grey.main">
-							<ShoppingCartOutlinedIcon sx={menuLinkItem} />
-						</IconButton>
-						<IconButton size="large" aria-label="Favorites" color="grey.main">
-							<StarBorderOutlinedIcon sx={menuLinkItem} />
-						</IconButton>
 					</Toolbar>
 				</Container>
 			</AppBar>
 
-			{/* <Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" } }}>
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" } }}>
 				<Container>
 					<HeaderMenu />
-				</Container> */}
-			{/* <Container> {display ? <HeaderMenu /> : <Search />}</Container> */}
-			{/* </Box> */}
+				</Container>
+			</Box>
 
-			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", md: "none" } }}>
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", sm: "none" } }}>
 				<Container>
-					<Search />
+					<Box sx={{ display: "flex", justifyContent: "center" }}>
+						<Search />
+					</Box>
 				</Container>
 			</Box>
 		</Box>

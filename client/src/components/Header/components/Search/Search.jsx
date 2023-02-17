@@ -8,11 +8,7 @@ const Search = () => {
 			component="form"
 			sx={{
 				"& .MuiTextField-root": {
-					width: { sm: "280px", md: "442px" },
-					display: { xs: "none", sm: "inline-flex" },
-				},
-				"& .MuiInput-root": {
-					borderRadius: " 3px 0 0 3px ",
+					width: { xs: "205px", sm: "285px", md: "440px" },
 				},
 			}}
 			noValidate
@@ -21,8 +17,9 @@ const Search = () => {
 			<TextField
 				sx={{
 					"& .MuiInputBase-root": {
-						backgroundColor: { sm: "#ffffff", md: "transparent" },
-						borderRadius: " 3px 0 0 3px ",
+						backgroundColor: { xs: "#ffffff", md: "transparent" },
+						borderRadius: " 4px 0 0 4px ",
+						"&:hover": { border: "#007042" },
 					},
 				}}
 				type="search"
@@ -33,12 +30,19 @@ const Search = () => {
 			/>
 			<Button
 				sx={{
-					display: { xs: "none", sm: "inline-flex" },
+					height: "56px",
 					backgroundColor: "#A0A9AF",
-					borderRadius: "0 3px 3px 0",
+					borderRadius: "0 4px 4px 0",
+					"&:hover": { backgroundColor: "#007042" },
 				}}
 			>
-				<SearchIcon color="grey" sx={{ fontSize: "44px" }} />
+				<SearchIcon
+					color="grey"
+					sx={{
+						fontSize: "44px",
+						color: "#ffffff",
+					}}
+				/>
 			</Button>
 		</Box>
 	);
