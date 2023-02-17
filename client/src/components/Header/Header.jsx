@@ -59,10 +59,12 @@ const Header = () => {
 									<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 								</Badge>
 							</IconButton>
-							<Badge badgeContent={4} color="secondary">
-								<StarBorderOutlinedIcon sx={menuLinkItem} />
-							</Badge>
-							<IconButton size="large" aria-label="Favorites" color="grey.main" />
+
+							<IconButton size="large" aria-label="Favorites" color="grey.main">
+								<Badge badgeContent={4} color="secondary">
+									<StarBorderOutlinedIcon sx={menuLinkItem} />
+								</Badge>
+							</IconButton>
 						</Box>
 					</Toolbar>
 				</Container>

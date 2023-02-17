@@ -47,4 +47,3 @@ const PreviousPrice = styled.span`
 		content: " грн";
 	}
 `;
-
