@@ -7,7 +7,7 @@ import Guarantee from "../pages/Guarantee";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ExchangeAndReturn from "../pages/ExchangeAndReturn";
 import ProductsCatalogue from "../pages/ProductsCatalogue";
-import PlacingAnOrder from "../components/PlacingAnOrder/PlacingAnOrder";
+import PlacingAnOrder from "../pages/PlacingAnOrder/PlacingAnOrder";
 
 function RootRouters() {
 	return (
