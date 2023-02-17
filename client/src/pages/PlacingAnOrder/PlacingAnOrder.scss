@@ -8,3 +8,11 @@
 	flex-direction: column;
 	gap: 30px;
 }
+
+.cart-products {
+	&--title {
+		color: #fff;
+		background: #a0a9af;
+		padding: 6px 0 6px 42px;
+	}
+}

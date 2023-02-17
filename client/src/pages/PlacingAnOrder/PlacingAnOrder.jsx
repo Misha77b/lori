@@ -5,11 +5,13 @@ import { Container, Grid, Box, Typography, TextField, InputLabel } from "@mui/ma
 import * as yup from "yup";
 
 import PropTypes from "prop-types";
+
+import { inputLabel } from "./sxStyles/inputLabel";
 import CategoryTitle from "../../components/CategoryTitle";
+import FillTheFromText from "./FillTheFromText/FillTheFromText";
+import OrderItem from "./OrderItem/OrderItem";
 
 import "./PlacingAnOrder.scss";
-import { inputLabel } from "./sxStyles/inputLabel";
-import FillTheFromText from "./FillTheFromText/FillTheFromText";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -94,7 +96,22 @@ const PlacingAnOrder = () => {
 					</Grid>
 
 					<Grid item xs={12} sm={12} md={6}>
-						Товари у кошику
+						<div className="cart-products">
+							<Typography
+								className="cart-products--title"
+								variant="h3"
+								fontWeight="fontWeightBold"
+								sx={{ fontSize: "18px" }}
+							>
+								Товари у кошику
+							</Typography>
+
+							<OrderItem />
+
+							<OrderItem />
+
+							<OrderItem />
+						</div>
 					</Grid>
 				</Grid>
 			</form>
