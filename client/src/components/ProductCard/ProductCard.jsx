@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import ProductImageBox from "./components/ProductImageBox";
 import ProductDescription from "./components/ProductDescription";
 import ProductPrice from "../ProductPrice";
@@ -11,9 +10,13 @@ const ProductCard = ({ card, withCart = true, priceColor }) => {
 	const { name, currentPrice, previousPrice, newItem, itemNo, sale, brand, imageUrls } = card;
 	return (
 		<ProductCardWrapper id={itemNo}>
-			<Link style={{ textDecoration: "none" }} to={`/products/${itemNo}`}>
-				<ProductImageBox image={imageUrls[0]} brand={brand} sale={sale} newItem={newItem} />
-			</Link>
+			<ProductImageBox
+				image={imageUrls[0]}
+				brand={brand}
+				sale={sale}
+				newItem={newItem}
+				id={itemNo}
+			/>
 			<ProductDescription name={name} />
 			<ProductPrice
 				id={itemNo}
@@ -29,9 +32,11 @@ const ProductCard = ({ card, withCart = true, priceColor }) => {
 const ProductCardWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	gap: 25px;
 	padding: 0.5%;
 	position: relative;
+	width: 100%;
+	height: 100%;
 `;
 export default ProductCard;
