@@ -1,7 +1,7 @@
 import { Box, Typography, Stack, Button, Container } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { useEffect, useState, React } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
 import Amount from "./Amount";
@@ -11,10 +11,11 @@ import ToCartButton from "../ToCartButton";
 
 function Product({ props }) {
 	const { currentPrice, imageUrls, name, rating } = props;
-	let color = "";
 	const [mainPhoto, setMainPhoto] = useState();
-
-	const handerMoving = (ev) => {
+	const myRef = useRef();
+	let color = "";
+	const handlerMoving = (ev) => {
+		// setMainPhoto(myRef.current.src);
 		setMainPhoto(ev.target.src);
 	};
 	useEffect(() => {
@@ -22,10 +23,9 @@ function Product({ props }) {
 	}, [imageUrls]);
 	const images = imageUrls?.map((item, index) => (
 		<div className="block__imgs--img">
-			<img src={item} key={index} onClick={handerMoving} />
+			<img src={item} key={index} ref={myRef} onClick={handlerMoving} />
 		</div>
 	));
-
 	const setCurrentColor = (CurrentColor) => {
 		color = CurrentColor;
 	};
