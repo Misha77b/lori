@@ -1,10 +1,10 @@
 import React from "react";
 import "./ProductFlag.scss";
 
-const ProductFlag = ({ sale }) => {
+const ProductFlag = ({ flagStatus, text }) => {
 	return (
-		<div className={`ribbon ribbon-top-right ${sale ? "red" : "orange"}`}>
-			<span>{sale ? "sale" : "new item"}</span>
+		<div className="ribbon ribbon-top-right">
+			<span>sale</span>
 		</div>
 	);
 };

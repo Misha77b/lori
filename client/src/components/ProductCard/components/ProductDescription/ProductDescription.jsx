@@ -10,8 +10,8 @@ const Description = styled.p`
 	color: #000000;
 `;
 
-const ProductDescription = ({ name }) => {
-	return <Description>{name}</Description>;
+const ProductDescription = ({ description }) => {
+	return <Description>iPhone 14 Pro 256GB Deep Purple</Description>;
 };
 
 export default ProductDescription;

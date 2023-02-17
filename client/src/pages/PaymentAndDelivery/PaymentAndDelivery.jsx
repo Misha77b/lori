@@ -11,7 +11,7 @@ const PaymentAndDelivery = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				pb={3}
 				align="justify"
 			>
@@ -29,7 +29,7 @@ const PaymentAndDelivery = () => {
 			</Typography>
 			<List
 				sx={{
-					color: "grey",
+					color: "grey.main",
 					fontFamily: "Open Sans, sans-serif",
 					fontSize: "14px",
 					fontWeight: "fontWeightRegular",
@@ -67,7 +67,7 @@ const PaymentAndDelivery = () => {
 			</Typography>
 			<List
 				sx={{
-					color: "grey",
+					color: "grey.main",
 					fontFamily: "Open Sans, sans-serif",
 					fontSize: "14px",
 					fontWeight: "fontWeightRegular",
@@ -99,7 +99,7 @@ const PaymentAndDelivery = () => {
 			</Typography>
 			<List
 				sx={{
-					color: "grey",
+					color: "grey.main",
 					fontFamily: "Open Sans, sans-serif",
 					fontSize: "14px",
 					fontWeight: "fontWeightRegular",
@@ -120,7 +120,7 @@ const PaymentAndDelivery = () => {
 				variant="subtitle2"
 				fontWeight="fontWeightRegular"
 				fontFamily="Open Sans, sans-serif"
-				color="grey"
+				color="grey.main"
 				pb={3}
 				align="justify"
 			>
@@ -129,7 +129,7 @@ const PaymentAndDelivery = () => {
 			</Typography>
 			<List
 				sx={{
-					color: "grey",
+					color: "grey.main",
 					fontFamily: "Open Sans, sans-serif",
 					fontSize: "14px",
 					fontWeight: "fontWeightRegular",

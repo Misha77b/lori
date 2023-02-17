@@ -1,0 +1,12 @@
+.category__title__wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin: 2.5% 0;
+}
+.category__title__wrapper .category__title {
+  font-family: Montserrat, sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 29px;
+  color: #2e3438;
+}
