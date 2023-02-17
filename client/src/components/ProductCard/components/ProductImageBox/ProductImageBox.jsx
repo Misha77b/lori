@@ -1,17 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./ProductImageBox.scss";
 import ProductFlag from "../ProductFlag";
 
-const ProductImageBox = ({ flagStatus }) => {
+const ProductImageBox = ({ sale, image, brand, newItem, id }) => {
 	return (
-		<div className="logo__box">
-			<ProductFlag flagStatus={flagStatus} />
-			<img
-				className="logo"
-				src="https://res.cloudinary.com/dsx708og4/image/upload/v1676117985/Lori_project/iphone13Blue_a7i237.png"
-				alt="iphone"
-			/>
-		</div>
+		<Link style={{ textDecoration: "none" }} className="logo__box" to={`/products/${id}`}>
+			<ProductFlag sale={sale} newItem={newItem} />
+			<img className="logo" src={image} alt={brand} />
+		</Link>
 	);
 };
 

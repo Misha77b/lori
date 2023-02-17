@@ -7,6 +7,7 @@ const Description = styled.p`
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 14px;
+	color: #000000;
 `;
 
 const ProductDescription = ({ description }) => {
