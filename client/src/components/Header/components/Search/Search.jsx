@@ -10,6 +10,7 @@ const Search = () => {
 				"& .MuiTextField-root": {
 					width: { xs: "205px", sm: "285px", md: "440px" },
 				},
+				position: "relative",
 			}}
 			noValidate
 			autoComplete="off"
@@ -18,8 +19,12 @@ const Search = () => {
 				sx={{
 					"& .MuiInputBase-root": {
 						backgroundColor: { xs: "#ffffff", md: "transparent" },
-						borderRadius: " 4px 0 0 4px ",
+						outline: "none",
 						"&:hover": { border: "#007042" },
+					},
+					"& .MuiInputBase-input": {
+						p: "16px 75px 16px 14px",
+						border: "5px",
 					},
 				}}
 				type="search"
@@ -30,9 +35,12 @@ const Search = () => {
 			/>
 			<Button
 				sx={{
-					height: "56px",
+					position: "absolute",
+					top: "2px",
+					right: "2px",
+					height: "51px",
 					backgroundColor: "#A0A9AF",
-					borderRadius: "0 4px 4px 0",
+					borderRadius: "0 2px 2px 0",
 					"&:hover": { backgroundColor: "#007042" },
 				}}
 			>
