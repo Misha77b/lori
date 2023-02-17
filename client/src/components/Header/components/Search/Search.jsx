@@ -8,7 +8,7 @@ const Search = () => {
 			component="form"
 			sx={{
 				"& .MuiTextField-root": {
-					width: { xs: "205px", sm: "285px", md: "440px" },
+					width: { xs: "280px", sm: "400px", md: "440px" },
 				},
 				position: "relative",
 			}}
