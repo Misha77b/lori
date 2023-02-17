@@ -3,7 +3,6 @@ import styled from "styled-components";
 // import {styled} from "@mui/material/styles;
 
 const ProductPrice = ({ currentPrice, previousPrice = "", priceColor, id }) => {
-	console.log("id", id);
 	return (
 		<PriceWrapper>
 			<CurrentPrice priceColor={priceColor} previousPrice={previousPrice}>
@@ -23,7 +22,7 @@ const PriceWrapper = styled.div`
 `;
 const CurrentPrice = styled.span`
 	font-family: Montserrat, sans-serif;
-	font-size: 35px;
+	font-size: clamp(25px, 30px, 35px);
 	font-weight: 900;
 	line-height: 29px;
 	color: ${(props) => {
@@ -38,7 +37,7 @@ const CurrentPrice = styled.span`
 `;
 const PreviousPrice = styled.span`
 	font-family: Montserrat, sans-serif;
-	font-size: 22px;
+	font-size: clamp(20px, 22px, 25px);
 	font-weight: 900;
 	line-height: 21px;
 	color: #a0a9af;

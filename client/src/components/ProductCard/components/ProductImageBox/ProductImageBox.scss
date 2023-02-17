@@ -2,16 +2,14 @@
 @import "src/components/ProductCard/components/ProductFlag/ProductFlag";
 
 .logo__box {
-	background-color: $light-grey-color;
+	background-color: rgba(245, 245, 245, 0.5);
 	padding: 30px;
-	display: grid;
 	transition: $transition-image;
 	cursor: pointer;
-	&:before {
-		content: "";
-		padding-bottom: 100%;
-		display: block;
-	}
+	width: 250px;
+	height: 370px;
+	position: relative;
+	text-align: center;
 	&:hover {
 		transform: scale(1.1);
 		box-shadow: 0 10px 40px 0 $shadowed-black-color;
@@ -25,8 +23,4 @@
 		height: 100%;
 		object-fit: contain;
 	}
-}
-.logo__box:before,
-.logo {
-	grid-area: 1 / 1 / 2 / 2;
 }
