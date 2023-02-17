@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography, Box, IconButton, Container } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
@@ -55,11 +55,14 @@ const Header = () => {
 								</Typography>
 							</IconButton>
 							<IconButton size="large" aria-label="Basket" color="grey.main">
-								<ShoppingCartOutlinedIcon sx={menuLinkItem} />
+								<Badge badgeContent={1} color="secondary">
+									<ShoppingCartOutlinedIcon sx={menuLinkItem} />
+								</Badge>
 							</IconButton>
-							<IconButton size="large" aria-label="Favorites" color="grey.main">
+							<Badge badgeContent={4} color="secondary">
 								<StarBorderOutlinedIcon sx={menuLinkItem} />
-							</IconButton>
+							</Badge>
+							<IconButton size="large" aria-label="Favorites" color="grey.main" />
 						</Box>
 					</Toolbar>
 				</Container>
