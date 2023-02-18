@@ -9,7 +9,7 @@ const ToCartButton = ({ id }) => {
 			color="secondary"
 			variant="contained"
 			sx={{
-				width: "max-content",
+				width: "70%",
 				height: "46px",
 			}}
 			onClick={() => {
