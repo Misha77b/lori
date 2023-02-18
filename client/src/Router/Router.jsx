@@ -8,6 +8,7 @@ import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ExchangeAndReturn from "../pages/ExchangeAndReturn";
 import ProductsCatalogue from "../pages/ProductsCatalogue";
 import Cart from "../pages/Cart/Cart";
+import Contacts from "../pages/Contacts";
 
 function RootRouters() {
 	return (
@@ -21,6 +22,7 @@ function RootRouters() {
 			<Route path="/guarantee" element={<Guarantee />} />
 			<Route path="/paymentAndDelivery" element={<PaymentAndDelivery />} />
 			<Route path="/exchangeAndReturn" element={<ExchangeAndReturn />} />
+			<Route path="/contacts" element={<Contacts />} />
 		</Routes>
 	);
 }
