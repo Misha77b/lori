@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { deleteCardIdFromStore, setLocalItem } from "../../helpers/utils";
 
-const FavoriteHeartIcon = ({ id }) => {
+const FavoriteHeartIcon = ({ id, product }) => {
 	const [liked, setLiked] = useState(false);
 	const likeUpdateHandler = () => {
 		setLiked((prev) => !prev);
@@ -18,11 +18,17 @@ const FavoriteHeartIcon = ({ id }) => {
 				addToFavoritesHandler();
 			}}
 			color={liked ? "error" : "main"}
-			sx={{
-				position: "absolute",
-				cursor: "pointer",
-				fontSize: "40px",
-			}}
+			sx={
+				product
+					? {
+							position: "absolute",
+							right: "0",
+							fontSize: "50px",
+							cursor: "pointer",
+							// eslint-disable-next-line no-mixed-spaces-and-tabs
+					  }
+					: { position: "absolute", cursor: "pointer", fontSize: "40px" }
+			}
 		/>
 	);
 };

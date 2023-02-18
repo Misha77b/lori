@@ -7,13 +7,13 @@ import "./PopularBrands.scss";
 
 const paragraph = {
 	margin: "0",
-	"font-size": "16px",
+	fontSize: "16px",
 	position: "relative",
 	"z-index": 1,
 };
 const heading = {
 	margin: "0",
-	"font-size": "30px",
+	fontSize: "30px",
 	position: "relative",
 	"z-index": 1,
 	color: "#fff",
@@ -23,7 +23,7 @@ const button = {
 	height: "38px",
 	"&:hover": {
 		color: "#FFFF",
-		"background-color": "#007042",
+		backgroundColor: "#007042",
 	},
 };
 const PopularBrands = () => {

@@ -5,7 +5,7 @@ export const darkBackButton = {
 	color: "#FFF",
 	"&:hover": {
 		color: "#007042",
-		"background-color": "#FFF",
+		backgroundColor: "#FFF",
 	},
 	"@media (max-width: 700px)": {
 		width: "140px",
