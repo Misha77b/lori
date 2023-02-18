@@ -13,7 +13,6 @@ const FavoriteHeartIcon = ({ id }) => {
 	};
 	return (
 		<FavoriteIcon
-			fontSize="large"
 			onClick={() => {
 				likeUpdateHandler();
 				addToFavoritesHandler();
@@ -21,9 +20,8 @@ const FavoriteHeartIcon = ({ id }) => {
 			color={liked ? "error" : "main"}
 			sx={{
 				position: "absolute",
-				bottom: "1%",
-				right: "0",
 				cursor: "pointer",
+				fontSize: "40px",
 			}}
 		/>
 	);

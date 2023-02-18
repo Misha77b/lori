@@ -28,8 +28,8 @@ const OrderItem = () => {
 				<Grid item xs={6}>
 					<Box>
 						<Typography fontWeight="fontWeightBold" sx={{ fontSize: "14px" }}>
-							Apple iPhone 13 128GB Midnight (mlpf3hu/a)
-							{/* Apple iPhone 13 */}
+							{/* Apple iPhone 13 128GB Midnight (mlpf3hu/a) */}
+							Apple iPhone 13
 						</Typography>
 
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px", color: "#677283" }}>

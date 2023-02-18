@@ -37,7 +37,7 @@ const PopularProducts = () => {
 };
 export const CardsContainer = styled.div`
 	display: grid;
-	gap: 30px;
+	gap: 60px;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 `;
 export default PopularProducts;
