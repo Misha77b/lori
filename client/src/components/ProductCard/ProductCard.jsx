@@ -5,11 +5,13 @@ import ProductDescription from "./components/ProductDescription";
 import ProductPrice from "../ProductPrice";
 import ToCartButton from "../ToCartButton";
 import FavoriteHeartIcon from "../FavoriteHeartIcon";
+import ProductFlag from "./components/ProductFlag";
 
 const ProductCard = ({ card, withCart = true, priceColor }) => {
 	const { name, currentPrice, previousPrice, newItem, itemNo, sale, brand, imageUrls } = card;
 	return (
 		<ProductCardWrapper id={itemNo}>
+			<ProductFlag sale={sale} newItem={newItem} />
 			<ProductImageBox
 				image={imageUrls[0]}
 				brand={brand}

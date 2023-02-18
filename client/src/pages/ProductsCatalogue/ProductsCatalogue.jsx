@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button, Container, Box } from "@mui/material";
-import CategoryTitle from "../../components/CategoryTitle";
+import { Container } from "@mui/material";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { selectProductsData } from "../../store/selectors";
-import { CardsContainer } from "../../components/PopularProducts/PopularProducts";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -20,13 +17,17 @@ const ProductsCatalogue = () => {
 	);
 	return (
 		<Container>
-			<CardsContainer>
+			<CatalogueWrapper>
 				{products?.map((card, index) => (
 					<ProductCard priceColor="#57646E" key={index} card={card} />
 				))}
-			</CardsContainer>
+			</CatalogueWrapper>
 		</Container>
 	);
 };
-
+const CatalogueWrapper = styled.div`
+	display: grid;
+	gap: 60px;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+`;
 export default ProductsCatalogue;
