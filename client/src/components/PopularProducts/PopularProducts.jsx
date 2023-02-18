@@ -1,22 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Container, Box } from "@mui/material";
 import CategoryTitle from "../CategoryTitle";
 import ProductCard from "../ProductCard";
-import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectProductsData } from "../../store/selectors";
 
-const PopularProducts = () => {
-	const dispatch = useDispatch();
-	const products = useSelector(selectProductsData);
-	useEffect(
-		() => () => {
-			dispatch(fetchProducts());
-		},
-		[],
-	);
+const PopularProducts = ({ products }) => {
 	return (
 		<Container>
 			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -36,8 +25,10 @@ const PopularProducts = () => {
 	);
 };
 export const CardsContainer = styled.div`
-	display: grid;
-	gap: 60px;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	display: flex;
+	gap: 50px;
+	max-height: 700px;
+	padding: 35px;
+	overflow: scroll;
 `;
 export default PopularProducts;

@@ -1,6 +1,5 @@
-import { Box, Typography, Stack, Button, Container } from "@mui/material";
+import { Box, Typography, Stack, Container } from "@mui/material";
 import Rating from "@mui/material/Rating";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import React, { useEffect, useState, useRef } from "react";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
@@ -8,9 +7,10 @@ import Amount from "./Amount";
 import Selection from "./Select";
 import "./Product.scss";
 import ToCartButton from "../ToCartButton";
+import FavoriteHeartIcon from "../FavoriteHeartIcon";
 
 function Product({ props }) {
-	const { currentPrice, imageUrls, name, rating } = props;
+	const { currentPrice, imageUrls, name, rating, itemNo: id } = props;
 	const [mainPhoto, setMainPhoto] = useState();
 	const myRef = useRef();
 	let color = "";
@@ -22,8 +22,8 @@ function Product({ props }) {
 		setMainPhoto(imageUrls[0]);
 	}, [imageUrls]);
 	const images = imageUrls?.map((item, index) => (
-		<div className="block__imgs--img">
-			<img src={item} key={index} ref={myRef} onClick={handlerMoving} />
+		<div key={index} className="block__imgs--img">
+			<img src={item} ref={myRef} onClick={handlerMoving} />
 		</div>
 	));
 	const setCurrentColor = (CurrentColor) => {
@@ -40,6 +40,7 @@ function Product({ props }) {
 						</div>
 					</div>
 					<div className="block__description">
+						<FavoriteHeartIcon id={id} product={true} />
 						<Stack spacing={4}>
 							<ProductPrice currentPrice={currentPrice} />
 							<Typography
@@ -58,21 +59,9 @@ function Product({ props }) {
 								<Typography component="legend">Рейтинг</Typography>
 								<Rating name="read-only" value={rating} readOnly />
 							</Box>
-
 							<Amount />
 							<Selection allColors={props.allColors} setCurrentColor={setCurrentColor} />
-
-							<Button
-								color="secondary"
-								variant="contained"
-								sx={{
-									width: "245px",
-									height: "46px",
-								}}
-							>
-								У кошик
-								<ShoppingCartCheckoutIcon sx={{ marginLeft: "10px" }} />
-							</Button>
+							<ToCartButton id={id} />
 						</Stack>
 					</div>
 				</div>
