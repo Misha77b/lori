@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
-import { Container, Grid, Box, Typography, TextField, InputLabel } from "@mui/material";
+import { Container, Grid, Box, Typography, TextField, InputLabel, Button } from "@mui/material";
 
 import * as yup from "yup";
 
@@ -12,6 +12,8 @@ import FillTheFromText from "./FillTheFromText/FillTheFromText";
 import OrderItem from "./OrderItem/OrderItem";
 
 import "./PlacingAnOrder.scss";
+import OrderPrice from "./OrderPrice/OrderPrice";
+import PaymentAndShipping from "./PaymentAndShipping/PaymentAndShipping";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -39,9 +41,7 @@ const PlacingAnOrder = () => {
 					<Grid item xs={12} sm={12} md={6}>
 						<FillTheFromText />
 
-						<Typography className="36px" variant="h6">
-							Контактні дані
-						</Typography>
+						<Typography variant="h6">Контактні дані</Typography>
 
 						<Box className="inputs-wrapper">
 							<Box>
@@ -50,6 +50,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
+									color="black"
 									id="recipientsName"
 									name="recipientsName"
 									placeholder="Ім’я одержувача"
@@ -65,6 +66,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
+									color="black"
 									id="phoneNumber"
 									name="phoneNumber"
 									placeholder="+380"
@@ -80,6 +82,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
+									color="black"
 									id="email"
 									name="email"
 									placeholder="E-mail"
@@ -92,7 +95,10 @@ const PlacingAnOrder = () => {
 							</Box>
 						</Box>
 
-						<Typography variant="h6">Доставка та оплата</Typography>
+						<Typography sx={{ margin: "40px 0 20px" }} variant="h6">
+							Доставка та оплата
+						</Typography>
+						<PaymentAndShipping />
 					</Grid>
 
 					<Grid item xs={12} sm={12} md={6}>
@@ -111,7 +117,25 @@ const PlacingAnOrder = () => {
 							<OrderItem />
 
 							<OrderItem />
+
+							<OrderPrice />
 						</div>
+
+						<Button
+							sx={{
+								marginTop: "20px",
+								width: "320px",
+								height: "56px",
+								background: "#007042",
+								color: "#FFF",
+								"&:hover": {
+									backgroundColor: "#007042",
+								},
+							}}
+							color="primary"
+						>
+							ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
+						</Button>
 					</Grid>
 				</Grid>
 			</form>
