@@ -13,15 +13,12 @@ const Home = () => {
 	});
 	const dispatch = useDispatch();
 	const products = useSelector(selectProductsData);
-	useEffect(
-		() => () => {
-			if (stateLoad === false && sended === false) {
-				setSended(() => true);
-				dispatch(fetchProducts());
-			}
-		},
-		[dispatch],
-	);
+	useEffect(() => {
+		if (stateLoad === false && sended === false) {
+			setSended(() => true);
+			dispatch(fetchProducts());
+		}
+	}, [dispatch]);
 
 	let brandsProducts = <p>Завантження....</p>;
 	if (stateLoad === false && sended === true) {

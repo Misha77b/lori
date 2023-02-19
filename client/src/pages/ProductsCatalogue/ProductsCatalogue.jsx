@@ -9,6 +9,9 @@ import { selectProductsData } from "../../store/selectors";
 
 const ProductsCatalogue = (props) => {
 	const [sended, setSended] = useState(false);
+	const stateLoad = useSelector((state) => {
+		return state.products.loader;
+	});
 	const dispatch = useDispatch();
 	const products = useSelector(selectProductsData);
 	const location = useLocation();
@@ -18,26 +21,28 @@ const ProductsCatalogue = (props) => {
 	if (brand) {
 		params.append("brand", brand);
 	}
-	useEffect(
-		() => () => {
-			if (!sended) {
-				setSended(true);
-				dispatch(fetchProducts(params.toString()));
-			}
-		},
-		[dispatch],
-	);
-	return (
-		<Container>
-			<CatalogueWrapper>
-				{products &&
-					products.map &&
-					products.map((card, index) => (
-						<ProductCard priceColor="#57646E" key={index} card={card} />
-					))}
-			</CatalogueWrapper>
-		</Container>
-	);
+	useEffect(() => {
+		if (stateLoad === false && sended === false) {
+			setSended(true);
+			dispatch(fetchProducts(params.toString()));
+		}
+	}, [dispatch]);
+
+	let result = <p>Завантження....</p>;
+	if (stateLoad === false && sended === true) {
+		result = (
+			<Container>
+				<CatalogueWrapper>
+					{products &&
+						products.map &&
+						products.map((card, index) => (
+							<ProductCard priceColor="#57646E" key={index} card={card} />
+						))}
+				</CatalogueWrapper>
+			</Container>
+		);
+	}
+	return <>{result}</>;
 };
 const CatalogueWrapper = styled.div`
 	display: grid;
