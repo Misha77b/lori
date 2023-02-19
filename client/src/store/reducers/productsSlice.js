@@ -7,11 +7,15 @@ const initialState = {
 	data: [],
 	shoppingCart: [],
 	favorite: [],
-	loader: true,
+	loader: false,
 };
 
-export const fetchProducts = createAsyncThunk("products/fetchData", async () => {
-	const response = sendRequest(`${DOMAIN}/products`);
+export const fetchProducts = createAsyncThunk("products/fetchData", async (filters) => {
+	let url = `${DOMAIN}/products`;
+	if (filters) {
+		url = `${url}/filter?${filters}`;
+	}
+	const response = sendRequest(url);
 	return response;
 });
 
@@ -40,7 +44,11 @@ export const productsSlice = createSlice({
 			state.loader = true;
 		});
 		builder.addCase(fetchProducts.fulfilled, (state, action) => {
-			state.data = action.payload;
+			if (action.payload.products) {
+				state.data = action.payload.products;
+			} else {
+				state.data = action.payload;
+			}
 			state.loader = false;
 		});
 	},
