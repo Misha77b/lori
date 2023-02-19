@@ -19,6 +19,7 @@ function RootRouters() {
 			<Route path="/products" element={<ProductsCatalogue />} />
 			<Route path="/palce-an-order" element={<PlacingAnOrder />} />
 
+			<Route path="/products/filter" element={<ProductsCatalogue />} />
 			<Route path="/about" element={<About />} />
 			<Route path="/cart" element={<Cart />} />
 			<Route path="/guarantee" element={<Guarantee />} />

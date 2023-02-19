@@ -16,10 +16,11 @@
 		bottom: 5%;
 		width: 50%;
 	}
-	&--samsung,
-	&--mi,
-	&--apple,
-	&--huawei {
+	&--Samsung,
+	&--Xiaomi,
+	&--Apple,
+	&--Huawei {
+		cursor: pointer;
 		@include background-img;
 		&:hover::before {
 			@include hover-white;
@@ -32,20 +33,23 @@
 			}
 		}
 	}
-	&--samsung {
+	&--Samsung {
 		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229446/Lori_project/s_ux5ipg.png")
 			center;
 	}
-	&--mi {
+	&--Xiaomi {
 		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229440/Lori_project/mi_redmi_cytssb.jpg")
 			center;
 	}
-	&--apple {
+	&--Apple {
 		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229401/Lori_project/a_dvoykt.png")
 			center;
 	}
-	&--huawei {
+	&--Huawei {
 		background: url("https://res.cloudinary.com/dsx708og4/image/upload/v1676229433/Lori_project/h_jirrej.png")
 			center;
 	}
+}
+.link {
+	text-decoration: none;
 }
