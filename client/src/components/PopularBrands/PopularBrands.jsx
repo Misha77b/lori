@@ -45,7 +45,7 @@ const PopularBrands = ({ products }) => {
 		params.append("brand", name);
 		brandsBlock.push(
 			<>
-				<Grid item xs={12} sm={12} md={6}>
+				<Grid item xs={12} sm={12} md={6} key={name}>
 					<div className={`popular popular--${name}`}>
 						<div className="popular--overlay">
 							<div className="popular--text">
