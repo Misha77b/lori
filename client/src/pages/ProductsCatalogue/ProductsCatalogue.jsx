@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Container, Pagination } from "@mui/material";
+import { Container } from "@mui/material";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { selectProductsData } from "../../store/selectors";
@@ -39,18 +39,21 @@ const ProductsCatalogue = (props) => {
 	return (
 		<Container>
 			{stateLoad && <p>Завантження....</p>}
-			{sended &&
-			<CatalogueWrapper>
-				{products2?.map((card, index) => (
-					<ProductCard priceColor="#57646E" key={index} card={card} />
-				))}
-			</CatalogueWrapper>
-			<AppPagination
-				products={products}
-				setProducts={(p) => {
-					setProducts2(p);
-				}}
-			/>}
+			{sended && (
+				<>
+					<CatalogueWrapper>
+						{products2?.map((card, index) => (
+							<ProductCard priceColor="#57646E" key={index} card={card} />
+						))}
+					</CatalogueWrapper>
+					<AppPagination
+						products={products}
+						setProducts={(p) => {
+							setProducts2(p);
+						}}
+					/>
+				</>
+			)}
 		</Container>
 	);
 };
