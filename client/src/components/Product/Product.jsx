@@ -2,20 +2,23 @@ import { Box, Typography, Stack, Button, Container } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
 import Amount from "./Amount";
 import Selection from "./Select";
 import "./Product.scss";
+import { DOMAIN } from "../../config/API";
 import ToCartButton from "../ToCartButton";
 
 function Product({ props }) {
-	const { currentPrice, imageUrls, name, rating } = props;
+	const { currentPrice, imageUrls, name, rating, color } = props;
 	const [mainPhoto, setMainPhoto] = useState();
-	const myRef = useRef();
-	let color = "";
+	const history = useNavigate();
+	/* 	const myRef = useRef(); */
+	let difColor = "";
 	const handlerMoving = (ev) => {
-		// setMainPhoto(myRef.current.src);
+		// setMainPhoto(myRef.current.src); ref={myRef}
 		setMainPhoto(ev.target.src);
 	};
 	useEffect(() => {
@@ -23,11 +26,26 @@ function Product({ props }) {
 	}, [imageUrls]);
 	const images = imageUrls?.map((item, index) => (
 		<div key={index} className="block__imgs--img">
-			<img src={item} ref={myRef} onClick={handlerMoving} />
+			<img src={item} onClick={handlerMoving} />
 		</div>
 	));
+
+	async function fetchChoiceColor(params) {
+		const response = await fetch(`${DOMAIN}/products/filter?${params.toString()}`);
+		const data = await response.json();
+		if (data.products.length) {
+			const { itemNo } = data.products[0];
+			history(`/products/${itemNo}`);
+		}
+	}
+
 	const setCurrentColor = (CurrentColor) => {
-		color = CurrentColor;
+		difColor = CurrentColor;
+
+		const params = new URLSearchParams();
+		params.append("name", name);
+		params.append("color", difColor);
+		fetchChoiceColor(params);
 	};
 	return (
 		<Container>
@@ -49,6 +67,7 @@ function Product({ props }) {
 								gutterBottom
 							>
 								{name}
+								<span>{color}</span>
 							</Typography>
 							<Box
 								sx={{

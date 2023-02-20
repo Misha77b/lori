@@ -20,7 +20,6 @@
 	&--Xiaomi,
 	&--Apple,
 	&--Huawei {
-		cursor: pointer;
 		@include background-img;
 		&:hover::before {
 			@include hover-white;

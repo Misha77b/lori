@@ -21,6 +21,7 @@ const heading = {
 	color: "#fff",
 };
 const button = {
+	cursor: "pointer",
 	width: "134px",
 	height: "38px",
 	"&:hover": {
@@ -37,9 +38,7 @@ const PopularBrands = ({ products }) => {
 		}
 		brands.get(brand).push(name);
 	});
-
 	const brandsBlock = [];
-
 	brands.forEach((phones, name) => {
 		const params = new URLSearchParams();
 		params.append("brand", name);
