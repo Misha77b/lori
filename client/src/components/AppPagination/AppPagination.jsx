@@ -18,8 +18,8 @@ const AppPagination = ({ products, setProducts }) => {
 		const response = getData({ from: pagination.from, to: pagination.to });
 		setPagination((prevState) => ({ ...prevState, count: response.count }));
 		setProducts(response.data);
-	}, [getData, pagination.from, pagination.to, products, setProducts]);
-
+	}, [pagination.from, pagination.to, products]);
+	// [getData, pagination.from, pagination.to, products, setProducts]
 	const handlePageChange = (event, page) => {
 		const from = (page - 1) * pageSize;
 		const to = (page - 1) * pageSize + pageSize;
