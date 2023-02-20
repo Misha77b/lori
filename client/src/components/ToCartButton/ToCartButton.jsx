@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { setLocalItem } from "../../helpers/utils";
 
-const ToCartButton = ({ id }) => {
+const ToCartButton = ({ id, setNotification }) => {
 	return (
 		<Button
 			color="secondary"
@@ -14,6 +14,10 @@ const ToCartButton = ({ id }) => {
 			}}
 			onClick={() => {
 				setLocalItem("cart", id);
+				setNotification(true);
+				setTimeout(() => {
+					setNotification(false);
+				}, 3000);
 			}}
 		>
 			У кошик

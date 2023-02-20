@@ -5,6 +5,7 @@ import { selectProductsData } from "../../store/selectors";
 import Slider from "../../components/Slider/Slider";
 import PopularProducts from "../../components/PopularProducts";
 import PopularBrands from "../../components/PopularBrands";
+import ToastNotification from "../../components/ToastNotification";
 
 const Home = () => {
 	const [sended, setSended] = useState(false);
