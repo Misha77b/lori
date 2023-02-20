@@ -31,34 +31,38 @@ const ProductsCatalogue = () => {
 			dispatch(fetchProducts(params.toString()));
 		}
 	}, [dispatch, params, sended, stateLoad]);
-	return (
-		<Container>
-			{stateLoad && <p>Завантження....</p>}
-			{sended && (
-				<>
-					{notification && (
-						<ToastNotification text="An item has been successfully added to the cart" />
-					)}
-					<CatalogueWrapper>
-						{products2?.map((card, index) => (
-							<ProductCard
-								priceColor="#57646E"
-								key={index}
-								card={card}
-								setNotification={setNotification}
-							/>
-						))}
-					</CatalogueWrapper>
-					<AppPagination
-						products={products}
-						setProducts={(p) => {
-							setProducts2(p);
-						}}
-					/>
-				</>
-			)}
-		</Container>
-	);
+	let result = <p> Завантаження....</p>;
+	if (stateLoad === false && sended === true) {
+		result = (
+			<Container>
+				{stateLoad && <p>Завантження....</p>}
+				{sended && (
+					<>
+						{notification && (
+							<ToastNotification text="An item has been successfully added to the cart" />
+						)}
+						<CatalogueWrapper>
+							{products2?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+							))}
+						</CatalogueWrapper>
+						<AppPagination
+							products={products}
+							setProducts={(p) => {
+								setProducts2(p);
+							}}
+						/>
+					</>
+				)}
+			</Container>
+		);
+	}
+	return <>{result}</>;
 };
 const CatalogueWrapper = styled.div`
 	display: grid;
