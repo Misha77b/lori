@@ -12,7 +12,6 @@ import ToastNotification from "../../components/ToastNotification";
 const ProductsCatalogue = () => {
 	const location = useLocation();
 	const dispatch = useDispatch();
-	const params = new URLSearchParams();
 	const [sended, setSended] = useState(false);
 	const [products2, setProducts2] = useState([]);
 	const [notification, setNotification] = useState(false);
@@ -20,6 +19,7 @@ const ProductsCatalogue = () => {
 		return state.products.loader;
 	});
 	const products = useSelector(selectProductsData);
+	const params = new URLSearchParams();
 	const searchParams = new URLSearchParams(location.search);
 	const brand = searchParams.get("brand");
 	if (brand) {
