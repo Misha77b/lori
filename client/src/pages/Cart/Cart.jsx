@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Grid, Container, Box, Typography, Button } from "@mui/material";
-import styles from "./cart.module.scss";
+import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
+import styles from "./cart.module.scss";
 
 const Cart = () => {
 	return (
