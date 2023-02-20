@@ -14,11 +14,9 @@ import ToCartButton from "../ToCartButton";
 function Product({ props }) {
 	const { currentPrice, imageUrls, name, rating, color } = props;
 	const [mainPhoto, setMainPhoto] = useState();
-	const history = useNavigate();
-	/* 	const myRef = useRef(); */
+	const navigate = useNavigate();
 	let difColor = "";
 	const handlerMoving = (ev) => {
-		// setMainPhoto(myRef.current.src); ref={myRef}
 		setMainPhoto(ev.target.src);
 	};
 	useEffect(() => {
@@ -35,7 +33,7 @@ function Product({ props }) {
 		const data = await response.json();
 		if (data.products.length) {
 			const { itemNo } = data.products[0];
-			history(`/products/${itemNo}`);
+			navigate(`/products/${itemNo}`);
 		}
 	}
 
