@@ -7,7 +7,7 @@ import ToCartButton from "../ToCartButton";
 import FavoriteHeartIcon from "../FavoriteHeartIcon";
 import ProductFlag from "./components/ProductFlag";
 
-const ProductCard = ({ card, withCart = true, priceColor }) => {
+const ProductCard = ({ card, withCart = true, priceColor, setNotification }) => {
 	const { name, currentPrice, previousPrice, newItem, itemNo, sale, brand, imageUrls, color } =
 		card;
 	return (
@@ -27,7 +27,7 @@ const ProductCard = ({ card, withCart = true, priceColor }) => {
 				currentPrice={currentPrice}
 				previousPrice={previousPrice}
 			/>
-			{withCart && <ToCartButton id={itemNo} />}
+			{withCart && <ToCartButton id={itemNo} setNotification={setNotification} />}
 			<FavoriteHeartIcon id={itemNo} />
 		</ProductCardWrapper>
 	);
