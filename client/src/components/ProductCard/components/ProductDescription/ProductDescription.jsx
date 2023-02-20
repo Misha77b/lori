@@ -10,8 +10,12 @@ const Description = styled.p`
 	color: #000000;
 `;
 
-const ProductDescription = ({ name }) => {
-	return <Description>{name}</Description>;
+const ProductDescription = ({ name, color }) => {
+	return (
+		<Description>
+			{name} {color}
+		</Description>
+	);
 };
 
 export default ProductDescription;
