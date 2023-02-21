@@ -67,14 +67,18 @@ const Header = () => {
 								</Typography>
 							</IconButton>
 							<IconButton size="large" aria-label="Basket" color="grey.main">
-								<Badge badgeContent={1} color="secondary">
-									<ShoppingCartOutlinedIcon sx={menuLinkItem} />
-								</Badge>
+								<CustomLink to="/cart">
+									<Badge badgeContent={1} color="secondary">
+										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
+									</Badge>
+								</CustomLink>
 							</IconButton>
 							<IconButton size="large" aria-label="Favorites" color="grey.main">
-								<Badge badgeContent={4} color="secondary">
-									<StarBorderOutlinedIcon sx={menuLinkItem} />
-								</Badge>
+								<CustomLink to="/">
+									<Badge badgeContent={4} color="secondary">
+										<StarBorderOutlinedIcon sx={menuLinkItem} />
+									</Badge>
+								</CustomLink>
 							</IconButton>
 						</Box>
 					</Toolbar>
