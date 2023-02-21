@@ -3,6 +3,7 @@ import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const CustomizedMenu = styled(Menu)`
 	& .MuiMenu-paper {
@@ -39,7 +40,11 @@ const BurgerMenu = () => {
 				aria-expanded={openBurgerMenu ? "true" : undefined}
 				onClick={handleClickBurgerMenu}
 			>
-				<MenuIcon fontSize="large" color="grey" />
+				{!burgerMenu ? (
+					<MenuIcon fontSize="large" color="grey" />
+				) : (
+					<CloseIcon fontSize="large" color="grey" />
+				)}
 			</IconButton>
 			<CustomizedMenu
 				sx={{ display: { xs: "block", sm: "none" } }}
