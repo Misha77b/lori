@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Container, Paper, Box, Typography, Button, Stack } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { red } from "@mui/material/colors";
 import Grid from "@mui/material/Unstable_Grid2";
 import CategoryTitle from "../CategoryTitle";
 import "./PopularBrands.scss";

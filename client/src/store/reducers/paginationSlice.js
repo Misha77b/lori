@@ -8,7 +8,6 @@ const initialState = {
 };
 
 export const fetchPaginatedData = createAsyncThunk("paginatedData/fetchPagination", async () => {
-	const response = sendRequest(`${DOMAIN}/products/filter`).then((data) => data);
 	// const response = sendRequest(`${DOMAIN}/products/filter?perPage=5&startPage=1`);
 	return response;
 });
