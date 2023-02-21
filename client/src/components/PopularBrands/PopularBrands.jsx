@@ -6,29 +6,7 @@ import { red } from "@mui/material/colors";
 import Grid from "@mui/material/Unstable_Grid2";
 import CategoryTitle from "../CategoryTitle";
 import "./PopularBrands.scss";
-
-const paragraph = {
-	margin: "0",
-	fontSize: "16px",
-	position: "relative",
-	"z-index": 1,
-};
-const heading = {
-	margin: "0",
-	fontSize: "30px",
-	position: "relative",
-	"z-index": 1,
-	color: "#fff",
-};
-const button = {
-	cursor: "pointer",
-	width: "134px",
-	height: "38px",
-	"&:hover": {
-		color: "#FFFF",
-		backgroundColor: "#007042",
-	},
-};
+import useSearchParams from "../../pages/ProductsCatalogue/hooks";
 
 const PopularBrands = ({ products }) => {
 	const brands = new Map();
@@ -40,8 +18,8 @@ const PopularBrands = ({ products }) => {
 	});
 	const brandsBlock = [];
 	brands.forEach((phones, name) => {
-		const params = new URLSearchParams();
-		params.append("brand", name);
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const params = useSearchParams({ brand: name });
 		brandsBlock.push(
 			<>
 				<Grid item xs={12} sm={12} md={6} key={name}>
@@ -53,7 +31,13 @@ const PopularBrands = ({ products }) => {
 										<Typography
 											variant="h4"
 											fontWeight="fontWeightBold"
-											sx={heading}
+											sx={{
+												margin: "0",
+												fontSize: "30px",
+												position: "relative",
+												"z-index": 1,
+												color: "#fff",
+											}}
 											className="typography"
 											gutterBottom
 										>
@@ -62,7 +46,12 @@ const PopularBrands = ({ products }) => {
 										<Typography
 											variant="h5"
 											fontWeight="fontWeightMedium"
-											sx={paragraph}
+											sx={{
+												margin: "0",
+												fontSize: "16px",
+												position: "relative",
+												"z-index": 1,
+											}}
 											className="typography--p"
 										>
 											{phones.slice(0, 2).join(", ")}
@@ -70,7 +59,19 @@ const PopularBrands = ({ products }) => {
 									</Stack>
 
 									<Link to={`/products/filter?${params.toString()}`} className="link">
-										<Button color="primary" variant="contained" sx={button}>
+										<Button
+											color="primary"
+											variant="contained"
+											sx={{
+												cursor: "pointer",
+												width: "134px",
+												height: "38px",
+												"&:hover": {
+													color: "#FFFF",
+													backgroundColor: "#007042",
+												},
+											}}
+										>
 											Детальніше
 										</Button>
 									</Link>
@@ -98,5 +99,4 @@ const PopularBrands = ({ products }) => {
 		</Container>
 	);
 };
-
 export default PopularBrands;
