@@ -18,7 +18,7 @@ const HeaderMenu = () => {
 	}));
 
 	return (
-		<div>
+		<div style={{ textAlign: "center" }}>
 			<Button sx={{ padding: { sm: "20px 25px", md: "20px 35px" } }} id="button-home">
 				<CustomLink to="/">Головна</CustomLink>
 			</Button>
