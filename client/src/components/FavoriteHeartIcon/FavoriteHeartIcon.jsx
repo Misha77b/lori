@@ -17,7 +17,7 @@ const FavoriteHeartIcon = ({ id, product }) => {
 				likeUpdateHandler();
 				addToFavoritesHandler();
 			}}
-			color={liked ? "error" : "main"}
+			color={liked ? "error" : "lime"}
 			sx={
 				product
 					? {

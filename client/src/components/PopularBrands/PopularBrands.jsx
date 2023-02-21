@@ -100,16 +100,3 @@ const PopularBrands = ({ products }) => {
 };
 
 export default PopularBrands;
-
-// {/*<Typography*/}
-// {/*	variant="h4"*/}
-// {/*	fontWeight="fontWeightBold"*/}
-// {/*	fontFamily="Montserrat, sans-serif"*/}
-// {/*	sx={{*/}
-// {/*		"font-size": "30px",*/}
-// {/*		color: "#2E3438",*/}
-// {/*		margin: "77px 0 32px 0",*/}
-// {/*	}}*/}
-// {/*>*/}
-// {/*	Популярні бренди*/}
-// {/*</Typography>*/}
