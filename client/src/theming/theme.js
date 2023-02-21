@@ -33,6 +33,7 @@ const theme = createTheme({
 		warning: {
 			main: colors.orange[400],
 		},
+		lime: { main: colors.lime[800] },
 	},
 	error: { main: colors.red[700] },
 	typography: {

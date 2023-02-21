@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-// import {styled} from "@mui/material/styles;
+import "../../boilerplates/styles/_mixins.scss";
 
 const ProductPrice = ({ currentPrice, previousPrice = "", priceColor, id }) => {
 	return (
@@ -22,7 +22,7 @@ const PriceWrapper = styled.div`
 `;
 const CurrentPrice = styled.span`
 	font-family: Montserrat, sans-serif;
-	font-size: clamp(25px, 30px, 35px);
+	font-size: clamp(20px, 27px, 32px);
 	font-weight: 900;
 	line-height: 29px;
 	color: ${(props) => {

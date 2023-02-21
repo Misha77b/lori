@@ -5,6 +5,7 @@ import sendRequest from "../../helpers/sendRequest";
 
 const initialState = {
 	data: [],
+	dataQuantity: 0,
 	shoppingCart: [],
 	favorite: [],
 	loader: false,
@@ -46,6 +47,7 @@ export const productsSlice = createSlice({
 		builder.addCase(fetchProducts.fulfilled, (state, action) => {
 			if (action.payload.products) {
 				state.data = action.payload.products;
+				state.dataQuantity = action.payload.productsQuantity;
 			} else {
 				state.data = action.payload;
 			}
