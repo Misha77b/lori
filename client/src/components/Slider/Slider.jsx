@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import SwiperCore, { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -29,13 +29,19 @@ const Slider = () => {
 		[],
 	);
 
+	SwiperCore.use([Autoplay]);
+
 	return (
 		<Container>
 			<Swiper
-				navigation={true}
 				slidesPerView={1}
 				loop={true}
-				speed={600}
+				autoplay={{
+					delay: 5000,
+					disableOnInteraction: false,
+				}}
+				navigation={true}
+				speed={800}
 				spaceBetween={30}
 				pagination={{
 					clickable: true,
