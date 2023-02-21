@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Container, Grid, Box, Typography, TextField, InputLabel, Button } from "@mui/material";
 
@@ -15,11 +16,41 @@ import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice/OrderPrice";
 import PaymentAndShipping from "./PaymentAndShipping/PaymentAndShipping";
 
+import { fetchProducts } from "../../store/reducers/productsSlice";
+import { selectProductsData } from "../../store/selectors/products.selectors";
+
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
 });
 
 const PlacingAnOrder = () => {
+	const dispatch = useDispatch();
+	const products = useSelector(selectProductsData);
+	console.log(products);
+
+	const [sended, setSended] = useState(false);
+	const [cart, setCart] = useState(null);
+	const stateLoad = useSelector((state) => {
+		return state.products.loader;
+	});
+
+	const getCartFromLS = () => {
+		const LSCart = JSON.parse(localStorage.getItem("cart"));
+		const productId = products.map((product) => (LSCart.includes(product.itemNo) ? product : null));
+		const cartProducts = productId.filter((item) => item);
+		setCart(cartProducts);
+	};
+
+	console.log(cart);
+
+	useEffect(() => {
+		if (stateLoad === false && sended === false) {
+			setSended(() => true);
+			dispatch(fetchProducts());
+			getCartFromLS();
+		}
+	}, [dispatch]);
+
 	const formik = useFormik({
 		initialValues: {
 			recipientsName: "",

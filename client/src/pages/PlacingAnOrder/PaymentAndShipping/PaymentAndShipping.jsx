@@ -15,7 +15,7 @@ const PaymentAndShipping = () => {
 
 	return (
 		<Grid container>
-			<Grid item xs={5}>
+			<Grid item xs={6} md={5}>
 				<Typography>Спосіб доставки</Typography>
 				<RadioGroup
 					aria-labelledby="demo-controlled-radio-buttons-group"
@@ -36,7 +36,7 @@ const PaymentAndShipping = () => {
 				</RadioGroup>
 			</Grid>
 
-			<Grid item xs={7}>
+			<Grid item xs={6} md={7}>
 				<Typography>Спосіб розрахунку</Typography>
 				<RadioGroup
 					aria-labelledby="demo-controlled-radio-buttons-group"
