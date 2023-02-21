@@ -9,19 +9,24 @@ import "./OneProduct.scss";
 function OneProduct() {
 	const { id } = useParams();
 	const [sended, setSended] = useState(false);
-
 	const data = useSelector(selectorPageObj);
 	const stateLoad = useSelector((state) => {
 		return state.oneProduct.loading;
 	});
+	// console.log({ id, sended, stateLoad });
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		if (stateLoad === false && sended === false) {
+		setSended(false);
+		dispatch(actionFetchProduct(id));
+	}, [id]);
+
+	useEffect(() => {
+		if (stateLoad && !sended) {
 			setSended(() => true);
-			dispatch(actionFetchProduct(id));
 		}
-	}, []);
+	}, [stateLoad, sended]);
+
 	// eslint-disable-next-line
 	let blockProduct = <p>Завантження....</p>;
 	if (stateLoad === false && sended === true) {
