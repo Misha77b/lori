@@ -8,7 +8,8 @@ const MenuBayer = () => {
 		color: "inherit",
 		textDecoration: "none",
 		"&: hover": {
-			textDecoration: "underline",
+			color: "#007042",
+			fontWeight: 700,
 		},
 	}));
 

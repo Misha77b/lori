@@ -34,7 +34,7 @@ const Header = () => {
 								src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
 								alt="logo"
 								sx={{
-									width: { xs: "80px", sm: "150px" },
+									width: { xs: "100px", sm: "100px", md: "150px" },
 									m: "5px 0",
 								}}
 							/>
@@ -62,18 +62,18 @@ const Header = () => {
 						<Box>
 							<IconButton color="grey.main">
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
-								<Typography color="grey.main" sx={{ display: { xs: "none", md: "block" } }}>
+								<Typography color="grey.main" sx={{ display: { xs: "none", md: "block" }, p: "0" }}>
 									Увійти
 								</Typography>
 							</IconButton>
-							<IconButton size="large" aria-label="Basket" color="grey.main">
+							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "0" }}>
 								<CustomLink to="/cart">
 									<Badge badgeContent={1} color="secondary">
 										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
 							</IconButton>
-							<IconButton size="large" aria-label="Favorites" color="grey.main">
+							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
 								<CustomLink to="/">
 									<Badge badgeContent={4} color="secondary">
 										<StarBorderOutlinedIcon sx={menuLinkItem} />
