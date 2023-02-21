@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Container } from "@mui/material";
@@ -8,61 +7,51 @@ import { fetchProducts } from "../../store/reducers/productsSlice";
 import { selectProductsData } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
+import { selectProductsQuantity } from "../../store/selectors/products.selectors";
+import useSearchParams from "./hooks";
 
 const ProductsCatalogue = () => {
-	const location = useLocation();
 	const dispatch = useDispatch();
-	const [sended, setSended] = useState(false);
-	const [products2, setProducts2] = useState([]);
 	const [notification, setNotification] = useState(false);
-	const stateLoad = useSelector((state) => {
-		return state.products.loader;
-	});
-	const products = useSelector(selectProductsData);
-	const params = new URLSearchParams();
-	const searchParams = new URLSearchParams(location.search);
-	const brand = searchParams.get("brand");
-	if (brand) {
-		params.append("brand", brand);
-	}
+	const [startPage, setStartPage] = useState(1);
+	const perPage = 5;
+	const productsLoading = useSelector((state) => state.products.loader);
+	const initialProducts = useSelector(selectProductsData);
+	const productsQuantity = useSelector(selectProductsQuantity);
+
+	// const productsQuantity = useSelector(productsQuantitySelector); this is a correct one;
+	const [products, setProducts] = useState([...initialProducts]);
+	const params = useSearchParams({ startPage, perPage });
 	useEffect(() => {
-		if (stateLoad === false && sended === false) {
-			setSended(true);
-			dispatch(fetchProducts(params.toString()));
-		}
-	}, [dispatch, params, sended, stateLoad]);
-	let result = <p> Завантаження....</p>;
-	if (stateLoad === false && sended === true) {
-		result = (
-			<Container>
-				{stateLoad && <p>Завантження....</p>}
-				{sended && (
-					<>
-						{notification && (
-							<ToastNotification text="An item has been successfully added to the cart" />
-						)}
-						<CatalogueWrapper>
-							{products2?.map((card, index) => (
-								<ProductCard
-									priceColor="#57646E"
-									key={index}
-									card={card}
-									setNotification={setNotification}
-								/>
-							))}
-						</CatalogueWrapper>
-						<AppPagination
-							products={products}
-							setProducts={(p) => {
-								setProducts2(p);
-							}}
-						/>
-					</>
-				)}
-			</Container>
-		);
-	}
-	return <>{result}</>;
+		const data = dispatch(fetchProducts(params));
+		data.then((res) => {
+			setProducts(res.payload.products);
+		});
+	}, [startPage]);
+
+	if (productsLoading) return <p> Завантаження....</p>;
+
+	return (
+		<Container>
+			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
+			<CatalogueWrapper>
+				{products?.map((card, index) => (
+					<ProductCard
+						priceColor="#57646E"
+						key={index}
+						card={card}
+						setNotification={setNotification}
+					/>
+				))}
+			</CatalogueWrapper>
+			<AppPagination
+				products={products}
+				pages={Math.ceil(productsQuantity / perPage)}
+				page={startPage}
+				onPageChange={(e, page) => setStartPage((prev) => page)}
+			/>
+		</Container>
+	);
 };
 const CatalogueWrapper = styled.div`
 	display: grid;
