@@ -5,9 +5,9 @@ import Product from "../../components/Product";
 import { actionFetchProduct } from "../../store/reducers/oneProductSlice";
 import { selectorPageObj } from "../../store/selectors";
 import Spinner from "../../components/Spinner";
+import PopularProducts from "../../components/PopularProducts";
 import "./OneProduct.scss";
 import useFetchData from "../Home/hooks";
-import PopularProducts from "../../components/PopularProducts";
 
 function OneProduct() {
 	// request finish, we can render
@@ -20,7 +20,7 @@ function OneProduct() {
 	const stateLoad = useSelector((state) => {
 		return state.oneProduct.loading;
 	});
-
+	const products = useFetchData();
 	const dispatch = useDispatch();
 	useEffect(() => {
 		setCanRender(() => false);
@@ -35,7 +35,12 @@ function OneProduct() {
 	return (
 		<>
 			{!canRender && <Spinner />}
-			{canRender && <Product props={data} />}
+			{canRender && (
+				<div>
+					<Product props={data} />
+					<PopularProducts products={products} advertisement={true} />
+				</div>
+			)}
 		</>
 	);
 }
