@@ -2,6 +2,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Link } from "react-router-dom";
 import "../PopularBrands.scss";
+import useSearchParams from "../../../pages/ProductsCatalogue/hooks";
 
 const paragraph = {
 	margin: "0",
@@ -41,9 +42,8 @@ const GridItem = ({ products }) => {
 	}
 	createMapBrandPhones(products);
 	brands.forEach((phones, name) => {
-		const params = new URLSearchParams();
-		params.append("brand", name);
-
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const params = useSearchParams({ brand: name });
 		const phoneNames = phones.slice(0, 2).map((item) => <div>{item}</div>); // two brand`s phones
 		brandsBlock.push(
 			<>
