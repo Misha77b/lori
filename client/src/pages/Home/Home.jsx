@@ -5,33 +5,43 @@ import { selectProductsData } from "../../store/selectors";
 import Slider from "../../components/Slider/Slider";
 import PopularProducts from "../../components/PopularProducts";
 import PopularBrands from "../../components/PopularBrands";
+import Spinner from "../../components/Spinner";
 import ToastNotification from "../../components/ToastNotification";
 
 const Home = () => {
-	const [sended, setSended] = useState(false);
+	// request finish, we can render
+	// undefined - not send request
+	// false - sended
+	// true - request geting
+	const [canRender, setCanRender] = useState(undefined);
 	const stateLoad = useSelector((state) => {
 		return state.products.loader;
 	});
 	const dispatch = useDispatch();
 	const products = useSelector(selectProductsData);
 	useEffect(() => {
-		if (stateLoad === false && sended === false) {
-			setSended(() => true);
-			dispatch(fetchProducts());
-		}
-	}, [dispatch]);
+		setCanRender(() => false);
+		dispatch(fetchProducts());
+	}, []);
 
-	let brandsProducts = <p>Завантження....</p>;
-	if (stateLoad === false && sended === true) {
-		brandsProducts = (
-			<div>
-				<Slider />
-				<PopularProducts products={products} />
-				<PopularBrands products={products} />
-			</div>
-		);
-	}
-	return <>{brandsProducts}</>;
+	useEffect(() => {
+		if (!stateLoad && canRender === false) {
+			setCanRender(() => true);
+		}
+	}, [stateLoad]);
+
+	return (
+		<>
+			{!canRender && <Spinner />}
+			{canRender && (
+				<div>
+					<Slider />
+					<PopularProducts products={products} />
+					<PopularBrands products={products} />
+				</div>
+			)}
+		</>
+	);
 };
 
 export default Home;

@@ -44,10 +44,11 @@ const GridItem = ({ products }) => {
 		const params = new URLSearchParams();
 		params.append("brand", name);
 
-		const phoneNames = phones.slice(0, 2).map((item) => <div>{item}</div>); // two brand`s phones
+		const phoneNames = phones.slice(0, 2).map((item, index) => <div key={index}>{item}</div>);
+
 		brandsBlock.push(
 			<>
-				<Grid item xs={12} sm={12} md={6} key={name}>
+				<Grid item xs={12} sm={12} md={6} key={name + 1}>
 					<div className={`popular popular--${name}`}>
 						<div className="popular--overlay">
 							<div className="popular--text">
@@ -81,7 +82,6 @@ const GridItem = ({ products }) => {
 						</div>
 					</div>
 				</Grid>
-				<GridItem name={name} phoneNames={phoneNames} />
 			</>,
 		);
 	});
