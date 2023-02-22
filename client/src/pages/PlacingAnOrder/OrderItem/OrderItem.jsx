@@ -4,7 +4,8 @@ import { Paper, Grid, Box, Divider, Typography } from "@mui/material";
 
 import "./OrderItem.scss";
 
-const OrderItem = () => {
+const OrderItem = ({ item }) => {
+	console.log(item);
 	return (
 		<>
 			{/* <Paper
@@ -20,7 +21,8 @@ const OrderItem = () => {
 				<Grid item xs={3}>
 					<img
 						className="item-product--img"
-						src="https://res.cloudinary.com/dsx708og4/image/upload/v1676276397/Lori_project/photo1-Apple-iPhone-13-Midnight_usy6dr.jpg"
+						src={item.imageUrls[0]}
+						// src="https://res.cloudinary.com/dsx708og4/image/upload/v1676276397/Lori_project/photo1-Apple-iPhone-13-Midnight_usy6dr.jpg"
 						alt="product img"
 					/>
 				</Grid>
@@ -29,19 +31,19 @@ const OrderItem = () => {
 					<Box>
 						<Typography fontWeight="fontWeightBold" sx={{ fontSize: "14px" }}>
 							{/* Apple iPhone 13 128GB Midnight (mlpf3hu/a) */}
-							Apple iPhone 13
+							{item.model}
 						</Typography>
 
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px", color: "#677283" }}>
-							318463663
+							{item.article}
 						</Typography>
 
 						<Typography fontWeight="fontWeightRegular" sx={{ margin: "5px 0", fontSize: "12px" }}>
-							Колір: Midnight
+							Колір: {item.color}
 						</Typography>
 
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px" }}>
-							Пам&#8217;ть: 128 GB
+							Пам&#8217;ть: {item.iternalStorage}
 						</Typography>
 					</Box>
 				</Grid>
@@ -49,10 +51,10 @@ const OrderItem = () => {
 				<Grid item xs={3}>
 					<Box>
 						<Typography fontWeight="fontWeightBold" sx={{ fontSize: "16px" }} className="price">
-							56700 грн
+							{item.currentPrice} грн
 						</Typography>
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px", color: "#BFBFBF" }}>
-							2 х 56700
+							2 х {item.currentPrice}
 						</Typography>
 					</Box>
 				</Grid>

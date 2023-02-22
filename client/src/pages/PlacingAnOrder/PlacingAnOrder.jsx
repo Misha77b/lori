@@ -29,7 +29,7 @@ const PlacingAnOrder = () => {
 	console.log(products);
 
 	const [sended, setSended] = useState(false);
-	const [cart, setCart] = useState(null);
+	const [cart, setCart] = useState([]);
 	const stateLoad = useSelector((state) => {
 		return state.products.loader;
 	});
@@ -142,12 +142,15 @@ const PlacingAnOrder = () => {
 							>
 								Товари у кошику
 							</Typography>
+							{cart.map((item) => {
+								return <OrderItem item={item} />;
+							})}
+
+							{/* <OrderItem />
 
 							<OrderItem />
 
-							<OrderItem />
-
-							<OrderItem />
+							<OrderItem /> */}
 
 							<OrderPrice />
 						</div>
