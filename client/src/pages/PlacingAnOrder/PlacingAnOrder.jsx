@@ -55,7 +55,7 @@ const PlacingAnOrder = () => {
 			<form className="form-wrapper" onSubmit={formik.handleSubmit}>
 				<CategoryTitle text="Оформлення замовлення" />
 
-				<Grid container spacing={{ xs: 2, md: 20 }}>
+				<Grid container spacing={{ xs: 2, md: 5, lg: 20 }}>
 					<Grid item xs={12} sm={12} md={6}>
 						<FillTheFromText />
 
@@ -154,6 +154,9 @@ const PlacingAnOrder = () => {
 								color: "#FFF",
 								"&:hover": {
 									backgroundColor: "#007042",
+								},
+								"@media (max-width: 400px)": {
+									width: "280px",
 								},
 							}}
 							color="primary"
