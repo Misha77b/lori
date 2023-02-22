@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { Container, Grid, Box, Typography, TextField, InputLabel, Button } from "@mui/material";
 
 import * as yup from "yup";
-
+import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { inputLabel } from "./sxStyles/inputLabel";
@@ -129,9 +129,12 @@ const PlacingAnOrder = () => {
 							>
 								Товари у кошику
 							</Typography>
-							{cartItems?.map((item) => {
-								return <OrderItem key={item.itemNo} item={item} />;
-							})}
+
+							<Box component="div" className="scroll">
+								{cartItems?.map((item) => {
+									return <OrderItem key={item.itemNo} item={item} />;
+								})}
+							</Box>
 
 							{/* <OrderItem />
 

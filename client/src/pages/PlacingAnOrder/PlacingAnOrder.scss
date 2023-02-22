@@ -1,6 +1,13 @@
 // .category__title__wrapper {
 // 	margin: "0";
 // }
+.scroll {
+	max-height: 400px;
+	overflow: hidden visible;
+}
+.scroll::-webkit-scrollbar {
+	width: 0;
+}
 
 .css-ihdtdm {
 	display: none;
