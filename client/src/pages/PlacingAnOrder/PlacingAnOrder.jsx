@@ -18,6 +18,7 @@ import PaymentAndShipping from "./PaymentAndShipping/PaymentAndShipping";
 
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { selectProductsData } from "../../store/selectors/products.selectors";
+import { getItems } from "../../helpers/utils";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -25,31 +26,16 @@ const validationSchema = yup.object({
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
-	const products = useSelector(selectProductsData);
-	console.log(products);
-
-	const [sended, setSended] = useState(false);
-	const [cart, setCart] = useState([]);
-	const stateLoad = useSelector((state) => {
-		return state.products.loader;
-	});
-
-	const getCartFromLS = () => {
-		const LSCart = JSON.parse(localStorage.getItem("cart"));
-		const productId = products.map((product) => (LSCart.includes(product.itemNo) ? product : null));
-		const cartProducts = productId.filter((item) => item);
-		setCart(cartProducts);
-	};
-
-	console.log(cart);
-
+	const initialProducts = useSelector(selectProductsData);
+	const [products, setProducts] = useState([...initialProducts]);
 	useEffect(() => {
-		if (stateLoad === false && sended === false) {
-			setSended(() => true);
-			dispatch(fetchProducts());
-			getCartFromLS();
-		}
-	}, [dispatch]);
+		const data = dispatch(fetchProducts());
+		data.then((res) => {
+			setProducts(res.payload);
+		});
+	}, []);
+
+	const cartItems = getItems("cart", products);
 
 	const formik = useFormik({
 		initialValues: {
@@ -142,7 +128,7 @@ const PlacingAnOrder = () => {
 							>
 								Товари у кошику
 							</Typography>
-							{cart.map((item) => {
+							{cartItems?.map((item) => {
 								return <OrderItem item={item} />;
 							})}
 
