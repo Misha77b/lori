@@ -8,7 +8,6 @@ const useSearchParams = (additionalParams = {}) => {
 			params.set(key, additionalParams[key]);
 		});
 	}
-
 	return params.toString();
 };
 
