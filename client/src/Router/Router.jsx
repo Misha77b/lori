@@ -7,6 +7,7 @@ import Guarantee from "../pages/Guarantee";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ExchangeAndReturn from "../pages/ExchangeAndReturn";
 import ProductsCatalogue from "../pages/ProductsCatalogue";
+import PlacingAnOrder from "../pages/PlacingAnOrder/PlacingAnOrder";
 import Cart from "../pages/Cart/Cart";
 import Contacts from "../pages/Contacts";
 
@@ -16,6 +17,8 @@ function RootRouters() {
 			<Route path="/" element={<Home />} />
 			<Route path="/products/:id" element={<OneProduct />} />
 			<Route path="/products" element={<ProductsCatalogue />} />
+			<Route path="/orders" element={<PlacingAnOrder />} />
+
 			<Route path="/products/filter" element={<ProductsCatalogue />} />
 			<Route path="/about" element={<About />} />
 			<Route path="/cart" element={<Cart />} />

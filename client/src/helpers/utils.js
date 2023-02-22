@@ -1,6 +1,7 @@
 export const getLocalItem = (name) => {
 	return localStorage.getItem(name);
 };
+
 export const setLocalItem = (name, value) => {
 	let existingEntries = JSON.parse(getLocalItem(name));
 	// eslint-disable-next-line no-unused-expressions
@@ -26,7 +27,7 @@ export const getItems = (name, items) => {
 		items
 			// eslint-disable-next-line consistent-return, array-callback-return
 			.map((item) => {
-				if (parsed.includes(Number(item.id))) return item;
+				if (parsed.includes(item.itemNo)) return item;
 			})
 			.filter(Boolean)
 	);
