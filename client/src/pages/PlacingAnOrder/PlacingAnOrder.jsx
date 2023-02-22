@@ -130,7 +130,7 @@ const PlacingAnOrder = () => {
 								Товари у кошику
 							</Typography>
 							{cartItems?.map((item) => {
-								return <OrderItem item={item} />;
+								return <OrderItem key={item.itemNo} item={item} />;
 							})}
 
 							{/* <OrderItem />
