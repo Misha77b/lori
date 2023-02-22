@@ -5,11 +5,14 @@ import Product from "../../components/Product";
 import { actionFetchProduct } from "../../store/reducers/oneProductSlice";
 import { selectorPageObj } from "../../store/selectors";
 import "./OneProduct.scss";
+import useFetchData from "../Home/hooks";
+import PopularProducts from "../../components/PopularProducts";
 
 function OneProduct() {
 	const { id } = useParams();
 	const [sended, setSended] = useState(false);
 	const data = useSelector(selectorPageObj);
+	const products = useFetchData();
 	const stateLoad = useSelector((state) => {
 		return state.oneProduct.loading;
 	});
@@ -27,11 +30,14 @@ function OneProduct() {
 		}
 	}, [stateLoad, sended]);
 
-	// eslint-disable-next-line
-	let blockProduct = <p>Завантження....</p>;
-	if (stateLoad === false && sended === true) {
-		blockProduct = <Product props={data} />;
+	if (stateLoad && !sended) return <p>Завантження....</p>;
+	if (!stateLoad && sended) {
+		return (
+			<div>
+				<Product props={data} />
+				<PopularProducts products={products} advertisement={true} />
+			</div>
+		);
 	}
-	return <div>{blockProduct}</div>;
 }
 export default OneProduct;

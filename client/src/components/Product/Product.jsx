@@ -39,7 +39,6 @@ function Product({ props }) {
 
 	const setCurrentColor = (CurrentColor) => {
 		difColor = CurrentColor;
-
 		const params = new URLSearchParams();
 		params.append("name", name);
 		params.append("color", difColor);
