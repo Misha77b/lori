@@ -7,9 +7,8 @@ import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
 import Amount from "./Amount";
 import Selection from "./Select";
-import "./Product.scss";
 import { DOMAIN } from "../../config/API";
-import ToCartButton from "../ToCartButton";
+import "./Product.scss";
 
 function Product({ props }) {
 	const { currentPrice, imageUrls, name, rating, color } = props;
@@ -74,10 +73,12 @@ function Product({ props }) {
 								<Typography component="legend">Рейтинг</Typography>
 								<Rating name="read-only" value={rating} readOnly />
 							</Box>
-
 							<Amount />
-							<Selection allColors={props.allColors} setCurrentColor={setCurrentColor} />
-
+							<Selection
+								allColors={props.allColors}
+								setCurrentColor={setCurrentColor}
+								valueColor={color}
+							/>
 							<Button
 								color="secondary"
 								variant="contained"

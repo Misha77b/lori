@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import React from "react";
@@ -76,7 +77,7 @@ const Header = () => {
 							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
 								<CustomLink to="/">
 									<Badge badgeContent={4} color="secondary">
-										<StarBorderOutlinedIcon sx={menuLinkItem} />
+										<FavoriteIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
 							</IconButton>
