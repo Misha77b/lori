@@ -9,6 +9,7 @@ import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
 import useSearchParams from "./hooks";
+import Spinner from "../../components/Spinner";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const ProductsCatalogue = () => {
 		});
 	}, [startPage]);
 
-	if (productsLoading) return <p> Завантаження....</p>;
+	if (productsLoading) return <Spinner />;
 
 	return (
 		<Container>

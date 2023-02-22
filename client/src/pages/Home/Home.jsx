@@ -4,11 +4,14 @@ import Slider from "../../components/Slider/Slider";
 import PopularProducts from "../../components/PopularProducts";
 import PopularBrands from "../../components/PopularBrands";
 import useFetchData from "./hooks";
+import Spinner from "../../components/Spinner";
+import ToastNotification from "../../components/ToastNotification";
 
 const Home = () => {
 	const productsLoading = useSelector((state) => state.products.loader);
 	const products = useFetchData();
-	if (productsLoading) return <p>Завантження....</p>;
+	if (productsLoading) return <Spinner />;
+	debugger;
 	return (
 		<div>
 			<Slider />
