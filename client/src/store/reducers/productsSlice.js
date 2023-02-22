@@ -11,7 +11,7 @@ const initialState = {
 	loader: false,
 };
 
-export const fetchProducts = createAsyncThunk("products/fetchData", async (filters) => {
+export const fetchProducts = createAsyncThunk("products/fetchData", async (filters = "") => {
 	let url = `${DOMAIN}/products`;
 	if (filters) {
 		url = `${url}/filter?${filters}`;
@@ -52,6 +52,10 @@ export const productsSlice = createSlice({
 				state.data = action.payload;
 			}
 			state.loader = false;
+		});
+		builder.addCase(fetchProducts.rejected, (state, action) => {
+			state.loading = false;
+			state.Error = action.payload;
 		});
 	},
 });
