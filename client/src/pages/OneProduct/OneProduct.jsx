@@ -17,7 +17,6 @@ function OneProduct() {
 	const [canRender, setCanRender] = useState(undefined);
 	const { id } = useParams();
 	const data = useSelector(selectorPageObj);
-	const products = useFetchData();
 	const stateLoad = useSelector((state) => {
 		return state.oneProduct.loading;
 	});
