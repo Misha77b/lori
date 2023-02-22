@@ -5,7 +5,7 @@ import { Paper, Grid, Box, Divider, Typography } from "@mui/material";
 import "./OrderItem.scss";
 
 const OrderItem = ({ item }) => {
-	console.log(item);
+	// console.log(item);
 	return (
 		<>
 			{/* <Paper

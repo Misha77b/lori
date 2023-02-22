@@ -36,6 +36,7 @@ const PlacingAnOrder = () => {
 	}, []);
 
 	const cartItems = getItems("cart", products);
+	// console.log(cartItems);
 
 	const formik = useFormik({
 		initialValues: {
