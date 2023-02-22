@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import { MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-export default function Selection({ allColors, setCurrentColor, valueColor }) {
+export default function Selection({ allColors, setCurrentColor }) {
 	const [color, setColor] = React.useState("");
 	const colorsTag = allColors?.map((el) => (
 		<MenuItem key={el} value={el} sx={{ width: "200px" }}>
@@ -25,7 +25,7 @@ export default function Selection({ allColors, setCurrentColor, valueColor }) {
 				<Select
 					labelId="demo-simple-select-autowidth-label"
 					id="demo-simple-select-autowidth"
-					value={valueColor}
+					value={color}
 					autoWidth
 					label="Оберіть колір"
 					color="secondary"
