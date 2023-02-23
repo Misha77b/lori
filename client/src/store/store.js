@@ -4,6 +4,7 @@ import paginationReducer from "./reducers/paginationSlice";
 import oneProductsReducer from "./reducers/oneProductSlice";
 import slidesReducer from "./reducers/slidesSlice";
 import someReducer from "./reducers/slice";
+import modalReducer from "./reducers/modalSlice";
 
 const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
 		paginatedData: paginationReducer,
 		slides: slidesReducer,
 		oneProduct: oneProductsReducer,
+		modal: modalReducer,
 	},
 });
 
