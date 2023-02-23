@@ -15,25 +15,15 @@ import OrderItem from "./OrderItem/OrderItem";
 import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice/OrderPrice";
 import PaymentAndShipping from "./PaymentAndShipping/PaymentAndShipping";
-
-import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectProductsData } from "../../store/selectors/products.selectors";
 import { getItems } from "../../helpers/utils";
+import useFetchData from "../Home/hooks";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
 });
 
 const PlacingAnOrder = () => {
-	const dispatch = useDispatch();
-	const initialProducts = useSelector(selectProductsData);
-	const [products, setProducts] = useState([...initialProducts]);
-	useEffect(() => {
-		const data = dispatch(fetchProducts());
-		data.then((res) => {
-			setProducts(res.payload);
-		});
-	}, []);
+	const products = useFetchData();
 
 	const cartItems = getItems("cart", products);
 	// console.log(cartItems);
