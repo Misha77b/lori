@@ -11,7 +11,6 @@ const Home = () => {
 	const productsLoading = useSelector((state) => state.products.loader);
 	const products = useFetchData();
 	if (productsLoading) return <Spinner />;
-	debugger;
 	return (
 		<div>
 			<Slider />
