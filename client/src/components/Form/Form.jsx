@@ -1,12 +1,13 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { schema as validationSchema, validationSchema2 } from "./Schema";
 import Field from "./Field/Field";
 import "./Form.scss";
 // import { selectUser } from "../../selectors";
 // import { fetchAuth, fetchRegister } from "../../reducers/auth.reducer";
-const PageForm = ({ status, onClose }) => {
+
+const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
 	// const user = useSelector(selectUser);
 	const formik = useFormik({
@@ -41,6 +42,20 @@ const PageForm = ({ status, onClose }) => {
 				formik.handleSubmit();
 			}}
 		>
+			<div className="form__title">
+				<span onClick={onLoginToggle} className={`login ${status === "LOGIN" ? "active" : ""}`}>
+					Увійти
+				</span>
+				<span
+					onClick={onRegisterToggle}
+					className={`register ${status === "REGISTER" ? "active" : ""}`}
+				>
+					Реєстрація
+				</span>
+			</div>
+			<div className="login__legend">
+				Будь ласка, введіть дані свого облікового запису, щоб увійти
+			</div>
 			{status === "REGISTER" && (
 				<Field
 					name="firstName"
@@ -87,9 +102,9 @@ const PageForm = ({ status, onClose }) => {
 				onChange={formik.handleChange}
 				errors={touched.password && errors.password}
 			/>
-			<div className="input__container">
-				<button type="submit" className="submit__btn">
-					Checkout
+			<div className="submit__btn__container">
+				<button className="submit__btn" type="submit">
+					{status === "LOGIN" ? "Увійти" : "Зареєструватися"}
 				</button>
 			</div>
 		</form>
