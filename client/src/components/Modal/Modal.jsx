@@ -1,14 +1,26 @@
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, createRef } from "react";
 import { createPortal } from "react-dom";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 import styles from "./modal.module.scss";
+import { setModal } from "../../store/reducers/modalSlice";
 
 const modalRootElement = document.querySelector("#modal");
 
-const Modal = ({ open, onClose, children, customWidth }) => {
+const Modal = ({ children, customWidth, status, orderNo }) => {
+	const dispatch = useDispatch();
+	const actionModalHandler = (stat) => {
+		dispatch(setModal(stat));
+	};
 	const element = useMemo(() => document.createElement("div"), []);
-
+	const myRef = createRef();
+	const outsideCloseHandler = (e) => {
+		if (e.target.contains(myRef.current)) {
+			actionModalHandler(null);
+		}
+	};
 	useEffect(() => {
-		if (open) {
+		if (status) {
 			modalRootElement.appendChild(element);
 			document.body.style.overflow = "hidden";
 
@@ -20,21 +32,21 @@ const Modal = ({ open, onClose, children, customWidth }) => {
 		return undefined;
 	});
 
-	const handlerCheckTarget = (e) => {
-		return e.target === e.currentTarget || e.target.nodeName === "IMG" ? onClose(false) : null;
-	};
-
-	if (open) {
+	if (status) {
 		return createPortal(
-			<div className={styles.overlay} onClick={handlerCheckTarget}>
-				<div className={styles.modal} style={{ maxWidth: `${customWidth}px` }}>
-					{children}
-					<button type="button" className={styles.modal__btn}>
-						<img
-							src="https://res.cloudinary.com/dyvsyavmb/image/upload/v1676543739/images/llvbuvkf2jaupb5sfimm.svg"
-							alt="arrow"
-						/>
-					</button>
+			<div className={styles.overlay} onClick={outsideCloseHandler}>
+				<div ref={myRef} className={styles.modal} style={{ maxWidth: `${customWidth}px` }}>
+					{children({
+						onStatusChange: actionModalHandler,
+					})}
+					<CloseCross
+						className={styles.modal__btn}
+						onClick={() => {
+							actionModalHandler(null);
+						}}
+					>
+						X
+					</CloseCross>
 				</div>
 			</div>,
 			element,
@@ -42,5 +54,11 @@ const Modal = ({ open, onClose, children, customWidth }) => {
 	}
 	return null;
 };
-
+const CloseCross = styled.span`
+	font-family: Open Sans, sans-serif;
+	font-weight: bold;
+	color: black;
+	font-size: 20px;
+	cursor: pointer;
+`;
 export default Modal;

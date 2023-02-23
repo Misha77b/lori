@@ -8,11 +8,11 @@ const {
   updateConfig,
   deleteConfig,
   getConfigs,
-  getConfigById
+  getConfigById,
 } = require("../controllers/globalConfigs");
 
 // @route   POST /configs
-// @desc    Create new config
+// @desc    Create new configs
 // @access  Private
 router.post(
   "/",
@@ -21,7 +21,7 @@ router.post(
 );
 
 // @route   PUT /configs/:customId
-// @desc    Update existing config
+// @desc    Update existing configs
 // @access  Private
 router.put(
   "/:customId",
@@ -30,7 +30,7 @@ router.put(
 );
 
 // @route   DELETE /configs/:customId
-// @desc    DELETE existing config
+// @desc    DELETE existing configs
 // @access  Private
 router.delete(
   "/:customId",

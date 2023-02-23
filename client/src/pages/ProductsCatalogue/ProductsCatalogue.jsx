@@ -28,7 +28,7 @@ const ProductsCatalogue = () => {
 		data.then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [startPage]);
+	}, [startPage, params]);
 
 	if (productsLoading) return <Spinner />;
 
