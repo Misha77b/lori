@@ -9,12 +9,12 @@ import PropTypes from "prop-types";
 
 import { inputLabel } from "./sxStyles/inputLabel";
 import CategoryTitle from "../../components/CategoryTitle";
-import FillTheFromText from "./FillTheFromText/FillTheFromText";
-import OrderItem from "./OrderItem/OrderItem";
+import FillTheFromText from "./FillTheFormText";
+import PaymentAndShipping from "./PaymentAndShipping";
+import OrderItem from "./OrderItem";
 
 import "./PlacingAnOrder.scss";
-import OrderPrice from "./OrderPrice/OrderPrice";
-import PaymentAndShipping from "./PaymentAndShipping/PaymentAndShipping";
+import OrderPrice from "./OrderPrice";
 import { getItems } from "../../helpers/utils";
 import useFetchData from "../Home/hooks";
 
@@ -33,6 +33,7 @@ const PlacingAnOrder = () => {
 			recipientsName: "",
 			phoneNumber: "",
 			email: "",
+			// orders: { ...cartItems },
 		},
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -136,6 +137,7 @@ const PlacingAnOrder = () => {
 						</div>
 
 						<Button
+							type="submit"
 							sx={{
 								marginTop: "20px",
 								width: "320px",

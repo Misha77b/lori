@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const FillTheFromText = () => {
+const FillTheFormText = () => {
 	return (
 		<Box sx={{ marginBottom: "36px" }}>
 			<Typography>Будь ласка, заповніть форму.</Typography>
@@ -10,4 +10,4 @@ const FillTheFromText = () => {
 	);
 };
 
-export default FillTheFromText;
+export default FillTheFormText;
