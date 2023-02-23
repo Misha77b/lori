@@ -21,6 +21,7 @@ function Product({ props }) {
 	useEffect(() => {
 		setMainPhoto(imageUrls[0]);
 	}, [imageUrls]);
+
 	const images = imageUrls?.map((item, index) => (
 		<div key={index} className="block__imgs--img">
 			<img src={item} onClick={handlerMoving} />
@@ -75,9 +76,10 @@ function Product({ props }) {
 							</Box>
 							<Amount />
 							<Selection
-								allColors={props.allColors}
+								arrayProps={props.allColors}
 								setCurrentColor={setCurrentColor}
 								valueColor={color}
+								nameLabel="Оберіть колір"
 							/>
 							<Button
 								color="secondary"

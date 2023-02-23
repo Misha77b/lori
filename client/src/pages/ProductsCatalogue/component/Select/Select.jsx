@@ -1,20 +1,19 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-export default function Selection({ arrayProps, setCurrentColor, valueColor, nameLabel }) {
-	const [color, setColor] = React.useState("");
+export default function Selection({ arrayProps, setCurrentValue, nameLabel }) {
+	const [value, setValue] = React.useState("");
 	const colorsTag = arrayProps?.map((el) => (
 		<MenuItem key={el} value={el} sx={{ width: "200px" }}>
 			{el}
 		</MenuItem>
 	));
 	const handleChange = (event) => {
-		setColor(event.target.value);
-		setCurrentColor(event.target.value);
+		setValue(event.target.value);
+		setCurrentValue(event.target.value);
 	};
 	return (
 		<div>
@@ -25,7 +24,7 @@ export default function Selection({ arrayProps, setCurrentColor, valueColor, nam
 				<Select
 					labelId="demo-simple-select-autowidth-label"
 					id="demo-simple-select-autowidth"
-					value={valueColor}
+					value={value}
 					autoWidth
 					label={nameLabel}
 					color="secondary"
