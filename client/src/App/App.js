@@ -1,57 +1,29 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { Button, ThemeProvider, Typography } from "@mui/material";
+import { Button, ThemeProvider } from "@mui/material";
 import RootRouters from "../Router/Router";
 import theme from "../theming";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Modal from "../components/Modal/Modal";
+import { setModal } from "../store/reducers/modalSlice";
+// eslint-disable-next-line import/named
+import { modals } from "../components/Modal/configs";
 
 const App = () => {
-	const [open, setOpen] = useState(false);
+	const modal = useSelector((state) => state.modal.value);
+	const dispatch = useDispatch();
+	const actionModalHandler = (status) => {
+		dispatch(setModal(status));
+	};
+	const activeModal = modals[modal] ?? null;
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				<Header />
+				{activeModal}
+				<Header modal={actionModalHandler} />
 				<RootRouters />
 				<Footer />
-				<button type="button" onClick={() => setOpen(true)}>
-					___modal___
-				</button>
-				<Modal open={open} customWidth={600} onClose={setOpen}>
-					<div style={{ textAlign: "center", padding: "60px 85px" }}>
-						<Typography
-							variant="h5"
-							style={{
-								color: "#007042",
-								fontWeight: "700",
-								fontSize: "30px",
-								lineHeight: "180%",
-								marginBottom: "12px",
-							}}
-						>
-							Дякуємо, що вибрали нас!
-						</Typography>
-						<Typography
-							component="p"
-							style={{ fontSize: "18px", lineHeight: " 180%", marginBottom: "50px" }}
-						>
-							Ваше замовлення №3265897 успішно оформлене. Чекайте на дзвінок від нашого фахівця.
-						</Typography>
-						<Button
-							color="secondary"
-							variant="contained"
-							style={{
-								letterSpacing: "0.03em",
-								textTransform: "uppercase",
-								height: "56px",
-								padding: "0 20px",
-							}}
-						>
-							продовжити покупки
-						</Button>
-					</div>
-				</Modal>
 			</BrowserRouter>
 		</ThemeProvider>
 	);

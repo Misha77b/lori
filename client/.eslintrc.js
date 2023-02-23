@@ -7,8 +7,8 @@ module.exports = {
 	extends: [
 		"react-app",
 		"react-app/jest",
+		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:react-hooks/recommended",
 		"plugin:prettier/recommended",
 		"plugin:jsx-a11y/strict",
 		"airbnb",
@@ -24,6 +24,7 @@ module.exports = {
 	plugins: ["react", "prettier"],
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
+		"eslint spaced-comment": ["error", "never"],
 		"operator-linebreak": "off",
 		"linebreak-style": "off",
 		"no-trailing-spaces": ["error", { skipBlankLines: true }],

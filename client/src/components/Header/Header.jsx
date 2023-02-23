@@ -10,7 +10,7 @@ import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 
-const Header = () => {
+const Header = ({ modal }) => {
 	const menuLinkItem = {
 		color: "#57646E",
 		fontSize: "30px",
@@ -61,7 +61,12 @@ const Header = () => {
 							<Search />
 						</Box>
 						<Box>
-							<IconButton color="grey.main">
+							<IconButton
+								color="grey.main"
+								onClick={() => {
+									modal("LOGIN");
+								}}
+							>
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
 								<Typography color="grey.main" sx={{ display: { xs: "none", md: "block" }, p: "0" }}>
 									Увійти
