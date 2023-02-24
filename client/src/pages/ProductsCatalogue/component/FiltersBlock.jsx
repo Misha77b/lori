@@ -1,8 +1,11 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { DOMAIN } from "../../../config/API";
 import Selection from "./Select";
+import RangePrice from "./RangePrice";
 import "./FiltersBlock.scss";
+import useSearchParams from "../hooks/useSearchParams";
 
 const FiltersBlock = () => {
 	const [products, setProducts] = useState([]);
@@ -21,7 +24,7 @@ const FiltersBlock = () => {
 				if (error.code !== 20) console.error(error);
 			});
 	}
-	// кожен раз додається нове поле для пошуку
+	// кожен раз додається в obj нове поле для пошуку
 	const setCurrentValue = (field, CurrentValue) => {
 		setFilters((curFilters) => {
 			return { ...curFilters, [field]: CurrentValue };
@@ -37,51 +40,88 @@ const FiltersBlock = () => {
 		};
 	}, []);
 	//
-	useEffect(() => {
-		console.log(filters);
-	}, [filters]);
-	//
+	const useE = () => {
+		setFilters({});
+	};
+	console.log("filter ", filters);
+	const params = useSearchParams(filters);
 	const arrayBrand = new Set(products?.map((card) => card.brand));
 	const arrayProc = new Set(products?.map((card) => card.processor));
 	const arrayStorage = new Set(products?.map((card) => card.iternalStorage));
 	const arrayRAM = new Set(products?.map((card) => card.RAM));
 	const arrayWaterResistant = new Set(products?.map((card) => card.waterResistant));
 	const arrayDiagonal = new Set(products?.map((card) => card.diagonal));
-
 	return (
-		<Box>
-			<Stack spacing={2}>
-				<Typography component="legend">Пошук...</Typography>
+		<Box sx={{ margin: "0 auto" }}>
+			<Stack spacing={3} sx={{ position: "sticky", top: "30px", textAlign: "center" }}>
+				<Typography
+					component="legend"
+					sx={{ textAlign: "left", margin: "0 0 7px 25px", color: "grey" }}
+				>
+					Ціна
+				</Typography>
+				<RangePrice /> {/* price range */}
 				<Selection
+					value={filters.brand}
 					setCurrentValue={(value) => setCurrentValue("brand", value)}
 					nameLabel="Бренд"
 					arrayProps={Array.from(arrayBrand)}
 				/>
 				<Selection
+					value={filters.processor}
 					nameLabel="Процесор"
 					arrayProps={Array.from(arrayProc)}
 					setCurrentValue={(value) => setCurrentValue("processor", value)}
 				/>
 				<Selection
+					value={filters.diagonal}
 					nameLabel="Діагональ"
 					arrayProps={Array.from(arrayDiagonal)}
 					setCurrentValue={(value) => setCurrentValue("diagonal", value)}
 				/>
 				<Selection
+					value={filters.iternalStorage}
 					nameLabel="Внутрішня память"
 					arrayProps={Array.from(arrayStorage)}
 					setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
 				/>
 				<Selection
+					value={filters.RAM}
 					nameLabel="RAM"
 					arrayProps={Array.from(arrayRAM)}
 					setCurrentValue={(value) => setCurrentValue("RAM", value)}
 				/>
 				<Selection
+					value={filters.waterResistant}
 					nameLabel="Захист від вологи"
 					arrayProps={Array.from(arrayWaterResistant)}
 					setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
 				/>
+				<Link to={`/products/filter?${params.toString()}`} className="link">
+					<Button
+						variant="contained"
+						color="secondary"
+						sx={{
+							width: "245px",
+							height: "46px",
+						}}
+					>
+						Пошук
+					</Button>
+				</Link>
+				<Link to="/products" className="link">
+					<Button
+						onClick={useE}
+						variant="contained"
+						color="secondary"
+						sx={{
+							width: "245px",
+							height: "46px",
+						}}
+					>
+						Очистити
+					</Button>
+				</Link>
 			</Stack>
 		</Box>
 	);

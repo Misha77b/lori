@@ -4,17 +4,16 @@ import FormControl from "@mui/material/FormControl";
 import { MenuItem } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-export default function Selection({ arrayProps, setCurrentValue, nameLabel }) {
-	const [value, setValue] = React.useState("");
-	const colorsTag = arrayProps?.map((el) => (
+export default function Selection({ arrayProps, setCurrentValue, nameLabel, value }) {
+	const colorsTag = arrayProps.map((el) => (
 		<MenuItem key={el} value={el} sx={{ width: "200px" }}>
 			{el}
 		</MenuItem>
 	));
 	const handleChange = (event) => {
-		setValue(event.target.value);
 		setCurrentValue(event.target.value);
 	};
+
 	return (
 		<div>
 			<FormControl sx={{ width: "200px" }}>
@@ -24,7 +23,7 @@ export default function Selection({ arrayProps, setCurrentValue, nameLabel }) {
 				<Select
 					labelId="demo-simple-select-autowidth-label"
 					id="demo-simple-select-autowidth"
-					value={value}
+					value={!value ? "" : value}
 					autoWidth
 					label={nameLabel}
 					color="secondary"
