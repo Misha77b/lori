@@ -22,12 +22,10 @@ const Modal = ({ children, customWidth, status, orderNo }) => {
 	useEffect(() => {
 		if (status) {
 			modalRootElement.appendChild(element);
-
 			return () => {
 				modalRootElement.removeChild(element);
 			};
 		}
-		document.body.style.overflow = "scroll";
 		return undefined;
 	});
 
