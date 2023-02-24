@@ -7,8 +7,8 @@ module.exports = {
 	extends: [
 		"react-app",
 		"react-app/jest",
+		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:react-hooks/recommended",
 		"plugin:prettier/recommended",
 		"plugin:jsx-a11y/strict",
 		"airbnb",
@@ -24,7 +24,18 @@ module.exports = {
 	plugins: ["react", "prettier"],
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
+		"spaced-comment": [
+			"error",
+			"always",
+			{
+				line: {
+					markers: ["#region", "#endregion", "region", "endregion"],
+				},
+			},
+		],
 		"operator-linebreak": "off",
+		"react-hooks/exhaustive-deps": 0,
+		"no-console": 0,
 		"linebreak-style": "off",
 		"no-trailing-spaces": ["error", { skipBlankLines: true }],
 		"object-curly-newline": 0,
@@ -81,6 +92,5 @@ module.exports = {
 		"no-param-reassign": "off",
 		"jsx-a11y/no-noninteractive-element-interactions": "off",
 		"prettier/prettier": ["error", { endOfLine: "auto" }],
-		"no-debugger": "off",
 	},
 };
