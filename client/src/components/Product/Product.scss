@@ -43,17 +43,12 @@
 		align-self: start;
 		height: auto;
 		position: relative;
-		p {
-			font-family: $base-font;
-		}
 	}
 }
 .price {
 	font-size: 40px;
 }
-p {
-	font-family: $base-font;
-}
-span {
+
+.spanColor {
 	margin-left: 20px;
 }

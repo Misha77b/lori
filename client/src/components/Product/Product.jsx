@@ -64,7 +64,7 @@ function Product({ props }) {
 								gutterBottom
 							>
 								{name}
-								<span>{color}</span>
+								<span className="spanColor">{color}</span>
 							</Typography>
 							<Box
 								sx={{
