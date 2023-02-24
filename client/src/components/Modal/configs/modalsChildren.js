@@ -52,16 +52,10 @@ export const modals = {
 							onClose={() => {
 								onStatusChange(null);
 							}}
-						/>
-						<Button
-							color="secondary"
-							variant="contained"
-							onClick={() => {
+							onRegisterToggle={() => {
 								onStatusChange("REGISTER");
 							}}
-						>
-							Register
-						</Button>
+						/>
 					</>
 				);
 			}}
@@ -74,19 +68,13 @@ export const modals = {
 					<>
 						<PageForm
 							status="REGISTER"
+							onLoginToggle={() => {
+								onStatusChange("LOGIN");
+							}}
 							onClose={() => {
 								onStatusChange(null);
 							}}
 						/>
-						<Button
-							color="secondary"
-							variant="contained"
-							onClick={() => {
-								onStatusChange("LOGIN");
-							}}
-						>
-							Log in
-						</Button>
 					</>
 				);
 			}}
