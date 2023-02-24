@@ -9,10 +9,10 @@ export {
 } from "./products.selectors";
 export { selectSlidesData, selectSlidesLoader } from "./slides.selectors";
 export { selectorLoading, selectorPageObj } from "./oneProduct.selector";
-// export {
-// 	selectAuth,
-// 	selectAuthLoader,
-// 	selectUser,
-// 	selectAuthUserToken,
-// 	selectUserID,
-// } from "./auth.selectors";
+export {
+	selectAuth,
+	selectAuthLoader,
+	selectUser,
+	selectAuthUserToken,
+	selectUserID,
+} from "./auth.selectors";
