@@ -16,7 +16,7 @@ const PopularBrands = ({ products }) => {
 					rowSpacing={{ xs: 1, sm: 1, md: 3 }}
 					columnSpacing={{ xs: 3, sm: 3, md: 1, lg: 4 }}
 				>
-					{/*  <GridItem products={products}  */}
+					<GridItem products={products} />
 				</Grid>
 			</Box>
 		</Container>
