@@ -7,6 +7,12 @@
 	}
 }
 
+.img-container {
+	@media screen and (max-width: 940px) {
+		display: flex;
+		justify-content: center;
+	}
+}
 .NFP-logo-img {
 	object-fit: cover;
 	@media screen and (max-width: 940px) {
