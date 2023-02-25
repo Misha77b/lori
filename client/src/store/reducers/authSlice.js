@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import sendRequest from "../../helpers/sendRequest";
+import sendRequest, { sendRequestWithToken } from "../../helpers/sendRequest";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {

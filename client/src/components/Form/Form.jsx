@@ -27,12 +27,13 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 				dispatch(fetchRegister(usersData));
 				console.log(usersData);
 			}
-			resetForm({ usersData: "" });
+			// resetForm({ usersData: "" });
 			onClose();
 		},
 		...(status === "REGISTER" ? { validationSchema } : { validationSchema2 }),
 	});
 	const { values, errors, touched } = formik;
+	console.log("user", user);
 	return (
 		<form
 			className="form"
