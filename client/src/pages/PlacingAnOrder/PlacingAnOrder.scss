@@ -1,13 +1,24 @@
 // .category__title__wrapper {
 // 	margin: "0";
 // }
-
-.css-ihdtdm {
-	display: none;
+.scroll {
+	max-height: 400px;
+	scrollbar-color: #6969dd #e0e0e0;
+	scrollbar-width: thin;
+	overflow: hidden visible;
 }
 
-.css-hyxlzm {
-	margin: 0;
+.scroll::-webkit-scrollbar {
+	width: 10px;
+}
+
+.scroll::-webkit-scrollbar-track {
+	background-color: rgb(221, 221, 221);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	box-shadow: inset 0 0 20px #a0a9af;
 }
 
 .MuiFormControlLabel-root.MuiFormControlLabel-labelPlacementEnd {
@@ -27,6 +38,7 @@
 }
 
 .cart-products {
+	min-width: 288px;
 	&--title {
 		color: #fff;
 		background: #a0a9af;

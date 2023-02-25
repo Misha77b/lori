@@ -92,5 +92,6 @@ module.exports = {
 		"no-param-reassign": "off",
 		"jsx-a11y/no-noninteractive-element-interactions": "off",
 		"prettier/prettier": ["error", { endOfLine: "auto" }],
+		"react/jsx-props-no-spreading": "off",
 	},
 };

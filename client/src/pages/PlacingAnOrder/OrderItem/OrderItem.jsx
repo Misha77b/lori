@@ -18,7 +18,7 @@ const OrderItem = ({ item }) => {
 			}}
 		> */}
 			<Grid container className="item-product">
-				<Grid item xs={3}>
+				<Grid item xs={3} sx={{ display: "flex", alignItems: "center" }}>
 					<img
 						className="item-product--img"
 						src={item.imageUrls[0]}
@@ -50,7 +50,11 @@ const OrderItem = ({ item }) => {
 
 				<Grid item xs={3}>
 					<Box>
-						<Typography fontWeight="fontWeightBold" sx={{ fontSize: "16px" }} className="price">
+						<Typography
+							fontWeight="fontWeightBold"
+							sx={{ fontSize: "16px", "@media (max-width: 400px)": { fontSize: "14px" } }}
+							className="price"
+						>
 							{item.currentPrice} грн
 						</Typography>
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px", color: "#BFBFBF" }}>

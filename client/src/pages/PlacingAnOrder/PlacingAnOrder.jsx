@@ -1,20 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFormik } from "formik";
-import { Container, Grid, Box, Typography, TextField, InputLabel, Button } from "@mui/material";
+import { FormikConsumer, useFormik } from "formik";
+import {
+	Container,
+	Grid,
+	Box,
+	Typography,
+	TextField,
+	InputLabel,
+	Button,
+	RadioGroup,
+	FormControlLabel,
+	Radio,
+	Autocomplete,
+} from "@mui/material";
 
 import * as yup from "yup";
-
+import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { inputLabel } from "./sxStyles/inputLabel";
 import CategoryTitle from "../../components/CategoryTitle";
-import FillTheFromText from "./FillTheFromText/FillTheFromText";
-import OrderItem from "./OrderItem/OrderItem";
+import FillTheFromText from "./FillTheFormText";
+import PaymentAndShipping from "./PaymentAndShipping";
+import OrderItem from "./OrderItem";
+
+import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
 import "./PlacingAnOrder.scss";
-import OrderPrice from "./OrderPrice/OrderPrice";
-import PaymentAndShipping from "./PaymentAndShipping/PaymentAndShipping";
+import OrderPrice from "./OrderPrice";
 import { getItems } from "../../helpers/utils";
 import useFetchData from "../Home/hooks";
 
@@ -26,6 +40,27 @@ const PlacingAnOrder = () => {
 	const products = useFetchData();
 
 	const cartItems = getItems("cart", products);
+
+	// shipping and payment
+	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
+	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
+	const [adressTitle, setAdressTitle] = useState("Адреса");
+
+	const [value, setValue] = useState();
+	const [inputValue, setInputValue] = useState();
+
+	const handleShippingMethodChange = (e) => {
+		if (shippingMethod === "Кур’єром додому") {
+			setAdressTitle("Пункт видачі");
+		} else setAdressTitle("Адреса");
+
+		setShippingMethod(e.target.value);
+	};
+
+	const handlePaymentMethodChange = (e) => {
+		setPaymentMethod(e.target.value);
+	};
+
 	// console.log(cartItems);
 
 	const formik = useFormik({
@@ -33,6 +68,8 @@ const PlacingAnOrder = () => {
 			recipientsName: "",
 			phoneNumber: "",
 			email: "",
+			// orders: { ...cartItems },
+			adress: "",
 		},
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -45,7 +82,7 @@ const PlacingAnOrder = () => {
 			<form className="form-wrapper" onSubmit={formik.handleSubmit}>
 				<CategoryTitle text="Оформлення замовлення" />
 
-				<Grid container spacing={{ xs: 2, md: 20 }}>
+				<Grid container spacing={{ xs: 2, md: 5, lg: 20 }}>
 					<Grid item xs={12} sm={12} md={6}>
 						<FillTheFromText />
 
@@ -58,7 +95,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
-									color="black"
+									color="secondary"
 									id="recipientsName"
 									name="recipientsName"
 									placeholder="Ім’я одержувача"
@@ -74,7 +111,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
-									color="black"
+									color="secondary"
 									id="phoneNumber"
 									name="phoneNumber"
 									placeholder="+380"
@@ -90,7 +127,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
-									color="black"
+									color="secondary"
 									id="email"
 									name="email"
 									placeholder="E-mail"
@@ -106,7 +143,90 @@ const PlacingAnOrder = () => {
 						<Typography sx={{ margin: "40px 0 20px" }} variant="h6">
 							Доставка та оплата
 						</Typography>
-						<PaymentAndShipping />
+						<Grid container>
+							<Grid item xs={6} md={5}>
+								<Typography>Спосіб доставки</Typography>
+								<RadioGroup
+									aria-labelledby="demo-controlled-radio-buttons-group"
+									name="controlled-radio-buttons-group"
+									value={shippingMethod}
+									onChange={handleShippingMethodChange}
+								>
+									<FormControlLabel
+										value="Кур’єром додому"
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
+										label="Кур’єром додому"
+									/>
+									<FormControlLabel
+										value="Самовивіз"
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
+										label="Самовивіз"
+									/>
+								</RadioGroup>
+							</Grid>
+
+							<Grid item xs={6} md={7}>
+								<Typography>Спосіб розрахунку</Typography>
+								<RadioGroup
+									aria-labelledby="demo-controlled-radio-buttons-group"
+									name="controlled-radio-buttons-group"
+									value={paymentMethod}
+									onChange={handlePaymentMethodChange}
+								>
+									<FormControlLabel
+										value="Банківською карткою онлайн"
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
+										label="Банківською карткою онлайн"
+									/>
+									<FormControlLabel
+										value="Готівкою або карткою при отриманні"
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
+										label="Готівкою або карткою при отриманні"
+									/>
+								</RadioGroup>
+							</Grid>
+						</Grid>
+
+						<Typography sx={{ margin: "20px 0 10px" }}>{adressTitle}</Typography>
+						{adressTitle === "Пункт видачі" ? (
+							<Autocomplete
+								disablePortal
+								id="adress"
+								name="adress"
+								value={(formik.values.adress = inputValue)}
+								onChange={(event, newValue) => {
+									setValue(newValue);
+								}}
+								inputValue={inputValue}
+								onInputChange={(event, newInputValue) => {
+									setInputValue(newInputValue);
+								}}
+								options={AdressesDataBase}
+								sx={{ width: "100%" }}
+								renderInput={(params) => (
+									<TextField
+										fullWidth
+										color="secondary"
+										placeholder="Оберіть пункт видачі"
+										{...params}
+									/>
+								)}
+							/>
+						) : (
+							<TextField
+								fullWidth
+								id="adress"
+								name="adress"
+								color="secondary"
+								value={formik.values.adress}
+								onChange={formik.handleChange}
+								placeholder="Місто, вулиця, будинок, квартира"
+								multiline={true}
+							/>
+						)}
+
+						{/* testing comment */}
+						{/* <PaymentAndShipping /> */}
 					</Grid>
 
 					<Grid item xs={12} sm={12} md={6}>
@@ -119,20 +239,18 @@ const PlacingAnOrder = () => {
 							>
 								Товари у кошику
 							</Typography>
-							{cartItems?.map((item) => {
-								return <OrderItem key={item.itemNo} item={item} />;
-							})}
 
-							{/* <OrderItem />
-
-							<OrderItem />
-
-							<OrderItem /> */}
+							<Box component="div" className="scroll">
+								{cartItems?.map((item) => {
+									return <OrderItem key={item.itemNo} item={item} />;
+								})}
+							</Box>
 
 							<OrderPrice />
 						</div>
 
 						<Button
+							type="submit"
 							sx={{
 								marginTop: "20px",
 								width: "320px",
@@ -141,6 +259,9 @@ const PlacingAnOrder = () => {
 								color: "#FFF",
 								"&:hover": {
 									backgroundColor: "#007042",
+								},
+								"@media (max-width: 400px)": {
+									width: "280px",
 								},
 							}}
 							color="primary"
