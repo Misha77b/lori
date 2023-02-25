@@ -14,26 +14,22 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 		initialValues: {
 			firstName: "",
 			lastName: "",
-			email: "",
-			password: "",
+			email: "vita@gmail.com",
+			password: "2222222",
+			login: "",
 		},
-		onSubmit: (usersData, { resetForm }) => {
+		onSubmit: (usersData) => {
 			if (status === "LOGIN") {
 				const { email, password } = usersData;
-				const loginUser = { email, password };
-				dispatch(fetchAuth(loginUser));
-				console.log(loginUser);
+				dispatch(fetchAuth({ loginOrEmail: email, password }));
 			} else {
 				dispatch(fetchRegister(usersData));
-				console.log(usersData);
 			}
-			// resetForm({ usersData: "" });
 			onClose();
 		},
 		...(status === "REGISTER" ? { validationSchema } : { validationSchema2 }),
 	});
 	const { values, errors, touched } = formik;
-	console.log("user", user);
 	return (
 		<form
 			className="form"
@@ -74,6 +70,16 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 					value={values.lastName}
 					onChange={formik.handleChange}
 					errors={touched.lastName && errors.lastName}
+				/>
+			)}
+			{status === "REGISTER" && (
+				<Field
+					name="login"
+					type="text"
+					description="User name"
+					value={values.login}
+					onChange={formik.handleChange}
+					errors={touched.login && errors.login}
 				/>
 			)}
 			<Field

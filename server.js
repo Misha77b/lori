@@ -27,16 +27,15 @@ const partners = require("./routes/partners");
 // const mainRoute = require('./routes/index');
 
 const app = express();
-
+app.use(express.json());
 const corsOption = {
   origin: ["http://localhost:3000"],
 };
 app.use(cors(corsOption));
 
 // Body parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 // DB Config
 const db = require("./config/keys").mongoURI;
 

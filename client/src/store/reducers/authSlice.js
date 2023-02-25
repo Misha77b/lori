@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import sendRequest, { sendRequestWithToken } from "../../helpers/sendRequest";
+import axios from "axios";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
@@ -7,14 +7,18 @@ const initialState = {
 	loader: true,
 };
 export const fetchAuth = createAsyncThunk("user/login", async (object) => {
-	return sendRequest(`${DOMAIN}/customers/login`, "POST", {
-		body: JSON.stringify(object),
-	});
+	axios
+		.post(`${DOMAIN}/customers/login`, object)
+		.then(({ data }) => {
+			localStorage.setItem("token", data.token);
+		})
+		.catch((err) => console.warn(err));
 });
 export const fetchRegister = createAsyncThunk("user/register", async (object) => {
-	return sendRequest(`${DOMAIN}/customers`, "POST", {
-		body: JSON.stringify(object),
-	});
+	axios
+		.post(`${DOMAIN}/customers`, object)
+		.then((savedCustomer) => savedCustomer)
+		.catch((err) => console.warn(err));
 });
 
 export const userSlice = createSlice({
@@ -29,7 +33,6 @@ export const userSlice = createSlice({
 		builder.addCase(fetchAuth.fulfilled, (state, action) => {
 			state.user = action.payload;
 			state.loader = false;
-			console.log("payload", action.payload);
 		});
 	},
 });
