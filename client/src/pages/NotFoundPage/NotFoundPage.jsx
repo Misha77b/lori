@@ -13,13 +13,22 @@ const NotFoundPage = () => {
 				direction="row"
 				justifyContent="center"
 				alignItems="center"
-				spacing={{ xs: 2, lg: 5 }}
+				spacing={{ xs: 2 }}
 			>
-				<Grid item xs={12} sm={6} md={6} order={{ xs: 2, sm: 1 }}>
+				<Grid
+					item
+					xs={12}
+					sm={6}
+					md={6}
+					order={{ xs: 2, sm: 1 }}
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+					}}
+				>
 					<Box className="NFP-box text-container">
 						<Typography
 							className="NFP-text"
-							variant="string"
 							sx={{
 								fontSize: "100px",
 								"@media (max-width: 768px)": {
@@ -32,10 +41,9 @@ const NotFoundPage = () => {
 
 						<Typography
 							className="not-found"
-							variant="string"
 							sx={{
 								display: "block",
-								fontSize: "37px",
+								fontSize: "36px",
 								"@media (max-width: 768px)": {
 									fontSize: "28px",
 								},
@@ -44,14 +52,8 @@ const NotFoundPage = () => {
 							Ooops, page not found
 						</Typography>
 
-						<Typography
-							className="page-do-not-exist"
-							variant="string"
-							sx={{
-								display: "block",
-							}}
-						>
-							Sorry, but the requested page does not exist
+						<Typography className="page-do-not-exist" sx={{ margin: "10px 0 20px" }}>
+							Вибачте, але запитана сторінка не існує
 						</Typography>
 
 						<Button
@@ -60,7 +62,6 @@ const NotFoundPage = () => {
 							color="secondary"
 							component={Link}
 							to="/"
-							sx={{ margin: "20px 0" }}
 						>
 							Повернутися на головну
 						</Button>
