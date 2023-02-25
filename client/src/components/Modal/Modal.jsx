@@ -7,7 +7,7 @@ import { setModal } from "../../store/reducers/modalSlice";
 
 const modalRootElement = document.querySelector("#modal");
 
-const Modal = ({ children, customWidth, status, orderNo }) => {
+const Modal = ({ children, customWidth, status, orderNo = 300 }) => {
 	const dispatch = useDispatch();
 	const actionModalHandler = (stat) => {
 		dispatch(setModal(stat));
@@ -22,8 +22,10 @@ const Modal = ({ children, customWidth, status, orderNo }) => {
 	useEffect(() => {
 		if (status) {
 			modalRootElement.appendChild(element);
+			document.body.style.overflow = "hidden";
 			return () => {
 				modalRootElement.removeChild(element);
+				document.body.style.overflow = "scroll";
 			};
 		}
 		return undefined;
@@ -34,6 +36,7 @@ const Modal = ({ children, customWidth, status, orderNo }) => {
 			<div className={styles.overlay} onClick={outsideCloseHandler}>
 				<div ref={myRef} className={styles.modal} style={{ maxWidth: `${customWidth}px` }}>
 					{children({
+						order: orderNo,
 						onStatusChange: actionModalHandler,
 					})}
 					<CloseCross
@@ -52,9 +55,9 @@ const Modal = ({ children, customWidth, status, orderNo }) => {
 	return null;
 };
 const CloseCross = styled.span`
-	font-family: Open Sans, sans-serif;
+	font-family: Tilt Warp, sans-serif;
 	font-weight: bold;
-	color: black;
+	color: #a0a9af;
 	font-size: 20px;
 	cursor: pointer;
 `;
