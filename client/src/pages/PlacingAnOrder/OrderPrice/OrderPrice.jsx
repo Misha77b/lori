@@ -7,6 +7,7 @@ const OrderPrice = () => {
 			style={{
 				marginTop: "30px",
 				display: "flex",
+				flexWrap: "wrap",
 				justifyContent: "space-between",
 				alignItems: "flex-end",
 			}}
