@@ -4,19 +4,7 @@ import { Link } from "react-router-dom";
 
 const NotFoundPage = () => {
 	return (
-		<Container
-			sx={{
-				padding: "20px 30px",
-				display: "flex",
-				flexDirection: "row",
-				justifyContent: "space-evenly",
-				maxHeight: "100%",
-				maxWidth: "800px",
-				"@media (max-width: 425px)": {
-					position: "relative",
-				},
-			}}
-		>
+		<Container>
 			<Grid
 				container
 				direction="row"
@@ -82,20 +70,7 @@ const NotFoundPage = () => {
 					</Box>
 				</Grid>
 				<Grid item>
-					<Box
-						sx={{
-							maxHeight: "350px",
-							"@media (max-width: 768px)": {
-								maxHeight: "240px",
-							},
-							"@media (max-width: 425px)": {
-								position: "absolute",
-								top: "-20px",
-								right: "20px",
-								maxHeight: "165px",
-							},
-						}}
-					>
+					<Box>
 						<img
 							style={{ maxHeight: "inherit" }}
 							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
