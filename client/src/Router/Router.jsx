@@ -7,9 +7,10 @@ import Guarantee from "../pages/Guarantee";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ExchangeAndReturn from "../pages/ExchangeAndReturn";
 import ProductsCatalogue from "../pages/ProductsCatalogue";
-import PlacingAnOrder from "../pages/PlacingAnOrder/PlacingAnOrder";
+import PlacingAnOrder from "../pages/PlacingAnOrder";
 import Cart from "../pages/Cart/Cart";
 import Contacts from "../pages/Contacts";
+import NotFoundPage from "../pages/NotFoundPage";
 
 function RootRouters() {
 	return (
@@ -26,6 +27,8 @@ function RootRouters() {
 			<Route path="/paymentAndDelivery" element={<PaymentAndDelivery />} />
 			<Route path="/exchangeAndReturn" element={<ExchangeAndReturn />} />
 			<Route path="/contacts" element={<Contacts />} />
+
+			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
 	);
 }
