@@ -14,12 +14,12 @@ const CartItem = ({ id = 474771, image = Image }) => {
 			<Typography className={styles.item__text}>Name</Typography>
 			<Amount />
 			<Typography className={styles.item__text}>Price</Typography>
-			<Button>
+			<button type="button" className={styles.item__btn}>
 				<img
 					src="https://res.cloudinary.com/dyvsyavmb/image/upload/v1676543739/images/llvbuvkf2jaupb5sfimm.svg"
 					alt="arrow"
 				/>
-			</Button>
+			</button>
 		</Box>
 	);
 };

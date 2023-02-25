@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 
 const Cart = () => {
+	const dispatch = useDispatch();
+	const cartItems = useSelector((store) => store.cart.data);
+	console.log("CartItems: ", cartItems);
+
 	return (
 		<Container>
 			<Typography variant="h4" className={styles.cart__title}>
@@ -12,10 +17,13 @@ const Cart = () => {
 			</Typography>
 			<Box container className={styles.cart}>
 				<Box className={styles.cart__items}>
-					<CartItem />
-					<CartItem />
-					<CartItem />
-					<CartItem />
+					{cartItems.length > 0 ? (
+						cartItems.map((el) => {
+							return <CartItem />;
+						})
+					) : (
+						<Typography variant="h5">Кошик пустий...</Typography>
+					)}
 				</Box>
 				<Box className={styles.cart__info}>
 					<Box className={styles.cart__description}>
