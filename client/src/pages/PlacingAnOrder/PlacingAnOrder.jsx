@@ -47,7 +47,7 @@ const PlacingAnOrder = () => {
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 
 	const [value, setValue] = useState();
-	const [inputValue, setInputValue] = useState("");
+	const [inputValue, setInputValue] = useState();
 
 	const handleShippingMethodChange = (e) => {
 		if (shippingMethod === "Кур’єром додому") {
@@ -95,7 +95,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
-									color="black"
+									color="secondary"
 									id="recipientsName"
 									name="recipientsName"
 									placeholder="Ім’я одержувача"
@@ -111,7 +111,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
-									color="black"
+									color="secondary"
 									id="phoneNumber"
 									name="phoneNumber"
 									placeholder="+380"
@@ -127,7 +127,7 @@ const PlacingAnOrder = () => {
 								</InputLabel>
 								<TextField
 									fullWidth
-									color="black"
+									color="secondary"
 									id="email"
 									name="email"
 									placeholder="E-mail"
@@ -206,7 +206,7 @@ const PlacingAnOrder = () => {
 								renderInput={(params) => (
 									<TextField
 										fullWidth
-										color="black"
+										color="secondary"
 										placeholder="Оберіть пункт видачі"
 										{...params}
 									/>
@@ -217,7 +217,7 @@ const PlacingAnOrder = () => {
 								fullWidth
 								id="adress"
 								name="adress"
-								color="black"
+								color="secondary"
 								value={formik.values.adress}
 								onChange={formik.handleChange}
 								placeholder="Місто, вулиця, будинок, квартира"
