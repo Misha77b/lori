@@ -5,6 +5,8 @@ import sendRequest from "../../helpers/sendRequest";
 
 const initialState = {
 	data: [],
+	popularProducts: [],
+	saleProducts: [],
 	dataQuantity: 0,
 	shoppingCart: [],
 	favorite: [],
@@ -24,6 +26,14 @@ export const productsSlice = createSlice({
 	name: "products",
 	initialState,
 	reducers: {
+		// setPopularProducts: (state, action) => {
+		// 	// eslint-disable-next-line array-callback-return,consistent-return
+		// 	state.popularProducts = action.payload.map((item) => {
+		// 		if (item.popular) {
+		// 			return item;
+		// 		}
+		// 	});
+		// },
 		setShoppingCart: (state, action) => {
 			state.shoppingCart.push(action.payload);
 		},
@@ -60,6 +70,7 @@ export const productsSlice = createSlice({
 	},
 });
 export const {
+	setPopularProducts,
 	actionPage,
 	setShoppingCart,
 	setFavorite,

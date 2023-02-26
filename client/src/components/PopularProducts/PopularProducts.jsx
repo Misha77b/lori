@@ -1,9 +1,12 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Container, Box } from "@mui/material";
 import CategoryTitle from "../CategoryTitle";
 import ProductCard from "../ProductCard";
+// eslint-disable-next-line import/named
+import { setPopularProducts } from "../../store/reducers/productsSlice";
 
 const PopularProducts = ({ products, advertisement = false }) => {
 	return (

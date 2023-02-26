@@ -1,33 +1,33 @@
-import { Button, Stack, Typography } from "@mui/material";
+import React from "react";
+import { Button, Stack, Typography, Container } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Link } from "react-router-dom";
 import "../PopularBrands.scss";
 import useSearchParams from "../../../pages/ProductsCatalogue/hooks";
 
-const paragraph = {
-	margin: "0",
-	fontSize: "16px",
-	position: "relative",
-	"z-index": 1,
-};
-const heading = {
-	margin: "0",
-	fontSize: "30px",
-	position: "relative",
-	"z-index": 1,
-	color: "#fff",
-};
-const button = {
-	cursor: "pointer",
-	width: "134px",
-	height: "38px",
-	"&:hover": {
-		color: "#FFFF",
-		backgroundColor: "#007042",
-	},
-};
-
 const GridItem = ({ products }) => {
+	const paragraph = {
+		margin: "0",
+		fontSize: "16px",
+		position: "relative",
+		"z-index": 1,
+	};
+	const heading = {
+		margin: "0",
+		fontSize: "30px",
+		position: "relative",
+		"z-index": 1,
+		color: "#fff",
+	};
+	const button = {
+		cursor: "pointer",
+		width: "134px",
+		height: "38px",
+		"&:hover": {
+			color: "#FFFF",
+			backgroundColor: "#007042",
+		},
+	};
 	const brandsBlock = [];
 	const brands = new Map();
 
