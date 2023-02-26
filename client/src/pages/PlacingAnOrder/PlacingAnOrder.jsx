@@ -31,13 +31,20 @@ import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
 import { getItems } from "../../helpers/utils";
 import useFetchData from "../Home/hooks";
+// order data testing
+import { selectOrderData } from "../../store/selectors/orders.selectors";
+import { setOrderData } from "../../store/reducers/ordersSlice";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
 });
 
 const PlacingAnOrder = () => {
+	const dispatch = useDispatch();
 	const products = useFetchData();
+	// order data testing
+	const orderData = useSelector(selectOrderData);
+	console.log(orderData);
 
 	const cartItems = getItems("cart", products);
 
@@ -61,11 +68,26 @@ const PlacingAnOrder = () => {
 		setPaymentMethod(e.target.value);
 	};
 
-	// console.log(cartItems);
+	// order data send test function
+	const orders = (orderProds) => {
+		const order = {
+			products: orderProds,
+			fullName: orderData.fullName,
+			email: orderData.email,
+			mobile: orderData.phone,
+			letterSubject: "Thank you for order!",
+			letterHtml: `<h1>Your order is placed.</h1>
+                </br></br> 
+                <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
+                </br></br>`,
+		};
+
+		return order;
+	};
 
 	const formik = useFormik({
 		initialValues: {
-			recipientsName: "",
+			fullName: "",
 			phoneNumber: "",
 			email: "",
 			// orders: { ...cartItems },
@@ -73,7 +95,9 @@ const PlacingAnOrder = () => {
 		},
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
-			console.log(JSON.stringify(values, null, 2));
+			dispatch(setOrderData(values));
+			// console.log(JSON.stringify(values, null, 2));
+			console.log(orders(cartItems));
 		},
 	});
 
@@ -96,11 +120,11 @@ const PlacingAnOrder = () => {
 								<TextField
 									fullWidth
 									color="secondary"
-									id="recipientsName"
-									name="recipientsName"
+									id="fullName"
+									name="fullName"
 									placeholder="Ім’я одержувача"
 									variant="outlined"
-									value={formik.values.recipientsName}
+									value={formik.values.fullName}
 									onChange={formik.handleChange}
 								/>
 							</Box>
