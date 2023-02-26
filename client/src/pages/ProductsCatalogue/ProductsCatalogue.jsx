@@ -10,7 +10,7 @@ import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
 import useSearchParams from "./hooks";
-import FiltersBlock from "./component/FiltersBlock";
+import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 
 const ProductsCatalogue = () => {

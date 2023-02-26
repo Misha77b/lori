@@ -5,6 +5,7 @@ const REQUIRED = "This field is required to fill in";
 export const schema = yup.object().shape({
 	firstName: yup.string().required(REQUIRED),
 	lastName: yup.string().required(REQUIRED),
+	login: yup.string().required(REQUIRED),
 	email: yup.string().required(REQUIRED),
 	password: yup.string().required(REQUIRED),
 	changePassword: yup.string().when("password", {

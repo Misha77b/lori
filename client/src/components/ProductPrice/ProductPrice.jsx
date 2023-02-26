@@ -22,7 +22,7 @@ const PriceWrapper = styled.div`
 `;
 const CurrentPrice = styled.span`
 	font-family: Montserrat, sans-serif;
-	font-size: clamp(20px, 27px, 32px);
+	font-size: clamp(20px, 25px, 30px);
 	font-weight: 900;
 	line-height: 29px;
 	color: ${(props) => {
