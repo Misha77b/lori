@@ -9,16 +9,8 @@ import MenuAbout from "./components/MenuAbout";
 import MenuContact from "./components/MenuContact/MenuContact";
 
 const HeaderMenu = () => {
-	const CustomLink = styled(NavLink)(({ theme }) => ({
-		color: "inherit",
-		textDecoration: "none",
-		"&: hover": {
-			textDecoration: "underline",
-		},
-	}));
-
 	return (
-		<div style={{ textAlign: "center" }}>
+		<div style={{ textAlign: "center", whiteSpace: "nowrap" }}>
 			<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
 				<CustomLink to="/">Головна</CustomLink>
 			</Button>
@@ -29,5 +21,11 @@ const HeaderMenu = () => {
 		</div>
 	);
 };
-
+const CustomLink = styled(NavLink)(({ theme }) => ({
+	color: "inherit",
+	textDecoration: "none",
+	"&: hover": {
+		textDecoration: "underline",
+	},
+}));
 export default HeaderMenu;

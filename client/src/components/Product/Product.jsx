@@ -9,9 +9,10 @@ import Amount from "./Amount";
 import Selection from "./Select";
 import { DOMAIN } from "../../config/API";
 import "./Product.scss";
+import { setLocalItem } from "../../helpers/utils";
 
-function Product({ props }) {
-	const { currentPrice, imageUrls, name, rating, color } = props;
+function Product({ props, setNotification }) {
+	const { currentPrice, imageUrls, name, rating, color, itemNo: id } = props;
 	const [mainPhoto, setMainPhoto] = useState();
 	const navigate = useNavigate();
 	let difColor = "";
@@ -84,6 +85,13 @@ function Product({ props }) {
 							<Button
 								color="secondary"
 								variant="contained"
+								onClick={() => {
+									setLocalItem("cart", id);
+									setNotification(true);
+									setTimeout(() => {
+										setNotification(false);
+									}, 3000);
+								}}
 								sx={{
 									width: "245px",
 									height: "46px",
