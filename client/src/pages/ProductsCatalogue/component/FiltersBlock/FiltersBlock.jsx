@@ -1,11 +1,11 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { DOMAIN } from "../../../config/API";
-import Selection from "./Select";
-import RangePrice from "./RangePrice";
+import { DOMAIN } from "../../../../config/API";
+import Selection from "../Select";
+import RangePrice from "../RangePrice";
 import "./FiltersBlock.scss";
-import useSearchParams from "../hooks/useSearchParams";
+import useSearchParams from "../../hooks";
 
 const FiltersBlock = () => {
 	const [products, setProducts] = useState([]);
@@ -18,7 +18,6 @@ const FiltersBlock = () => {
 			})
 			.then((data) => {
 				setProducts(data);
-				console.log("data", data);
 			})
 			.catch((error) => {
 				if (error.code !== 20) console.error(error);
@@ -43,14 +42,13 @@ const FiltersBlock = () => {
 	const useE = () => {
 		setFilters({});
 	};
-	console.log("filter ", filters);
 	const params = useSearchParams(filters);
-	const arrayBrand = new Set(products?.map((card) => card.brand));
-	const arrayProc = new Set(products?.map((card) => card.processor));
-	const arrayStorage = new Set(products?.map((card) => card.iternalStorage));
-	const arrayRAM = new Set(products?.map((card) => card.RAM));
-	const arrayWaterResistant = new Set(products?.map((card) => card.waterResistant));
-	const arrayDiagonal = new Set(products?.map((card) => card.diagonal));
+	// const arrayBrand = new Set(products?.map((card) => card.brand));
+	// const arrayProc = new Set(products?.map((card) => card.processor));
+	// const arrayStorage = new Set(products?.map((card) => card.iternalStorage));
+	// const arrayRAM = new Set(products?.map((card) => card.RAM));
+	// const arrayWaterResistant = new Set(products?.map((card) => card.waterResistant));
+	// const arrayDiagonal = new Set(products?.map((card) => card.diagonal));
 	return (
 		<Box sx={{ margin: "0 auto" }}>
 			<Stack spacing={3} sx={{ position: "sticky", top: "30px", textAlign: "center" }}>
@@ -65,36 +63,36 @@ const FiltersBlock = () => {
 					value={filters.brand}
 					setCurrentValue={(value) => setCurrentValue("brand", value)}
 					nameLabel="Бренд"
-					arrayProps={Array.from(arrayBrand)}
+					arrayProps={Array.from(new Set(products?.map((card) => card.brand)))}
 				/>
 				<Selection
 					value={filters.processor}
 					nameLabel="Процесор"
-					arrayProps={Array.from(arrayProc)}
+					arrayProps={Array.from(new Set(products?.map((card) => card.processor)))}
 					setCurrentValue={(value) => setCurrentValue("processor", value)}
 				/>
 				<Selection
 					value={filters.diagonal}
 					nameLabel="Діагональ"
-					arrayProps={Array.from(arrayDiagonal)}
+					arrayProps={Array.from(new Set(products?.map((card) => card.diagonal)))}
 					setCurrentValue={(value) => setCurrentValue("diagonal", value)}
 				/>
 				<Selection
 					value={filters.iternalStorage}
 					nameLabel="Внутрішня память"
-					arrayProps={Array.from(arrayStorage)}
+					arrayProps={Array.from(new Set(products?.map((card) => card.iternalStorage)))}
 					setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
 				/>
 				<Selection
 					value={filters.RAM}
 					nameLabel="RAM"
-					arrayProps={Array.from(arrayRAM)}
+					arrayProps={Array.from(new Set(products?.map((card) => card.RAM)))}
 					setCurrentValue={(value) => setCurrentValue("RAM", value)}
 				/>
 				<Selection
 					value={filters.waterResistant}
 					nameLabel="Захист від вологи"
-					arrayProps={Array.from(arrayWaterResistant)}
+					arrayProps={Array.from(new Set(products?.map((card) => card.waterResistant)))}
 					setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
 				/>
 				<Link to={`/products/filter?${params.toString()}`} className="link">

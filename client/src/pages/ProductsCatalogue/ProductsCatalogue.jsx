@@ -10,7 +10,7 @@ import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
 import useSearchParams from "./hooks";
-import FiltersBlock from "./component/FiltersBlock";
+import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 
 const ProductsCatalogue = () => {
@@ -33,35 +33,30 @@ const ProductsCatalogue = () => {
 		});
 	}, [startPage, params]);
 
-	// if (productsLoading) return <Spinner />;
-
+	if (productsLoading) return <Spinner />;
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock />
-				{productsLoading && <Spinner />}
-				{!productsLoading && (
-					<CatalogueWrapper>
-						{products?.map((card, index) => (
-							<ProductCard
-								priceColor="#57646E"
-								key={index}
-								card={card}
-								setNotification={setNotification}
-							/>
-						))}
-					</CatalogueWrapper>
-				)}
+
+				<CatalogueWrapper>
+					{products?.map((card, index) => (
+						<ProductCard
+							priceColor="#57646E"
+							key={index}
+							card={card}
+							setNotification={setNotification}
+						/>
+					))}
+				</CatalogueWrapper>
 			</FiltersPhones>
-			{!productsLoading && (
-				<AppPagination
-					products={products}
-					pages={Math.ceil(productsQuantity / perPage)}
-					page={startPage}
-					onPageChange={(e, page) => setStartPage((prev) => page)}
-				/>
-			)}
+			<AppPagination
+				products={products}
+				pages={Math.ceil(productsQuantity / perPage)}
+				page={startPage}
+				onPageChange={(e, page) => setStartPage((prev) => page)}
+			/>
 		</Container>
 	);
 };
