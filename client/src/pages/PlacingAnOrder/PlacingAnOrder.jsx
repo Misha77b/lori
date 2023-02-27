@@ -44,7 +44,7 @@ const PlacingAnOrder = () => {
 	const products = useFetchData();
 	// order data testing
 	const orderData = useSelector(selectOrderData);
-	console.log(orderData);
+	// console.log(orderData);
 
 	const cartItems = getItems("cart", products);
 
@@ -74,7 +74,8 @@ const PlacingAnOrder = () => {
 			products: orderProds,
 			fullName: orderData.fullName,
 			email: orderData.email,
-			mobile: orderData.phone,
+			phoneNumber: orderData.phoneNumber,
+			adress: orderData.adress,
 			letterSubject: "Thank you for order!",
 			letterHtml: `<h1>Your order is placed.</h1>
                 </br></br> 
@@ -91,7 +92,7 @@ const PlacingAnOrder = () => {
 			phoneNumber: "",
 			email: "",
 			// orders: { ...cartItems },
-			adress: "",
+			adress: inputValue || "",
 		},
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -217,7 +218,7 @@ const PlacingAnOrder = () => {
 								disablePortal
 								id="adress"
 								name="adress"
-								value={(formik.values.adress = inputValue)}
+								value={inputValue}
 								onChange={(event, newValue) => {
 									setValue(newValue);
 								}}
