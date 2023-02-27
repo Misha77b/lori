@@ -43,7 +43,8 @@ const GridItem = ({ products }) => {
 	createMapBrandPhones(products);
 	const brandsBlock = [...brands.keys()].map((name, index) => {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const params = useSearchParams({ brand: name });
+		const params = new URLSearchParams();
+		params.set("brand", name);
 		const phoneNames = brands
 			.get(name)
 			.slice(0, 2)
