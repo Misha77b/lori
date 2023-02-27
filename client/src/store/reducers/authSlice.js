@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+// import jwt_decode from "jwt-decode";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
@@ -10,6 +11,7 @@ export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 	axios
 		.post(`${DOMAIN}/customers/login`, object)
 		.then(({ data }) => {
+			// const decoded = jwt_decode(data.token);
 			localStorage.setItem("token", data.token);
 		})
 		.catch((err) => console.warn(err));
