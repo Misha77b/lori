@@ -61,7 +61,6 @@ const ProductsCatalogue = () => {
 				</CatalogueWrapper>
 			</FiltersPhones>
 			<AppPagination
-				products={products}
 				pages={Math.ceil(productsQuantity / perPage)}
 				page={startPage}
 				onPageChange={(e, page) => setStartPage((prev) => page)}

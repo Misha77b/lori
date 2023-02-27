@@ -8,22 +8,21 @@ import useSearchParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
 import "./FiltersBlock.scss";
-import { fetchProducts } from "../../../../store/reducers/productsSlice";
 
 const FiltersBlock = ({ products, setFilteredData }) => {
-	const dispatch = useDispatch();
 	const [filters, setFilters] = useState({});
+
 	// кожен раз додається в obj нове поле для пошуку
 	const setCurrentValue = (field, CurrentValue) => {
 		setFilters((curFilters) => {
-			console.log({ ...curFilters, [field]: CurrentValue });
 			return { ...curFilters, [field]: CurrentValue };
 		});
 	};
+	const params = useSearchParams(filters);
 	const clearFiltersHandler = () => {
 		setFilters({});
 	};
-	const params = useSearchParams(filters);
+
 	return (
 		<Box sx={{ margin: "0 auto" }}>
 			<Stack spacing={3} sx={{ position: "sticky", top: "30px", textAlign: "center" }}>
@@ -109,16 +108,3 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 	);
 };
 export default FiltersBlock;
-
-// <Link to={`/products/filter?${params.toString()}`} className="link">
-// 	<Button
-// 		variant="contained"
-// 		color="secondary"
-// 		sx={{
-// 			width: "245px",
-// 			height: "46px",
-// 		}}
-// 	>
-// 		Пошук
-// 	</Button>
-// </Link>;
