@@ -4,11 +4,17 @@ import { Link } from "react-router-dom";
 import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
+import { actionFetchCart, addItems } from "../../store/reducers/cartSlice";
 
 const Cart = () => {
 	const dispatch = useDispatch();
 	const cartItems = useSelector((store) => store.cart.data);
-	console.log("CartItems: ", cartItems);
+
+	useEffect(() => {
+		const localItems = JSON.parse(localStorage.getItem("cart"));
+		console.log("localItems", localItems);
+		dispatch(actionFetchCart(localItems));
+	}, []);
 
 	return (
 		<Container>
@@ -18,8 +24,17 @@ const Cart = () => {
 			<Box container className={styles.cart}>
 				<Box className={styles.cart__items}>
 					{cartItems.length > 0 ? (
-						cartItems.map((el) => {
-							return <CartItem />;
+						cartItems.map(({ _id: id, imageUrls, name, currentPrice }) => {
+							console.log("ID", id);
+							return (
+								<CartItem
+									key={id}
+									id={id}
+									imageUrls={imageUrls}
+									name={name}
+									currentPrice={currentPrice}
+								/>
+							);
 						})
 					) : (
 						<Typography variant="h5">Кошик пустий...</Typography>
