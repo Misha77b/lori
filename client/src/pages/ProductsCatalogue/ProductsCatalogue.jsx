@@ -12,47 +12,55 @@ import { selectProductsQuantity } from "../../store/selectors/products.selectors
 import useSearchParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
+import useFetchData from "../Home/hooks";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
+	const initialProducts = useFetchData();
+	const productsLoading = useSelector((state) => state.products.loader);
+	const [products, setProducts] = useState([...initialProducts]);
 	const [notification, setNotification] = useState(false);
 	const [startPage, setStartPage] = useState(1);
+	const [filteredData, setFilteredData] = useState([]);
 	const perPage = 5;
-	const productsLoading = useSelector((state) => state.products.loader);
-	const initialProducts = useSelector(selectProductsData);
+
 	const productsQuantity = useSelector(selectProductsQuantity);
-
-	// const productsQuantity = useSelector(productsQuantitySelector); this is a correct one;
-
-	const [products, setProducts] = useState([...initialProducts]);
 	const params = useSearchParams({ startPage, perPage });
 	useEffect(() => {
 		const data = dispatch(fetchProducts(params));
 		data.then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [startPage, params]);
-
+	}, [startPage, params, filteredData]);
 	if (productsLoading) return <Spinner />;
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
-				<FiltersBlock />
-
+				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
 				<CatalogueWrapper>
-					{products?.map((card, index) => (
-						<ProductCard
-							priceColor="#57646E"
-							key={index}
-							card={card}
-							setNotification={setNotification}
-						/>
-					))}
+					{filteredData.length
+						? filteredData?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))
+						: products?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))}
 				</CatalogueWrapper>
 			</FiltersPhones>
 			<AppPagination
-				products={products}
 				pages={Math.ceil(productsQuantity / perPage)}
 				page={startPage}
 				onPageChange={(e, page) => setStartPage((prev) => page)}
@@ -71,3 +79,4 @@ const FiltersPhones = styled.div`
 	grid-template-columns: 300px auto;
 `;
 export default ProductsCatalogue;
+// const productsQuantity = useSelector(productsQuantitySelector); this is a correct one;
