@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import axios from "axios";
-import { DOMAIN } from "../../../../config/API";
-import useSearchParams from "../../hooks";
+import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
 import "./FiltersBlock.scss";
+import { fetchProducts } from "../../../../store/reducers/productsSlice";
 
 const FiltersBlock = ({ products, setFilteredData }) => {
-	const [filters, setFilters] = useState({});
+	const dispatch = useDispatch();
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	// кожен раз додається в obj нове поле для пошуку
-	const setCurrentValue = (field, CurrentValue) => {
-		setFilters((curFilters) => {
-			return { ...curFilters, [field]: CurrentValue };
-		});
-	};
-	const params = useSearchParams(filters);
+	const { params } = useLocationParams();
+
 	const clearFiltersHandler = () => {
-		setFilters({});
+		searchParams.delete("brand");
+		searchParams.delete("processor");
+		searchParams.delete("diagonal");
+		searchParams.delete("iternalStorage");
+		searchParams.delete("RAM");
+		searchParams.delete("waterResistant");
 	};
 
 	return (
@@ -34,45 +34,76 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				</Typography>
 				<RangePrice /> {/* price range */}
 				<Selection
-					value={filters.brand}
-					setCurrentValue={(value) => setCurrentValue("brand", value)}
+					// value={filters.brand}
+					value={searchParams.get("brand")}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("brand", value);
+							return prev;
+						});
+					}}
+					// setCurrentValue={(value) => setCurrentValue("brand", value)}
 					nameLabel="Бренд"
 					arrayProps={Array.from(new Set(products?.map((card) => card.brand)))}
 				/>
 				<Selection
-					value={filters.processor}
+					value={searchParams.get("processor")}
 					nameLabel="Процесор"
 					arrayProps={Array.from(new Set(products?.map((card) => card.processor)))}
-					setCurrentValue={(value) => setCurrentValue("processor", value)}
+					// setCurrentValue={(value) => setCurrentValue("processor", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("processor", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.diagonal}
+					value={searchParams.get("diagonal")}
 					nameLabel="Діагональ"
 					arrayProps={Array.from(new Set(products?.map((card) => card.diagonal)))}
-					setCurrentValue={(value) => setCurrentValue("diagonal", value)}
+					// setCurrentValue={(value) => setCurrentValue("diagonal", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("diagonal", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.iternalStorage}
+					value={searchParams.get("iternalStorage")}
 					nameLabel="Внутрішня память"
 					arrayProps={Array.from(new Set(products?.map((card) => card.iternalStorage)))}
-					setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
+					// setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("iternalStorage", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.RAM}
+					value={searchParams.get("RAM")}
 					nameLabel="RAM"
 					arrayProps={Array.from(new Set(products?.map((card) => card.RAM)))}
-					setCurrentValue={(value) => setCurrentValue("RAM", value)}
+					// setCurrentValue={(value) => setCurrentValue("RAM", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("RAM", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.waterResistant}
+					value={searchParams.get("waterResistant")}
 					nameLabel="Захист від вологи"
 					arrayProps={Array.from(new Set(products?.map((card) => card.waterResistant)))}
-					setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
-				/>
-				<input
-					type="text"
-					onInput={(event) => {
-						setCurrentValue("sort", event.target.value);
+					// setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("waterResistant", value);
+							return prev;
+						});
 					}}
 				/>
 				<Button
@@ -83,9 +114,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 						height: "46px",
 					}}
 					onClick={() => {
-						axios
-							.get(`${DOMAIN}/products/filter?${params}`)
-							.then((resp) => setFilteredData(resp.data.products));
+						dispatch(fetchProducts(params)).then((resp) => setFilteredData(resp.payload.products));
 					}}
 				>
 					Пошук

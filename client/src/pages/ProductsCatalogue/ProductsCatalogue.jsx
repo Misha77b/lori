@@ -9,7 +9,7 @@ import { selectProductsData } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
-import useSearchParams from "./hooks";
+import useLocationParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import useFetchData from "../Home/hooks";
@@ -25,19 +25,18 @@ const ProductsCatalogue = () => {
 	const perPage = 5;
 
 	const productsQuantity = useSelector(selectProductsQuantity);
-	const params = useSearchParams({ startPage, perPage });
+	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
-		const data = dispatch(fetchProducts(params));
-		data.then((res) => {
+		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData]);
-	if (productsLoading) return <Spinner />;
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
+				{productsLoading && <Spinner />}
 				<CatalogueWrapper>
 					{filteredData.length
 						? filteredData?.map((card, index) => (

@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-const useSearchParams = (additionalParams = {}) => {
+const useLocationParams = (additionalParams = {}) => {
 	const location = useLocation();
 	const params = new URLSearchParams(location.search);
 	if (Object.keys(additionalParams).length) {
@@ -8,7 +8,8 @@ const useSearchParams = (additionalParams = {}) => {
 			params.set(key, additionalParams[key]);
 		});
 	}
-	return params.toString();
+
+	return { params: params.toString() };
 };
 
-export default useSearchParams;
+export default useLocationParams;
