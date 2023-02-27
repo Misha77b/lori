@@ -1,5 +1,3 @@
-export { selectPaginatedData } from "./paginatedData.selector";
-
 export {
 	selectProductsData,
 	selectShoppingCart,
