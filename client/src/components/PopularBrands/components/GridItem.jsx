@@ -75,7 +75,7 @@ const GridItem = ({ products }) => {
 										{phoneNames}
 									</Typography>
 								</Stack>
-								<Link to={`/products/filter?${params.toString()}`} className="link">
+								<Link to={`/products?${params.toString()}`} className="link">
 									<Button color="primary" variant="contained" sx={button}>
 										Детальніше
 									</Button>

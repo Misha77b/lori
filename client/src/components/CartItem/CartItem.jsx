@@ -8,7 +8,7 @@ import Image from "./Group 178.png";
 const CartItem = ({ id = 474771, image = Image }) => {
 	return (
 		<Box className={styles.item}>
-			<Link to={`/products/${id}`}>
+			<Link to={`/product/${id}`}>
 				<img src={image} alt="product-item" className={styles.item__image} />
 			</Link>
 			<Typography className={styles.item__text}>Name</Typography>
