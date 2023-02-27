@@ -5,8 +5,6 @@ import sendRequest from "../../helpers/sendRequest";
 
 const initialState = {
 	data: [],
-	popularProducts: [],
-	saleProducts: [],
 	dataQuantity: 0,
 	shoppingCart: [],
 	favorite: [],

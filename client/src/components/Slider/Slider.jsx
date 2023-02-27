@@ -21,6 +21,7 @@ import { selectSlidesData } from "../../store/selectors";
 const Slider = () => {
 	const dispatch = useDispatch();
 	const slides = useSelector(selectSlidesData);
+
 	useEffect(
 		() => () => {
 			dispatch(fetchSlides());

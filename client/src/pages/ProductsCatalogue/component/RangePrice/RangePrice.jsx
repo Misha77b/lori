@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Box, Slider } from "@mui/material";
-import { DOMAIN } from "../../../../config/API";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
 
-function RangeSlider() {
-	const [value, setValue] = useState([2000, 20000]);
+function valuetext(value) {
+	return `${value}`;
+}
+
+export default function RangeSlider() {
+	const [value, setValue] = React.useState([2000, 20000]);
+
 	const handleChange = (event, newValue = []) => {
 		setValue(newValue);
 	};
-	const valuetext = (val) => {
-		return `${val}`;
-	};
 
 	return (
-		<Box sx={{ width: 250, margin: 0 }}>
+		<Box sx={{ width: 250, margin: 0, color: "red" }}>
 			<Slider
 				sx={{
 					margin: 0,
@@ -22,7 +23,7 @@ function RangeSlider() {
 					"& .MuiSlider-valueLabelLabel": {
 						left: "calc(-50% + 4px)",
 						padding: 0,
-						margin: 0,
+						margin: 0, // прибираємо margin
 						color: "#000000",
 					},
 				}}
@@ -34,11 +35,8 @@ function RangeSlider() {
 				min={0}
 				max={60000}
 				step={500}
-				getAriaValueText={() => {
-					valuetext(value);
-				}}
+				getAriaValueText={valuetext}
 			/>
 		</Box>
 	);
 }
-export default RangeSlider;

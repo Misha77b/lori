@@ -1,28 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { DOMAIN } from "../../../../config/API";
-import useSearchParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
 import "./FiltersBlock.scss";
+import useSearchParams from "../../hooks";
 
-const FiltersBlock = ({ products, setFilteredData }) => {
+const FiltersBlock = () => {
+	const [products, setProducts] = useState([]);
 	const [filters, setFilters] = useState({});
 
+	async function fetchAllProducts(abort) {
+		fetch(`${DOMAIN}/products`, { signal: abort.signal })
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				setProducts(data);
+			})
+			.catch((error) => {
+				if (error.code !== 20) console.error(error);
+			});
+	}
 	// кожен раз додається в obj нове поле для пошуку
 	const setCurrentValue = (field, CurrentValue) => {
 		setFilters((curFilters) => {
 			return { ...curFilters, [field]: CurrentValue };
 		});
 	};
-	const params = useSearchParams(filters);
-	const clearFiltersHandler = () => {
+	// {brand: 'Huawei'} {brand: 'Huawei', processor: 'HiSilicon Kirin 710'}...
+	// {brand: 'Huawei', processor: 'HiSilicon Kirin 710', diagonal: 6.5, iternalStorage: 256}
+	useEffect(() => {
+		const abort = new AbortController();
+		fetchAllProducts(abort);
+		return () => {
+			abort.abort();
+		};
+	}, []);
+	//
+	const useE = () => {
 		setFilters({});
 	};
-
+	const params = useSearchParams(filters);
+	// const arrayBrand = new Set(products?.map((card) => card.brand));
+	// const arrayProc = new Set(products?.map((card) => card.processor));
+	// const arrayStorage = new Set(products?.map((card) => card.iternalStorage));
+	// const arrayRAM = new Set(products?.map((card) => card.RAM));
+	// const arrayWaterResistant = new Set(products?.map((card) => card.waterResistant));
+	// const arrayDiagonal = new Set(products?.map((card) => card.diagonal));
 	return (
 		<Box sx={{ margin: "0 auto" }}>
 			<Stack spacing={3} sx={{ position: "sticky", top: "30px", textAlign: "center" }}>
@@ -69,30 +95,21 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 					arrayProps={Array.from(new Set(products?.map((card) => card.waterResistant)))}
 					setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
 				/>
-				<input
-					type="text"
-					onInput={(event) => {
-						setCurrentValue("sort", event.target.value);
-					}}
-				/>
-				<Button
-					variant="contained"
-					color="secondary"
-					sx={{
-						width: "245px",
-						height: "46px",
-					}}
-					onClick={() => {
-						axios
-							.get(`${DOMAIN}/products/filter?${params}`)
-							.then((resp) => setFilteredData(resp.data.products));
-					}}
-				>
-					Пошук
-				</Button>
+				<Link to={`/products/filter?${params.toString()}`} className="link">
+					<Button
+						variant="contained"
+						color="secondary"
+						sx={{
+							width: "245px",
+							height: "46px",
+						}}
+					>
+						Пошук
+					</Button>
+				</Link>
 				<Link to="/products" className="link">
 					<Button
-						onClick={clearFiltersHandler}
+						onClick={useE}
 						variant="contained"
 						color="secondary"
 						sx={{
