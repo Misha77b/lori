@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { deleteCardIdFromStore, setLocalItem } from "../../helpers/utils";
+import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
+import { setLocalItem } from "../../helpers/setLocalItem";
 
 const FavoriteHeartIcon = ({ id, product }) => {
 	const [liked, setLiked] = useState(false);

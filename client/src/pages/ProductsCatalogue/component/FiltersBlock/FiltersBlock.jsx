@@ -126,9 +126,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 						width: "245px",
 						height: "46px",
 					}}
-					onClick={() => {
-						dispatch(fetchProducts(params)).then((resp) => setFilteredData(resp.payload.products));
-					}}
+					onClick={() => dispatch(fetchProducts(params))}
 				>
 					Пошук
 				</Button>

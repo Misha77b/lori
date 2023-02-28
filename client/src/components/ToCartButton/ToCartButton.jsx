@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { setLocalItem } from "../../helpers/utils";
+import { setLocalItem } from "../../helpers/setLocalItem";
 
 const ToCartButton = ({ id, setNotification }) => {
 	return (
