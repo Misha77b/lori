@@ -16,7 +16,7 @@ function RootRouters() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/products/:id" element={<OneProduct />} />
+			<Route path="/product/:id" element={<OneProduct />} />
 			<Route path="/products" element={<ProductsCatalogue />} />
 			<Route path="/orders" element={<PlacingAnOrder />} />
 
