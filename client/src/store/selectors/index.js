@@ -15,3 +15,4 @@ export {
 	selectAuthUserToken,
 	selectUserID,
 } from "./auth.selectors";
+export { selectSearch, selectSearchQuery, selectSearchLoader } from "./search.selector";
