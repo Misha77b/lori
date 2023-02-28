@@ -1,54 +1,41 @@
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link, useSearchParams } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { DOMAIN } from "../../../../config/API";
+import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
 import "./FiltersBlock.scss";
-import useSearchParams from "../../hooks";
+import { fetchProducts } from "../../../../store/reducers/productsSlice";
 
-const FiltersBlock = () => {
-	const [products, setProducts] = useState([]);
-	const [filters, setFilters] = useState({});
+const FiltersBlock = ({ products, setFilteredData }) => {
+	const dispatch = useDispatch();
+	const [searchParams, setSearchParams] = useSearchParams();
 
-	async function fetchAllProducts(abort) {
-		fetch(`${DOMAIN}/products`, { signal: abort.signal })
-			.then((response) => {
-				return response.json();
-			})
-			.then((data) => {
-				setProducts(data);
-			})
-			.catch((error) => {
-				if (error.code !== 20) console.error(error);
-			});
-	}
-	// кожен раз додається в obj нове поле для пошуку
-	const setCurrentValue = (field, CurrentValue) => {
-		setFilters((curFilters) => {
-			return { ...curFilters, [field]: CurrentValue };
+	const { params } = useLocationParams();
+
+	const clearFiltersHandler = () => {
+		searchParams.delete("brand");
+		searchParams.delete("processor");
+		searchParams.delete("diagonal");
+		searchParams.delete("iternalStorage");
+		searchParams.delete("RAM");
+		searchParams.delete("waterResistant");
+		searchParams.delete("minPrice");
+		searchParams.delete("maxPrice");
+	};
+	const priceHandler = (minPrice, maxPrice) => {
+		searchParams.get("minPrice");
+		setSearchParams((prev) => {
+			prev.set("minPrice", minPrice);
+			return prev;
+		});
+		searchParams.get("maxPrice");
+		setSearchParams((prev) => {
+			prev.set("maxPrice", maxPrice);
+			return prev;
 		});
 	};
-	// {brand: 'Huawei'} {brand: 'Huawei', processor: 'HiSilicon Kirin 710'}...
-	// {brand: 'Huawei', processor: 'HiSilicon Kirin 710', diagonal: 6.5, iternalStorage: 256}
-	useEffect(() => {
-		const abort = new AbortController();
-		fetchAllProducts(abort);
-		return () => {
-			abort.abort();
-		};
-	}, []);
-	//
-	const useE = () => {
-		setFilters({});
-	};
-	const params = useSearchParams(filters);
-	// const arrayBrand = new Set(products?.map((card) => card.brand));
-	// const arrayProc = new Set(products?.map((card) => card.processor));
-	// const arrayStorage = new Set(products?.map((card) => card.iternalStorage));
-	// const arrayRAM = new Set(products?.map((card) => card.RAM));
-	// const arrayWaterResistant = new Set(products?.map((card) => card.waterResistant));
-	// const arrayDiagonal = new Set(products?.map((card) => card.diagonal));
 	return (
 		<Box sx={{ margin: "0 auto" }}>
 			<Stack spacing={3} sx={{ position: "sticky", top: "30px", textAlign: "center" }}>
@@ -58,55 +45,91 @@ const FiltersBlock = () => {
 				>
 					Ціна
 				</Typography>
-				<RangePrice /> {/* price range */}
+				<RangePrice setPriceParams={priceHandler} />
 				<Selection
-					value={filters.brand}
-					setCurrentValue={(value) => setCurrentValue("brand", value)}
+					// value={filters.brand}
+					value={searchParams.get("brand")}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("brand", value);
+							return prev;
+						});
+					}}
+					// setCurrentValue={(value) => setCurrentValue("brand", value)}
 					nameLabel="Бренд"
 					arrayProps={Array.from(new Set(products?.map((card) => card.brand)))}
 				/>
 				<Selection
-					value={filters.processor}
+					value={searchParams.get("processor")}
 					nameLabel="Процесор"
 					arrayProps={Array.from(new Set(products?.map((card) => card.processor)))}
-					setCurrentValue={(value) => setCurrentValue("processor", value)}
+					// setCurrentValue={(value) => setCurrentValue("processor", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("processor", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.diagonal}
+					value={searchParams.get("diagonal")}
 					nameLabel="Діагональ"
 					arrayProps={Array.from(new Set(products?.map((card) => card.diagonal)))}
-					setCurrentValue={(value) => setCurrentValue("diagonal", value)}
+					// setCurrentValue={(value) => setCurrentValue("diagonal", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("diagonal", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.iternalStorage}
+					value={searchParams.get("iternalStorage")}
 					nameLabel="Внутрішня память"
 					arrayProps={Array.from(new Set(products?.map((card) => card.iternalStorage)))}
-					setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
+					// setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("iternalStorage", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.RAM}
+					value={searchParams.get("RAM")}
 					nameLabel="RAM"
 					arrayProps={Array.from(new Set(products?.map((card) => card.RAM)))}
-					setCurrentValue={(value) => setCurrentValue("RAM", value)}
+					// setCurrentValue={(value) => setCurrentValue("RAM", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("RAM", value);
+							return prev;
+						});
+					}}
 				/>
 				<Selection
-					value={filters.waterResistant}
+					value={searchParams.get("waterResistant")}
 					nameLabel="Захист від вологи"
 					arrayProps={Array.from(new Set(products?.map((card) => card.waterResistant)))}
-					setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
+					// setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("waterResistant", value);
+							return prev;
+						});
+					}}
 				/>
-				<Link to={`/products/filter?${params.toString()}`} className="link">
-					<Button
-						variant="contained"
-						color="secondary"
-						sx={{
-							width: "245px",
-							height: "46px",
-						}}
-					>
-						Пошук
-					</Button>
-				</Link>
+				<Button
+					variant="contained"
+					color="secondary"
+					sx={{
+						width: "245px",
+						height: "46px",
+					}}
+					onClick={() => dispatch(fetchProducts(params))}
+				>
+					Пошук
+				</Button>
 				<Link to="/products" className="link">
 					<Button
 						onClick={useE}

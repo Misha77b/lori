@@ -1,7 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { DOMAIN } from "../../config/API";
 import sendRequest from "../../helpers/sendRequest";
+
+import { getItems } from "../../helpers/getItems";
 
 const initialState = {
 	data: [],
@@ -16,7 +19,7 @@ export const fetchProducts = createAsyncThunk("products/fetchData", async (filte
 	if (filters) {
 		url = `${url}/filter?${filters}`;
 	}
-	const response = sendRequest(url);
+	const response = await axios.get(url).then(({ data }) => data);
 	return response;
 });
 
@@ -28,7 +31,7 @@ export const productsSlice = createSlice({
 			state.shoppingCart.push(action.payload);
 		},
 		setFavorite: (state, action) => {
-			state.favorite.push(action.payload);
+			state.favorite = action.payload;
 		},
 		removeProduct: (state, action) => {
 			state.data = state.data.filter((item) => item.id !== action.payload);
@@ -37,7 +40,7 @@ export const productsSlice = createSlice({
 			state.shoppingCart = state.shoppingCart.filter((item) => item.id !== action.payload);
 		},
 		removeItemFavorite: (state, action) => {
-			state.favorite = state.favorite.filter((item) => item.id !== action.payload);
+			state.favorite = state.favorite.filter((item) => item.itemNo !== action.payload);
 		},
 	},
 	extraReducers: (builder) => {

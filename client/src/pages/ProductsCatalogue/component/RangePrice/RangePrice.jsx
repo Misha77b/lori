@@ -1,20 +1,13 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
+import React, { useState } from "react";
+import { Box, Slider } from "@mui/material";
 
-function valuetext(value) {
-	return `${value}`;
-}
-
-export default function RangeSlider() {
-	const [value, setValue] = React.useState([2000, 20000]);
-
-	const handleChange = (event, newValue = []) => {
-		setValue(newValue);
+function RangeSlider({ setPriceParams }) {
+	const [value, setValue] = useState([2000, 20000]);
+	const valuetext = (val) => {
+		return `${val}`;
 	};
-
 	return (
-		<Box sx={{ width: 250, margin: 0, color: "red" }}>
+		<Box sx={{ width: 250, margin: 0 }}>
 			<Slider
 				sx={{
 					margin: 0,
@@ -23,20 +16,26 @@ export default function RangeSlider() {
 					"& .MuiSlider-valueLabelLabel": {
 						left: "calc(-50% + 4px)",
 						padding: 0,
-						margin: 0, // прибираємо margin
+						margin: 0,
 						color: "#000000",
 					},
 				}}
 				color="secondary"
 				getAriaLabel={() => "Ціна"}
 				value={value}
-				onChange={handleChange}
+				onChange={(event, newValue) => {
+					setValue(newValue);
+					setPriceParams(value[0], value[1]);
+				}}
 				valueLabelDisplay="auto"
-				min={0}
-				max={60000}
+				min={2000}
+				max={100000}
 				step={500}
-				getAriaValueText={valuetext}
+				getAriaValueText={() => {
+					valuetext(value);
+				}}
 			/>
 		</Box>
 	);
 }
+export default RangeSlider;
