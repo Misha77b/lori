@@ -9,7 +9,7 @@ import { selectProductsData, selectSearch } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
-import useSearchParams from "./hooks";
+import useLocationParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import useFetchData from "../Home/hooks";
@@ -27,45 +27,44 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const search = useSelector(selectSearch);
-	const params = useSearchParams({ startPage, perPage });
+	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
-		const data = dispatch(fetchProducts(params));
-		data.then((res) => {
+		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData, search]);
 
-	if (productsLoading) return <Spinner />;
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
-				{search.length > 0 ? (
+				{productsLoading && <Spinner />}
+        {search.length > 0 ? (
 					<SearchRender />
 				) : (
-					<CatalogueWrapper>
-						{filteredData.length
-							? filteredData?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))
-							: products?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))}
-					</CatalogueWrapper>
-				)}
+				<CatalogueWrapper>
+					{filteredData.length
+						? filteredData?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))
+						: products?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))}
+				</CatalogueWrapper>
+        	)}
 			</FiltersPhones>
 			<AppPagination
 				pages={Math.ceil(productsQuantity / perPage)}

@@ -29,7 +29,7 @@ import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
 import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
-import { getItems } from "../../helpers/utils";
+import { getItems } from "../../helpers/getItems";
 import useFetchData from "../Home/hooks";
 
 const validationSchema = yup.object({

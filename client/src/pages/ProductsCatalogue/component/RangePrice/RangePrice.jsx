@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { Box, Slider } from "@mui/material";
-import { DOMAIN } from "../../../../config/API";
 
-function RangeSlider() {
+function RangeSlider({ setPriceParams }) {
 	const [value, setValue] = useState([2000, 20000]);
-	const handleChange = (event, newValue = []) => {
-		setValue(newValue);
-	};
 	const valuetext = (val) => {
 		return `${val}`;
 	};
-
 	return (
 		<Box sx={{ width: 250, margin: 0 }}>
 			<Slider
@@ -29,10 +23,13 @@ function RangeSlider() {
 				color="secondary"
 				getAriaLabel={() => "Ціна"}
 				value={value}
-				onChange={handleChange}
+				onChange={(event, newValue) => {
+					setValue(newValue);
+					setPriceParams(value[0], value[1]);
+				}}
 				valueLabelDisplay="auto"
-				min={0}
-				max={60000}
+				min={2000}
+				max={100000}
 				step={500}
 				getAriaValueText={() => {
 					valuetext(value);
