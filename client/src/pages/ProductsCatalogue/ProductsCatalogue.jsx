@@ -41,7 +41,7 @@ const ProductsCatalogue = () => {
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
-				{search.length ? (
+				{search.length > 0 ? (
 					<SearchRender />
 				) : (
 					<CatalogueWrapper>

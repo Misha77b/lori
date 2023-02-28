@@ -72,14 +72,14 @@ const Header = ({ modal }) => {
 									Увійти
 								</Typography>
 							</IconButton>
-							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "0" }}>
+							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/cart">
 									<Badge badgeContent={1} color="secondary">
 										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
 							</IconButton>
-							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
+							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/">
 									<Badge badgeContent={4} color="secondary">
 										<FavoriteIcon sx={menuLinkItem} />

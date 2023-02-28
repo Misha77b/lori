@@ -11,17 +11,10 @@ const SearchRender = () => {
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	`;
 	const search = useSelector(selectSearch);
-	const [notification, setNotification] = useState(false);
 	return (
 		<SearchWrapper>
-			{search.map((card, index) => (
-				<ProductCard
-					priceColor="#57646E"
-					key={index}
-					card={card}
-					setNotification={setNotification}
-				/>
-			))}
+			{search.length &&
+				search.map((card, index) => <ProductCard priceColor="#57646E" key={index} card={card} />)}
 		</SearchWrapper>
 	);
 };

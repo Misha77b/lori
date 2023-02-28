@@ -1,15 +1,20 @@
 import React from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSearch, selectSearchQuery } from "../../../../store/selectors";
-import { actionSetSearchQuery, fetchSearchProducts } from "../../../../store/reducers/searchSlice";
+import { selectSearchQuery } from "../../../../store/selectors";
+import {
+	actionSetSearchQuery,
+	fetchSearchProducts,
+	clearInput,
+} from "../../../../store/reducers/searchSlice";
+import useSearchParams from "../../../../pages/ProductsCatalogue/hooks/useSearchParams";
 
 const Search = () => {
 	const dispatch = useDispatch();
 	const searchQuery = useSelector(selectSearchQuery);
-	const [searchParams, setSearchParams] = useSearchParams();
+	const params = useSearchParams({ query: searchQuery });
 
 	const searchPhrases = {
 		query: searchQuery,
@@ -19,9 +24,14 @@ const Search = () => {
 		dispatch(actionSetSearchQuery(e.target.value));
 	};
 
-	const handlerSubmit = (e) => {
+	const handlerSubmit = () => {
 		dispatch(fetchSearchProducts(searchPhrases));
+		dispatch(clearInput());
 	};
+
+	// const handleClearInput = () => {
+	// 	dispatch(clearInput());
+	// };
 
 	return (
 		<Box
@@ -55,7 +65,7 @@ const Search = () => {
 				label="Пошук..."
 				variant="outlined"
 			/>
-			<Link to="products/">
+			<Link to={`products?${params}`}>
 				<Button
 					onClick={handlerSubmit}
 					sx={{
