@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +9,11 @@ import { actionSetSearchQuery, fetchSearchProducts } from "../../../../store/red
 const Search = () => {
 	const dispatch = useDispatch();
 	const searchQuery = useSelector(selectSearchQuery);
-	// const search = useSelector(selectSearch);
-	// console.log(search);
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	const searchPhrases = {
 		query: searchQuery,
 	};
-	// console.log(searchPhrases);
 
 	const handlerChange = (e) => {
 		dispatch(actionSetSearchQuery(e.target.value));
@@ -26,6 +25,7 @@ const Search = () => {
 
 	return (
 		<Box
+			onSubmit={(e) => e.preventDefault()}
 			component="form"
 			sx={{
 				"& .MuiTextField-root": {
@@ -55,26 +55,28 @@ const Search = () => {
 				label="Пошук..."
 				variant="outlined"
 			/>
-			<Button
-				onClick={handlerSubmit}
-				sx={{
-					position: "absolute",
-					top: "2px",
-					right: "2px",
-					height: "51px",
-					backgroundColor: "#A0A9AF",
-					borderRadius: "0 2px 2px 0",
-					"&:hover": { backgroundColor: "#007042" },
-				}}
-			>
-				<SearchIcon
-					color="grey"
+			<Link to="products/">
+				<Button
+					onClick={handlerSubmit}
 					sx={{
-						fontSize: "44px",
-						color: "#ffffff",
+						position: "absolute",
+						top: "2px",
+						right: "2px",
+						height: "51px",
+						backgroundColor: "#A0A9AF",
+						borderRadius: "0 2px 2px 0",
+						"&:hover": { backgroundColor: "#007042" },
 					}}
-				/>
-			</Button>
+				>
+					<SearchIcon
+						color="grey"
+						sx={{
+							fontSize: "44px",
+							color: "#ffffff",
+						}}
+					/>
+				</Button>
+			</Link>
 		</Box>
 	);
 };

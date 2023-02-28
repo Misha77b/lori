@@ -13,6 +13,7 @@ import useSearchParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import useFetchData from "../Home/hooks";
+import SearchRender from "./component/SearchRender";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -26,8 +27,6 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const search = useSelector(selectSearch);
-	console.log(search);
-
 	const params = useSearchParams({ startPage, perPage });
 	useEffect(() => {
 		const data = dispatch(fetchProducts(params));
@@ -42,27 +41,31 @@ const ProductsCatalogue = () => {
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
-				<CatalogueWrapper>
-					{filteredData.length
-						? filteredData?.map((card, index) => (
-								<ProductCard
-									priceColor="#57646E"
-									key={index}
-									card={card}
-									setNotification={setNotification}
-								/>
-								// eslint-disable-next-line no-mixed-spaces-and-tabs
-						  ))
-						: products?.map((card, index) => (
-								<ProductCard
-									priceColor="#57646E"
-									key={index}
-									card={card}
-									setNotification={setNotification}
-								/>
-								// eslint-disable-next-line no-mixed-spaces-and-tabs
-						  ))}
-				</CatalogueWrapper>
+				{search.length ? (
+					<SearchRender />
+				) : (
+					<CatalogueWrapper>
+						{filteredData.length
+							? filteredData?.map((card, index) => (
+									<ProductCard
+										priceColor="#57646E"
+										key={index}
+										card={card}
+										setNotification={setNotification}
+									/>
+									// eslint-disable-next-line no-mixed-spaces-and-tabs
+							  ))
+							: products?.map((card, index) => (
+									<ProductCard
+										priceColor="#57646E"
+										key={index}
+										card={card}
+										setNotification={setNotification}
+									/>
+									// eslint-disable-next-line no-mixed-spaces-and-tabs
+							  ))}
+					</CatalogueWrapper>
+				)}
 			</FiltersPhones>
 			<AppPagination
 				pages={Math.ceil(productsQuantity / perPage)}
