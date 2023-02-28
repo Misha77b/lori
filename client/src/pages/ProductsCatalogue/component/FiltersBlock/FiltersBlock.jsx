@@ -1,18 +1,62 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useSearchParams } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
-import "./FiltersBlock.scss";
 import { fetchProducts } from "../../../../store/reducers/productsSlice";
+import { selectorArrFilters } from "../../../../store/selectors";
+import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
+import "./FiltersBlock.scss";
 
 const FiltersBlock = ({ products, setFilteredData }) => {
 	const dispatch = useDispatch();
 	const [searchParams, setSearchParams] = useSearchParams();
-
 	const { params } = useLocationParams();
+	const filters = useSelector(selectorArrFilters);
+
+	const [brands, setBrands] = useState([]);
+	const [processor, setProcessor] = useState([]);
+	const [diagonal, setDiagonal] = useState([]);
+	const [iternalStorage, setIternalStorage] = useState([]);
+	const [RAM, setRAM] = useState([]);
+	const [waterResistant, setWaterResistant] = useState([]);
+
+	useEffect(() => {
+		filters.forEach((obj) => {
+			switch (obj.type) {
+				case "brand":
+					setBrands((prev) => [...prev, obj.name]);
+					break;
+				case "processor":
+					setProcessor((prev) => [...prev, obj.name]);
+					break;
+				case "diagonal":
+					setDiagonal((prev) => [...prev, obj.name]);
+					break;
+				case "iternalStorage":
+					setIternalStorage((prev) => [...prev, obj.name]);
+					break;
+				case "RAM":
+					setRAM((prev) => [...prev, obj.name]);
+					break;
+				case "waterResistant":
+					setWaterResistant((prev) => [...prev, obj.name]);
+					break;
+				default:
+					break;
+			}
+		});
+	}, [filters]);
+
+	useEffect(() => {
+		const abort = new AbortController();
+		dispatch(actionFetchFilters(abort.signal));
+		return () => {
+			abort.abort();
+		};
+	}, []);
 
 	const clearFiltersHandler = () => {
 		searchParams.delete("brand");
@@ -47,7 +91,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				</Typography>
 				<RangePrice setPriceParams={priceHandler} />
 				<Selection
-					// value={filters.brand}
 					value={searchParams.get("brand")}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
@@ -55,15 +98,13 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 							return prev;
 						});
 					}}
-					// setCurrentValue={(value) => setCurrentValue("brand", value)}
 					nameLabel="Бренд"
-					arrayProps={Array.from(new Set(products?.map((card) => card.brand)))}
+					arrayProps={brands}
 				/>
 				<Selection
 					value={searchParams.get("processor")}
 					nameLabel="Процесор"
-					arrayProps={Array.from(new Set(products?.map((card) => card.processor)))}
-					// setCurrentValue={(value) => setCurrentValue("processor", value)}
+					arrayProps={processor}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("processor", value);
@@ -74,8 +115,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				<Selection
 					value={searchParams.get("diagonal")}
 					nameLabel="Діагональ"
-					arrayProps={Array.from(new Set(products?.map((card) => card.diagonal)))}
-					// setCurrentValue={(value) => setCurrentValue("diagonal", value)}
+					arrayProps={diagonal}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("diagonal", value);
@@ -86,8 +126,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				<Selection
 					value={searchParams.get("iternalStorage")}
 					nameLabel="Внутрішня память"
-					arrayProps={Array.from(new Set(products?.map((card) => card.iternalStorage)))}
-					// setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
+					arrayProps={iternalStorage}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("iternalStorage", value);
@@ -98,8 +137,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				<Selection
 					value={searchParams.get("RAM")}
 					nameLabel="RAM"
-					arrayProps={Array.from(new Set(products?.map((card) => card.RAM)))}
-					// setCurrentValue={(value) => setCurrentValue("RAM", value)}
+					arrayProps={RAM}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("RAM", value);
@@ -110,8 +148,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				<Selection
 					value={searchParams.get("waterResistant")}
 					nameLabel="Захист від вологи"
-					arrayProps={Array.from(new Set(products?.map((card) => card.waterResistant)))}
-					// setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
+					arrayProps={waterResistant}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("waterResistant", value);
