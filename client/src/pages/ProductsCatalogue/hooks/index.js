@@ -1,2 +1,2 @@
 // eslint-disable-next-line import/named
-export { default } from "./useSearchParams";
+export { default } from "./useLocationParams";

@@ -9,7 +9,7 @@ import Amount from "./Amount";
 import Selection from "./Select";
 import { DOMAIN } from "../../config/API";
 import "./Product.scss";
-import { setLocalItem } from "../../helpers/utils";
+import { setLocalItem } from "../../helpers/setLocalItem";
 import ToCartButton from "../ToCartButton";
 
 function Product({ props, setNotification }) {
@@ -83,7 +83,7 @@ function Product({ props, setNotification }) {
 								valueColor={color}
 								nameLabel="Оберіть колір"
 							/>
-							<ToCartButton setNotification={setNotification} />
+							<ToCartButton setNotification={setNotification} id={id} />
 						</Stack>
 					</div>
 				</div>
