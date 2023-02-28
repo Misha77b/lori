@@ -1,8 +1,29 @@
 import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSearch, selectSearchQuery } from "../../../../store/selectors";
+import { actionSetSearchQuery, fetchSearchProducts } from "../../../../store/reducers/searchSlice";
 
 const Search = () => {
+	const dispatch = useDispatch();
+	const searchQuery = useSelector(selectSearchQuery);
+	// const search = useSelector(selectSearch);
+	// console.log(search);
+
+	const searchPhrases = {
+		query: searchQuery,
+	};
+	// console.log(searchPhrases);
+
+	const handlerChange = (e) => {
+		dispatch(actionSetSearchQuery(e.target.value));
+	};
+
+	const handlerSubmit = (e) => {
+		dispatch(fetchSearchProducts(searchPhrases));
+	};
+
 	return (
 		<Box
 			component="form"
@@ -27,6 +48,7 @@ const Search = () => {
 						border: "5px",
 					},
 				}}
+				onChange={handlerChange}
 				type="search"
 				color="secondary"
 				id="outlined-search"
@@ -34,6 +56,7 @@ const Search = () => {
 				variant="outlined"
 			/>
 			<Button
+				onClick={handlerSubmit}
 				sx={{
 					position: "absolute",
 					top: "2px",

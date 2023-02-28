@@ -5,7 +5,7 @@ import { Container } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectProductsData } from "../../store/selectors";
+import { selectProductsData, selectSearch } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
@@ -25,13 +25,16 @@ const ProductsCatalogue = () => {
 	const perPage = 5;
 
 	const productsQuantity = useSelector(selectProductsQuantity);
+	const search = useSelector(selectSearch);
+
 	const params = useSearchParams({ startPage, perPage });
 	useEffect(() => {
 		const data = dispatch(fetchProducts(params));
 		data.then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [startPage, params, filteredData]);
+	}, [startPage, params, filteredData, search]);
+
 	if (productsLoading) return <Spinner />;
 	return (
 		<Container>
@@ -40,7 +43,7 @@ const ProductsCatalogue = () => {
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
 				<CatalogueWrapper>
 					{filteredData.length
-						? filteredData?.map((card, index) => (
+						? search?.map((card, index) => (
 								<ProductCard
 									priceColor="#57646E"
 									key={index}
