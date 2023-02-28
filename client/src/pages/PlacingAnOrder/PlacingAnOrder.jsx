@@ -69,13 +69,17 @@ const PlacingAnOrder = () => {
 	};
 
 	// order data send test function
-	const orders = (orderProds) => {
+	const orders = (orderProds, values) => {
 		const order = {
 			products: orderProds,
-			fullName: orderData.fullName,
-			email: orderData.email,
-			phoneNumber: orderData.phoneNumber,
-			adress: orderData.adress,
+			// fullName: orderData.fullName,
+			// email: orderData.email,
+			// phoneNumber: orderData.phoneNumber,
+			// adress: orderData.adress,
+			fullName: values.fullName,
+			email: values.email,
+			phoneNumber: values.phoneNumber,
+			adress: values.adress,
 			letterSubject: "Thank you for order!",
 			letterHtml: `<h1>Your order is placed.</h1>
                 </br></br> 
@@ -96,9 +100,11 @@ const PlacingAnOrder = () => {
 		},
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
-			dispatch(setOrderData(values));
+			// dispatch(setOrderData(values));
+			console.log(values);
 			// console.log(JSON.stringify(values, null, 2));
-			console.log(orders(cartItems));
+			// const orderInfo = JSON.stringify(values);
+			console.log(orders(cartItems, values));
 		},
 	});
 
