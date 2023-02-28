@@ -1,36 +1,24 @@
 import React from "react";
-
-import { Paper, Grid, Box, Divider, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Grid, Box, Button, Divider, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 import "./OrderItem.scss";
+import { removeItemFavorite } from "../../../store/reducers/productsSlice";
+import { deleteCardIdFromStore } from "../../../helpers/deleteCardIdFromStore";
 
-const OrderItem = ({ item }) => {
-	// console.log(item);
+const OrderItem = ({ item, deleteCross = false }) => {
+	const dispatch = useDispatch();
 	return (
 		<>
-			{/* <Paper
-			sx={{
-				p: 2,
-				margin: "auto",
-				minxWidth: 320,
-				flexGrow: 1,
-				backgroundColor: "#f5f5f5",
-			}}
-		> */}
 			<Grid container className="item-product">
 				<Grid item xs={3} sx={{ display: "flex", alignItems: "center" }}>
-					<img
-						className="item-product--img"
-						src={item.imageUrls[0]}
-						// src="https://res.cloudinary.com/dsx708og4/image/upload/v1676276397/Lori_project/photo1-Apple-iPhone-13-Midnight_usy6dr.jpg"
-						alt="product img"
-					/>
+					<img className="item-product--img" src={item.imageUrls[0]} alt="product img" />
 				</Grid>
 
 				<Grid item xs={6}>
 					<Box>
 						<Typography fontWeight="fontWeightBold" sx={{ fontSize: "14px" }}>
-							{/* Apple iPhone 13 128GB Midnight (mlpf3hu/a) */}
 							{item.model}
 						</Typography>
 
@@ -48,7 +36,7 @@ const OrderItem = ({ item }) => {
 					</Box>
 				</Grid>
 
-				<Grid item xs={3}>
+				<Grid item xs={2}>
 					<Box>
 						<Typography
 							fontWeight="fontWeightBold"
@@ -57,14 +45,25 @@ const OrderItem = ({ item }) => {
 						>
 							{item.currentPrice} грн
 						</Typography>
-						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px", color: "#BFBFBF" }}>
-							2 х {item.currentPrice}
-						</Typography>
 					</Box>
 				</Grid>
+				{deleteCross && (
+					<Grid item xs={1}>
+						<Button
+							className="cross"
+							color="black"
+							sx={{ padding: 0, minWidth: 0 }}
+							onClick={() => {
+								dispatch(removeItemFavorite(item.itemNo));
+								deleteCardIdFromStore(item.itemNo, "favorites");
+							}}
+						>
+							<CloseIcon />
+						</Button>
+					</Grid>
+				)}
 			</Grid>
 			<Divider />
-			{/* </Paper> */}
 		</>
 	);
 };
