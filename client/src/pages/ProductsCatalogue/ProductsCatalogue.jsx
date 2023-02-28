@@ -26,6 +26,7 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const search = useSelector(selectSearch);
+	console.log(search);
 
 	const params = useSearchParams({ startPage, perPage });
 	useEffect(() => {
@@ -43,7 +44,7 @@ const ProductsCatalogue = () => {
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
 				<CatalogueWrapper>
 					{filteredData.length
-						? search?.map((card, index) => (
+						? filteredData?.map((card, index) => (
 								<ProductCard
 									priceColor="#57646E"
 									key={index}
