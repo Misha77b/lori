@@ -40,31 +40,31 @@ const ProductsCatalogue = () => {
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
 				{productsLoading && <Spinner />}
-        {search.length > 0 ? (
+				{search.length > 0 ? (
 					<SearchRender />
 				) : (
-				<CatalogueWrapper>
-					{filteredData.length
-						? filteredData?.map((card, index) => (
-								<ProductCard
-									priceColor="#57646E"
-									key={index}
-									card={card}
-									setNotification={setNotification}
-								/>
-								// eslint-disable-next-line no-mixed-spaces-and-tabs
-						  ))
-						: products?.map((card, index) => (
-								<ProductCard
-									priceColor="#57646E"
-									key={index}
-									card={card}
-									setNotification={setNotification}
-								/>
-								// eslint-disable-next-line no-mixed-spaces-and-tabs
-						  ))}
-				</CatalogueWrapper>
-        	)}
+					<CatalogueWrapper>
+						{filteredData.length
+							? filteredData?.map((card, index) => (
+									<ProductCard
+										priceColor="#57646E"
+										key={index}
+										card={card}
+										setNotification={setNotification}
+									/>
+									// eslint-disable-next-line no-mixed-spaces-and-tabs
+							  ))
+							: products?.map((card, index) => (
+									<ProductCard
+										priceColor="#57646E"
+										key={index}
+										card={card}
+										setNotification={setNotification}
+									/>
+									// eslint-disable-next-line no-mixed-spaces-and-tabs
+							  ))}
+					</CatalogueWrapper>
+				)}
 			</FiltersPhones>
 			<AppPagination
 				pages={Math.ceil(productsQuantity / perPage)}

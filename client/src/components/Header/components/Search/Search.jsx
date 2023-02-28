@@ -9,7 +9,7 @@ import {
 	fetchSearchProducts,
 	clearInput,
 } from "../../../../store/reducers/searchSlice";
-import useSearchParams from "../../../../pages/ProductsCatalogue/hooks/useSearchParams";
+import useSearchParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
 
 const Search = () => {
 	const dispatch = useDispatch();
