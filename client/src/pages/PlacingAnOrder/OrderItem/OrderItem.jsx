@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Grid, Box, Divider, Typography } from "@mui/material";
+import { Grid, Box, Button, Divider, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 import "./OrderItem.scss";
 import { removeItemFavorite } from "../../../store/reducers/productsSlice";
@@ -48,23 +49,17 @@ const OrderItem = ({ item, deleteCross = false }) => {
 				</Grid>
 				{deleteCross && (
 					<Grid item xs={1}>
-						<Box>
-							<Typography
-								fontWeight="fontWeightBold"
-								sx={{
-									fontSize: "16px",
-									"@media (max-width: 400px)": { fontSize: "14px" },
-									cursor: "pointer",
-								}}
-								className="cross"
-								onClick={() => {
-									dispatch(removeItemFavorite(item.itemNo));
-									deleteCardIdFromStore(item.itemNo, "favorites");
-								}}
-							>
-								X
-							</Typography>
-						</Box>
+						<Button
+							className="cross"
+							color="black"
+							sx={{ padding: 0, minWidth: 0 }}
+							onClick={() => {
+								dispatch(removeItemFavorite(item.itemNo));
+								deleteCardIdFromStore(item.itemNo, "favorites");
+							}}
+						>
+							<CloseIcon />
+						</Button>
 					</Grid>
 				)}
 			</Grid>
