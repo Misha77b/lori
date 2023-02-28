@@ -96,3 +96,21 @@ function Product({ props, setNotification }) {
 	);
 }
 export default Product;
+// <Button
+// 	color="secondary"
+// 	variant="contained"
+// 	onClick={() => {
+// 		setLocalItem("cart", id);
+// 		setNotification(true);
+// 		setTimeout(() => {
+// 			setNotification(false);
+// 		}, 3000);
+// 	}}
+// 	sx={{
+// 		width: "245px",
+// 		height: "46px",
+// 	}}
+// >
+// 	У кошик
+// 	<ShoppingCartCheckoutIcon sx={{ marginLeft: "10px" }} />
+// </Button>

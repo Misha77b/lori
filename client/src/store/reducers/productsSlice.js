@@ -8,6 +8,8 @@ import { getItems } from "../../helpers/getItems";
 
 const initialState = {
 	data: [],
+	popularProducts: [],
+	saleProducts: [],
 	dataQuantity: 0,
 	shoppingCart: [],
 	favorite: [],

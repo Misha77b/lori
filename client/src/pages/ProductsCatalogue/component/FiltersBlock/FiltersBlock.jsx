@@ -132,7 +132,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				</Button>
 				<Link to="/products" className="link">
 					<Button
-						onClick={useE}
+						onClick={clearFiltersHandler}
 						variant="contained"
 						color="secondary"
 						sx={{
