@@ -8,7 +8,6 @@ const useLocationParams = (additionalParams = {}) => {
 			params.set(key, additionalParams[key]);
 		});
 	}
-
 	return { params: params.toString() };
 };
 

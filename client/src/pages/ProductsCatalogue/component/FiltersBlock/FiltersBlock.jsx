@@ -21,8 +21,21 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 		searchParams.delete("iternalStorage");
 		searchParams.delete("RAM");
 		searchParams.delete("waterResistant");
+		searchParams.delete("minPrice");
+		searchParams.delete("maxPrice");
 	};
-
+	const priceHandler = (minPrice, maxPrice) => {
+		searchParams.get("minPrice");
+		setSearchParams((prev) => {
+			prev.set("minPrice", minPrice);
+			return prev;
+		});
+		searchParams.get("maxPrice");
+		setSearchParams((prev) => {
+			prev.set("maxPrice", maxPrice);
+			return prev;
+		});
+	};
 	return (
 		<Box sx={{ margin: "0 auto" }}>
 			<Stack spacing={3} sx={{ position: "sticky", top: "30px", textAlign: "center" }}>
@@ -32,7 +45,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				>
 					Ціна
 				</Typography>
-				<RangePrice /> {/* price range */}
+				<RangePrice setPriceParams={priceHandler} />
 				<Selection
 					// value={filters.brand}
 					value={searchParams.get("brand")}
