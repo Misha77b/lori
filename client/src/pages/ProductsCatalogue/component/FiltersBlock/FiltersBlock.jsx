@@ -126,7 +126,14 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 						width: "245px",
 						height: "46px",
 					}}
-					onClick={() => dispatch(fetchProducts(params))}
+					onClick={() => {
+						if (searchParams.has("query")) {
+							searchParams.delete("query");
+							setSearchParams(searchParams);
+						}
+
+						dispatch(fetchProducts(params));
+					}}
 				>
 					Пошук
 				</Button>

@@ -27,44 +27,51 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const search = useSelector(selectSearch);
+	console.log("search", search);
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData, search]);
-
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
 				{productsLoading && <Spinner />}
-				{search.length > 0 ? (
-					<SearchRender />
-				) : (
-					<CatalogueWrapper>
-						{filteredData.length
-							? filteredData?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))
-							: products?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))}
-					</CatalogueWrapper>
-				)}
+				<CatalogueWrapper>
+					{/* eslint-disable-next-line no-nested-ternary */}
+					{filteredData.length
+						? filteredData?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))
+						: search.length
+						? search?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))
+						: products?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))}
+				</CatalogueWrapper>
 			</FiltersPhones>
 			<AppPagination
 				pages={Math.ceil(productsQuantity / perPage)}
@@ -85,4 +92,3 @@ const FiltersPhones = styled.div`
 	grid-template-columns: 300px auto;
 `;
 export default ProductsCatalogue;
-// const productsQuantity = useSelector(productsQuantitySelector); this is a correct one;
