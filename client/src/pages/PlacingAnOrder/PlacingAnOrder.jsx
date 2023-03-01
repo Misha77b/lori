@@ -233,7 +233,7 @@ const PlacingAnOrder = () => {
 								disablePortal
 								id="adress"
 								name="adress"
-								value={inputValue}
+								value={(formik.values.adress = inputValue)}
 								onChange={(event, newValue) => {
 									setValue(newValue);
 								}}
