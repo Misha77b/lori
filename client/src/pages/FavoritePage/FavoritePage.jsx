@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Container, Button, Typography } from "@mui/material";
 import { getItems } from "../../helpers/getItems";
 import { setFavorite } from "../../store/reducers/productsSlice";
-import OrderItem from "../PlacingAnOrder/OrderItem";
+import OrderItem from "../../components/OrderItem";
 
 const FavoritePage = () => {
 	const dispatch = useDispatch();

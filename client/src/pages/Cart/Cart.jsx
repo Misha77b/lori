@@ -87,11 +87,23 @@ const Cart = () => {
 					</Box>
 
 					<Box className={styles.cart__controllers}>
-						<Button color="secondary" variant="outlined" className={styles.btn}>
-							<Link to="/products">Продовжити покупки</Link>
+						<Button
+							color="secondary"
+							variant="outlined"
+							className={styles.btn}
+							component={Link}
+							to="/products"
+						>
+							Продовжити покупки
 						</Button>
-						<Button color="secondary" variant="contained" className={styles.btn}>
-							<Link to="/orders">Оформити замовлення</Link>
+						<Button
+							color="secondary"
+							variant="contained"
+							className={styles.btn}
+							component={Link}
+							to="/orders"
+						>
+							Оформити замовлення
 						</Button>
 					</Box>
 				</Box>
