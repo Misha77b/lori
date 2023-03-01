@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { setLocalItem } from "../../helpers/setLocalItem";
+import { useSelector } from "react-redux";
 
 const FavoriteHeartIcon = ({ id, product }) => {
 	const [liked, setLiked] = useState(false);
+	const favorite = useSelector(selectFavorite);
 	const likeUpdateHandler = () => {
 		setLiked((prev) => !prev);
 	};
