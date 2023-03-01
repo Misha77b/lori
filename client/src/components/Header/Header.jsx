@@ -5,14 +5,19 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 import { getNumberOfItems } from "../../helpers/utils";
+import { selectFavorite, selectShoppingCart } from "../../store/selectors";
 
 const Header = ({ modal }) => {
+	const [countF, setCountF] = useState(0);
+	const [countC, setCountC] = useState(0);
+	const favorite = useSelector(selectFavorite);
+	const shoppingCart = useSelector(selectShoppingCart);
 	const menuLinkItem = {
 		color: "#57646E",
 		fontSize: "30px",
@@ -24,6 +29,10 @@ const Header = ({ modal }) => {
 			textDecoration: "underline",
 		},
 	}));
+	useEffect(() => {
+		setCountF(getNumberOfItems("favorites"));
+		setCountC(getNumberOfItems("cart"));
+	}, [favorite, shoppingCart]);
 	return (
 		<Box component="header">
 			<AppBar position="static">
@@ -75,14 +84,14 @@ const Header = ({ modal }) => {
 							</IconButton>
 							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/cart">
-									<Badge badgeContent={getNumberOfItems("cart")} color="secondary">
+									<Badge badgeContent={countC} color="secondary">
 										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
 							</IconButton>
 							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
 								<CustomLink to="/favorites">
-									<Badge badgeContent={getNumberOfItems("favorites")} color="secondary">
+									<Badge badgeContent={countF} color="secondary">
 										<FavoriteIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>

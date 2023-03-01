@@ -14,7 +14,8 @@ export const cartSlice = createSlice({
 			state.shoppingCart = action.payload;
 		},
 		removeItemShoppingCart: (state, action) => {
-			state.shoppingCart = state.shoppingCart.filter(({ itemNo: id }) => id !== action.payload);
+			debugger; // eslint-disable-line no-debugger
+			state.shoppingCart = state.shoppingCart.filter((row) => row.itemNo !== payload.itemNo);
 		},
 	},
 });
