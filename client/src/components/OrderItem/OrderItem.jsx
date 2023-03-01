@@ -47,6 +47,9 @@ const OrderItem = ({ item, deleteCross = false }) => {
 						>
 							{item.currentPrice} грн
 						</Typography>
+						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px", color: "#BFBFBF" }}>
+							2 х {item.currentPrice}
+						</Typography>
 					</Box>
 				</Grid>
 				{deleteCross && (
