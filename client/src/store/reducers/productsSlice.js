@@ -29,17 +29,11 @@ export const productsSlice = createSlice({
 	name: "products",
 	initialState,
 	reducers: {
-		setShoppingCart: (state, action) => {
-			state.shoppingCart.push(action.payload);
-		},
 		setFavorite: (state, action) => {
 			state.favorite = action.payload;
 		},
 		removeProduct: (state, action) => {
 			state.data = state.data.filter((item) => item.id !== action.payload);
-		},
-		removeItemShoppingCart: (state, action) => {
-			state.shoppingCart = state.shoppingCart.filter((item) => item.id !== action.payload);
 		},
 		removeItemFavorite: (state, action) => {
 			state.favorite = state.favorite.filter((item) => item.itemNo !== action.payload);
@@ -64,14 +58,6 @@ export const productsSlice = createSlice({
 		});
 	},
 });
-export const {
-	actionPage,
-	setShoppingCart,
-	setFavorite,
-	removeItemShoppingCart,
-	removeItemFavorite,
-	removeProduct,
-	actionCurrentProd,
-} = productsSlice.actions;
+export const { setFavorite, removeItemFavorite } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,31 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
-import sendRequest from "../../helpers/sendRequest";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
-	data: [],
+	shoppingCart: [],
 };
 
 export const cartSlice = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
-		addItems: (state, { payload }) => {
-			state.data = [payload, ...state.data];
+		setShoppingCart: (state, action) => {
+			state.shoppingCart = action.payload;
 		},
-		removeItem: (state, { payload }) => {
-			state.data = state.data.filter(({ _id: id }) => id !== payload);
+		removeItemShoppingCart: (state, action) => {
+			state.shoppingCart = state.shoppingCart.filter(({ itemNo: id }) => id !== action.payload);
 		},
 	},
 });
 
-export const { addItems, removeItem } = cartSlice.actions;
-
-export const actionFetchCart = (items) => async (dispatch) => {
-	if (!items) return null;
-	return items.map((id) => {
-		return sendRequest(`${DOMAIN}/products/${id}`).then((data) => dispatch(addItems(data)));
-	});
-};
-
+// export const actionFetchCart = (items) => async (dispatch) => {
+// 	if (!items) return null;
+// 	return items.map((id) => {
+// 		return sendRequest(`${DOMAIN}/products/${id}`).then((data) => dispatch(addItems(data)));
+// 	});
+// };
+export const fetchCart = createAsyncThunk("cart/fetchData", async (newCart) => {
+	const response = await axios.post(`${DOMAIN}/cart`, newCart);
+	return response;
+});
+export const { setShoppingCart, removeItemShoppingCart } = cartSlice.actions;
 export default cartSlice.reducer;
