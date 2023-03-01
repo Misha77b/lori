@@ -1,37 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSearchQuery } from "../../../../store/selectors";
-import {
-	actionSetSearchQuery,
-	fetchSearchProducts,
-	clearInput,
-} from "../../../../store/reducers/searchSlice";
-import useSearchParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
+import { useDispatch } from "react-redux";
+import { fetchSearchProducts } from "../../../../store/reducers/searchSlice";
+import useLocationParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
 
 const Search = () => {
 	const dispatch = useDispatch();
-	const searchQuery = useSelector(selectSearchQuery);
-	const params = useSearchParams({ query: searchQuery });
-
-	const searchPhrases = {
-		query: searchQuery,
-	};
-
-	const handlerChange = (e) => {
-		dispatch(actionSetSearchQuery(e.target.value));
-	};
-
-	const handlerSubmit = () => {
-		dispatch(fetchSearchProducts(searchPhrases));
-		dispatch(clearInput());
-	};
-
-	// const handleClearInput = () => {
-	// 	dispatch(clearInput());
-	// };
+	const navigate = useNavigate();
+	const [input, setInput] = useState("");
+	const [searchParams, setSearchParams] = useSearchParams();
+	const { params } = useLocationParams({ query: input });
 
 	return (
 		<Box
@@ -58,35 +38,48 @@ const Search = () => {
 						border: "5px",
 					},
 				}}
-				onChange={handlerChange}
+				onChange={(e) => {
+					setInput(e.target.value);
+				}}
 				type="search"
 				color="secondary"
 				id="outlined-search"
 				label="Пошук..."
 				variant="outlined"
 			/>
-			<Link to={`products?${params}`}>
-				<Button
-					onClick={handlerSubmit}
+			<Button
+				onClick={() => {
+					if (input.length <= 2) return;
+					setSearchParams((prev) => {
+						prev.set("query", input);
+						return prev;
+					});
+					dispatch(
+						fetchSearchProducts({
+							query: searchParams.get("query"),
+						}),
+					);
+
+					navigate(`/products?${params}`);
+				}}
+				sx={{
+					position: "absolute",
+					top: "2px",
+					right: "2px",
+					height: "51px",
+					backgroundColor: "#A0A9AF",
+					borderRadius: "0 2px 2px 0",
+					"&:hover": { backgroundColor: "#007042" },
+				}}
+			>
+				<SearchIcon
+					color="grey"
 					sx={{
-						position: "absolute",
-						top: "2px",
-						right: "2px",
-						height: "51px",
-						backgroundColor: "#A0A9AF",
-						borderRadius: "0 2px 2px 0",
-						"&:hover": { backgroundColor: "#007042" },
+						fontSize: "44px",
+						color: "#ffffff",
 					}}
-				>
-					<SearchIcon
-						color="grey"
-						sx={{
-							fontSize: "44px",
-							color: "#ffffff",
-						}}
-					/>
-				</Button>
-			</Link>
+				/>
+			</Button>
 		</Box>
 	);
 };
