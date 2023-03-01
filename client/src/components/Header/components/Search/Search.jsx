@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-
-import { selectSearchQuery } from "../../../../store/selectors";
-import {
-	actionSetSearchQuery,
-	fetchSearchProducts,
-	clearInput,
-} from "../../../../store/reducers/searchSlice";
+import { useDispatch } from "react-redux";
+import { fetchSearchProducts } from "../../../../store/reducers/searchSlice";
 import useLocationParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
 
 const Search = () => {

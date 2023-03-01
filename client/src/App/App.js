@@ -12,12 +12,6 @@ import { setModal } from "../store/reducers/modalSlice";
 import { modals } from "../components/Modal/configs";
 
 const App = () => {
-	const AppWrapper = styled.div`
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	`;
 	const modal = useSelector((state) => state.modal.value);
 	const dispatch = useDispatch();
 	const actionModalHandler = (status) => {
@@ -37,5 +31,10 @@ const App = () => {
 		</AppWrapper>
 	);
 };
-
+const AppWrapper = styled.div`
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+`;
 export default App;

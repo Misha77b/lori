@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Container } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectProductsData, selectSearch } from "../../store/selectors";
+import { selectSearch } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
@@ -13,7 +12,6 @@ import useLocationParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import useFetchData from "../Home/hooks";
-import SearchRender from "./component/SearchRender";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -26,14 +24,13 @@ const ProductsCatalogue = () => {
 	const perPage = 5;
 
 	const productsQuantity = useSelector(selectProductsQuantity);
-	const search = useSelector(selectSearch);
-	console.log("search", search);
+	const dataFromSearch = useSelector(selectSearch);
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [startPage, params, filteredData, search]);
+	}, [startPage, params, filteredData, dataFromSearch]);
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
@@ -52,8 +49,8 @@ const ProductsCatalogue = () => {
 								/>
 								// eslint-disable-next-line no-mixed-spaces-and-tabs
 						  ))
-						: search.length
-						? search?.map((card, index) => (
+						: dataFromSearch.length
+						? dataFromSearch?.map((card, index) => (
 								<ProductCard
 									priceColor="#57646E"
 									key={index}

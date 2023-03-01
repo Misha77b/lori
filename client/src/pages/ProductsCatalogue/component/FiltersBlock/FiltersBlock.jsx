@@ -47,7 +47,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				</Typography>
 				<RangePrice setPriceParams={priceHandler} />
 				<Selection
-					// value={filters.brand}
 					value={searchParams.get("brand")}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
@@ -55,7 +54,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 							return prev;
 						});
 					}}
-					// setCurrentValue={(value) => setCurrentValue("brand", value)}
 					nameLabel="Бренд"
 					arrayProps={Array.from(new Set(products?.map((card) => card.brand)))}
 				/>
@@ -63,7 +61,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 					value={searchParams.get("processor")}
 					nameLabel="Процесор"
 					arrayProps={Array.from(new Set(products?.map((card) => card.processor)))}
-					// setCurrentValue={(value) => setCurrentValue("processor", value)}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("processor", value);
@@ -75,7 +72,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 					value={searchParams.get("diagonal")}
 					nameLabel="Діагональ"
 					arrayProps={Array.from(new Set(products?.map((card) => card.diagonal)))}
-					// setCurrentValue={(value) => setCurrentValue("diagonal", value)}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("diagonal", value);
@@ -87,7 +83,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 					value={searchParams.get("iternalStorage")}
 					nameLabel="Внутрішня память"
 					arrayProps={Array.from(new Set(products?.map((card) => card.iternalStorage)))}
-					// setCurrentValue={(value) => setCurrentValue("iternalStorage", value)}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("iternalStorage", value);
@@ -99,7 +94,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 					value={searchParams.get("RAM")}
 					nameLabel="RAM"
 					arrayProps={Array.from(new Set(products?.map((card) => card.RAM)))}
-					// setCurrentValue={(value) => setCurrentValue("RAM", value)}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("RAM", value);
@@ -111,7 +105,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 					value={searchParams.get("waterResistant")}
 					nameLabel="Захист від вологи"
 					arrayProps={Array.from(new Set(products?.map((card) => card.waterResistant)))}
-					// setCurrentValue={(value) => setCurrentValue("waterResistant", value)}
 					setCurrentValue={(value) => {
 						setSearchParams((prev) => {
 							prev.set("waterResistant", value);
@@ -131,7 +124,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 							searchParams.delete("query");
 							setSearchParams(searchParams);
 						}
-
 						dispatch(fetchProducts(params));
 					}}
 				>

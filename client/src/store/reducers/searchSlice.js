@@ -3,7 +3,6 @@ import axios from "axios";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
-	searchQuery: "",
 	searchProducts: [],
 	loader: false,
 };
@@ -18,12 +17,6 @@ export const searchSlice = createSlice({
 		actionSetSearchProduct: (state, action) => {
 			state.searchProducts.push(action.payload);
 		},
-		actionSetSearchQuery: (state, action) => {
-			state.searchQuery = action.payload;
-		},
-		clearInput: (state) => {
-			state.searchQuery = "";
-		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchSearchProducts.pending, (state) => {
@@ -31,7 +24,6 @@ export const searchSlice = createSlice({
 		});
 		builder.addCase(fetchSearchProducts.fulfilled, (state, action) => {
 			state.searchProducts = action.payload;
-			state.searchQuery = action.payload;
 			state.loader = false;
 		});
 		builder.addCase(fetchSearchProducts.rejected, (state, action) => {
@@ -40,6 +32,5 @@ export const searchSlice = createSlice({
 		});
 	},
 });
-export const { actionSearchProduct, actionSetSearchQuery, clearInput } = searchSlice.actions;
 
 export default searchSlice.reducer;
