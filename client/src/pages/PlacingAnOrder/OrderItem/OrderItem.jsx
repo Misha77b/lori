@@ -36,7 +36,7 @@ const OrderItem = ({ item, deleteCross = false }) => {
 					</Box>
 				</Grid>
 
-				<Grid item xs={2}>
+				<Grid item xs={deleteCross ? 2 : 3}>
 					<Box>
 						<Typography
 							fontWeight="fontWeightBold"
