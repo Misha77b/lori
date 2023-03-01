@@ -6,34 +6,47 @@ import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 import { getItems } from "../../helpers/getItems";
 import { setShoppingCart } from "../../store/reducers/cartSlice";
+import { getLocalItem } from "../../helpers/getLocalItem";
+import { fetchProducts } from "../../store/reducers/productsSlice";
 
 const Cart = () => {
 	const dispatch = useDispatch();
-	const data = useSelector((state) => state.products.data);
+	const [products, setProducts] = useState([]);
+	/* 	const data = useSelector((state) => state.products.data); */
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
-	const storage = getItems("cart", data);
+	/* 	const storage = getItems("cart", data); */
+	const parsed = JSON.parse(getLocalItem("cart"));
 	const [totalSum, setTotalSum] = useState({});
-
-	const [amount, setAmount] = useState({});
-
+	const [amount, setAmount] = useState(0);
 	useEffect(() => {
-		if (!cartItems.length) return;
-		const amouns = cartItems.reduce((acc, { itemNo }) => {
+		const params = new URLSearchParams();
+		params.set("itemNo", parsed.join(","));
+		dispatch(fetchProducts(params.toString())).then((res) => {
+			setProducts(res.payload.products);
+		});
+	}, [cartItems]);
+	useEffect(() => {
+		if (!products.length) {
+			setTotalSum(0);
+			return;
+		}
+		const amouns = products.reduce((acc, { itemNo }) => {
 			acc[itemNo] = 1;
 			return acc;
 		}, {});
-		const totalSumCart = cartItems.reduce((acc, { itemNo }) => {
+		const totalSumCart = products.reduce((acc, { itemNo }) => {
 			acc[itemNo] = 0;
 			return acc;
 		}, {});
 
 		setTotalSum(() => totalSumCart);
 		setAmount(() => amouns);
-	}, [cartItems]);
+	}, [products]);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		dispatch(setShoppingCart(storage));
-	}, []);
+	}, []); */
+
 	return (
 		<Container>
 			<Typography variant="h4" className={styles.cart__title}>
@@ -41,8 +54,8 @@ const Cart = () => {
 			</Typography>
 			<Box className={styles.cart}>
 				<Box className={styles.cart__items}>
-					{cartItems.length ? (
-						cartItems?.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
+					{products.length ? (
+						products?.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
 							return (
 								<CartItem
 									dbId={id}
@@ -65,7 +78,7 @@ const Cart = () => {
 					<Box className={styles.cart__description}>
 						<Typography className={styles.cart__info_item}>Ваше замовлення</Typography>
 						<Typography className={styles.cart__info_item}>
-							Кількість продуктів: {cartItems.length}
+							Кількість продуктів: {products.length}
 						</Typography>
 						<Typography className={styles.cart__info_item}>
 							Загальна сума: {Object.values(totalSum).reduce((acc, item) => acc + item, 0) ?? 0}
