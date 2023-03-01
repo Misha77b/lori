@@ -30,8 +30,9 @@ const Header = ({ modal }) => {
 		},
 	}));
 	useEffect(() => {
-		setCountF(getNumberOfItems("favorites"));
-		setCountC(getNumberOfItems("cart"));
+		setCountF(favorite.length);
+		debugger; // eslint-disable-line no-debugger
+		setCountC(shoppingCart.length);
 	}, [favorite, shoppingCart]);
 	return (
 		<Box component="header">

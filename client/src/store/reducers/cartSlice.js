@@ -3,7 +3,7 @@ import axios from "axios";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
-	shoppingCart: [],
+	shoppingCart: JSON.parse(localStorage.getItem("cart") || "[]"),
 };
 
 export const cartSlice = createSlice({
@@ -11,11 +11,19 @@ export const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		setShoppingCart: (state, action) => {
+			debugger; // eslint-disable-line no-debugger
 			state.shoppingCart = action.payload;
+			localStorage.setItem("cart", JSON.stringify(state.shoppingCart));
+		},
+		addShoppingCart: (state, action) => {
+			debugger; // eslint-disable-line no-debugger
+			state.shoppingCart = [...new Set([...state.shoppingCart, action.payload])];
+			localStorage.setItem("cart", JSON.stringify(state.shoppingCart));
 		},
 		removeItemShoppingCart: (state, action) => {
 			debugger; // eslint-disable-line no-debugger
-			state.shoppingCart = state.shoppingCart.filter((row) => row.itemNo !== payload.itemNo);
+			state.shoppingCart = state.shoppingCart.filter((itemNo) => itemNo !== action.payload);
+			localStorage.setItem("cart", JSON.stringify(state.shoppingCart));
 		},
 	},
 });
@@ -30,5 +38,5 @@ export const fetchCart = createAsyncThunk("cart/fetchData", async (newCart) => {
 	const response = await axios.post(`${DOMAIN}/cart`, newCart);
 	return response;
 });
-export const { setShoppingCart, removeItemShoppingCart } = cartSlice.actions;
+export const { setShoppingCart, removeItemShoppingCart, addShoppingCart } = cartSlice.actions;
 export default cartSlice.reducer;

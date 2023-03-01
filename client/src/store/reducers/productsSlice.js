@@ -11,7 +11,6 @@ const initialState = {
 	popularProducts: [],
 	saleProducts: [],
 	dataQuantity: 0,
-	shoppingCart: [],
 	favorite: [],
 	loader: false,
 };
