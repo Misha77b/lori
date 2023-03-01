@@ -1,14 +1,15 @@
-import { useState } from "react";
 import "./Amount.scss";
 
-export default function Amount() {
-	const [amount, setAmount] = useState(1);
-
-	const increment = () => setAmount(amount + 1);
+export default function Amount({ amount, setAmount, itemNo }) {
+	const increment = () => {
+		// eslint-disable-next-line no-plusplus
+		setAmount((prev) => ({ ...prev, [itemNo]: prev[itemNo]++ }));
+	};
 
 	const decrement = () => {
 		if (amount === 1) return;
-		setAmount(amount - 1);
+		// eslint-disable-next-line no-plusplus
+		setAmount((prev) => ({ ...prev, [itemNo]: prev[itemNo]-- }));
 	};
 
 	return (

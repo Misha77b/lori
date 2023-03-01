@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
-import { selectFavorite } from "../../store/selectors";
+import { getNumberOfItems } from "../../helpers/utils";
 
 const Header = ({ modal }) => {
 	const menuLinkItem = {
@@ -24,9 +24,6 @@ const Header = ({ modal }) => {
 			textDecoration: "underline",
 		},
 	}));
-
-	const favorites = useSelector(selectFavorite);
-
 	return (
 		<Box component="header">
 			<AppBar position="static">
@@ -78,14 +75,14 @@ const Header = ({ modal }) => {
 							</IconButton>
 							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/cart">
-									<Badge badgeContent={1} color="secondary">
+									<Badge badgeContent={getNumberOfItems("cart")} color="secondary">
 										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
 							</IconButton>
 							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
 								<CustomLink to="/favorites">
-									<Badge badgeContent={favorites.length} color="secondary">
+									<Badge badgeContent={getNumberOfItems("favorites")} color="secondary">
 										<FavoriteIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
