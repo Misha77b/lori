@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FormikConsumer, useFormik } from "formik";
+import { useFormik } from "formik";
 import {
 	Container,
 	Grid,
