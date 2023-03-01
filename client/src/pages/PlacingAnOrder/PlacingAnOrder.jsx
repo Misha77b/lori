@@ -39,6 +39,11 @@ const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
 });
 
+const RGStyle = {
+	height: "40px",
+	"@media (max-width: 448px)": { height: "72px" },
+};
+
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
 	const products = useFetchData();
@@ -184,11 +189,13 @@ const PlacingAnOrder = () => {
 									onChange={handleShippingMethodChange}
 								>
 									<FormControlLabel
+										sx={RGStyle}
 										value="Кур’єром додому"
 										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Кур’єром додому"
 									/>
 									<FormControlLabel
+										sx={RGStyle}
 										value="Самовивіз"
 										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Самовивіз"
@@ -205,11 +212,13 @@ const PlacingAnOrder = () => {
 									onChange={handlePaymentMethodChange}
 								>
 									<FormControlLabel
+										sx={RGStyle}
 										value="Банківською карткою онлайн"
 										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Банківською карткою онлайн"
 									/>
 									<FormControlLabel
+										sx={RGStyle}
 										value="Готівкою або карткою при отриманні"
 										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Готівкою або карткою при отриманні"
