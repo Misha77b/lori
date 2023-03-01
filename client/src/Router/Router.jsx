@@ -11,18 +11,18 @@ import PlacingAnOrder from "../pages/PlacingAnOrder";
 import Cart from "../pages/Cart/Cart";
 import Contacts from "../pages/Contacts";
 import NotFoundPage from "../pages/NotFoundPage";
+import FavoritePage from "../pages/FavoritePage";
 
 function RootRouters() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/products/:id" element={<OneProduct />} />
+			<Route path="/product/:id" element={<OneProduct />} />
 			<Route path="/products" element={<ProductsCatalogue />} />
 			<Route path="/orders" element={<PlacingAnOrder />} />
-
-			<Route path="/products/filter" element={<ProductsCatalogue />} />
 			<Route path="/about" element={<About />} />
 			<Route path="/cart" element={<Cart />} />
+			<Route path="/favorites" element={<FavoritePage />} />
 			<Route path="/guarantee" element={<Guarantee />} />
 			<Route path="/paymentAndDelivery" element={<PaymentAndDelivery />} />
 			<Route path="/exchangeAndReturn" element={<ExchangeAndReturn />} />

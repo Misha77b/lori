@@ -6,9 +6,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import React from "react";
+import { useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
+import { selectFavorite } from "../../store/selectors";
 
 const Header = ({ modal }) => {
 	const menuLinkItem = {
@@ -22,6 +24,8 @@ const Header = ({ modal }) => {
 			textDecoration: "underline",
 		},
 	}));
+
+	const favorites = useSelector(selectFavorite);
 
 	return (
 		<Box component="header">
@@ -72,7 +76,7 @@ const Header = ({ modal }) => {
 									Увійти
 								</Typography>
 							</IconButton>
-							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "0" }}>
+							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/cart">
 									<Badge badgeContent={1} color="secondary">
 										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
@@ -80,8 +84,8 @@ const Header = ({ modal }) => {
 								</CustomLink>
 							</IconButton>
 							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
-								<CustomLink to="/">
-									<Badge badgeContent={4} color="secondary">
+								<CustomLink to="/favorites">
+									<Badge badgeContent={favorites.length} color="secondary">
 										<FavoriteIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>

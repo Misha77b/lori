@@ -5,14 +5,15 @@ import { Container } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectProductsData } from "../../store/selectors";
+import { selectProductsData, selectSearch } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
-import useSearchParams from "./hooks";
+import useLocationParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import useFetchData from "../Home/hooks";
+import SearchRender from "./component/SearchRender";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -25,40 +26,45 @@ const ProductsCatalogue = () => {
 	const perPage = 5;
 
 	const productsQuantity = useSelector(selectProductsQuantity);
-	const params = useSearchParams({ startPage, perPage });
+	const search = useSelector(selectSearch);
+	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
-		const data = dispatch(fetchProducts(params));
-		data.then((res) => {
+		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [startPage, params, filteredData]);
-	if (productsLoading) return <Spinner />;
+	}, [startPage, params, filteredData, search]);
+
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
-				<CatalogueWrapper>
-					{filteredData.length
-						? filteredData?.map((card, index) => (
-								<ProductCard
-									priceColor="#57646E"
-									key={index}
-									card={card}
-									setNotification={setNotification}
-								/>
-								// eslint-disable-next-line no-mixed-spaces-and-tabs
-						  ))
-						: products?.map((card, index) => (
-								<ProductCard
-									priceColor="#57646E"
-									key={index}
-									card={card}
-									setNotification={setNotification}
-								/>
-								// eslint-disable-next-line no-mixed-spaces-and-tabs
-						  ))}
-				</CatalogueWrapper>
+				{productsLoading && <Spinner />}
+				{search.length > 0 ? (
+					<SearchRender />
+				) : (
+					<CatalogueWrapper>
+						{filteredData.length
+							? filteredData?.map((card, index) => (
+									<ProductCard
+										priceColor="#57646E"
+										key={index}
+										card={card}
+										setNotification={setNotification}
+									/>
+									// eslint-disable-next-line no-mixed-spaces-and-tabs
+							  ))
+							: products?.map((card, index) => (
+									<ProductCard
+										priceColor="#57646E"
+										key={index}
+										card={card}
+										setNotification={setNotification}
+									/>
+									// eslint-disable-next-line no-mixed-spaces-and-tabs
+							  ))}
+					</CatalogueWrapper>
+				)}
 			</FiltersPhones>
 			<AppPagination
 				pages={Math.ceil(productsQuantity / perPage)}

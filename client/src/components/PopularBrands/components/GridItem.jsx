@@ -3,7 +3,7 @@ import { Button, Stack, Typography, Container } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Link } from "react-router-dom";
 import "../PopularBrands.scss";
-import useSearchParams from "../../../pages/ProductsCatalogue/hooks";
+import useLocationParams from "../../../pages/ProductsCatalogue/hooks";
 
 const paragraph = {
 	margin: "0",
@@ -75,7 +75,7 @@ const GridItem = ({ products }) => {
 										{phoneNames}
 									</Typography>
 								</Stack>
-								<Link to={`/products/filter?${params.toString()}`} className="link">
+								<Link to={`/products?${params.toString()}`} className="link">
 									<Button color="primary" variant="contained" sx={button}>
 										Детальніше
 									</Button>
