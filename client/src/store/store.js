@@ -5,6 +5,7 @@ import slidesReducer from "./reducers/slidesSlice";
 import modalReducer from "./reducers/modalSlice";
 import authReducer from "./reducers/authSlice";
 import searchReducer from "./reducers/searchSlice";
+import filtersReducer from "./reducers/filtersSlice";
 
 const store = configureStore({
 	reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
 		oneProduct: oneProductsReducer,
 		modal: modalReducer,
 		search: searchReducer,
+		filters: filtersReducer,
 	},
 });
 
