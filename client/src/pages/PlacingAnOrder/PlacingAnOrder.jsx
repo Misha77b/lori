@@ -23,7 +23,7 @@ import { inputLabel } from "./sxStyles/inputLabel";
 import CategoryTitle from "../../components/CategoryTitle";
 import FillTheFromText from "./FillTheFormText";
 import PaymentAndShipping from "./PaymentAndShipping";
-import OrderItem from "./OrderItem";
+import OrderItem from "../../components/OrderItem";
 
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
