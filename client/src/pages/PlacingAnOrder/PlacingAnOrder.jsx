@@ -51,7 +51,9 @@ const PlacingAnOrder = () => {
 	const orderData = useSelector(selectOrderData);
 	// console.log(orderData);
 
-	const cartItems = getItems("cart", products);
+	// const cartItems = getItems("cart", products);
+	const cartItems = useSelector((state) => state.cart.shoppingCart);
+	console.log(cartItems);
 
 	// shipping and payment
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
