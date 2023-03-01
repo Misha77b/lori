@@ -4,8 +4,12 @@ import { Grid, Box, Button, Divider, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 import "./OrderItem.scss";
-import { removeItemFavorite } from "../../../store/reducers/productsSlice";
-import { deleteCardIdFromStore } from "../../../helpers/deleteCardIdFromStore";
+import { removeItemFavorite } from "../../store/reducers/productsSlice";
+// import { removeItemFavorite } from "../../../store/reducers/productsSlice";
+// import { deleteCardIdFromStore } from "../../../helpers/deleteCardIdFromStore";
+import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
+import { favPriceSX } from "./FavoriteSx/priceSx";
+import { favCrossSx } from "./FavoriteSx/crossSx";
 
 const OrderItem = ({ item, deleteCross = false }) => {
 	const dispatch = useDispatch();
@@ -36,7 +40,7 @@ const OrderItem = ({ item, deleteCross = false }) => {
 					</Box>
 				</Grid>
 
-				<Grid item xs={deleteCross ? 2 : 3}>
+				<Grid item xs={deleteCross ? 2 : 3} sx={deleteCross ? favPriceSX : null}>
 					<Box>
 						<Typography
 							fontWeight="fontWeightBold"
@@ -48,7 +52,7 @@ const OrderItem = ({ item, deleteCross = false }) => {
 					</Box>
 				</Grid>
 				{deleteCross && (
-					<Grid item xs={1}>
+					<Grid item xs={1} sx={deleteCross ? favCrossSx : null}>
 						<Button
 							className="cross"
 							color="black"
