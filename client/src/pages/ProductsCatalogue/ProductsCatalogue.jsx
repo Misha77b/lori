@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Container } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectProductsData } from "../../store/selectors";
+import { selectSearch } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
@@ -25,12 +24,13 @@ const ProductsCatalogue = () => {
 	const perPage = 5;
 
 	const productsQuantity = useSelector(selectProductsQuantity);
+	const dataFromSearch = useSelector(selectSearch);
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [startPage, params, filteredData]);
+	}, [startPage, params, filteredData, dataFromSearch]);
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
@@ -38,8 +38,19 @@ const ProductsCatalogue = () => {
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
 				{productsLoading && <Spinner />}
 				<CatalogueWrapper>
+					{/* eslint-disable-next-line no-nested-ternary */}
 					{filteredData.length
 						? filteredData?.map((card, index) => (
+								<ProductCard
+									priceColor="#57646E"
+									key={index}
+									card={card}
+									setNotification={setNotification}
+								/>
+								// eslint-disable-next-line no-mixed-spaces-and-tabs
+						  ))
+						: dataFromSearch.length
+						? dataFromSearch?.map((card, index) => (
 								<ProductCard
 									priceColor="#57646E"
 									key={index}
@@ -78,4 +89,3 @@ const FiltersPhones = styled.div`
 	grid-template-columns: 300px auto;
 `;
 export default ProductsCatalogue;
-// const productsQuantity = useSelector(productsQuantitySelector); this is a correct one;

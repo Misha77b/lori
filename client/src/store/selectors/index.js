@@ -7,6 +7,7 @@ export {
 } from "./products.selectors";
 export { selectSlidesData, selectSlidesLoader } from "./slides.selectors";
 export { selectorLoading, selectorPageObj } from "./oneProduct.selector";
+export { selectorLoad, selectorArrFilters } from "./filters.selectors";
 export {
 	selectAuth,
 	selectAuthLoader,
@@ -14,3 +15,4 @@ export {
 	selectAuthUserToken,
 	selectUserID,
 } from "./auth.selectors";
+export { selectSearch, selectSearchQuery, selectSearchLoader } from "./search.selector";

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { Button, ThemeProvider } from "@mui/material";
@@ -18,15 +19,22 @@ const App = () => {
 	};
 	const activeModal = modals[modal] ?? null;
 	return (
-		<ThemeProvider theme={theme}>
-			<BrowserRouter>
-				{activeModal}
-				<Header modal={actionModalHandler} />
-				<RootRouters />
-				<Footer />
-			</BrowserRouter>
-		</ThemeProvider>
+		<AppWrapper>
+			<ThemeProvider theme={theme}>
+				<BrowserRouter>
+					{activeModal}
+					<Header modal={actionModalHandler} />
+					<RootRouters />
+					<Footer />
+				</BrowserRouter>
+			</ThemeProvider>
+		</AppWrapper>
 	);
 };
-
+const AppWrapper = styled.div`
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+`;
 export default App;
