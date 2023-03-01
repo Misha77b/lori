@@ -24,9 +24,12 @@ const Cart = () => {
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, []);
+	}, [cartItems]);
 	useEffect(() => {
-		if (!products.length) return;
+		if (!products.length) {
+			setTotalSum(0);
+			return;
+		}
 		const amouns = products.reduce((acc, { itemNo }) => {
 			acc[itemNo] = 1;
 			return acc;
