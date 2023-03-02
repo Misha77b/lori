@@ -12,6 +12,7 @@ import Cart from "../pages/Cart/Cart";
 import Contacts from "../pages/Contacts";
 import NotFoundPage from "../pages/NotFoundPage";
 import FavoritePage from "../pages/FavoritePage";
+import Profile from "../pages/Profile";
 
 function RootRouters() {
 	return (
@@ -27,6 +28,7 @@ function RootRouters() {
 			<Route path="/paymentAndDelivery" element={<PaymentAndDelivery />} />
 			<Route path="/exchangeAndReturn" element={<ExchangeAndReturn />} />
 			<Route path="/contacts" element={<Contacts />} />
+			<Route path="/profile" element={<Profile />} />
 
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
