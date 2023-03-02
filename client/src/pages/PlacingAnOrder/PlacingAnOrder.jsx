@@ -53,7 +53,9 @@ const PlacingAnOrder = () => {
 
 	// const cartItems = getItems("cart", products);
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
+	const total = useSelector((state) => state.cart.total);
 	console.log(cartItems);
+	console.log(Object.values(total).reduce((acc, item) => acc + item, 0));
 
 	// shipping and payment
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");

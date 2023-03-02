@@ -4,6 +4,7 @@ import { DOMAIN } from "../../config/API";
 
 const initialState = {
 	shoppingCart: [],
+	total: {},
 };
 
 export const cartSlice = createSlice({
@@ -12,6 +13,9 @@ export const cartSlice = createSlice({
 	reducers: {
 		setShoppingCart: (state, action) => {
 			state.shoppingCart = action.payload;
+		},
+		setTotal: (state, action) => {
+			state.total = action.payload;
 		},
 		removeItemShoppingCart: (state, action) => {
 			state.shoppingCart = state.shoppingCart.filter(({ itemNo: id }) => id !== action.payload);
@@ -29,5 +33,5 @@ export const fetchCart = createAsyncThunk("cart/fetchData", async (newCart) => {
 	const response = await axios.post(`${DOMAIN}/cart`, newCart);
 	return response;
 });
-export const { setShoppingCart, removeItemShoppingCart } = cartSlice.actions;
+export const { setShoppingCart, setTotal, removeItemShoppingCart } = cartSlice.actions;
 export default cartSlice.reducer;

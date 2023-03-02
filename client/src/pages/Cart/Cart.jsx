@@ -5,7 +5,7 @@ import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 import { getItems } from "../../helpers/getItems";
-import { setShoppingCart } from "../../store/reducers/cartSlice";
+import { setShoppingCart, setTotal } from "../../store/reducers/cartSlice";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const Cart = () => {
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	const storage = getItems("cart", data);
 	const [totalSum, setTotalSum] = useState({});
+	console.log(totalSum);
 
 	const [amount, setAmount] = useState({});
 
@@ -33,6 +34,7 @@ const Cart = () => {
 
 	useEffect(() => {
 		dispatch(setShoppingCart(storage));
+		dispatch(setTotal(totalSum));
 	}, []);
 	return (
 		<Container>
