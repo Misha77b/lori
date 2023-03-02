@@ -5,12 +5,13 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 import { getNumberOfItems } from "../../helpers/utils";
+import { setIsAuth } from "../../store/reducers/authSlice";
 
 const Header = ({ modal }) => {
 	const menuLinkItem = {
@@ -24,6 +25,24 @@ const Header = ({ modal }) => {
 			textDecoration: "underline",
 		},
 	}));
+
+	const isLoggedIn = useSelector((state) => state.auth.isAuth);
+	const [logIn, setLogIn] = useState("Увійти");
+	console.log(isLoggedIn);
+
+	const token = localStorage.getItem("token");
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (token) {
+			dispatch(setIsAuth(true));
+			setLogIn("Особистий кабінет");
+		}
+		if (isLoggedIn) {
+			setLogIn("Особистий кабінет");
+		}
+	}, [isLoggedIn]);
+
 	return (
 		<Box component="header">
 			<AppBar position="static">
@@ -70,7 +89,7 @@ const Header = ({ modal }) => {
 							>
 								<AccountCircleOutlinedIcon sx={menuLinkItem} />
 								<Typography color="grey.main" sx={{ display: { xs: "none", md: "block" }, p: "0" }}>
-									Увійти
+									{logIn}
 								</Typography>
 							</IconButton>
 							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
