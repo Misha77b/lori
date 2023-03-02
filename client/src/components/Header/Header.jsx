@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
+import Breadcrumbs from "./Breadcrumbs";
 import { getNumberOfItems } from "../../helpers/utils";
 import { selectFavorite, selectShoppingCart } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
@@ -49,7 +50,6 @@ const Header = ({ modal }) => {
 
 	useEffect(() => {
 		setCountF(favorite.length);
-		debugger; // eslint-disable-line no-debugger
 		setCountC(shoppingCart.length);
 	}, [favorite, shoppingCart]);
 	return (
@@ -135,19 +135,22 @@ const Header = ({ modal }) => {
 				</Container>
 			</AppBar>
 
-			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" }, mb: "38px" }}>
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" }, mb: "22px" }}>
 				<Container>
 					<HeaderMenu />
 				</Container>
 			</Box>
 
-			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", sm: "none" }, mb: "38px" }}>
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", sm: "none" }, mb: "22px" }}>
 				<Container>
 					<Box sx={{ display: "flex", justifyContent: "center" }}>
 						<Search />
 					</Box>
 				</Container>
 			</Box>
+			<Container>
+				<Breadcrumbs />
+			</Container>
 		</Box>
 	);
 };
