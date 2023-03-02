@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { setLocalItem } from "../../helpers/setLocalItem";
 import { selectFavorite } from "../../store/selectors";
-import { setFavorite } from "../../store/reducers/productsSlice";
+import { setFavorite } from "../../store/reducers/favoriteSlice";
 
 const FavoriteHeartIcon = ({ id, product }) => {
 	const dispatch = useDispatch();

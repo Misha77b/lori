@@ -5,7 +5,7 @@ import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 import { getItems } from "../../helpers/getItems";
-import { setShoppingCart } from "../../store/reducers/cartSlice";
+import { addShoppingCart } from "../../store/reducers/cartSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 
