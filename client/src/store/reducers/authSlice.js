@@ -5,6 +5,7 @@ import { DOMAIN } from "../../config/API";
 
 const initialState = {
 	user: {},
+	isAuth: false,
 	loader: true,
 };
 export const fetchAuth = createAsyncThunk("user/login", async (object) => {
@@ -26,7 +27,12 @@ export const fetchRegister = createAsyncThunk("user/register", async (object) =>
 export const userSlice = createSlice({
 	name: "user",
 	initialState,
-	reducers: {},
+	reducers: {
+		setIsAuth: (state, action) => {
+			state.isAuth = action.payload;
+		},
+	},
+
 	extraReducers: (builder) => {
 		builder.addCase(fetchAuth.pending, (state) => {
 			state.loader = true;
@@ -38,4 +44,7 @@ export const userSlice = createSlice({
 		});
 	},
 });
+
+export const { setIsAuth } = userSlice.actions;
+
 export default userSlice.reducer;

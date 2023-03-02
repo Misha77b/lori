@@ -78,7 +78,7 @@ const Cart = () => {
 					<Box className={styles.cart__description}>
 						<Typography className={styles.cart__info_item}>Ваше замовлення</Typography>
 						<Typography className={styles.cart__info_item}>
-							Кількість продуктів: {cartItems.length}
+							Кількість продуктів: {products.length}
 						</Typography>
 						<Typography className={styles.cart__info_item}>
 							Загальна сума: {Object.values(totalSum).reduce((acc, item) => acc + item, 0) ?? 0}
