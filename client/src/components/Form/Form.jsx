@@ -5,7 +5,7 @@ import { schema as validationSchema, validationSchema2 } from "./Schema";
 import Field from "./Field/Field";
 import "./Form.scss";
 import { selectUser } from "../../store/selectors";
-import { fetchAuth, fetchRegister } from "../../store/reducers/authSlice";
+import { fetchAuth, fetchRegister, setIsAuth } from "../../store/reducers/authSlice";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 			if (status === "LOGIN") {
 				const { email, password } = usersData;
 				dispatch(fetchAuth({ loginOrEmail: email, password }));
+				dispatch(setIsAuth(true));
 			} else {
 				dispatch(fetchRegister(usersData));
 			}
