@@ -1,18 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Container, Button, Typography } from "@mui/material";
 import { getItems } from "../../helpers/getItems";
-import { setFavorite } from "../../store/reducers/productsSlice";
+import { fetchProducts, setFavorite } from "../../store/reducers/productsSlice";
 import OrderItem from "../../components/OrderItem";
+import { getLocalItem } from "../../helpers/getLocalItem";
 
 const FavoritePage = () => {
 	const dispatch = useDispatch();
-	const data = useSelector((state) => state.products.data);
-	const storage = getItems("favorites", data);
-	useEffect(() => {
+	const [products, setProducts] = useState([]);
+	/* const data = useSelector((state) => state.products.data); */
+	/* const storage = getItems("favorites", data); */
+	/* useEffect(() => {
 		dispatch(setFavorite(storage));
-	}, []);
+	}, []); */
+	const parsed = JSON.parse(getLocalItem("favorites"));
 	const favorites = useSelector((state) => state.products.favorite);
+	useEffect(() => {
+		const params = new URLSearchParams();
+		params.set("itemNo", parsed.join(","));
+		dispatch(fetchProducts(params.toString())).then((res) => {
+			setProducts(res.payload.products);
+		});
+	}, [favorites]);
 	return (
 		<Container>
 			<div className="cart-products">
@@ -24,7 +34,7 @@ const FavoritePage = () => {
 				>
 					Улюблене
 				</Typography>
-				{!favorites.length && (
+				{!products.length && (
 					<Typography
 						variant="h3"
 						fontWeight="fontWeightBold"
@@ -34,7 +44,7 @@ const FavoritePage = () => {
 					</Typography>
 				)}
 				<Box component="div" className="scroll">
-					{favorites?.map((item) => {
+					{products?.map((item) => {
 						return <OrderItem key={item.itemNo} item={item} deleteCross={true} />;
 					})}
 				</Box>
