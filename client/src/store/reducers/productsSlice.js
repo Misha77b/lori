@@ -11,7 +11,7 @@ const initialState = {
 	popularProducts: [],
 	saleProducts: [],
 	dataQuantity: 0,
-	favorite: [],
+	favorite: JSON.parse(localStorage.getItem("favorites") || "[]"),
 	loader: false,
 };
 
@@ -29,13 +29,16 @@ export const productsSlice = createSlice({
 	initialState,
 	reducers: {
 		setFavorite: (state, action) => {
-			state.favorite = action.payload;
+			debugger; // eslint-disable-line no-debugger
+			state.favorite = [...new Set([...state.favorite, action.payload])];
+			localStorage.setItem("favorites", JSON.stringify(state.favorite));
 		},
 		removeProduct: (state, action) => {
 			state.data = state.data.filter((item) => item.id !== action.payload);
 		},
 		removeItemFavorite: (state, action) => {
 			state.favorite = state.favorite.filter((item) => item.itemNo !== action.payload);
+			localStorage.setItem("favorites", JSON.stringify(state.favorite));
 		},
 	},
 	extraReducers: (builder) => {

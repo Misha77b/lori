@@ -15,7 +15,7 @@ const Cart = () => {
 	/* 	const data = useSelector((state) => state.products.data); */
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	/* 	const storage = getItems("cart", data); */
-	const parsed = JSON.parse(getLocalItem("cart"));
+	const parsed = JSON.parse(getLocalItem("cart") || "[]");
 	const [totalSum, setTotalSum] = useState({});
 	const [amount, setAmount] = useState(0);
 	useEffect(() => {

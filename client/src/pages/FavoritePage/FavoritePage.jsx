@@ -14,7 +14,7 @@ const FavoritePage = () => {
 	/* useEffect(() => {
 		dispatch(setFavorite(storage));
 	}, []); */
-	const parsed = JSON.parse(getLocalItem("favorites"));
+	const parsed = JSON.parse(getLocalItem("favorites") || "[]");
 	const favorites = useSelector((state) => state.products.favorite);
 	useEffect(() => {
 		const params = new URLSearchParams();
