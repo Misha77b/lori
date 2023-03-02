@@ -11,9 +11,14 @@ import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 import { getNumberOfItems } from "../../helpers/utils";
+import { selectFavorite, selectShoppingCart } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
 
 const Header = ({ modal }) => {
+	const [countF, setCountF] = useState(0);
+	const [countC, setCountC] = useState(0);
+	const favorite = useSelector(selectFavorite);
+	const shoppingCart = useSelector(selectShoppingCart);
 	const menuLinkItem = {
 		color: "#57646E",
 		fontSize: "30px",
@@ -42,6 +47,11 @@ const Header = ({ modal }) => {
 		}
 	}, [isLoggedIn]);
 
+	useEffect(() => {
+		setCountF(favorite.length);
+		debugger; // eslint-disable-line no-debugger
+		setCountC(shoppingCart.length);
+	}, [favorite, shoppingCart]);
 	return (
 		<Box component="header">
 			<AppBar position="static">
@@ -108,14 +118,14 @@ const Header = ({ modal }) => {
 							)}
 							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/cart">
-									<Badge badgeContent={getNumberOfItems("cart")} color="secondary">
+									<Badge badgeContent={countC} color="secondary">
 										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
 							</IconButton>
 							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
 								<CustomLink to="/favorites">
-									<Badge badgeContent={getNumberOfItems("favorites")} color="secondary">
+									<Badge badgeContent={countF} color="secondary">
 										<FavoriteIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>

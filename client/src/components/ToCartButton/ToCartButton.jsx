@@ -1,9 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { setLocalItem } from "../../helpers/setLocalItem";
+import { addShoppingCart } from "../../store/reducers/cartSlice";
 
 const ToCartButton = ({ id, setNotification }) => {
+	const dispach = useDispatch();
+
 	return (
 		<Button
 			color="secondary"
@@ -14,6 +18,7 @@ const ToCartButton = ({ id, setNotification }) => {
 			}}
 			onClick={() => {
 				setLocalItem("cart", id);
+				dispach(addShoppingCart(id));
 				setNotification(true);
 				setTimeout(() => {
 					setNotification(false);
