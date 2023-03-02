@@ -4,7 +4,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
@@ -80,17 +80,32 @@ const Header = ({ modal }) => {
 							<Search />
 						</Box>
 						<Box>
-							<IconButton
-								color="grey.main"
-								onClick={() => {
-									modal("LOGIN");
-								}}
-							>
-								<AccountCircleOutlinedIcon sx={menuLinkItem} />
-								<Typography color="grey.main" sx={{ display: { xs: "none", md: "block" }, p: "0" }}>
-									{logIn}
-								</Typography>
-							</IconButton>
+							{isLoggedIn ? (
+								<IconButton color="grey.main" component={Link} to="/profile">
+									<AccountCircleOutlinedIcon sx={menuLinkItem} />
+									<Typography
+										color="grey.main"
+										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
+									>
+										{logIn}
+									</Typography>
+								</IconButton>
+							) : (
+								<IconButton
+									color="grey.main"
+									onClick={() => {
+										modal("LOGIN");
+									}}
+								>
+									<AccountCircleOutlinedIcon sx={menuLinkItem} />
+									<Typography
+										color="grey.main"
+										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
+									>
+										{logIn}
+									</Typography>
+								</IconButton>
+							)}
 							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/cart">
 									<Badge badgeContent={getNumberOfItems("cart")} color="secondary">
