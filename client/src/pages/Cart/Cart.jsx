@@ -5,7 +5,7 @@ import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 import { getItems } from "../../helpers/getItems";
-import { setShoppingCart } from "../../store/reducers/cartSlice";
+import { addShoppingCart } from "../../store/reducers/cartSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 
@@ -15,7 +15,7 @@ const Cart = () => {
 	/* 	const data = useSelector((state) => state.products.data); */
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	/* 	const storage = getItems("cart", data); */
-	const parsed = JSON.parse(getLocalItem("cart"));
+	const parsed = JSON.parse(getLocalItem("cart") || "[]");
 	const [totalSum, setTotalSum] = useState({});
 	const [amount, setAmount] = useState(0);
 	useEffect(() => {

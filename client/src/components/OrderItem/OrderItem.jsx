@@ -4,7 +4,7 @@ import { Grid, Box, Button, Divider, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 import "./OrderItem.scss";
-import { removeItemFavorite } from "../../store/reducers/productsSlice";
+import { removeItemFavorite } from "../../store/reducers/favoriteSlice";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { favPriceSX } from "./FavoriteSx/priceSx";
 import { favCrossSx } from "./FavoriteSx/crossSx";
