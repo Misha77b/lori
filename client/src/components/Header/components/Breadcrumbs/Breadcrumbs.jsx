@@ -8,8 +8,8 @@ const Breadcrumb = () => {
 	console.log(breadcrumbs);
 
 	const links = breadcrumbs.map(({ breadcrumb, match }, index) => (
-		<span key={match.url}>
-			<Link underline="hover" color="grey.main" key={match.url} to={match.url}>
+		<span key={match.pathname}>
+			<Link underline="hover" color="grey.main" key={match.pathname} to={match.pathname}>
 				{breadcrumb}
 			</Link>
 			{index < breadcrumbs.length - 1}
