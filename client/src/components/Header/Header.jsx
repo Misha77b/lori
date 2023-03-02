@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { Link, NavLink } from "react-router-dom";
@@ -10,8 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
-import Breadcrumbs from "./Breadcrumbs";
-import { getNumberOfItems } from "../../helpers/utils";
+import Breadcrumb from "./components/Breadcrumbs";
 import { selectFavorite, selectShoppingCart } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
 
@@ -149,7 +147,7 @@ const Header = ({ modal }) => {
 				</Container>
 			</Box>
 			<Container>
-				<Breadcrumbs />
+				<Breadcrumb />
 			</Container>
 		</Box>
 	);

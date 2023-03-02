@@ -1,7 +1,7 @@
 import React from "react";
 import { Breadcrumbs, Link, Box, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import useBreadcrumbs from "./hook/useBreadcrumbs";
+import useBreadcrumbs from "./hook";
 
 const Breadcrumb = () => {
 	const routes = useBreadcrumbs();
@@ -27,4 +27,4 @@ const Breadcrumb = () => {
 	);
 };
 
-export default Breadcrumbs;
+export default Breadcrumb;
