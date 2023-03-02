@@ -28,7 +28,6 @@ const Header = ({ modal }) => {
 
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const [logIn, setLogIn] = useState("Увійти");
-	console.log(isLoggedIn);
 
 	const token = localStorage.getItem("token");
 	const dispatch = useDispatch();
