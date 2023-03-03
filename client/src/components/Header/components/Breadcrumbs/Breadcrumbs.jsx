@@ -1,11 +1,10 @@
 import React from "react";
-import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { Breadcrumbs, Link } from "@mui/material";
+import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { data } from "./helper/helperBreadcrump";
 
 const Breadcrumb = () => {
 	const breadcrumbs = useBreadcrumbs(data);
-	console.log(breadcrumbs);
 
 	const links = breadcrumbs.map(({ breadcrumb, match }, index) => (
 		<span key={match.pathname}>
