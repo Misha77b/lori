@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
-import { getItems } from "../../helpers/getItems";
-import { addShoppingCart } from "../../store/reducers/cartSlice";
-import { getLocalItem } from "../../helpers/getLocalItem";
 import { fetchProducts } from "../../store/reducers/productsSlice";
+import { setTotalCartSum, setProductsQuantity } from "../../store/reducers/cartSlice";
+import { getLocalItem } from "../../helpers/getLocalItem";
 
 const Cart = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [products, setProducts] = useState([]);
-	/* 	const data = useSelector((state) => state.products.data); */
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
-	/* 	const storage = getItems("cart", data); */
 	const parsed = JSON.parse(getLocalItem("cart") || "[]");
 	const [totalSum, setTotalSum] = useState({});
 	const [amount, setAmount] = useState(0);
@@ -38,14 +36,9 @@ const Cart = () => {
 			acc[itemNo] = 0;
 			return acc;
 		}, {});
-
 		setTotalSum(() => totalSumCart);
 		setAmount(() => amouns);
 	}, [products]);
-
-	/* useEffect(() => {
-		dispatch(setShoppingCart(storage));
-	}, []); */
 
 	return (
 		<Container>
@@ -78,9 +71,6 @@ const Cart = () => {
 					<Box className={styles.cart__description}>
 						<Typography className={styles.cart__info_item}>Ваше замовлення</Typography>
 						<Typography className={styles.cart__info_item}>
-							Кількість продуктів: {products.length}
-						</Typography>
-						<Typography className={styles.cart__info_item}>
 							Загальна сума: {Object.values(totalSum).reduce((acc, item) => acc + item, 0) ?? 0}
 							грн.
 						</Typography>
@@ -99,12 +89,31 @@ const Cart = () => {
 						<Button
 							color="secondary"
 							variant="contained"
+							onClick={(e) => {
+								e.preventDefault();
+								dispatch(
+									setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
+								);
+								dispatch(setProductsQuantity(amount));
+								navigate("/orders");
+							}}
 							className={styles.btn}
-							component={Link}
-							to="/orders"
 						>
 							Оформити замовлення
 						</Button>
+						{/* eslint-disable-next-line react/button-has-type */}
+						{/* <button
+							onClick={(e) => {
+								e.preventDefault();
+								dispatch(
+									setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
+								);
+								dispatch(setProductsQuantity(amount));
+								navigate("/orders");
+							}}
+						>
+							Оформити замовлення
+						</button> */}
 					</Box>
 				</Box>
 			</Box>

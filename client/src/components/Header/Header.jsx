@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { Link, NavLink } from "react-router-dom";
@@ -10,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
-import { getNumberOfItems } from "../../helpers/utils";
+import Breadcrumb from "./components/Breadcrumbs";
 import { selectFavorite, selectShoppingCart } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
 
@@ -32,7 +31,6 @@ const Header = ({ modal }) => {
 	}));
 
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const [logIn, setLogIn] = useState("Увійти");
 
 	const token = localStorage.getItem("token");
 	const dispatch = useDispatch();
@@ -40,16 +38,11 @@ const Header = ({ modal }) => {
 	useEffect(() => {
 		if (token) {
 			dispatch(setIsAuth(true));
-			setLogIn("Особистий кабінет");
-		}
-		if (isLoggedIn) {
-			setLogIn("Особистий кабінет");
 		}
 	}, [isLoggedIn]);
 
 	useEffect(() => {
 		setCountF(favorite.length);
-		debugger; // eslint-disable-line no-debugger
 		setCountC(shoppingCart.length);
 	}, [favorite, shoppingCart]);
 	return (
@@ -91,13 +84,13 @@ const Header = ({ modal }) => {
 						</Box>
 						<Box>
 							{isLoggedIn ? (
-								<IconButton color="grey.main" component={Link} to="/profile">
+								<IconButton color="grey.main" component={Link} to="/profile/edit-profile">
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
 										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
 									>
-										{logIn}
+										Особистий кабінет
 									</Typography>
 								</IconButton>
 							) : (
@@ -112,7 +105,7 @@ const Header = ({ modal }) => {
 										color="grey.main"
 										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
 									>
-										{logIn}
+										Увійти
 									</Typography>
 								</IconButton>
 							)}
@@ -135,19 +128,22 @@ const Header = ({ modal }) => {
 				</Container>
 			</AppBar>
 
-			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" }, mb: "38px" }}>
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" }, mb: "22px" }}>
 				<Container>
 					<HeaderMenu />
 				</Container>
 			</Box>
 
-			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", sm: "none" }, mb: "38px" }}>
+			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", sm: "none" }, mb: "22px" }}>
 				<Container>
 					<Box sx={{ display: "flex", justifyContent: "center" }}>
 						<Search />
 					</Box>
 				</Container>
 			</Box>
+			<Container>
+				<Breadcrumb />
+			</Container>
 		</Box>
 	);
 };
