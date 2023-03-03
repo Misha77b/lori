@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FormikConsumer, useFormik } from "formik";
+import { useFormik } from "formik";
 import {
 	Container,
 	Grid,
@@ -31,9 +31,14 @@ import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
 import { getItems } from "../../helpers/getItems";
 import useFetchData from "../Home/hooks";
+// get and log products from LS
+import { fetchProducts } from "../../store/reducers/productsSlice";
+import { getLocalItem } from "../../helpers/getLocalItem";
+
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
-import { setOrderData } from "../../store/reducers/ordersSlice";
+import { createOrder, setOrderData } from "../../store/reducers/ordersSlice";
+import { selectProductsQuantity } from "../../store/selectors/cart.selectors";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -46,12 +51,36 @@ const RGStyle = {
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
-	const products = useFetchData();
+	// const products = useFetchData();
 	// order data testing
 	const orderData = useSelector(selectOrderData);
 	// console.log(orderData);
+	// const cartItems = getItems("cart", products);
 
-	const cartItems = getItems("cart", products);
+	// get and log products from LS
+	const [products, setProducts] = useState([]);
+	const cartItems = useSelector((state) => state.cart.shoppingCart);
+	const productsQuantity = useSelector(selectProductsQuantity);
+	console.log(productsQuantity);
+	const parsed = JSON.parse(getLocalItem("cart") || "[]");
+	useEffect(() => {
+		const params = new URLSearchParams();
+		params.set("itemNo", parsed.join(","));
+		dispatch(fetchProducts(params.toString())).then((res) => {
+			setProducts(res.payload.products);
+		});
+	}, [cartItems]);
+	console.log(products);
+	const newObj = products.map((obj) => {
+		const result = {};
+		result._id = obj._id;
+		result.product = obj;
+		result.cartQuantity = productsQuantity[obj.itemNo];
+		return result;
+	});
+	console.log(newObj);
+
+	const [orderProduct, setOrderProduct] = useState({});
 
 	// shipping and payment
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
@@ -74,13 +103,9 @@ const PlacingAnOrder = () => {
 	};
 
 	// order data send test function
-	const orders = (orderProds, values) => {
+	const orders = (orderProducts, values) => {
 		const order = {
-			products: orderProds,
-			// fullName: orderData.fullName,
-			// email: orderData.email,
-			// phoneNumber: orderData.phoneNumber,
-			// adress: orderData.adress,
+			products: newObj,
 			fullName: values.fullName,
 			email: values.email,
 			phoneNumber: values.phoneNumber,
@@ -102,6 +127,11 @@ const PlacingAnOrder = () => {
 			email: "",
 			// orders: { ...cartItems },
 			adress: inputValue || "",
+			letterSubject: "Thank you for order!",
+			letterHtml: `<h1>Your order is placed.</h1>
+                </br></br> 
+                <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
+                </br></br>`,
 		},
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -109,7 +139,8 @@ const PlacingAnOrder = () => {
 			console.log(values);
 			// console.log(JSON.stringify(values, null, 2));
 			// const orderInfo = JSON.stringify(values);
-			console.log(orders(cartItems, values));
+			console.log(orders(newObj, values));
+			dispatch(createOrder({ products: newObj, values }));
 		},
 	});
 
@@ -233,7 +264,7 @@ const PlacingAnOrder = () => {
 								disablePortal
 								id="adress"
 								name="adress"
-								value={inputValue}
+								value={(formik.values.adress = inputValue)}
 								onChange={(event, newValue) => {
 									setValue(newValue);
 								}}
@@ -281,7 +312,7 @@ const PlacingAnOrder = () => {
 							</Typography>
 
 							<Box component="div" className="scroll">
-								{cartItems?.map((item) => {
+								{products?.map((item) => {
 									return <OrderItem key={item.itemNo} item={item} />;
 								})}
 							</Box>

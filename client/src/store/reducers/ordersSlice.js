@@ -12,10 +12,10 @@ const initialState = {
 	// orderNumber: "",
 };
 
-export const fetchSlides = createAsyncThunk("orders/postData", async (data) => {
+export const createOrder = createAsyncThunk("orders/postData", async (data) => {
 	axios
 		.post(`${DOMAIN}/orders`, data)
-		.then((ordersData) => console.log(ordersData))
+		.then((ordersData) => ordersData)
 		.catch((err) => console.warn(err));
 	return response;
 });
@@ -38,10 +38,10 @@ export const ordersSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(fetchSlides.pending, (state) => {
+		builder.addCase(createOrder.pending, (state) => {
 			state.loader = true;
 		});
-		builder.addCase(fetchSlides.fulfilled, (state, action) => {
+		builder.addCase(createOrder.fulfilled, (state, action) => {
 			state.slidesData = action.payload;
 			state.loader = false;
 		});
