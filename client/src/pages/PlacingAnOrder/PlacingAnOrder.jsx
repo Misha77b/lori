@@ -37,7 +37,7 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
-import { setOrderData } from "../../store/reducers/ordersSlice";
+import { createOrder, setOrderData } from "../../store/reducers/ordersSlice";
 import { selectProductsQuantity } from "../../store/selectors/cart.selectors";
 
 const validationSchema = yup.object({
@@ -127,6 +127,11 @@ const PlacingAnOrder = () => {
 			email: "",
 			// orders: { ...cartItems },
 			adress: inputValue || "",
+			letterSubject: "Thank you for order!",
+			letterHtml: `<h1>Your order is placed.</h1>
+                </br></br> 
+                <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
+                </br></br>`,
 		},
 		// validationSchema: validationSchema,
 		onSubmit: (values) => {
@@ -135,6 +140,7 @@ const PlacingAnOrder = () => {
 			// console.log(JSON.stringify(values, null, 2));
 			// const orderInfo = JSON.stringify(values);
 			console.log(orders(newObj, values));
+			dispatch(createOrder({ products: newObj, values }));
 		},
 	});
 

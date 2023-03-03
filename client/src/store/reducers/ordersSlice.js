@@ -15,7 +15,7 @@ const initialState = {
 export const createOrder = createAsyncThunk("orders/postData", async (data) => {
 	axios
 		.post(`${DOMAIN}/orders`, data)
-		.then((ordersData) => console.log(ordersData))
+		.then((ordersData) => ordersData)
 		.catch((err) => console.warn(err));
 	return response;
 });
