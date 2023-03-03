@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Container, Grid, Box, Tabs, Tab } from "@mui/material";
+import { Link } from "react-router-dom";
+
+import { setIsAuth } from "../../store/reducers/authSlice";
+
 import CategoryTitle from "../../components/CategoryTitle";
 
 const TabPanel = (props) => {
@@ -32,6 +37,7 @@ const a11yProps = (index) => {
 };
 
 const Profile = () => {
+	const dispatch = useDispatch();
 	const [value, setValue] = useState(0);
 
 	const handleChange = (event, newValue) => {
@@ -80,10 +86,14 @@ const Profile = () => {
 							{...a11yProps(2)}
 						/>
 						<Tab
-							// sx={{ paddingLeft: "35px" }}
+							onClick={() => {
+								localStorage.removeItem("token");
+								dispatch(setIsAuth(false));
+							}}
+							component={Link}
 							label="Вийти з кабінету"
-							to="/viewed-products"
-							{...a11yProps(3)}
+							to="/"
+							// {...a11yProps(3)}
 						/>
 					</Tabs>
 				</Grid>
@@ -97,9 +107,9 @@ const Profile = () => {
 					<TabPanel value={value} index={2}>
 						Мої замовлення
 					</TabPanel>
-					<TabPanel value={value} index={3}>
+					{/* <TabPanel value={value} index={3}>
 						Вийти з кабінету
-					</TabPanel>
+					</TabPanel> */}
 				</Grid>
 			</Grid>
 		</Container>

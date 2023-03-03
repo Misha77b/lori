@@ -32,13 +32,15 @@ const Header = ({ modal }) => {
 	}));
 
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const [logIn, setLogIn] = useState("Увійти");
+	const [logIn, setLogIn] = useState("");
 
 	const token = localStorage.getItem("token");
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (token) {
+		if (!token) {
+			setLogIn("Увійти");
+		} else {
 			dispatch(setIsAuth(true));
 			setLogIn("Особистий кабінет");
 		}
