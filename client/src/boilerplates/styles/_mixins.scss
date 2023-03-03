@@ -33,7 +33,7 @@
 		$v-min: null;
 		$item: nth($sizes, $i);
 		@for $e from 1 through length($item) {
-			@if (nth($item, 1)) == '!important' {
+			@if (nth($item, 1)) == "!important" {
 				$elem: !important;
 				$list: append($list, !important, space);
 				$val: append($val, !important, space);
@@ -59,7 +59,6 @@
       #{$props}: $val;
     }*/
 }
-
 
 //   @include propsSize(height, 28, 38);
 // height will be with 28 and 38 px in resized different width between 800, 2500 px
