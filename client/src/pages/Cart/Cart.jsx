@@ -86,17 +86,23 @@ const Cart = () => {
 						>
 							Продовжити покупки
 						</Button>
-						{/* <Button*/}
-						{/*	color="secondary"*/}
-						{/*	variant="contained"*/}
-						{/*	className={styles.btn}*/}
-						{/*	component={Link}*/}
-						{/*	to="/orders"*/}
-						{/* >*/}
-						{/*	Оформити замовлення*/}
-						{/* </Button>*/}
+						<Button
+							color="secondary"
+							variant="contained"
+							onClick={(e) => {
+								e.preventDefault();
+								dispatch(
+									setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
+								);
+								dispatch(setProductsQuantity(amount));
+								navigate("/orders");
+							}}
+							className={styles.btn}
+						>
+							Оформити замовлення
+						</Button>
 						{/* eslint-disable-next-line react/button-has-type */}
-						<button
+						{/* <button
 							onClick={(e) => {
 								e.preventDefault();
 								dispatch(
@@ -107,7 +113,7 @@ const Cart = () => {
 							}}
 						>
 							Оформити замовлення
-						</button>
+						</button> */}
 					</Box>
 				</Box>
 			</Box>
