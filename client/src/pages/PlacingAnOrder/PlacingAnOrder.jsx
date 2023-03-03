@@ -31,6 +31,10 @@ import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
 import { getItems } from "../../helpers/getItems";
 import useFetchData from "../Home/hooks";
+// get and log products from LS
+import { fetchProducts } from "../../store/reducers/productsSlice";
+import { getLocalItem } from "../../helpers/getLocalItem";
+
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { setOrderData } from "../../store/reducers/ordersSlice";
@@ -46,12 +50,26 @@ const RGStyle = {
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
-	const products = useFetchData();
+	// const products = useFetchData();
 	// order data testing
 	const orderData = useSelector(selectOrderData);
 	// console.log(orderData);
+	// const cartItems = getItems("cart", products);
 
-	const cartItems = getItems("cart", products);
+	// get and log products from LS
+	const [products, setProducts] = useState([]);
+	const cartItems = useSelector((state) => state.cart.shoppingCart);
+	const parsed = JSON.parse(getLocalItem("cart") || "[]");
+	useEffect(() => {
+		const params = new URLSearchParams();
+		params.set("itemNo", parsed.join(","));
+		dispatch(fetchProducts(params.toString())).then((res) => {
+			setProducts(res.payload.products);
+		});
+	}, [cartItems]);
+	console.log(products);
+
+	const [orderProduct, setOrderProduct] = useState({});
 
 	// shipping and payment
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
@@ -77,10 +95,6 @@ const PlacingAnOrder = () => {
 	const orders = (orderProds, values) => {
 		const order = {
 			products: orderProds,
-			// fullName: orderData.fullName,
-			// email: orderData.email,
-			// phoneNumber: orderData.phoneNumber,
-			// adress: orderData.adress,
 			fullName: values.fullName,
 			email: values.email,
 			phoneNumber: values.phoneNumber,
@@ -280,11 +294,11 @@ const PlacingAnOrder = () => {
 								Товари у кошику
 							</Typography>
 
-							<Box component="div" className="scroll">
+							{/* <Box component="div" className="scroll">
 								{cartItems?.map((item) => {
 									return <OrderItem key={item.itemNo} item={item} />;
 								})}
-							</Box>
+							</Box> */}
 
 							<OrderPrice />
 						</div>
