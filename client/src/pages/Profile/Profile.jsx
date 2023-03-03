@@ -5,6 +5,7 @@ import { Container, Grid, Box, Tabs, Tab } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import { setIsAuth } from "../../store/reducers/authSlice";
+import "./Profile.scss";
 
 import CategoryTitle from "../../components/CategoryTitle";
 import EditProfile from "../../components/ProfileMenuBlocks/EditProfile/EditProfile";
@@ -72,7 +73,7 @@ const Profile = () => {
 						flexGrow: 1,
 						bgcolor: "background.paper",
 						display: "flex",
-						justifyContent: "flex-start",
+						// justifyContent: "flex-start",
 					}}
 				>
 					<Tabs
@@ -82,30 +83,63 @@ const Profile = () => {
 						aria-label="Vertical tabs example"
 						variant="scrollable"
 						scrollButtons="auto"
-						sx={{ display: "flex", alignContent: "flex-start", width: "306px" }}
+						sx={{ backgroundColor: "#F5F5F5" }}
 					>
 						<Tab
-							// sx={{ paddingLeft: "35px" }}
+							sx={{
+								padding: "0, 0, 0, 35px",
+								width: "300px",
+								heigth: "68px",
+								diplay: "flex",
+								alignItems: "flex-start",
+								textTransform: "inherit",
+							}}
+							color="secondary"
 							label="Редагувати профіль"
 							component={Link}
 							to="/profile/edit-profile"
 							{...a11yProps(0)}
 						/>
 						<Tab
-							// sx={{ paddingLeft: "35px" }}
+							sx={{
+								padding: "0, 0, 0, 35px",
+								width: "300px",
+								heigth: "68px",
+								diplay: "flex",
+								alignItems: "flex-start",
+								textTransform: "inherit",
+							}}
+							color="secondary"
 							label="Змінити пароль"
 							component={Link}
 							to="/profile/change-password"
 							{...a11yProps(1)}
 						/>
 						<Tab
-							// sx={{ paddingLeft: "35px" }}
+							sx={{
+								padding: "0, 0, 0, 35px",
+								width: "300px",
+								heigth: "68px",
+								diplay: "flex",
+								alignItems: "flex-start",
+								textTransform: "inherit",
+							}}
+							color="secondary"
 							label="Мої замовлення"
 							component={Link}
 							to="/profile/orders-history"
 							{...a11yProps(2)}
 						/>
 						<Tab
+							sx={{
+								padding: "0, 0, 0, 35px",
+								width: "300px",
+								heigth: "68px",
+								diplay: "flex",
+								alignItems: "flex-start",
+								textTransform: "inherit",
+							}}
+							color="secondary"
 							onClick={() => {
 								localStorage.removeItem("token");
 								dispatch(setIsAuth(false));
