@@ -31,20 +31,13 @@ const Header = ({ modal }) => {
 	}));
 
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const [logIn, setLogIn] = useState("");
 
 	const token = localStorage.getItem("token");
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (!token) {
-			setLogIn("Увійти");
-		} else {
+		if (token) {
 			dispatch(setIsAuth(true));
-			setLogIn("Особистий кабінет");
-		}
-		if (isLoggedIn) {
-			setLogIn("Особистий кабінет");
 		}
 	}, [isLoggedIn]);
 
@@ -97,7 +90,7 @@ const Header = ({ modal }) => {
 										color="grey.main"
 										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
 									>
-										{logIn}
+										Особистий кабінет
 									</Typography>
 								</IconButton>
 							) : (
@@ -112,7 +105,7 @@ const Header = ({ modal }) => {
 										color="grey.main"
 										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
 									>
-										{logIn}
+										Увійти
 									</Typography>
 								</IconButton>
 							)}

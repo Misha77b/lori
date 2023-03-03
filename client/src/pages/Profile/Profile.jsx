@@ -73,26 +73,23 @@ const Profile = () => {
 						flexGrow: 1,
 						bgcolor: "background.paper",
 						display: "flex",
-						// justifyContent: "flex-start",
 					}}
 				>
 					<Tabs
+						className="profile-tabs-box"
 						orientation="vertical"
 						value={value}
 						onChange={handleChange}
 						aria-label="Vertical tabs example"
 						variant="scrollable"
 						scrollButtons="auto"
-						sx={{ backgroundColor: "#F5F5F5", width: "300px" }}
+						sx={{
+							backgroundColor: "#F5F5F5",
+							width: "300px",
+						}}
 					>
 						<Tab
-							sx={{
-								padding: "0, 0, 0, 35px",
-								heigth: "68px",
-								diplay: "flex",
-								alignItems: "flex-start",
-								textTransform: "inherit",
-							}}
+							className="profile-tabs"
 							color="secondary"
 							label="Редагувати профіль"
 							component={Link}
@@ -100,13 +97,7 @@ const Profile = () => {
 							{...a11yProps(0)}
 						/>
 						<Tab
-							sx={{
-								padding: "0, 0, 0, 35px",
-								heigth: "68px",
-								diplay: "flex",
-								alignItems: "flex-start",
-								textTransform: "inherit",
-							}}
+							className="profile-tabs"
 							color="secondary"
 							label="Змінити пароль"
 							component={Link}
@@ -114,13 +105,7 @@ const Profile = () => {
 							{...a11yProps(1)}
 						/>
 						<Tab
-							sx={{
-								padding: "0, 0, 0, 35px",
-								heigth: "68px",
-								diplay: "flex",
-								alignItems: "flex-start",
-								textTransform: "inherit",
-							}}
+							className="profile-tabs"
 							color="secondary"
 							label="Мої замовлення"
 							component={Link}
@@ -128,13 +113,7 @@ const Profile = () => {
 							{...a11yProps(2)}
 						/>
 						<Tab
-							sx={{
-								padding: "0, 0, 0, 35px",
-								heigth: "68px",
-								diplay: "flex",
-								alignItems: "flex-start",
-								textTransform: "inherit",
-							}}
+							className="profile-tabs"
 							color="secondary"
 							onClick={() => {
 								localStorage.removeItem("token");
