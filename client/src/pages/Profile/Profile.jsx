@@ -83,12 +83,11 @@ const Profile = () => {
 						aria-label="Vertical tabs example"
 						variant="scrollable"
 						scrollButtons="auto"
-						sx={{ backgroundColor: "#F5F5F5" }}
+						sx={{ backgroundColor: "#F5F5F5", width: "300px" }}
 					>
 						<Tab
 							sx={{
 								padding: "0, 0, 0, 35px",
-								width: "300px",
 								heigth: "68px",
 								diplay: "flex",
 								alignItems: "flex-start",
@@ -103,7 +102,6 @@ const Profile = () => {
 						<Tab
 							sx={{
 								padding: "0, 0, 0, 35px",
-								width: "300px",
 								heigth: "68px",
 								diplay: "flex",
 								alignItems: "flex-start",
@@ -118,7 +116,6 @@ const Profile = () => {
 						<Tab
 							sx={{
 								padding: "0, 0, 0, 35px",
-								width: "300px",
 								heigth: "68px",
 								diplay: "flex",
 								alignItems: "flex-start",
@@ -133,7 +130,6 @@ const Profile = () => {
 						<Tab
 							sx={{
 								padding: "0, 0, 0, 35px",
-								width: "300px",
 								heigth: "68px",
 								diplay: "flex",
 								alignItems: "flex-start",
