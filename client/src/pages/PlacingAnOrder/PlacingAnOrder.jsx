@@ -34,6 +34,7 @@ import useFetchData from "../Home/hooks";
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { setOrderData } from "../../store/reducers/ordersSlice";
+import { selectShoppingCart } from "../../store/selectors";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -49,9 +50,16 @@ const PlacingAnOrder = () => {
 	const products = useFetchData();
 	// order data testing
 	const orderData = useSelector(selectOrderData);
+	const shoppingCart = useSelector(selectShoppingCart);
 	// console.log(orderData);
 
-	const cartItems = getItems("cart", products);
+	let cartItems = Object.keys(shoppingCart).map((itemNo) => ({ itemNo }));
+	cartItems = products
+		// eslint-disable-next-line consistent-return, array-callback-return
+		.map((item) => {
+			if (shoppingCart[item.itemNo]) return item;
+		})
+		.filter(Boolean);
 
 	// shipping and payment
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
@@ -109,7 +117,7 @@ const PlacingAnOrder = () => {
 			console.log(values);
 			// console.log(JSON.stringify(values, null, 2));
 			// const orderInfo = JSON.stringify(values);
-			console.log(orders(cartItems, values));
+			// console.log(orders(cartItems, values));
 		},
 	});
 

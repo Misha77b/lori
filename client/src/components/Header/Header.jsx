@@ -12,6 +12,7 @@ import Search from "./components/Search";
 import Breadcrumb from "./components/Breadcrumbs";
 import { selectFavorite, selectShoppingCart } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
+import { selectTotalCartQuantity } from "../../store/selectors/cart.selectors";
 
 const Header = ({ modal }) => {
 	const [countF, setCountF] = useState(0);
@@ -31,7 +32,7 @@ const Header = ({ modal }) => {
 	}));
 
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-
+	const totalCartQuantity = useSelector(selectTotalCartQuantity);
 	const token = localStorage.getItem("token");
 	const dispatch = useDispatch();
 
@@ -43,7 +44,7 @@ const Header = ({ modal }) => {
 
 	useEffect(() => {
 		setCountF(favorite.length);
-		setCountC(shoppingCart.length);
+		setCountC(totalCartQuantity);
 	}, [favorite, shoppingCart]);
 	return (
 		<Box component="header">
