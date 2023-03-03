@@ -11,4 +11,5 @@ export const data = [
 	{ breadcrumb: "Оплата і доставка", path: "/paymentAndDelivery" },
 	{ breadcrumb: "Обмін та повернення", path: "/exchangeAndReturn" },
 	{ breadcrumb: "Контакти", path: "/contacts" },
+	{ breadcrumb: "Особистий кабінет", path: "/profile" },
 ];
