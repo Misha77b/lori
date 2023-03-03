@@ -38,6 +38,7 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { setOrderData } from "../../store/reducers/ordersSlice";
+import { selectProductsQuantity } from "../../store/selectors/cart.selectors";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -59,6 +60,8 @@ const PlacingAnOrder = () => {
 	// get and log products from LS
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
+	const productsQuantity = useSelector(selectProductsQuantity);
+	console.log(productsQuantity);
 	const parsed = JSON.parse(getLocalItem("cart") || "[]");
 	useEffect(() => {
 		const params = new URLSearchParams();
@@ -68,6 +71,14 @@ const PlacingAnOrder = () => {
 		});
 	}, [cartItems]);
 	console.log(products);
+	const newObj = products.map((obj) => {
+		const result = {};
+		result._id = obj._id;
+		result.product = obj;
+		result.cartQuantity = productsQuantity[obj.itemNo];
+		return result;
+	});
+	console.log(newObj);
 
 	const [orderProduct, setOrderProduct] = useState({});
 
@@ -92,9 +103,9 @@ const PlacingAnOrder = () => {
 	};
 
 	// order data send test function
-	const orders = (orderProds, values) => {
+	const orders = (orderProducts, values) => {
 		const order = {
-			products: orderProds,
+			products: newObj,
 			fullName: values.fullName,
 			email: values.email,
 			phoneNumber: values.phoneNumber,
@@ -123,7 +134,7 @@ const PlacingAnOrder = () => {
 			console.log(values);
 			// console.log(JSON.stringify(values, null, 2));
 			// const orderInfo = JSON.stringify(values);
-			console.log(orders(cartItems, values));
+			console.log(orders(newObj, values));
 		},
 	});
 
@@ -294,11 +305,11 @@ const PlacingAnOrder = () => {
 								Товари у кошику
 							</Typography>
 
-							{/* <Box component="div" className="scroll">
-								{cartItems?.map((item) => {
+							<Box component="div" className="scroll">
+								{products?.map((item) => {
 									return <OrderItem key={item.itemNo} item={item} />;
 								})}
-							</Box> */}
+							</Box>
 
 							<OrderPrice />
 						</div>
