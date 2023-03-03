@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Container, Grid, Box, Tabs, Tab } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { setIsAuth } from "../../store/reducers/authSlice";
 
 import CategoryTitle from "../../components/CategoryTitle";
+import EditProfile from "../../components/ProfileMenuBlocks/EditProfile/EditProfile";
+import Password from "../../components/ProfileMenuBlocks/Password/Password";
+import OrdersHistory from "../../components/ProfileMenuBlocks/OrdersHistory/OrdersHistory";
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props;
@@ -40,6 +43,20 @@ const Profile = () => {
 	const dispatch = useDispatch();
 	const [value, setValue] = useState(0);
 
+	const { profileMenu } = useParams();
+
+	useEffect(() => {
+		if (profileMenu === "edit-profile") {
+			setValue(0);
+		} else if (profileMenu === "change-password") {
+			setValue(1);
+		} else if (profileMenu === "orders-history") {
+			setValue(2);
+		} else {
+			setValue(0);
+		}
+	}, [profileMenu]);
+
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
@@ -70,19 +87,22 @@ const Profile = () => {
 						<Tab
 							// sx={{ paddingLeft: "35px" }}
 							label="Редагувати профіль"
-							to="/basic-info"
+							component={Link}
+							to="/profile/edit-profile"
 							{...a11yProps(0)}
 						/>
 						<Tab
 							// sx={{ paddingLeft: "35px" }}
 							label="Змінити пароль"
-							to="/order-history"
+							component={Link}
+							to="/profile/change-password"
 							{...a11yProps(1)}
 						/>
 						<Tab
 							// sx={{ paddingLeft: "35px" }}
 							label="Мої замовлення"
-							to="/wish-list"
+							component={Link}
+							to="/profile/orders-history"
 							{...a11yProps(2)}
 						/>
 						<Tab
@@ -93,23 +113,20 @@ const Profile = () => {
 							component={Link}
 							label="Вийти з кабінету"
 							to="/"
-							// {...a11yProps(3)}
 						/>
 					</Tabs>
 				</Grid>
+
 				<Grid item xs={8}>
 					<TabPanel value={value} index={0}>
-						Редагувати профіль
+						<EditProfile />
 					</TabPanel>
 					<TabPanel value={value} index={1}>
-						Змінити пароль
+						<Password />
 					</TabPanel>
 					<TabPanel value={value} index={2}>
-						Мої замовлення
+						<OrdersHistory />
 					</TabPanel>
-					{/* <TabPanel value={value} index={3}>
-						Вийти з кабінету
-					</TabPanel> */}
 				</Grid>
 			</Grid>
 		</Container>

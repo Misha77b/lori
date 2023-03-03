@@ -93,7 +93,7 @@ const Header = ({ modal }) => {
 						</Box>
 						<Box>
 							{isLoggedIn ? (
-								<IconButton color="grey.main" component={Link} to="/profile">
+								<IconButton color="grey.main" component={Link} to="/profile/edit-profile">
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
