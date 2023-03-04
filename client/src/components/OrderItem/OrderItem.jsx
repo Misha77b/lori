@@ -8,6 +8,7 @@ import { removeItemFavorite } from "../../store/reducers/favoriteSlice";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { favPriceSX } from "./FavoriteSx/priceSx";
 import { favCrossSx } from "./FavoriteSx/crossSx";
+import ToCartButton from "../ToCartButton";
 
 const OrderItem = ({ item, deleteCross = false }) => {
 	const dispatch = useDispatch();
@@ -35,9 +36,9 @@ const OrderItem = ({ item, deleteCross = false }) => {
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px" }}>
 							Пам&#8217;ть: {item.iternalStorage}
 						</Typography>
+						<ToCartButton favorites={true} />
 					</Box>
 				</Grid>
-
 				<Grid item xs={deleteCross ? 2 : 3} sx={deleteCross ? favPriceSX : null}>
 					<Box>
 						<Typography
