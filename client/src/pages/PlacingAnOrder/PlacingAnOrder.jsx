@@ -16,8 +16,6 @@ import {
 } from "@mui/material";
 
 import * as yup from "yup";
-import styled from "styled-components";
-import PropTypes from "prop-types";
 
 import { inputLabel } from "./sxStyles/inputLabel";
 import CategoryTitle from "../../components/CategoryTitle";
@@ -29,17 +27,14 @@ import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
 import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
-import { getItems } from "../../helpers/getItems";
-import useFetchData from "../Home/hooks";
 // get and log products from LS
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { getLocalItem } from "../../helpers/getLocalItem";
 
 // order data testing
-import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { createOrder, setOrderData } from "../../store/reducers/ordersSlice";
-
-import { selectShoppingCart } from "../../store/selectors";
+import { submitBtn } from "./sxStyles/submitBtn";
+import { selectShoppingCart, selectTotalCartSum } from "../../store/selectors/cart.selectors";
+import { setTotalCartSum } from "../../store/reducers/cartSlice";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -53,21 +48,26 @@ const RGStyle = {
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
-	const cartItems = useSelector((state) => state.cart.shoppingCart);
+	const cartItems = useSelector(selectShoppingCart);
+	const total = useSelector(selectTotalCartSum);
+	// console.log(total);
 
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 
+	const [value, setValue] = useState();
 	const [inputValue, setInputValue] = useState();
 
 	useEffect(() => {
+		setTotalCartSum(total);
 		const params = new URLSearchParams();
 		params.set("itemNo", Object.keys(cartItems).join(","));
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [cartItems]);
+		localStorage.setItem("totalCartSum", total);
+	}, [cartItems, total]);
 	const newObj = products.map((obj) => {
 		const result = {};
 		result._id = obj._id;
@@ -91,12 +91,13 @@ const PlacingAnOrder = () => {
 		const sendOrder = {};
 		sendOrder.products = newObj;
 		sendOrder.deliveryAddress = values.adress;
-		sendOrder.shipping = "--";
+		sendOrder.shipping = shippingMethod;
 		sendOrder.email = values.email;
 		sendOrder.mobile = values.phoneNumber;
 		sendOrder.letterSubject = "Thank you for order!";
-		sendOrder.letterHtml =
-			"<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>";
+		sendOrder.letterHtml = `<h1>Your order is placed.</h1>
+		</br>
+		<p>Сумма замовлення становить ${total} грн.</p>`;
 		return sendOrder;
 	};
 
@@ -277,30 +278,15 @@ const PlacingAnOrder = () => {
 
 							<Box component="div" className="scroll">
 								{products?.map((item) => {
-									return <OrderItem key={item.itemNo} item={item} />;
+									const cartQuantity = cartItems[item.itemNo];
+									return <OrderItem key={item.itemNo} item={item} cartQuantity={cartQuantity} />;
 								})}
 							</Box>
 
-							<OrderPrice />
+							<OrderPrice total={total} />
 						</div>
 
-						<Button
-							type="submit"
-							sx={{
-								marginTop: "20px",
-								width: "320px",
-								height: "56px",
-								background: "#007042",
-								color: "#FFF",
-								"&:hover": {
-									backgroundColor: "#007042",
-								},
-								"@media (max-width: 400px)": {
-									width: "280px",
-								},
-							}}
-							color="primary"
-						>
+						<Button type="submit" sx={submitBtn} color="primary">
 							ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
 						</Button>
 					</Grid>

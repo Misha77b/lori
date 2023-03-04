@@ -39,6 +39,8 @@ const Cart = () => {
 		}, {});
 		setTotalSum(() => totalSumCart);
 		// setAmount(() => amouns);
+		// totalCartSum for order
+		dispatch(setTotalCartSum(Object.values(totalSum).reduce((acc, item) => acc + item, 0) ?? 0));
 	}, [products]);
 
 	return (
@@ -90,14 +92,16 @@ const Cart = () => {
 						<Button
 							color="secondary"
 							variant="contained"
-							onClick={(e) => {
-								e.preventDefault();
-								// dispatch(
-								// 	setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
-								// );
-								// dispatch(setProductsQuantity(amount));
-								navigate("/orders");
-							}}
+							component={Link}
+							to="/orders"
+							// onClick={(e) => {
+							// 	e.preventDefault();
+							// dispatch(
+							// 	setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
+							// );
+							// dispatch(setProductsQuantity(amount));
+							// 	navigate("/orders");
+							// }}
 							className={styles.btn}
 						>
 							Оформити замовлення
