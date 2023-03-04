@@ -59,8 +59,6 @@ const Cart = () => {
 									name={name}
 									currentPrice={currentPrice}
 									setTotalSum={setTotalSum}
-									// amount={amount}
-									// setAmount={setAmount}
 								/>
 							);
 						})
