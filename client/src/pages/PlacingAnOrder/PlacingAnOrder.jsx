@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FormikConsumer, useFormik } from "formik";
+import { useFormik } from "formik";
 import {
 	Container,
 	Grid,
@@ -31,9 +31,14 @@ import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
 import { getItems } from "../../helpers/getItems";
 import useFetchData from "../Home/hooks";
+// get and log products from LS
+import { fetchProducts } from "../../store/reducers/productsSlice";
+import { getLocalItem } from "../../helpers/getLocalItem";
+
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
-import { setOrderData } from "../../store/reducers/ordersSlice";
+import { createOrder, setOrderData } from "../../store/reducers/ordersSlice";
+
 import { selectShoppingCart } from "../../store/selectors";
 
 const validationSchema = yup.object({
@@ -47,21 +52,19 @@ const RGStyle = {
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
-	const products = useFetchData();
-	// order data testing
+	const [products, setProducts] = useState([]);
+	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	const orderData = useSelector(selectOrderData);
 	const shoppingCart = useSelector(selectShoppingCart);
-	// console.log(orderData);
 
-	let cartItems = Object.keys(shoppingCart).map((itemNo) => ({ itemNo }));
-	cartItems = products
-		// eslint-disable-next-line consistent-return, array-callback-return
-		.map((item) => {
-			if (shoppingCart[item.itemNo]) return item;
-		})
-		.filter(Boolean);
+	useEffect(() => {
+		const params = new URLSearchParams();
+		params.set("itemNo", Object.keys(cartItems).join(","));
+		dispatch(fetchProducts(params.toString())).then((res) => {
+			setProducts(res.payload.products);
+		});
+	}, [cartItems]);
 
-	// shipping and payment
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
@@ -73,22 +76,14 @@ const PlacingAnOrder = () => {
 		if (shippingMethod === "Кур’єром додому") {
 			setAdressTitle("Пункт видачі");
 		} else setAdressTitle("Адреса");
-
 		setShippingMethod(e.target.value);
 	};
-
 	const handlePaymentMethodChange = (e) => {
 		setPaymentMethod(e.target.value);
 	};
-
-	// order data send test function
-	const orders = (orderProds, values) => {
+	const orders = (orderProducts, values) => {
 		const order = {
-			products: orderProds,
-			// fullName: orderData.fullName,
-			// email: orderData.email,
-			// phoneNumber: orderData.phoneNumber,
-			// adress: orderData.adress,
+			products: newObj,
 			fullName: values.fullName,
 			email: values.email,
 			phoneNumber: values.phoneNumber,
@@ -108,16 +103,17 @@ const PlacingAnOrder = () => {
 			fullName: "",
 			phoneNumber: "",
 			email: "",
-			// orders: { ...cartItems },
 			adress: inputValue || "",
+			letterSubject: "Thank you for order!",
+			letterHtml: `<h1>Your order is placed.</h1>
+                </br></br> 
+                <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
+                </br></br>`,
 		},
-		// validationSchema: validationSchema,
+
 		onSubmit: (values) => {
-			// dispatch(setOrderData(values));
 			console.log(values);
-			// console.log(JSON.stringify(values, null, 2));
-			// const orderInfo = JSON.stringify(values);
-			// console.log(orders(cartItems, values));
+			dispatch(createOrder({ products: newObj, values }));
 		},
 	});
 
@@ -129,9 +125,7 @@ const PlacingAnOrder = () => {
 				<Grid container spacing={{ xs: 2, md: 5, lg: 20 }}>
 					<Grid item xs={12} sm={12} md={6}>
 						<FillTheFromText />
-
 						<Typography variant="h6">Контактні дані</Typography>
-
 						<Box className="inputs-wrapper">
 							<Box>
 								<InputLabel className="textField-label" sx={inputLabel}>
@@ -241,7 +235,7 @@ const PlacingAnOrder = () => {
 								disablePortal
 								id="adress"
 								name="adress"
-								value={inputValue}
+								value={(formik.values.adress = inputValue)}
 								onChange={(event, newValue) => {
 									setValue(newValue);
 								}}
@@ -272,11 +266,7 @@ const PlacingAnOrder = () => {
 								multiline={true}
 							/>
 						)}
-
-						{/* testing comment */}
-						{/* <PaymentAndShipping /> */}
 					</Grid>
-
 					<Grid item xs={12} sm={12} md={6}>
 						<div className="cart-products">
 							<Typography
@@ -289,7 +279,7 @@ const PlacingAnOrder = () => {
 							</Typography>
 
 							<Box component="div" className="scroll">
-								{cartItems?.map((item) => {
+								{products?.map((item) => {
 									return <OrderItem key={item.itemNo} item={item} />;
 								})}
 							</Box>
