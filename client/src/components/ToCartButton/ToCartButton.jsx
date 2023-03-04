@@ -5,7 +5,7 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { setLocalItem } from "../../helpers/setLocalItem";
 import { addShoppingCart } from "../../store/reducers/cartSlice";
 
-const ToCartButton = ({ id, setNotification }) => {
+const ToCartButton = ({ id, setNotification, favorites = false }) => {
 	const dispach = useDispatch();
 
 	return (
@@ -13,8 +13,9 @@ const ToCartButton = ({ id, setNotification }) => {
 			color="secondary"
 			variant="contained"
 			sx={{
-				width: "70%",
+				...(favorites ? { width: "140px" } : { width: "70%" }),
 				height: "46px",
+				marginTop: "10px",
 			}}
 			onClick={() => {
 				setLocalItem("cart", id);

@@ -9,11 +9,6 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 const FavoritePage = () => {
 	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
-	/* const data = useSelector((state) => state.products.data); */
-	/* const storage = getItems("favorites", data); */
-	/* useEffect(() => {
-		dispatch(setFavorite(storage));
-	}, []); */
 	const parsed = JSON.parse(getLocalItem("favorites") || "[]");
 	const favorites = useSelector((state) => state.favorite.favorite);
 	useEffect(() => {
