@@ -1,15 +1,12 @@
 import { Box, Typography, Stack, Button, Container } from "@mui/material";
 import Rating from "@mui/material/Rating";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
-import Amount from "./Amount";
 import Selection from "./Select";
 import { DOMAIN } from "../../config/API";
 import "./Product.scss";
-import { setLocalItem } from "../../helpers/setLocalItem";
 import ToCartButton from "../ToCartButton";
 
 function Product({ props, setNotification }) {
@@ -76,7 +73,6 @@ function Product({ props, setNotification }) {
 								<Typography component="legend">Рейтинг</Typography>
 								<Rating name="read-only" value={rating} readOnly />
 							</Box>
-							<Amount />
 							<Selection
 								arrayProps={props.allColors}
 								setCurrentColor={setCurrentColor}
