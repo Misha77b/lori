@@ -54,8 +54,12 @@ const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
-	const orderData = useSelector(selectOrderData);
-	const shoppingCart = useSelector(selectShoppingCart);
+
+	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
+	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
+	const [adressTitle, setAdressTitle] = useState("Адреса");
+
+	const [inputValue, setInputValue] = useState();
 
 	useEffect(() => {
 		const params = new URLSearchParams();
@@ -64,13 +68,13 @@ const PlacingAnOrder = () => {
 			setProducts(res.payload.products);
 		});
 	}, [cartItems]);
-
-	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
-	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
-	const [adressTitle, setAdressTitle] = useState("Адреса");
-
-	const [value, setValue] = useState();
-	const [inputValue, setInputValue] = useState();
+	const newObj = products.map((obj) => {
+		const result = {};
+		result._id = obj._id;
+		result.product = obj;
+		result.cartQuantity = cartItems[obj.itemNo];
+		return result;
+	});
 
 	const handleShippingMethodChange = (e) => {
 		if (shippingMethod === "Кур’єром додому") {
@@ -78,24 +82,22 @@ const PlacingAnOrder = () => {
 		} else setAdressTitle("Адреса");
 		setShippingMethod(e.target.value);
 	};
+
 	const handlePaymentMethodChange = (e) => {
 		setPaymentMethod(e.target.value);
 	};
-	const orders = (orderProducts, values) => {
-		const order = {
-			products: newObj,
-			fullName: values.fullName,
-			email: values.email,
-			phoneNumber: values.phoneNumber,
-			adress: values.adress,
-			letterSubject: "Thank you for order!",
-			letterHtml: `<h1>Your order is placed.</h1>
-                </br></br> 
-                <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
-                </br></br>`,
-		};
 
-		return order;
+	const orders = (values) => {
+		const sendOrder = {};
+		sendOrder.products = newObj;
+		sendOrder.deliveryAddress = values.adress;
+		sendOrder.shipping = "--";
+		sendOrder.email = values.email;
+		sendOrder.mobile = values.phoneNumber;
+		sendOrder.letterSubject = "Thank you for order!";
+		sendOrder.letterHtml =
+			"<h1>Your order is placed. OrderNo is 023689452.</h1><p>{Other details about order in your HTML}</p>";
+		return sendOrder;
 	};
 
 	const formik = useFormik({
@@ -104,16 +106,11 @@ const PlacingAnOrder = () => {
 			phoneNumber: "",
 			email: "",
 			adress: inputValue || "",
-			letterSubject: "Thank you for order!",
-			letterHtml: `<h1>Your order is placed.</h1>
-                </br></br> 
-                <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
-                </br></br>`,
 		},
-
 		onSubmit: (values) => {
-			console.log(values);
-			dispatch(createOrder({ products: newObj, values }));
+			const newOrder = orders(values);
+			console.log("newOrder", newOrder);
+			dispatch(createOrder(newOrder));
 		},
 	});
 
