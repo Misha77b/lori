@@ -38,7 +38,8 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { createOrder, setOrderData } from "../../store/reducers/ordersSlice";
-import { selectProductsQuantity } from "../../store/selectors/cart.selectors";
+
+import { selectShoppingCart } from "../../store/selectors";
 
 const validationSchema = yup.object({
 	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
@@ -51,38 +52,19 @@ const RGStyle = {
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
-	// const products = useFetchData();
-	// order data testing
-	const orderData = useSelector(selectOrderData);
-	// console.log(orderData);
-	// const cartItems = getItems("cart", products);
-
-	// get and log products from LS
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
-	const productsQuantity = useSelector(selectProductsQuantity);
-	console.log(productsQuantity);
-	const parsed = JSON.parse(getLocalItem("cart") || "[]");
+	const orderData = useSelector(selectOrderData);
+	const shoppingCart = useSelector(selectShoppingCart);
+
 	useEffect(() => {
 		const params = new URLSearchParams();
-		params.set("itemNo", parsed.join(","));
+		params.set("itemNo", Object.keys(cartItems).join(","));
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [cartItems]);
-	console.log(products);
-	const newObj = products.map((obj) => {
-		const result = {};
-		result._id = obj._id;
-		result.product = obj;
-		result.cartQuantity = productsQuantity[obj.itemNo];
-		return result;
-	});
-	console.log(newObj);
 
-	const [orderProduct, setOrderProduct] = useState({});
-
-	// shipping and payment
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
@@ -94,15 +76,11 @@ const PlacingAnOrder = () => {
 		if (shippingMethod === "Кур’єром додому") {
 			setAdressTitle("Пункт видачі");
 		} else setAdressTitle("Адреса");
-
 		setShippingMethod(e.target.value);
 	};
-
 	const handlePaymentMethodChange = (e) => {
 		setPaymentMethod(e.target.value);
 	};
-
-	// order data send test function
 	const orders = (orderProducts, values) => {
 		const order = {
 			products: newObj,
@@ -125,7 +103,6 @@ const PlacingAnOrder = () => {
 			fullName: "",
 			phoneNumber: "",
 			email: "",
-			// orders: { ...cartItems },
 			adress: inputValue || "",
 			letterSubject: "Thank you for order!",
 			letterHtml: `<h1>Your order is placed.</h1>
@@ -133,13 +110,9 @@ const PlacingAnOrder = () => {
                 <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
                 </br></br>`,
 		},
-		// validationSchema: validationSchema,
+
 		onSubmit: (values) => {
-			// dispatch(setOrderData(values));
 			console.log(values);
-			// console.log(JSON.stringify(values, null, 2));
-			// const orderInfo = JSON.stringify(values);
-			console.log(orders(newObj, values));
 			dispatch(createOrder({ products: newObj, values }));
 		},
 	});
@@ -152,9 +125,7 @@ const PlacingAnOrder = () => {
 				<Grid container spacing={{ xs: 2, md: 5, lg: 20 }}>
 					<Grid item xs={12} sm={12} md={6}>
 						<FillTheFromText />
-
 						<Typography variant="h6">Контактні дані</Typography>
-
 						<Box className="inputs-wrapper">
 							<Box>
 								<InputLabel className="textField-label" sx={inputLabel}>
@@ -295,11 +266,7 @@ const PlacingAnOrder = () => {
 								multiline={true}
 							/>
 						)}
-
-						{/* testing comment */}
-						{/* <PaymentAndShipping /> */}
 					</Grid>
-
 					<Grid item xs={12} sm={12} md={6}>
 						<div className="cart-products">
 							<Typography

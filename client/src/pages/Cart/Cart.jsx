@@ -7,37 +7,38 @@ import styles from "./cart.module.scss";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { setTotalCartSum, setProductsQuantity } from "../../store/reducers/cartSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
+import { selectShoppingCart } from "../../store/selectors";
 
 const Cart = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
-	const parsed = JSON.parse(getLocalItem("cart") || "[]");
 	const [totalSum, setTotalSum] = useState({});
-	const [amount, setAmount] = useState(0);
+	// const [amount, setAmount] = useState(0);
 	useEffect(() => {
 		const params = new URLSearchParams();
-		params.set("itemNo", parsed.join(","));
+		params.set("itemNo", Object.keys(cartItems).join(","));
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [cartItems]);
+
 	useEffect(() => {
 		if (!products.length) {
-			setTotalSum(0);
+			setTotalSum({});
 			return;
 		}
-		const amouns = products.reduce((acc, { itemNo }) => {
-			acc[itemNo] = 1;
-			return acc;
-		}, {});
-		const totalSumCart = products.reduce((acc, { itemNo }) => {
-			acc[itemNo] = 0;
+		// const amouns = products.reduce((acc, { itemNo }) => {
+		// 	acc[itemNo] = 1;
+		// 	return acc;
+		// }, {});
+		const totalSumCart = products.reduce((acc, { currentPrice, itemNo }) => {
+			acc[itemNo] = currentPrice * cartItems[itemNo];
 			return acc;
 		}, {});
 		setTotalSum(() => totalSumCart);
-		setAmount(() => amouns);
+		// setAmount(() => amouns);
 	}, [products]);
 
 	return (
@@ -58,8 +59,8 @@ const Cart = () => {
 									name={name}
 									currentPrice={currentPrice}
 									setTotalSum={setTotalSum}
-									amount={amount}
-									setAmount={setAmount}
+									// amount={amount}
+									// setAmount={setAmount}
 								/>
 							);
 						})
@@ -91,10 +92,10 @@ const Cart = () => {
 							variant="contained"
 							onClick={(e) => {
 								e.preventDefault();
-								dispatch(
-									setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
-								);
-								dispatch(setProductsQuantity(amount));
+								// dispatch(
+								// 	setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
+								// );
+								// dispatch(setProductsQuantity(amount));
 								navigate("/orders");
 							}}
 							className={styles.btn}

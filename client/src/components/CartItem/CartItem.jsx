@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import styles from "./cartItem.module.scss";
 import Amount from "../Product/Amount";
 import { removeItemShoppingCart } from "../../store/reducers/cartSlice";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
+import { selectShoppingCart } from "../../store/selectors";
 
 const CartItem = ({
 	dbId,
@@ -14,16 +15,19 @@ const CartItem = ({
 	name,
 	currentPrice,
 	setTotalSum,
-	amount,
-	setAmount,
+	// amount,
+	// setAmount,
 }) => {
 	const dispatch = useDispatch();
+	const shoppingCart = useSelector(selectShoppingCart);
 	useEffect(() => {
 		if (!itemNo) return;
-		if (!amount[itemNo]) return;
-		const sum = amount[itemNo] * currentPrice;
+		// if (!amount[itemNo]) return;
+
+		const sum = shoppingCart[itemNo] * currentPrice;
 		setTotalSum((prev) => ({ ...prev, [itemNo]: sum }));
-	}, [amount, itemNo]);
+		// }, [amount, itemNo]);
+	}, [shoppingCart, itemNo]);
 	return (
 		<Box className={styles.item}>
 			{imageUrls && (
@@ -32,19 +36,19 @@ const CartItem = ({
 				</Link>
 			)}
 			<Typography className={styles.item__text}>{name}</Typography>
-			<Amount amount={amount[itemNo]} setAmount={setAmount} itemNo={itemNo} />
+			<Amount amount={shoppingCart[itemNo]} setAmount={() => {}} itemNo={itemNo} />
 			<Typography className={styles.item__text}>{currentPrice}</Typography>
-			<Typography className={styles.item__text}> x {amount?.[itemNo] ?? 0} </Typography>
+			<Typography className={styles.item__text}> x {shoppingCart[itemNo] ?? 0} </Typography>
 			<Typography className={styles.item__text}>
 				{/* eslint-disable-next-line no-unsafe-optional-chaining */}
-				{Math.floor(currentPrice * amount?.[itemNo] ?? 0)}
+				{Math.floor(currentPrice * shoppingCart[itemNo] ?? 0)}
 			</Typography>
 			<button
 				type="button"
 				className={styles.item__btn}
 				onClick={() => {
 					dispatch(removeItemShoppingCart(itemNo));
-					deleteCardIdFromStore(itemNo, "cart");
+					// deleteCardIdFromStore(itemNo, "cart");
 				}}
 			>
 				<img
