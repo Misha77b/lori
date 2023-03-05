@@ -17,6 +17,7 @@ import "./PlacingAnOrder.scss";
 import CategoryTitle from "../../components/CategoryTitle";
 import FillTheFromText from "./FillTheFormText";
 import OrderItem from "../../components/OrderItem";
+import { submitBtn } from "./sxStyles/submitBtn";
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
 import OrderPrice from "./OrderPrice";
@@ -26,7 +27,9 @@ import { schema as validationSchema } from "./Schema";
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { createOrder } from "../../store/reducers/ordersSlice";
+import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
+import { setTotalCartSum } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
 
 const RGStyle = {
@@ -39,7 +42,6 @@ const PlacingAnOrder = () => {
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector(selectShoppingCart);
 	const total = useSelector(selectTotalCartSum);
-	// console.log(total);
 
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
