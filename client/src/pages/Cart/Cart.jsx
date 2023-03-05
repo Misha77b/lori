@@ -5,6 +5,7 @@ import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 import { fetchProducts } from "../../store/reducers/productsSlice";
+import { setTotalCartSum } from "../../store/reducers/cartSlice";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -84,6 +85,7 @@ const Cart = () => {
 							variant="contained"
 							onClick={(e) => {
 								e.preventDefault();
+								dispatch(setTotalCartSum(countOverallPrice(totalSum)));
 								navigate("/orders");
 							}}
 							className={styles.btn}

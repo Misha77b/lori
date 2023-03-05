@@ -53,10 +53,6 @@ export const cartSlice = createSlice({
 			}
 			localStorage.setItem("cart", JSON.stringify(state.shoppingCart));
 		},
-		// setProductsQuantity: (state, action) => {
-		// 	state.productsQuantity = action.payload;
-		// 	console.log("state.productsQuantity", state.productsQuantity);
-		// },
 		setTotalCartSum: (state, action) => {
 			state.totalCartSum = action.payload;
 		},
@@ -70,7 +66,6 @@ export const fetchCart = createAsyncThunk("cart/fetchData", async (newCart) => {
 export const {
 	removeItemShoppingCart,
 	addShoppingCart,
-	setProductsQuantity,
 	setTotalCartSum,
 	addQuantityToShoppingCart,
 } = cartSlice.actions;

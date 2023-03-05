@@ -25,7 +25,6 @@ import { fetchProducts } from "../../store/reducers/productsSlice";
 import { schema as validationSchema } from "./Schema";
 
 // order data testing
-import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
@@ -42,7 +41,6 @@ const PlacingAnOrder = () => {
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector(selectShoppingCart);
 	const total = useSelector(selectTotalCartSum);
-
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
