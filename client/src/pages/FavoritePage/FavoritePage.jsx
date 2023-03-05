@@ -5,9 +5,11 @@ import { getItems } from "../../helpers/getItems";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import OrderItem from "../../components/OrderItem";
 import { getLocalItem } from "../../helpers/getLocalItem";
+import ToastNotification from "../../components/ToastNotification";
 
 const FavoritePage = () => {
 	const dispatch = useDispatch();
+	const [notification, setNotification] = useState(false);
 	const [products, setProducts] = useState([]);
 	const parsed = JSON.parse(getLocalItem("favorites") || "[]");
 	const favorites = useSelector((state) => state.favorite.favorite);
@@ -20,6 +22,7 @@ const FavoritePage = () => {
 	}, [favorites]);
 	return (
 		<Container>
+			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<div className="cart-products">
 				<Typography
 					className="cart-products--title"
@@ -40,7 +43,14 @@ const FavoritePage = () => {
 				)}
 				<Box component="div" className="scroll">
 					{products?.map((item) => {
-						return <OrderItem key={item.itemNo} item={item} deleteCross={true} />;
+						return (
+							<OrderItem
+								setNotification={setNotification}
+								key={item.itemNo}
+								item={item}
+								deleteCross={true}
+							/>
+						);
 					})}
 				</Box>
 			</div>

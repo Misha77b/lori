@@ -6,7 +6,8 @@ import { DOMAIN } from "../../config/API";
 const initialState = {
 	shoppingCart: JSON.parse(localStorage.getItem("cart") || "{}"),
 	totalCartQuantity: 0,
-	totalCartSum: 0,
+	// totalCartSum: 0,
+	totalCartSum: JSON.parse(localStorage.getItem("totalCartSum") || 0),
 };
 
 Object.keys(initialState.shoppingCart).forEach((key) => {
