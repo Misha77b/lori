@@ -10,7 +10,7 @@ import { favPriceSX } from "./FavoriteSx/priceSx";
 import { favCrossSx } from "./FavoriteSx/crossSx";
 import ToCartButton from "../ToCartButton";
 
-const OrderItem = ({ item, cartQuantity, deleteCross = false }) => {
+const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification }) => {
 	const dispatch = useDispatch();
 	return (
 		<>
@@ -37,7 +37,9 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false }) => {
 							Пам&#8217;ть: {item.iternalStorage}
 						</Typography>
 
-						{deleteCross && <ToCartButton favorites={true} id={item.itemNo} />}
+						{deleteCross && (
+							<ToCartButton favorites={true} setNotification={setNotification} id={item.itemNo} />
+						)}
 					</Box>
 				</Grid>
 				<Grid item xs={deleteCross ? 2 : 3} sx={deleteCross ? favPriceSX : null}>

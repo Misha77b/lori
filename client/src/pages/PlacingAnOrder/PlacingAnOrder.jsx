@@ -14,31 +14,24 @@ import {
 	Radio,
 	Autocomplete,
 } from "@mui/material";
-
-import * as yup from "yup";
-
 import { inputLabel } from "./sxStyles/inputLabel";
+import "./PlacingAnOrder.scss";
+
 import CategoryTitle from "../../components/CategoryTitle";
 import FillTheFromText from "./FillTheFormText";
-import PaymentAndShipping from "./PaymentAndShipping";
 import OrderItem from "../../components/OrderItem";
 
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
-import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
 // get and log products from LS
 import { fetchProducts } from "../../store/reducers/productsSlice";
 
 // order data testing
-import { createOrder, setOrderData } from "../../store/reducers/ordersSlice";
+import { createOrder } from "../../store/reducers/ordersSlice";
 import { submitBtn } from "./sxStyles/submitBtn";
 import { selectShoppingCart, selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { setTotalCartSum } from "../../store/reducers/cartSlice";
-
-const validationSchema = yup.object({
-	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
-});
 
 const RGStyle = {
 	height: "40px",
