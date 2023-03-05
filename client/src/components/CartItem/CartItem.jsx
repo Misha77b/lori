@@ -8,25 +8,13 @@ import { removeItemShoppingCart } from "../../store/reducers/cartSlice";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { selectShoppingCart } from "../../store/selectors";
 
-const CartItem = ({
-	dbId,
-	imageUrls,
-	itemNo,
-	name,
-	currentPrice,
-	setTotalSum,
-	// amount,
-	// setAmount,
-}) => {
+const CartItem = ({ dbId, imageUrls, itemNo, name, currentPrice, setTotalSum }) => {
 	const dispatch = useDispatch();
 	const shoppingCart = useSelector(selectShoppingCart);
 	useEffect(() => {
 		if (!itemNo) return;
-		// if (!amount[itemNo]) return;
-
 		const sum = shoppingCart[itemNo] * currentPrice;
 		setTotalSum((prev) => ({ ...prev, [itemNo]: sum }));
-		// }, [amount, itemNo]);
 	}, [shoppingCart, itemNo]);
 	return (
 		<Box className={styles.item}>
@@ -48,7 +36,6 @@ const CartItem = ({
 				className={styles.item__btn}
 				onClick={() => {
 					dispatch(removeItemShoppingCart(itemNo));
-					// deleteCardIdFromStore(itemNo, "cart");
 				}}
 			>
 				<img

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Container, Grid, Box, Tabs, Tab } from "@mui/material";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 import { setIsAuth } from "../../store/reducers/authSlice";
 import "./Profile.scss";
@@ -14,7 +14,6 @@ import OrdersHistory from "../../components/ProfileMenuBlocks/OrdersHistory/Orde
 
 const TabPanel = (props) => {
 	const { children, value, index, ...other } = props;
-
 	return (
 		<div
 			role="tabpanel"
@@ -37,11 +36,12 @@ const a11yProps = (index) => {
 	return {
 		id: `vertical-tab-${index}`,
 		"aria-controls": `vertical-tab-${index}`,
+		tabIndex: -1,
 	};
 };
-
 const Profile = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [value, setValue] = useState(0);
 
 	const { profileMenu } = useParams();
@@ -57,10 +57,6 @@ const Profile = () => {
 			setValue(0);
 		}
 	}, [profileMenu]);
-
-	const handleChange = (event, newValue) => {
-		setValue(newValue);
-	};
 
 	return (
 		<Container>
@@ -79,7 +75,9 @@ const Profile = () => {
 						className="profile-tabs-box"
 						orientation="vertical"
 						value={value}
-						onChange={handleChange}
+						onChange={(event, newValue) => {
+							setValue(newValue);
+						}}
 						aria-label="Vertical tabs example"
 						variant="scrollable"
 						scrollButtons="auto"
@@ -118,10 +116,9 @@ const Profile = () => {
 							onClick={() => {
 								localStorage.removeItem("token");
 								dispatch(setIsAuth(false));
+								navigate("/");
 							}}
-							component={Link}
 							label="Вийти з кабінету"
-							to="/"
 						/>
 					</Tabs>
 				</Grid>
