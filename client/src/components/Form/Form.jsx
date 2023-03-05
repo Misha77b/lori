@@ -53,62 +53,64 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 			<div className="login__legend">
 				Будь ласка, введіть дані свого облікового запису, щоб увійти
 			</div>
-			{status === "REGISTER" && (
+			<div className="inputs__wrapper">
+				{status === "REGISTER" && (
+					<Field
+						name="firstName"
+						type="text"
+						description="First Name"
+						value={values.firstName}
+						onChange={formik.handleChange}
+						errors={touched.firstName && errors.firstName}
+					/>
+				)}
+				{status === "REGISTER" && (
+					<Field
+						name="lastName"
+						type="text"
+						description="Last Name"
+						value={values.lastName}
+						onChange={formik.handleChange}
+						errors={touched.lastName && errors.lastName}
+					/>
+				)}
+				{status === "REGISTER" && (
+					<Field
+						name="login"
+						type="text"
+						description="User name"
+						value={values.login}
+						onChange={formik.handleChange}
+						errors={touched.login && errors.login}
+					/>
+				)}
 				<Field
-					name="firstName"
-					type="text"
-					description="First Name"
-					value={values.firstName}
+					name="email"
+					type="email"
+					description="Email"
+					value={values.email}
 					onChange={formik.handleChange}
-					errors={touched.firstName && errors.firstName}
+					errors={touched.email && errors.email}
 				/>
-			)}
-			{status === "REGISTER" && (
 				<Field
-					name="lastName"
-					type="text"
-					description="Last Name"
-					value={values.lastName}
-					onChange={formik.handleChange}
-					errors={touched.lastName && errors.lastName}
-				/>
-			)}
-			{status === "REGISTER" && (
-				<Field
-					name="login"
-					type="text"
-					description="User name"
-					value={values.login}
-					onChange={formik.handleChange}
-					errors={touched.login && errors.login}
-				/>
-			)}
-			<Field
-				name="email"
-				type="email"
-				description="Email"
-				value={values.email}
-				onChange={formik.handleChange}
-				errors={touched.email && errors.email}
-			/>
-			<Field
-				name="password"
-				type="password"
-				description="Password"
-				value={values.password}
-				onChange={formik.handleChange}
-				errors={touched.password && errors.password}
-			/>
-			{status === "REGISTER" && (
-				<Field
-					description="Confirm password"
+					name="password"
 					type="password"
-					name="changePassword"
+					description="Password"
+					value={values.password}
 					onChange={formik.handleChange}
-					value={values.changePassword}
 					errors={touched.password && errors.password}
 				/>
-			)}
+				{status === "REGISTER" && (
+					<Field
+						description="Confirm password"
+						type="password"
+						name="changePassword"
+						onChange={formik.handleChange}
+						value={values.changePassword}
+						errors={touched.password && errors.password}
+					/>
+				)}
+			</div>
 			<div className="submit__btn__container">
 				<button className="submit__btn" type="submit">
 					{status === "LOGIN" ? "Увійти" : "Зареєструватися"}

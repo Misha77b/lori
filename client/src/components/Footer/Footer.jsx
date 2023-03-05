@@ -4,6 +4,7 @@ import { Box, List, ListItem, Grid, Typography, Container } from "@mui/material"
 import { styled } from "@mui/material/styles";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import LogoIcon from "../LogoIcon";
 
 const Footer = () => {
 	const сontact = {
@@ -33,7 +34,12 @@ const Footer = () => {
 	};
 
 	return (
-		<Box mt={14} component="footer" backgroundColor="grey.main">
+		<Box
+			mt={14}
+			component="footer"
+			backgroundColor="grey.main"
+			sx={{ position: "static", bottom: 0, width: "100%", left: 0 }}
+		>
 			<Container sx={{ color: "#ffffff" }}>
 				<Grid
 					item
@@ -49,33 +55,16 @@ const Footer = () => {
 					}}
 				>
 					<Grid item sx={{ display: { xs: "none", lg: "block" } }}>
-						<CustomLink
-							to="/"
-							sx={{
-								"&: hover": {
-									textDecoration: "none",
-								},
-							}}
-						>
-							<Box
-								component="img"
-								src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
-								alt="logo"
-								align="center"
-								sx={{
-									maxWidth: "150px",
-								}}
-							/>
-							<Box sx={{ maxWidth: "150px" }}>
-								<Typography
-									fontWeight="fontWeightRegular"
-									fontFamily="Open Sans, sans-serif"
-									sx={{ fontSize: "14px", pb: "45px" }}
-								>
-									MOBILE GALAXY - український магазин європейська якість!
-								</Typography>
-							</Box>
-						</CustomLink>
+						<LogoIcon />
+						<Box sx={{ maxWidth: "150px" }}>
+							<Typography
+								fontWeight="fontWeightRegular"
+								fontFamily="Open Sans, sans-serif"
+								sx={{ fontSize: "14px", pb: "45px" }}
+							>
+								MOBILE GALAXY - український магазин європейська якість!
+							</Typography>
+						</Box>
 					</Grid>
 					<Grid
 						item

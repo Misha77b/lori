@@ -5,9 +5,6 @@ import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { setTotalCartSum, setProductsQuantity } from "../../store/reducers/cartSlice";
-import { getLocalItem } from "../../helpers/getLocalItem";
-import { selectShoppingCart } from "../../store/selectors";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -15,7 +12,6 @@ const Cart = () => {
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	const [totalSum, setTotalSum] = useState({});
-	// const [amount, setAmount] = useState(0);
 	useEffect(() => {
 		const params = new URLSearchParams();
 		params.set("itemNo", Object.keys(cartItems).join(","));
@@ -29,18 +25,14 @@ const Cart = () => {
 			setTotalSum({});
 			return;
 		}
-		// const amouns = products.reduce((acc, { itemNo }) => {
-		// 	acc[itemNo] = 1;
-		// 	return acc;
-		// }, {});
 		const totalSumCart = products.reduce((acc, { currentPrice, itemNo }) => {
 			acc[itemNo] = currentPrice * cartItems[itemNo];
 			return acc;
 		}, {});
 		setTotalSum(() => totalSumCart);
-		// setAmount(() => amouns);
 	}, [products]);
-
+	const countOverallPrice = (itemsSum) =>
+		Object.values(itemsSum).reduce((acc, item) => acc + item, 0) ?? 0;
 	return (
 		<Container>
 			<Typography variant="h4" className={styles.cart__title}>
@@ -59,8 +51,6 @@ const Cart = () => {
 									name={name}
 									currentPrice={currentPrice}
 									setTotalSum={setTotalSum}
-									// amount={amount}
-									// setAmount={setAmount}
 								/>
 							);
 						})
@@ -72,7 +62,7 @@ const Cart = () => {
 					<Box className={styles.cart__description}>
 						<Typography className={styles.cart__info_item}>Ваше замовлення</Typography>
 						<Typography className={styles.cart__info_item}>
-							Загальна сума: {Object.values(totalSum).reduce((acc, item) => acc + item, 0) ?? 0}
+							Загальна сума: {countOverallPrice(totalSum)}
 							грн.
 						</Typography>
 					</Box>
@@ -82,8 +72,10 @@ const Cart = () => {
 							color="secondary"
 							variant="outlined"
 							className={styles.btn}
-							component={Link}
-							to="/products"
+							onClick={(e) => {
+								e.preventDefault();
+								navigate("/products");
+							}}
 						>
 							Продовжити покупки
 						</Button>
@@ -92,29 +84,12 @@ const Cart = () => {
 							variant="contained"
 							onClick={(e) => {
 								e.preventDefault();
-								// dispatch(
-								// 	setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
-								// );
-								// dispatch(setProductsQuantity(amount));
 								navigate("/orders");
 							}}
 							className={styles.btn}
 						>
 							Оформити замовлення
 						</Button>
-						{/* eslint-disable-next-line react/button-has-type */}
-						{/* <button
-							onClick={(e) => {
-								e.preventDefault();
-								dispatch(
-									setTotalCartSum(Object.values(totalSum)?.reduce((acc, item) => acc + item, 0)),
-								);
-								dispatch(setProductsQuantity(amount));
-								navigate("/orders");
-							}}
-						>
-							Оформити замовлення
-						</button> */}
 					</Box>
 				</Box>
 			</Box>

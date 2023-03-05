@@ -36,7 +36,7 @@ const OrderItem = ({ item, deleteCross = false }) => {
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px" }}>
 							Пам&#8217;ть: {item.iternalStorage}
 						</Typography>
-						<ToCartButton favorites={true} />
+						{deleteCross && <ToCartButton favorites={true} />}
 					</Box>
 				</Grid>
 				<Grid item xs={deleteCross ? 2 : 3} sx={deleteCross ? favPriceSX : null}>

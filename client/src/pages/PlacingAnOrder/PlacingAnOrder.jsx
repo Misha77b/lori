@@ -7,43 +7,27 @@ import {
 	Box,
 	Typography,
 	TextField,
-	InputLabel,
 	Button,
 	RadioGroup,
 	FormControlLabel,
 	Radio,
 	Autocomplete,
 } from "@mui/material";
-
-import * as yup from "yup";
-import styled from "styled-components";
-import PropTypes from "prop-types";
-
-import { inputLabel } from "./sxStyles/inputLabel";
 import CategoryTitle from "../../components/CategoryTitle";
 import FillTheFromText from "./FillTheFormText";
-import PaymentAndShipping from "./PaymentAndShipping";
 import OrderItem from "../../components/OrderItem";
-
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
-
 import "./PlacingAnOrder.scss";
 import OrderPrice from "./OrderPrice";
-import { getItems } from "../../helpers/getItems";
-import useFetchData from "../Home/hooks";
 // get and log products from LS
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
-
+import { schema as validationSchema } from "./Schema";
 // order data testing
 import { selectOrderData } from "../../store/selectors/orders.selectors";
-import { createOrder, setOrderData } from "../../store/reducers/ordersSlice";
-
+import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectShoppingCart } from "../../store/selectors";
-
-const validationSchema = yup.object({
-	email: yup.string("Enter your email").email("Enter a valid email").required("Email is required"),
-});
+import Field from "../../components/Form/Field/Field";
 
 const RGStyle = {
 	height: "40px",
@@ -94,7 +78,6 @@ const PlacingAnOrder = () => {
                 <h2 style=>your order on <span style='color:red;'> some sum EUR</span> is placed. Please wait for delivery</h2>
                 </br></br>`,
 		};
-
 		return order;
 	};
 
@@ -115,8 +98,9 @@ const PlacingAnOrder = () => {
 			console.log(values);
 			dispatch(createOrder({ products: newObj, values }));
 		},
+		validationSchema,
 	});
-
+	const { values, errors, touched } = formik;
 	return (
 		<Container>
 			<form className="form-wrapper" onSubmit={formik.handleSubmit}>
@@ -127,55 +111,30 @@ const PlacingAnOrder = () => {
 						<FillTheFromText />
 						<Typography variant="h6">Контактні дані</Typography>
 						<Box className="inputs-wrapper">
-							<Box>
-								<InputLabel className="textField-label" sx={inputLabel}>
-									Ім’я одержувача
-								</InputLabel>
-								<TextField
-									fullWidth
-									color="secondary"
-									id="fullName"
-									name="fullName"
-									placeholder="Ім’я одержувача"
-									variant="outlined"
-									value={formik.values.fullName}
-									onChange={formik.handleChange}
-								/>
-							</Box>
-
-							<Box>
-								<InputLabel className="textField-label" sx={inputLabel}>
-									Телефон
-								</InputLabel>
-								<TextField
-									fullWidth
-									color="secondary"
-									id="phoneNumber"
-									name="phoneNumber"
-									placeholder="+380"
-									variant="outlined"
-									value={formik.values.phoneNumber}
-									onChange={formik.handleChange}
-								/>
-							</Box>
-
-							<Box>
-								<InputLabel className="textField-label" sx={inputLabel}>
-									E-mail
-								</InputLabel>
-								<TextField
-									fullWidth
-									color="secondary"
-									id="email"
-									name="email"
-									placeholder="E-mail"
-									variant="outlined"
-									value={formik.values.email}
-									onChange={formik.handleChange}
-									error={formik.touched.email && Boolean(formik.errors.email)}
-									helperText={formik.touched.email && formik.errors.email}
-								/>
-							</Box>
+							<Field
+								name="fullName"
+								type="text"
+								description="Ім’я одержувача"
+								value={values.fullName}
+								onChange={formik.handleChange}
+								errors={touched.fullName && errors.fullName}
+							/>
+							<Field
+								name="phoneNumber"
+								type="text"
+								description="Телефон"
+								value={values.phoneNumber}
+								onChange={formik.handleChange}
+								errors={touched.phoneNumber && errors.phoneNumber}
+							/>
+							<Field
+								name="email"
+								type="text"
+								description="E-mail"
+								value={values.email}
+								onChange={formik.handleChange}
+								errors={touched.email && errors.email}
+							/>
 						</Box>
 
 						<Typography sx={{ margin: "40px 0 20px" }} variant="h6">
