@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { Box, InputLabel, TextField } from "@mui/material";
+import { inputLabel } from "../../../pages/PlacingAnOrder/sxStyles/inputLabel";
 
 const Field = ({ description, name, type, onChange, value, errors }) => {
 	return (
-		<div className="input__container">
-			<Label htmlFor={name}>{description}</Label>
-			<Input
+		<Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+			<InputLabel className="textField-label" sx={inputLabel}>
+				{description}
+			</InputLabel>
+			<TextField
+				fullWidth
+				color="secondary"
+				variant="outlined"
 				id={name}
 				name={name}
 				type={type}
@@ -15,25 +22,9 @@ const Field = ({ description, name, type, onChange, value, errors }) => {
 				min={type === "number" ? "15" : null}
 			/>
 			{errors && <Error>{errors}</Error>}
-		</div>
+		</Box>
 	);
 };
-export const Label = styled.label`
-	font-family: Open Sans, sans-serif;
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 14px;
-	color: #000000;
-`;
-export const Input = styled.input`
-	box-sizing: border-box;
-	width: 300px;
-	height: 44px;
-	background-color: #ffffff;
-	border: 1px solid #a0a9af;
-	border-radius: 2px;
-	padding: 10px;
-`;
 export const Error = styled.p`
 	font-family: Open Sans, sans-serif;
 	font-size: 14px;

@@ -24,15 +24,7 @@ module.exports = {
 	plugins: ["react", "prettier"],
 	ignorePatterns: [".eslintrc.js"],
 	rules: {
-		"spaced-comment": [
-			"error",
-			"always",
-			{
-				line: {
-					markers: ["#region", "#endregion", "region", "endregion"],
-				},
-			},
-		],
+		"spaced-comment": "off",
 		"operator-linebreak": "off",
 		"react-hooks/exhaustive-deps": 0,
 		"no-console": 0,
@@ -41,6 +33,7 @@ module.exports = {
 		"object-curly-newline": 0,
 		quotes: ["error", "double"],
 		"jsx-quotes": ["error", "prefer-double"],
+		"implicit-arrow-linebreak": "off",
 		"react/function-component-definition": "off",
 		"react/jsx-filename-extension": [2, { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
 		"react/jsx-one-expression-per-line": 0,

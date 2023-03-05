@@ -19,22 +19,14 @@ const App = () => {
 	};
 	const activeModal = modals[modal] ?? null;
 	return (
-		<AppWrapper>
-			<ThemeProvider theme={theme}>
-				<BrowserRouter>
-					{activeModal}
-					<Header modal={actionModalHandler} />
-					<RootRouters />
-					<Footer />
-				</BrowserRouter>
-			</ThemeProvider>
-		</AppWrapper>
+		<ThemeProvider theme={theme}>
+			<BrowserRouter>
+				{activeModal}
+				<Header modal={actionModalHandler} />
+				<RootRouters />
+				<Footer />
+			</BrowserRouter>
+		</ThemeProvider>
 	);
 };
-const AppWrapper = styled.div`
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-`;
 export default App;

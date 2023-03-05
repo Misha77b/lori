@@ -10,9 +10,9 @@ import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 import Breadcrumb from "./components/Breadcrumbs";
+import LogoIcon from "../LogoIcon";
 import { selectFavorite, selectShoppingCart } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
-import { selectTotalCartQuantity } from "../../store/selectors/cart.selectors";
 
 const Header = ({ modal }) => {
 	const [countF, setCountF] = useState(0);
@@ -32,7 +32,7 @@ const Header = ({ modal }) => {
 	}));
 
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const totalCartQuantity = useSelector(selectTotalCartQuantity);
+	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
 	const token = localStorage.getItem("token");
 	const dispatch = useDispatch();
 
@@ -50,19 +50,12 @@ const Header = ({ modal }) => {
 		<Box component="header">
 			<AppBar position="static">
 				<Container>
-					<Toolbar disableGutters={true} sx={{ justifyContent: "space-between" }}>
+					<Toolbar
+						disableGutters={true}
+						sx={{ justifyContent: "space-between", marginTop: "15px" }}
+					>
 						<BurgerMenu />
-						<CustomLink to="/">
-							<Box
-								component="img"
-								src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
-								alt="logo"
-								sx={{
-									width: { xs: "100px", sm: "100px", md: "150px" },
-									m: "5px 0",
-								}}
-							/>
-						</CustomLink>
+						<LogoIcon />
 
 						<Typography
 							fontWeight="fontWeightBold"

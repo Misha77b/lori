@@ -7,31 +7,30 @@ import {
 	Box,
 	Typography,
 	TextField,
-	InputLabel,
 	Button,
 	RadioGroup,
 	FormControlLabel,
 	Radio,
 	Autocomplete,
 } from "@mui/material";
-import { inputLabel } from "./sxStyles/inputLabel";
 import "./PlacingAnOrder.scss";
-
 import CategoryTitle from "../../components/CategoryTitle";
 import FillTheFromText from "./FillTheFormText";
 import OrderItem from "../../components/OrderItem";
-
+import { submitBtn } from "./sxStyles/submitBtn";
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
 import OrderPrice from "./OrderPrice";
-// get and log products from LS
 import { fetchProducts } from "../../store/reducers/productsSlice";
+import { schema as validationSchema } from "./Schema";
 
 // order data testing
+import { selectOrderData } from "../../store/selectors/orders.selectors";
 import { createOrder } from "../../store/reducers/ordersSlice";
-import { submitBtn } from "./sxStyles/submitBtn";
-import { selectShoppingCart, selectTotalCartSum } from "../../store/selectors/cart.selectors";
+import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
+import { selectShoppingCart } from "../../store/selectors";
 import { setTotalCartSum } from "../../store/reducers/cartSlice";
+import Field from "../../components/Form/Field/Field";
 
 const RGStyle = {
 	height: "40px",
@@ -43,7 +42,6 @@ const PlacingAnOrder = () => {
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector(selectShoppingCart);
 	const total = useSelector(selectTotalCartSum);
-	// console.log(total);
 
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
@@ -106,8 +104,9 @@ const PlacingAnOrder = () => {
 			console.log("newOrder", newOrder);
 			dispatch(createOrder(newOrder));
 		},
+		validationSchema,
 	});
-
+	const { values, errors, touched } = formik;
 	return (
 		<Container>
 			<form className="form-wrapper" onSubmit={formik.handleSubmit}>
@@ -118,55 +117,30 @@ const PlacingAnOrder = () => {
 						<FillTheFromText />
 						<Typography variant="h6">Контактні дані</Typography>
 						<Box className="inputs-wrapper">
-							<Box>
-								<InputLabel className="textField-label" sx={inputLabel}>
-									Ім’я одержувача
-								</InputLabel>
-								<TextField
-									fullWidth
-									color="secondary"
-									id="fullName"
-									name="fullName"
-									placeholder="Ім’я одержувача"
-									variant="outlined"
-									value={formik.values.fullName}
-									onChange={formik.handleChange}
-								/>
-							</Box>
-
-							<Box>
-								<InputLabel className="textField-label" sx={inputLabel}>
-									Телефон
-								</InputLabel>
-								<TextField
-									fullWidth
-									color="secondary"
-									id="phoneNumber"
-									name="phoneNumber"
-									placeholder="+380"
-									variant="outlined"
-									value={formik.values.phoneNumber}
-									onChange={formik.handleChange}
-								/>
-							</Box>
-
-							<Box>
-								<InputLabel className="textField-label" sx={inputLabel}>
-									E-mail
-								</InputLabel>
-								<TextField
-									fullWidth
-									color="secondary"
-									id="email"
-									name="email"
-									placeholder="E-mail"
-									variant="outlined"
-									value={formik.values.email}
-									onChange={formik.handleChange}
-									error={formik.touched.email && Boolean(formik.errors.email)}
-									helperText={formik.touched.email && formik.errors.email}
-								/>
-							</Box>
+							<Field
+								name="fullName"
+								type="text"
+								description="Ім’я одержувача"
+								value={values.fullName}
+								onChange={formik.handleChange}
+								errors={touched.fullName && errors.fullName}
+							/>
+							<Field
+								name="phoneNumber"
+								type="text"
+								description="Телефон"
+								value={values.phoneNumber}
+								onChange={formik.handleChange}
+								errors={touched.phoneNumber && errors.phoneNumber}
+							/>
+							<Field
+								name="email"
+								type="text"
+								description="E-mail"
+								value={values.email}
+								onChange={formik.handleChange}
+								errors={touched.email && errors.email}
+							/>
 						</Box>
 
 						<Typography sx={{ margin: "40px 0 20px" }} variant="h6">
