@@ -10,7 +10,7 @@ import { favPriceSX } from "./FavoriteSx/priceSx";
 import { favCrossSx } from "./FavoriteSx/crossSx";
 import ToCartButton from "../ToCartButton";
 
-const OrderItem = ({ item, deleteCross = false }) => {
+const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification }) => {
 	const dispatch = useDispatch();
 	return (
 		<>
@@ -36,7 +36,10 @@ const OrderItem = ({ item, deleteCross = false }) => {
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px" }}>
 							Пам&#8217;ть: {item.iternalStorage}
 						</Typography>
-						{deleteCross && <ToCartButton favorites={true} />}
+
+						{deleteCross && (
+							<ToCartButton favorites={true} setNotification={setNotification} id={item.itemNo} />
+						)}
 					</Box>
 				</Grid>
 				<Grid item xs={deleteCross ? 2 : 3} sx={deleteCross ? favPriceSX : null}>
@@ -46,11 +49,21 @@ const OrderItem = ({ item, deleteCross = false }) => {
 							sx={{ fontSize: "16px", "@media (max-width: 400px)": { fontSize: "14px" } }}
 							className="price"
 						>
-							{item.currentPrice} грн
+							{deleteCross
+								? item.currentPrice
+								: Math.floor(item.currentPrice * cartQuantity ?? 0)
+										.toString()
+										.replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
+							грн
 						</Typography>
-						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px", color: "#BFBFBF" }}>
-							2 х {item.currentPrice}
-						</Typography>
+						{!deleteCross && cartQuantity > 1 && (
+							<Typography
+								fontWeight="fontWeightRegular"
+								sx={{ fontSize: "12px", color: "#BFBFBF" }}
+							>
+								{cartQuantity}&times;{item.currentPrice} грн
+							</Typography>
+						)}
 					</Box>
 				</Grid>
 				{deleteCross && (

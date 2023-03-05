@@ -12,12 +12,17 @@ const initialState = {
 	// orderNumber: "",
 };
 
-export const createOrder = createAsyncThunk("orders/postData", async (data) => {
-	axios
-		.post(`${DOMAIN}/orders`, data)
-		.then((ordersData) => ordersData)
-		.catch((err) => console.warn(err));
-	return response;
+export const createOrder = createAsyncThunk("orders/postData", async (obj) => {
+	await axios
+		.post(`${DOMAIN}/orders`, obj)
+		.then(({ data }) => {
+			console.log(data);
+		})
+		.catch((err) => {
+			// eslint-disable-next-line
+			alert("Заповніть обов'язкові поля");
+			console.warn(err);
+		});
 });
 
 export const ordersSlice = createSlice({

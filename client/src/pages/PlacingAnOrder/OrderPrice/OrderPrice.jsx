@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import React from "react";
 
-const OrderPrice = () => {
+const OrderPrice = ({ total }) => {
 	return (
 		<div
 			style={{
@@ -25,7 +25,7 @@ const OrderPrice = () => {
 				fontWeight="fontWeightBold"
 				color="primary.contrastText"
 			>
-				150000 грн
+				{total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} грн
 			</Typography>
 		</div>
 	);
