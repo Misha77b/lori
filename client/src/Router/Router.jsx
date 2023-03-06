@@ -13,9 +13,9 @@ import Contacts from "../pages/Contacts";
 import NotFoundPage from "../pages/NotFoundPage";
 import FavoritePage from "../pages/FavoritePage";
 import Profile from "../pages/Profile";
-import Password from "../components/ProfileMenuBlocks/Password/Password";
-import EditProfile from "../components/ProfileMenuBlocks/EditProfile/EditProfile";
-import OrdersHistory from "../components/ProfileMenuBlocks/OrdersHistory/OrdersHistory";
+import PasswordChange from "../pages/Profile/ProfileMenuBlocks/PasswordChange/PasswordChange";
+import EditProfile from "../pages/Profile/ProfileMenuBlocks/EditProfile/EditProfile";
+import OrdersHistory from "../pages/Profile/ProfileMenuBlocks/OrdersHistory/OrdersHistory";
 
 function RootRouters() {
 	return (
@@ -33,7 +33,7 @@ function RootRouters() {
 			<Route path="/contacts" element={<Contacts />} />
 			<Route path="/profile" element={<Profile />}>
 				<Route path=":profileMenu" element={<EditProfile />} />
-				<Route path=":profileMenu" element={<Password />} />
+				<Route path=":profileMenu" element={<PasswordChange />} />
 				<Route path=":profileMenu" element={<OrdersHistory />} />
 			</Route>
 

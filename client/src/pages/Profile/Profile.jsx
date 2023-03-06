@@ -1,44 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import { Container, Grid, Box, Tabs, Tab } from "@mui/material";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { Container, Grid, Tabs, Tab } from "@mui/material";
 
 import { setIsAuth } from "../../store/reducers/authSlice";
 import "./Profile.scss";
 
 import CategoryTitle from "../../components/CategoryTitle";
-import EditProfile from "../../components/ProfileMenuBlocks/EditProfile/EditProfile";
-import Password from "../../components/ProfileMenuBlocks/Password/Password";
-import OrdersHistory from "../../components/ProfileMenuBlocks/OrdersHistory/OrdersHistory";
+import EditProfile from "./ProfileMenuBlocks/EditProfile";
+import PasswordChange from "./ProfileMenuBlocks/PasswordChange";
+import OrdersHistory from "./ProfileMenuBlocks/OrdersHistory";
+import TabPanel from "./components/TabPanel";
+// eslint-disable-next-line import/named
+import { a11yProps } from "./components/TabPanel/TabPanel";
 
-const TabPanel = (props) => {
-	const { children, value, index, ...other } = props;
-	return (
-		<div
-			role="tabpanel"
-			hidden={value !== index}
-			id={`simple-tabpanel-${index}`}
-			aria-labelledby={`simple-tab-${index}`}
-			{...other}
-		>
-			{value === index && <Box>{children}</Box>}
-		</div>
-	);
-};
-
-TabPanel.propTypes = {
-	index: PropTypes.number.isRequired,
-	value: PropTypes.number.isRequired,
-};
-
-const a11yProps = (index) => {
-	return {
-		id: `vertical-tab-${index}`,
-		"aria-controls": `vertical-tab-${index}`,
-		tabIndex: -1,
-	};
-};
 const Profile = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -47,14 +22,19 @@ const Profile = () => {
 	const { profileMenu } = useParams();
 
 	useEffect(() => {
-		if (profileMenu === "edit-profile") {
-			setValue(0);
-		} else if (profileMenu === "change-password") {
-			setValue(1);
-		} else if (profileMenu === "orders-history") {
-			setValue(2);
-		} else {
-			setValue(0);
+		switch (profileMenu) {
+			case "edit-profile":
+				setValue(0);
+				break;
+			case "change-password":
+				setValue(1);
+				break;
+			case "orders-history":
+				setValue(2);
+				break;
+			default:
+				setValue(1);
+				break;
 		}
 	}, [profileMenu]);
 
@@ -84,6 +64,7 @@ const Profile = () => {
 						sx={{
 							backgroundColor: "#F5F5F5",
 							width: "300px",
+							height: "272px",
 						}}
 					>
 						<Tab
@@ -128,7 +109,7 @@ const Profile = () => {
 						<EditProfile />
 					</TabPanel>
 					<TabPanel value={value} index={1}>
-						<Password />
+						<PasswordChange />
 					</TabPanel>
 					<TabPanel value={value} index={2}>
 						<OrdersHistory />
