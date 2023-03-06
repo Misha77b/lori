@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { selectUser } from "../../../../store/selectors";
 import { schema as validationSchema } from "./Schema";
 import Field from "../../../../components/Form/Field/Field";
 // eslint-disable-next-line import/named
 import { InputWrapper } from "../../ProfileMenuBlocks/EditProfile/styled";
+import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
 
 const UserInfoForm = () => {
 	const dispatch = useDispatch();
-	const user = useSelector(selectUser);
+	const user = useSelector((state) => state.customer.customer);
+	useEffect(() => {
+		const customer = dispatch(fetchCustomer());
+		customer.then((res) => console.log(res));
+		console.log(user);
+	});
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",

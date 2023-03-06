@@ -9,10 +9,12 @@ import searchReducer from "./reducers/searchSlice";
 import filtersReducer from "./reducers/filtersSlice";
 import cartReducer from "./reducers/cartSlice";
 import favoriteReducer from "./reducers/favoriteSlice";
+import customerReducer from "./reducers/getCustomerInfoSlice";
 
 const store = configureStore({
 	reducer: {
 		auth: authReducer,
+		customer: customerReducer,
 		products: productsReducer,
 		slides: slidesReducer,
 		oneProduct: oneProductsReducer,

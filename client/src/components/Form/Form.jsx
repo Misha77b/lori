@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { schema as validationSchema, validationSchema2 } from "./Schema";
 import Field from "./Field/Field";
 import "./Form.scss";
 import { selectUser } from "../../store/selectors";
-import { fetchAuth, fetchRegister, setIsAuth } from "../../store/reducers/authSlice";
+import { fetchAuth, fetchRegister, getUserInfo, setIsAuth } from "../../store/reducers/authSlice";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();

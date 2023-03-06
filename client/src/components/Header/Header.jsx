@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { Link, NavLink } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
@@ -19,10 +19,6 @@ const Header = ({ modal }) => {
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
 	const shoppingCart = useSelector(selectShoppingCart);
-	const menuLinkItem = {
-		color: "#57646E",
-		fontSize: "30px",
-	};
 
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
@@ -46,6 +42,11 @@ const Header = ({ modal }) => {
 		setCountF(favorite.length);
 		setCountC(totalCartQuantity);
 	}, [favorite, shoppingCart]);
+
+	const menuLinkItem = {
+		color: isLoggedIn ? "#007042" : "#57646E",
+		fontSize: "30px",
+	};
 	return (
 		<Box component="header">
 			<AppBar position="static">

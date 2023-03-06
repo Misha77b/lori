@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
+import { Typography } from "@mui/material";
 import { selectUser } from "../../../../store/selectors";
 import { validationSchemaForPasswordChange as validationSchema } from "../../components/UserInfoForm/Schema";
 import { InputWrapper } from "../EditProfile/styled";
@@ -34,6 +35,12 @@ const PasswordChange = () => {
 				gap: "40px",
 			}}
 		>
+			<Typography
+				fontWeight="fontWeightBold"
+				sx={{ fontSize: "20px", color: "#000000", fontFamily: "Open Sans, sans-serif" }}
+			>
+				Пароль
+			</Typography>
 			<InputWrapper>
 				<Field
 					name="password"
