@@ -12,4 +12,7 @@ export const data = [
 	{ breadcrumb: "Обмін та повернення", path: "/exchangeAndReturn" },
 	{ breadcrumb: "Контакти", path: "/contacts" },
 	{ breadcrumb: "Особистий кабінет", path: "/profile" },
+	{ breadcrumb: "Профіль користувача", path: "/profile/edit-profile" },
+	{ breadcrumb: "Зміна паролю", path: "profile/change-password" },
+	{ breadcrumb: "Історія замовлень", path: "/profile/orders-history" },
 ];
