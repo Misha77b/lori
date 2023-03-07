@@ -1,22 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
-import { setFavorite } from "../../store/reducers/favoriteSlice";
+import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
+import { setLocalItem } from "../../helpers/setLocalItem";
+import { selectFavorite } from "../../store/selectors";
+import { removeItemFavorite, setFavorite } from "../../store/reducers/favoriteSlice";
 
 const FavoriteHeartIcon = ({ id, product }) => {
 	const dispatch = useDispatch();
+	const favorites = useSelector(selectFavorite);
 	const [liked, setLiked] = useState(false);
 	const likeUpdateHandler = () => {
-		setLiked((prev) => !prev);
+		if (liked) {
+			dispatch(removeItemFavorite(id));
+			setLiked(false);
+		} else {
+			dispatch(setFavorite(id));
+			setLiked(true);
+		}
 	};
-	const addToFavoritesHandler = () => {
-		dispatch(setFavorite(id));
-	};
+
+	useEffect(() => {
+		setLiked(favorites.some((el) => el === id));
+	});
+
 	return (
 		<FavoriteIcon
 			onClick={() => {
 				likeUpdateHandler();
-				addToFavoritesHandler();
 			}}
 			color={liked ? "error" : "mediumgrey"}
 			sx={
