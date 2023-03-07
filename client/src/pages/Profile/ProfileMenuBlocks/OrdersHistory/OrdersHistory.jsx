@@ -1,16 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { DOMAIN } from "../../../../config/API";
+import {
+	selectAuth,
+	selectAuthUserToken,
+	selectUser,
+	selectUserID,
+} from "../../../../store/selectors/auth.selectors";
 // import { selectHistoryOrders } from "../../../../store/selectors/orders.selectors";
 
 const OrdersHistory = () => {
-	// const orders = useSelector(selectHistoryOrders);
-	// console.log(orders);
+	const [orders, setOrders] = useState([]);
+	const accessToken = useSelector(selectAuth);
+	// const { ...isAuth } = isLoggedIn;
+	// console.log(isLoggedIn);
+	useEffect(() => {
+		// axios.get(`${DOMAIN}/customers/login`, {
+		// 	headers: {
+		// 		Authorization: `Bearer ${accessToken}`,
+		// 	},
+		// });
+		axios
+			.get(`${DOMAIN}/orders`, {
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+			})
+			.then((response) => {
+				setOrders(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, [accessToken]);
 
 	return (
 		<div>
 			<h2>Історія замовлень</h2>
-			{/* <ul>
-				{orders.length &&
+			<ul>
+				{accessToken &&
 					orders?.map((order) => (
 						<li key={order.id}>
 							<div>Замовлення №: {order.orderNo}</div>
@@ -20,7 +49,7 @@ const OrdersHistory = () => {
 							<div>Статус: {order.status}</div>
 						</li>
 					))}
-			</ul> */}
+			</ul>
 		</div>
 	);
 };
