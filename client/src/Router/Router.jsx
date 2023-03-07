@@ -30,7 +30,7 @@ function RootRouters() {
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/product/:id" element={<OneProduct />} />
+			<Route path="/products/:id" element={<OneProduct />} />
 			<Route path="/products" element={<ProductsCatalogue />} />
 			<Route path="/orders" element={<PlacingAnOrder />} />
 			<Route path="/about" element={<About />} />
