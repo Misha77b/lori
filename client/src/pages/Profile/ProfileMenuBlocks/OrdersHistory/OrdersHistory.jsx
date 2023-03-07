@@ -14,7 +14,7 @@ const OrdersHistory = () => {
 	const [orders, setOrders] = useState([]);
 	const accessToken = useSelector(selectAuth);
 	// const { ...isAuth } = isLoggedIn;
-	// console.log(isLoggedIn);
+	console.log(accessToken);
 	useEffect(() => {
 		// axios.get(`${DOMAIN}/customers/login`, {
 		// 	headers: {
