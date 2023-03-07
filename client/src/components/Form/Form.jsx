@@ -17,6 +17,7 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 			email: "vita@gmail.com",
 			password: "2222222",
 			login: "",
+			telephone: "",
 		},
 		onSubmit: (usersData) => {
 			if (status === "LOGIN") {
@@ -72,6 +73,16 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 						value={values.lastName}
 						onChange={formik.handleChange}
 						errors={touched.lastName && errors.lastName}
+					/>
+				)}
+				{status === "REGISTER" && (
+					<Field
+						name="telephone"
+						type="tel"
+						description="Mobile phone"
+						value={values.telephone}
+						onChange={formik.handleChange}
+						errors={touched.telephone && errors.telephone}
 					/>
 				)}
 				{status === "REGISTER" && (

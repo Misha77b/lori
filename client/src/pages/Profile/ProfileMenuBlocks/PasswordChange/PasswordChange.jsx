@@ -1,23 +1,22 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { Typography } from "@mui/material";
-import { selectUser } from "../../../../store/selectors";
 import { validationSchemaForPasswordChange as validationSchema } from "../../components/UserInfoForm/Schema";
 import { InputWrapper } from "../EditProfile/styled";
 import Field from "../../../../components/Form/Field/Field";
+import { fetchUpdatePassword } from "../../../../store/reducers/changePasswordSlice";
 
 const PasswordChange = () => {
 	const dispatch = useDispatch();
-	const user = useSelector(selectUser);
 	const formik = useFormik({
 		initialValues: {
-			password: "2222222",
+			password: "",
 			newPassword: "",
 			confirmPassword: "",
 		},
-		onSubmit: (usersData) => {
-			console.log(usersData);
+		onSubmit: ({ password, newPassword }) => {
+			dispatch(fetchUpdatePassword({ password, newPassword }));
 		},
 		validationSchema,
 	});

@@ -1,10 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
-import setAuthToken from "../../config/setAuthToken";
 
-const token = localStorage.getItem("token");
-setAuthToken(token);
 const initialState = { message: false };
 export const fetchUpdateCustomerInfo = createAsyncThunk(
 	"customerInfo/fetchUpdateCustomerInfo",

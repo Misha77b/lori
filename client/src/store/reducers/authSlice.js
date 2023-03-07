@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
 	user: {},
 	isAuth: false,
 	loader: true,
+	error: null,
 };
 export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 	axios
@@ -14,13 +14,17 @@ export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 		.then(({ data }) => {
 			localStorage.setItem("token", data.token);
 		})
-		.catch((err) => console.warn(err));
+		.catch((err) => {
+			throw err;
+		});
 });
 export const fetchRegister = createAsyncThunk("user/register", async (object) => {
 	axios
 		.post(`${DOMAIN}/customers`, object)
 		.then((savedCustomer) => savedCustomer)
-		.catch((err) => console.warn(err));
+		.catch((err) => {
+			throw err;
+		});
 });
 
 export const userSlice = createSlice({
@@ -39,6 +43,11 @@ export const userSlice = createSlice({
 		builder.addCase(fetchAuth.fulfilled, (state, action) => {
 			state.user = action.payload;
 			state.loader = false;
+		});
+		builder.addCase(fetchAuth.rejected, (state, action) => {
+			state.loader = false;
+			state.isAuth = false;
+			state.error = action.error.message;
 		});
 	},
 });
