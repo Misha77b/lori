@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { selectUser } from "../../../../store/selectors";
 import { schema as validationSchema } from "./Schema";
 import Field from "../../../../components/Form/Field/Field";
 // eslint-disable-next-line import/named
 import { InputWrapper } from "../../ProfileMenuBlocks/EditProfile/styled";
+import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
+import { fetchUpdateCustomerInfo } from "../../../../store/reducers/updateUserInfoSlice";
 
-const UserInfoForm = () => {
+const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 	const dispatch = useDispatch();
-	const user = useSelector(selectUser);
+
 	const formik = useFormik({
 		initialValues: {
-			firstName: "",
-			lastName: "",
-			email: "vita@gmail.com",
+			firstName,
+			lastName,
+			email,
+			mobile: telephone,
 		},
 		onSubmit: (usersData) => {
-			console.log(usersData);
+			return dispatch(fetchUpdateCustomerInfo(usersData));
 		},
 		validationSchema,
 	});
@@ -59,6 +61,14 @@ const UserInfoForm = () => {
 					value={values.email}
 					onChange={formik.handleChange}
 					errors={touched.email && errors.email}
+				/>
+				<Field
+					name="mobile"
+					type="tel"
+					description="Mobile"
+					value={values.mobile}
+					onChange={formik.handleChange}
+					errors={touched.mobile && errors.mobile}
 				/>
 			</InputWrapper>
 			<div className="submit__btn__container">

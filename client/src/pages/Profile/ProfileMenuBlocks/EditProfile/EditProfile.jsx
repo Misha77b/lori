@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Typography } from "@mui/material";
 import UserInfoForm from "../../components/UserInfoForm";
 import { EditProfileWrapper } from "./styled";
+import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
 
 const EditProfile = () => {
+	const dispatch = useDispatch();
+	const { email, firstName, lastName, telephone } = useSelector((state) => state.customer.customer);
+	useEffect(() => {
+		dispatch(fetchCustomer()).then(({ payload }) => payload);
+	}, [email, firstName, lastName, telephone]);
 	return (
 		<EditProfileWrapper>
 			<Typography
@@ -12,7 +19,7 @@ const EditProfile = () => {
 			>
 				Профіль користувача
 			</Typography>
-			<UserInfoForm />
+			<UserInfoForm email={email} firstName={firstName} lastName={lastName} telephone={telephone} />
 		</EditProfileWrapper>
 	);
 };
