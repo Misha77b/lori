@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -17,6 +17,7 @@ const App = () => {
 	const actionModalHandler = (status) => {
 		dispatch(setModal(status));
 	};
+
 	const activeModal = modals[modal] ?? null;
 	return (
 		<ThemeProvider theme={theme}>

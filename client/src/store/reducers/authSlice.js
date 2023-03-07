@@ -15,6 +15,7 @@ export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 			localStorage.setItem("token", data.token);
 		})
 		.catch((err) => {
+			localStorage.removeItem("token");
 			throw err;
 		});
 });
@@ -42,6 +43,7 @@ export const userSlice = createSlice({
 
 		builder.addCase(fetchAuth.fulfilled, (state, action) => {
 			state.user = action.payload;
+			state.isAuth = true;
 			state.loader = false;
 		});
 		builder.addCase(fetchAuth.rejected, (state, action) => {

@@ -11,20 +11,24 @@ import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 import Breadcrumb from "./components/Breadcrumbs";
 import LogoIcon from "../LogoIcon";
-import { selectFavorite, selectShoppingCart } from "../../store/selectors";
+import { selectFavorite, selectShoppingCart, selectUser } from "../../store/selectors";
+import { setIsAuth } from "../../store/reducers/authSlice";
+import { getLocalItem } from "../../helpers/getLocalItem";
 
 const Header = ({ modal }) => {
+	const dispatch = useDispatch();
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
 	const shoppingCart = useSelector(selectShoppingCart);
+	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
-	const token = localStorage.getItem("token");
+	const token = getLocalItem("token");
 
 	useEffect(() => {
 		setCountF(favorite.length);
 		setCountC(totalCartQuantity);
-	}, [favorite, shoppingCart, token]);
+	}, [favorite, shoppingCart, token, isLoggedIn]);
 
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
@@ -34,7 +38,7 @@ const Header = ({ modal }) => {
 	}));
 
 	const menuLinkItem = {
-		color: token ? "#007042" : "#57646E",
+		color: isLoggedIn ? "#007042" : "#57646E",
 		fontSize: "30px",
 	};
 	return (
@@ -68,7 +72,7 @@ const Header = ({ modal }) => {
 							<Search />
 						</Box>
 						<Box>
-							{token ? (
+							{isLoggedIn ? (
 								<IconButton color="grey.main" component={Link} to="/profile/edit-profile">
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
