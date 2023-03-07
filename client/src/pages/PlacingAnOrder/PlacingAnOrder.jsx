@@ -101,7 +101,7 @@ const PlacingAnOrder = () => {
 		onSubmit: (values) => {
 			const newOrder = orders(values);
 			console.log("newOrder", newOrder);
-			// dispatch(createOrder(newOrder));
+			dispatch(createOrder(newOrder));
 		},
 		validationSchema,
 	});
