@@ -45,8 +45,19 @@ const PlacingAnOrder = () => {
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 
-	const [value, setValue] = useState();
-	const [inputValue, setInputValue] = useState();
+	const [value, setValue] = useState("");
+	const [inputValue, setInputValue] = useState("");
+
+	const handleShippingMethodChange = (e) => {
+		if (shippingMethod === "Кур’єром додому") {
+			setAdressTitle("Пункт видачі");
+		} else setAdressTitle("Адреса");
+		setShippingMethod(e.target.value);
+	};
+
+	const handlePaymentMethodChange = (e) => {
+		setPaymentMethod(e.target.value);
+	};
 
 	useEffect(() => {
 		setTotalCartSum(total);
@@ -65,22 +76,12 @@ const PlacingAnOrder = () => {
 		return result;
 	});
 
-	const handleShippingMethodChange = (e) => {
-		if (shippingMethod === "Кур’єром додому") {
-			setAdressTitle("Пункт видачі");
-		} else setAdressTitle("Адреса");
-		setShippingMethod(e.target.value);
-	};
-
-	const handlePaymentMethodChange = (e) => {
-		setPaymentMethod(e.target.value);
-	};
-
 	const orders = (values) => {
 		const sendOrder = {};
 		sendOrder.products = newObj;
 		sendOrder.deliveryAddress = values.adress;
 		sendOrder.shipping = shippingMethod;
+		sendOrder.paymentInfo = paymentMethod;
 		sendOrder.email = values.email;
 		sendOrder.mobile = values.phoneNumber;
 		sendOrder.letterSubject = "Thank you for order!";
@@ -100,7 +101,7 @@ const PlacingAnOrder = () => {
 		onSubmit: (values) => {
 			const newOrder = orders(values);
 			console.log("newOrder", newOrder);
-			dispatch(createOrder(newOrder));
+			// dispatch(createOrder(newOrder));
 		},
 		validationSchema,
 	});
@@ -198,7 +199,7 @@ const PlacingAnOrder = () => {
 								disablePortal
 								id="adress"
 								name="adress"
-								value={(formik.values.adress = inputValue)}
+								value={(values.adress = inputValue)}
 								onChange={(event, newValue) => {
 									setValue(newValue);
 								}}
@@ -223,7 +224,7 @@ const PlacingAnOrder = () => {
 								id="adress"
 								name="adress"
 								color="secondary"
-								value={formik.values.adress}
+								value={values.adress}
 								onChange={formik.handleChange}
 								placeholder="Місто, вулиця, будинок, квартира"
 								multiline={true}
