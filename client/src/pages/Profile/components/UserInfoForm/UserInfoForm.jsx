@@ -6,13 +6,14 @@ import Field from "../../../../components/Form/Field/Field";
 // eslint-disable-next-line import/named
 import { InputWrapper } from "../../ProfileMenuBlocks/EditProfile/styled";
 import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
+import { fetchUpdateCustomerInfo } from "../../../../store/reducers/updateUserInfoSlice";
 
 const UserInfoForm = () => {
 	const dispatch = useDispatch();
 	const { email, firstName, lastName, telephone } = useSelector((state) => state.customer.customer);
 	useEffect(() => {
 		dispatch(fetchCustomer()).then(({ payload }) => payload);
-	}, []);
+	}, [email, firstName, lastName, telephone]);
 
 	const formik = useFormik({
 		initialValues: {
@@ -22,6 +23,8 @@ const UserInfoForm = () => {
 			mobile: telephone,
 		},
 		onSubmit: (usersData) => {
+			const res = dispatch(fetchUpdateCustomerInfo(usersData));
+			console.log("res", res);
 			console.log(usersData);
 		},
 		validationSchema,
