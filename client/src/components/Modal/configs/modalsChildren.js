@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Typography } from "@mui/material";
 import Modal from "../Modal";
@@ -11,7 +12,8 @@ const ModalContainer = styled.div`
 export const modals = {
 	SUCCESS: (
 		<Modal status="SUCCESS" customWidth={600}>
-			{({ order }) => {
+			{({ order, onStatusChange }) => {
+				const navigate = useNavigate();
 				return (
 					<>
 						<ModalContainer>
@@ -31,7 +33,7 @@ export const modals = {
 								component="p"
 								sx={{ fontSize: "18px", lineHeight: " 180%", marginBottom: "50px" }}
 							>
-								`Ваше замовлення № ${order} успішно оформлене. Чекайте на дзвінок від нашого
+								`Ваше замовлення № {order} успішно оформлене. Чекайте на дзвінок від нашого
 								фахівця.`
 							</Typography>
 							<Button
@@ -39,6 +41,10 @@ export const modals = {
 								variant="contained"
 								sx={{
 									padding: "15px 20px",
+								}}
+								onClick={() => {
+									navigate("/products");
+									onStatusChange(null);
 								}}
 							>
 								продовжити покупки
