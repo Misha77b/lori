@@ -9,17 +9,17 @@ import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
 
 const UserInfoForm = () => {
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.customer.customer);
+	const { email, firstName, lastName, telephone } = useSelector((state) => state.customer.customer);
 	useEffect(() => {
-		const customer = dispatch(fetchCustomer());
-		customer.then((res) => console.log(res));
-		console.log(user);
-	});
+		dispatch(fetchCustomer()).then(({ payload }) => payload);
+	}, []);
+
 	const formik = useFormik({
 		initialValues: {
-			firstName: "",
-			lastName: "",
-			email: "vita@gmail.com",
+			firstName,
+			lastName,
+			email,
+			mobile: telephone,
 		},
 		onSubmit: (usersData) => {
 			console.log(usersData);
@@ -64,6 +64,14 @@ const UserInfoForm = () => {
 					value={values.email}
 					onChange={formik.handleChange}
 					errors={touched.email && errors.email}
+				/>
+				<Field
+					name="mobile"
+					type="tel"
+					description="Mobile"
+					value={values.mobile}
+					onChange={formik.handleChange}
+					errors={touched.mobile && errors.mobile}
 				/>
 			</InputWrapper>
 			<div className="submit__btn__container">

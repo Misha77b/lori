@@ -1,20 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
+import setAuthToken from "../../config/setAuthToken";
+
+const token = localStorage.getItem("token");
+setAuthToken(token);
 
 const initialState = { customer: {} };
 
 export const fetchCustomer = createAsyncThunk("customer/fetchCustomer", async () => {
-	axios
-		.get(`${DOMAIN}/customers/customer`, {
-			headers: {
-				Authorization: localStorage.getItem("token"),
-			},
-		})
-		.then((loggedInCustomer) => loggedInCustomer.data)
-		.catch((err) => console.warn(err));
+	const response = await axios.get(`${DOMAIN}/customers/customer`, {
+		headers: {
+			Authorization: token,
+		},
+	});
+	return response.data;
 });
-
 export const customerSlice = createSlice({
 	name: "customer",
 	initialState,
