@@ -17,6 +17,9 @@ export const searchSlice = createSlice({
 		actionSetSearchProduct: (state, action) => {
 			state.searchProducts.push(action.payload);
 		},
+		clearSearch: (state) => {
+			state.searchProducts = [];
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchSearchProducts.pending, (state) => {
@@ -32,5 +35,6 @@ export const searchSlice = createSlice({
 		});
 	},
 });
+export const { clearSearch } = searchSlice.actions;
 
 export default searchSlice.reducer;
