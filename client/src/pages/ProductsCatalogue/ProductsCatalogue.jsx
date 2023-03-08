@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Container } from "@mui/material";
+import { Container, Typography, Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts, setParams } from "../../store/reducers/productsSlice";
@@ -14,6 +15,7 @@ import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import NoItemsFoundMessage from "./component/NoItemsFoundMessage";
 import useFetchData from "../Home/hooks";
+import { clearSearch } from "../../store/reducers/searchSlice";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -28,14 +30,49 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
+
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData, dataFromSearch]);
+
+	function handleClearSearch() {
+		dispatch(clearSearch());
+	}
+	//  }
 	return (
 		<Container>
+			{dataFromSearch.length > 0 && (
+				<Box
+					pb={6}
+					display="flex"
+					alignItems="center"
+					sx={{ justifyContent: { xs: "center", sm: "space-between" } }}
+				>
+					<Typography
+						sx={{ display: { xs: "none", sm: "flex" } }}
+						variant="h5"
+						fontWeight="fontWeightRegular"
+						fontFamily="Open Sans, sans-serif"
+						color="grey.main"
+					>
+						Результати пошуку
+					</Typography>
+
+					<Link
+						onClick={() => handleClearSearch()}
+						style={{ textDecoration: "none" }}
+						to="/products"
+					>
+						<Button color="secondary" variant="contained">
+							Каталог
+						</Button>
+					</Link>
+					{/* </Box> */}
+				</Box>
+			)}
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
