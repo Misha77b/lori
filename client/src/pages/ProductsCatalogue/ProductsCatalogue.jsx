@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Container, Typography, Box, Button, Grid, ListItem } from "@mui/material";
+import { Container, Typography, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
