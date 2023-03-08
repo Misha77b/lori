@@ -36,7 +36,7 @@ const ProductsCatalogue = () => {
 	}, [startPage, params, filteredData, dataFromSearch]);
 	return (
 		<Container>
-			{isSearch && (
+			{!isSearch && (
 				<Box>
 					<Typography>Результати пошуку</Typography>
 				</Box>
