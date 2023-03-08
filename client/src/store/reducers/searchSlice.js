@@ -4,6 +4,7 @@ import { DOMAIN } from "../../config/API";
 
 const initialState = {
 	searchProducts: [],
+	isSearch: false,
 	loader: false,
 };
 export const fetchSearchProducts = createAsyncThunk("products/search", async (searchPhrases) => {
@@ -17,6 +18,9 @@ export const searchSlice = createSlice({
 		actionSetSearchProduct: (state, action) => {
 			state.searchProducts.push(action.payload);
 		},
+		actionIsSearch: (state, action) => {
+			state.isSearch = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchSearchProducts.pending, (state) => {
@@ -24,6 +28,7 @@ export const searchSlice = createSlice({
 		});
 		builder.addCase(fetchSearchProducts.fulfilled, (state, action) => {
 			state.searchProducts = action.payload;
+			state.isSearch = !state.isSearch;
 			state.loader = false;
 		});
 		builder.addCase(fetchSearchProducts.rejected, (state, action) => {
@@ -32,5 +37,6 @@ export const searchSlice = createSlice({
 		});
 	},
 });
+export const { actionIsSearch } = searchSlice.actions;
 
 export default searchSlice.reducer;

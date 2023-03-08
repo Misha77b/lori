@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Container } from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { selectSearch } from "../../store/selectors";
+import { selectSearch, selectIsSearch } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
 import { selectProductsQuantity } from "../../store/selectors/products.selectors";
@@ -12,6 +12,7 @@ import useLocationParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import useFetchData from "../Home/hooks";
+import { actionIsSearch } from "../../store/reducers/searchSlice";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -25,14 +26,21 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
+	const isSearch = useSelector(selectIsSearch);
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
+		dispatch(actionIsSearch(!isSearch));
 	}, [startPage, params, filteredData, dataFromSearch]);
 	return (
 		<Container>
+			{isSearch && (
+				<Box>
+					<Typography>Результати пошуку</Typography>
+				</Box>
+			)}
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhones>
 				<FiltersBlock products={initialProducts} setFilteredData={setFilteredData} />
