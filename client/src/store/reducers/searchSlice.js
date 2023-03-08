@@ -4,7 +4,7 @@ import { DOMAIN } from "../../config/API";
 
 const initialState = {
 	searchProducts: [],
-	isSearch: false,
+	isSearch: true,
 	loader: false,
 };
 export const fetchSearchProducts = createAsyncThunk("products/search", async (searchPhrases) => {
