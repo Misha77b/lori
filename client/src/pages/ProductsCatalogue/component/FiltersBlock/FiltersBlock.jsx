@@ -24,6 +24,12 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 	const [waterResistant, setWaterResistant] = useState([]);
 
 	useEffect(() => {
+		setBrands([]);
+		setProcessor([]);
+		setIternalStorage([]);
+		setDiagonal([]);
+		setRAM([]);
+		setWaterResistant([]);
 		filters.forEach((obj) => {
 			switch (obj.type) {
 				case "brand":
