@@ -12,8 +12,7 @@ const ModalContainer = styled.div`
 export const modals = {
 	SUCCESS: (
 		<Modal status="SUCCESS" customWidth={600}>
-			{({ order, onStatusChange }) => {
-				const navigate = useNavigate();
+			{({ order, onStatusChange, onNavigate }) => {
 				return (
 					<>
 						<ModalContainer>
@@ -43,7 +42,7 @@ export const modals = {
 									padding: "15px 20px",
 								}}
 								onClick={() => {
-									navigate("/products");
+									onNavigate("/products");
 									onStatusChange(null);
 								}}
 							>

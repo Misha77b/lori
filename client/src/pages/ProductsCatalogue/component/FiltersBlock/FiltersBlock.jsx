@@ -22,7 +22,6 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 	const [iternalStorage, setIternalStorage] = useState([]);
 	const [RAM, setRAM] = useState([]);
 	const [waterResistant, setWaterResistant] = useState([]);
-
 	useEffect(() => {
 		filters.forEach((obj) => {
 			switch (obj.type) {
