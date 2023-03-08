@@ -8,6 +8,7 @@ import RangePrice from "../RangePrice";
 import { fetchProducts } from "../../../../store/reducers/productsSlice";
 import { selectorArrFilters } from "../../../../store/selectors";
 import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
+import SortBox from "../SortBox";
 import "./FiltersBlock.scss";
 
 const FiltersBlock = ({ products, setFilteredData }) => {
@@ -87,14 +88,23 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 	};
 	return (
 		<Box sx={{ margin: "0 auto" }}>
-			<Stack spacing={3} sx={{ position: "sticky", top: "30px", textAlign: "center" }}>
-				<Typography
-					component="legend"
-					sx={{ textAlign: "left", margin: "0 0 7px 25px", color: "grey" }}
-				>
-					Ціна
+			<Stack spacing={3} sx={{ position: "sticky", top: "30px" }}>
+				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
+					Діапазон ціни, грн
 				</Typography>
-				<RangePrice setPriceParams={priceHandler} />
+				<RangePrice setPriceParams={priceHandler} sx={{ "text-align": "center" }} />
+				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
+					Фільтри
+				</Typography>
+				<SortBox
+					value={searchParams.get("sort")}
+					setCurrentValue={(value) => {
+						setSearchParams((prev) => {
+							prev.set("sort", value);
+							return prev;
+						});
+					}}
+				/>
 				<Selection
 					value={searchParams.get("brand")}
 					setCurrentValue={(value) => {
