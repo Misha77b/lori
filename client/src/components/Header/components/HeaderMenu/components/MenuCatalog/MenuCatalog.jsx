@@ -1,53 +1,31 @@
 import React from "react";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
+import { clearSearch } from "../../../../../../store/reducers/searchSlice";
 
 const MenuCatalog = () => {
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "inherit",
 		textDecoration: "none",
 		"&: hover": {
-			color: "#007042",
-			fontWeight: 700,
+			textDecoration: "underline",
 		},
 	}));
 
-	const [сatalog, setCatalog] = React.useState(null);
-	const openCatalog = Boolean(сatalog);
+	const dispatch = useDispatch;
 
-	const handleClickCatalog = (event) => {
-		setCatalog(event.currentTarget);
-	};
-	const handleCloseCatalog = () => {
-		setCatalog(null);
-	};
-
+	function handleClearSearch() {
+		dispatch(clearSearch());
+	}
 	return (
 		<>
-			<Button
-				id="button-сatalog"
-				aria-controls={openCatalog ? "menu-сatalog" : undefined}
-				aria-haspopup="true"
-				aria-expanded={openCatalog ? "true" : undefined}
-				onClick={handleClickCatalog}
-				sx={{ padding: { sm: "20px 25px", md: "20px 35px" } }}
-			>
-				Каталог
+			<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
+				<CustomLink onClick={() => handleClearSearch()} to="/products">
+					Каталог
+				</CustomLink>
 			</Button>
-			<Menu
-				id="menu-сatalog"
-				anchorEl={сatalog}
-				open={openCatalog}
-				onClose={handleCloseCatalog}
-				MenuListProps={{
-					"aria-labelledby": "button-сatalog",
-				}}
-			>
-				<MenuItem divider onClick={handleCloseCatalog}>
-					<CustomLink to="/products">Телефони</CustomLink>
-				</MenuItem>
-			</Menu>
 		</>
 	);
 };
