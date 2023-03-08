@@ -8,46 +8,15 @@ const MenuCatalog = () => {
 		color: "inherit",
 		textDecoration: "none",
 		"&: hover": {
-			color: "#007042",
-			fontWeight: 700,
+			textDecoration: "underline",
 		},
 	}));
 
-	const [сatalog, setCatalog] = React.useState(null);
-	const openCatalog = Boolean(сatalog);
-
-	const handleClickCatalog = (event) => {
-		setCatalog(event.currentTarget);
-	};
-	const handleCloseCatalog = () => {
-		setCatalog(null);
-	};
-
 	return (
 		<>
-			<Button
-				id="button-сatalog"
-				aria-controls={openCatalog ? "menu-сatalog" : undefined}
-				aria-haspopup="true"
-				aria-expanded={openCatalog ? "true" : undefined}
-				onClick={handleClickCatalog}
-				sx={{ padding: { sm: "20px 25px", md: "20px 35px" } }}
-			>
-				Каталог
+			<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
+				<CustomLink to="/products">Каталог</CustomLink>
 			</Button>
-			<Menu
-				id="menu-сatalog"
-				anchorEl={сatalog}
-				open={openCatalog}
-				onClose={handleCloseCatalog}
-				MenuListProps={{
-					"aria-labelledby": "button-сatalog",
-				}}
-			>
-				<MenuItem divider onClick={handleCloseCatalog}>
-					<CustomLink to="/products">Телефони</CustomLink>
-				</MenuItem>
-			</Menu>
 		</>
 	);
 };
