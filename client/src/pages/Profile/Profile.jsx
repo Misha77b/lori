@@ -18,7 +18,7 @@ import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 const Profile = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [value, setValue] = useState(0);
+	const [value, setValue] = useState(1);
 
 	const { profileMenu } = useParams();
 

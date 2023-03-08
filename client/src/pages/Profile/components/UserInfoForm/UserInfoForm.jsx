@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { schema as validationSchema } from "./Schema";
 import Field from "../../../../components/Form/Field/Field";
 // eslint-disable-next-line import/named
 import { InputWrapper } from "../../ProfileMenuBlocks/EditProfile/styled";
-import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
-import { fetchUpdateCustomerInfo } from "../../../../store/reducers/updateUserInfoSlice";
+import {
+	fetchUpdateCustomerInfo,
+	removeMessage,
+} from "../../../../store/reducers/updateUserInfoSlice";
+import ToastNotification from "../../../../components/ToastNotification";
 
 const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 	const dispatch = useDispatch();
-
+	const message = useSelector((state) => state.customerInfo.message);
 	const formik = useFormik({
 		initialValues: {
 			firstName,
@@ -19,7 +22,10 @@ const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 			mobile: telephone,
 		},
 		onSubmit: (usersData) => {
-			return dispatch(fetchUpdateCustomerInfo(usersData));
+			dispatch(fetchUpdateCustomerInfo(usersData));
+			setTimeout(() => {
+				dispatch(removeMessage());
+			}, 3000);
 		},
 		validationSchema,
 	});
@@ -37,6 +43,7 @@ const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 				gap: "40px",
 			}}
 		>
+			{message && <ToastNotification text="Ваші дані успішно змінені" />}
 			<InputWrapper>
 				<Field
 					name="firstName"

@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Container, Typography, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
-import { fetchProducts } from "../../store/reducers/productsSlice";
+import { fetchProducts, setParams } from "../../store/reducers/productsSlice";
 import { selectSearch } from "../../store/selectors";
 import AppPagination from "../../components/AppPagination";
 import ToastNotification from "../../components/ToastNotification";
@@ -12,11 +13,13 @@ import { selectProductsQuantity } from "../../store/selectors/products.selectors
 import useLocationParams from "./hooks";
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
+import NoItemsFoundMessage from "./component/NoItemsFoundMessage";
 import useFetchData from "../Home/hooks";
 import { clearSearch } from "../../store/reducers/searchSlice";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const initialProducts = useFetchData();
 	const productsLoading = useSelector((state) => state.products.loader);
 	const [products, setProducts] = useState([...initialProducts]);
@@ -105,6 +108,9 @@ const ProductsCatalogue = () => {
 								/>
 								// eslint-disable-next-line no-mixed-spaces-and-tabs
 						  ))}
+					{filteredData.length === 0 && dataFromSearch.length === 0 && products.length === 0 && (
+						<NoItemsFoundMessage />
+					)}
 				</CatalogueWrapper>
 			</FiltersPhones>
 			<AppPagination
