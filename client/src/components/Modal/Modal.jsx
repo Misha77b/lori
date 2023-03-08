@@ -40,8 +40,8 @@ const Modal = ({ children, customWidth, status }) => {
 				<div ref={myRef} className={styles.modal} style={{ maxWidth: `${customWidth}px` }}>
 					{children({
 						order: orderNo,
+						onNavigate: navigate,
 						onStatusChange: actionModalHandler,
-						onContinueShopping: navigate("/products"),
 					})}
 					<CloseCross
 						className={styles.modal__btn}

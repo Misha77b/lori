@@ -12,11 +12,17 @@ export const fetchUpdateCustomerInfo = createAsyncThunk(
 export const updateCustomerInfoSlice = createSlice({
 	name: "updateCustomerInfo",
 	initialState,
+	reducers: {
+		removeMessage: (state, action) => {
+			state.message = false;
+		},
+	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchUpdateCustomerInfo.fulfilled, (state, action) => {
 			state.message = true;
 		});
 	},
 });
+export const { removeMessage } = updateCustomerInfoSlice.actions;
 
 export default updateCustomerInfoSlice.reducer;
