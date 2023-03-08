@@ -32,7 +32,7 @@ function Product({ props, setNotification }) {
 		const data = await response.json();
 		if (data.products.length) {
 			const { itemNo } = data.products[0];
-			navigate(`/product/${itemNo}`);
+			navigate(`/products/${itemNo}`);
 		}
 	}
 

@@ -7,7 +7,7 @@ const ProductImageBox = ({ sale, image, brand, newItem, id }) => {
 		<Link
 			style={{ textDecoration: "none", position: "relative" }}
 			className="logo__box"
-			to={`/product/${id}`}
+			to={`/products/${id}`}
 		>
 			<img className="logo" src={image} alt={brand} />
 		</Link>

@@ -30,6 +30,7 @@ import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
 import { setTotalCartSum } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
+import { setModal, setOrderNo } from "../../store/reducers/modalSlice";
 
 const RGStyle = {
 	height: "40px",
@@ -100,8 +101,9 @@ const PlacingAnOrder = () => {
 		},
 		onSubmit: (values) => {
 			const newOrder = orders(values);
-			console.log("newOrder", newOrder);
 			dispatch(createOrder(newOrder));
+			dispatch(setOrderNo(450));
+			dispatch(setModal("SUCCESS"));
 		},
 		validationSchema,
 	});

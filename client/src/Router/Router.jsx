@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import Home from "../pages/Home";
 import OneProduct from "../pages/OneProduct";
 import About from "../pages/About";
@@ -16,12 +18,19 @@ import Profile from "../pages/Profile";
 import PasswordChange from "../pages/Profile/ProfileMenuBlocks/PasswordChange/PasswordChange";
 import EditProfile from "../pages/Profile/ProfileMenuBlocks/EditProfile/EditProfile";
 import OrdersHistory from "../pages/Profile/ProfileMenuBlocks/OrdersHistory/OrdersHistory";
+import { getLocalItem } from "../helpers/getLocalItem";
+import { setIsAuth } from "../store/reducers/authSlice";
 
 function RootRouters() {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		// eslint-disable-next-line no-unused-expressions
+		getLocalItem("token") ? dispatch(setIsAuth(true)) : dispatch(setIsAuth(false));
+	}, []);
 	return (
 		<Routes>
 			<Route path="/" element={<Home />} />
-			<Route path="/product/:id" element={<OneProduct />} />
+			<Route path="/products/:id" element={<OneProduct />} />
 			<Route path="/products" element={<ProductsCatalogue />} />
 			<Route path="/orders" element={<PlacingAnOrder />} />
 			<Route path="/about" element={<About />} />
