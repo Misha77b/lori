@@ -8,8 +8,7 @@ import { getItems } from "../../helpers/getItems";
 
 const initialState = {
 	data: [],
-	popularProducts: [],
-	saleProducts: [],
+	params: "",
 	dataQuantity: 0,
 	loader: false,
 };
@@ -29,6 +28,9 @@ export const productsSlice = createSlice({
 	reducers: {
 		removeProduct: (state, action) => {
 			state.data = state.data.filter((item) => item.id !== action.payload);
+		},
+		setParams: (state, action) => {
+			state.params = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
@@ -50,6 +52,6 @@ export const productsSlice = createSlice({
 		});
 	},
 });
-export const { removeProduct } = productsSlice.actions;
+export const { removeProduct, setParams } = productsSlice.actions;
 
 export default productsSlice.reducer;

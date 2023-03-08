@@ -6,6 +6,7 @@ import Field from "./Field/Field";
 import "./Form.scss";
 import { selectUser } from "../../store/selectors";
 import { fetchAuth, fetchRegister } from "../../store/reducers/authSlice";
+import { setModal } from "../../store/reducers/modalSlice";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
@@ -13,8 +14,8 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 		initialValues: {
 			firstName: "",
 			lastName: "",
-			email: "yuliya@gmail.com",
-			password: "12345678",
+			email: "",
+			password: "",
 			login: "",
 			telephone: "",
 		},
@@ -22,10 +23,11 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 			if (status === "LOGIN") {
 				const { email, password } = usersData;
 				dispatch(fetchAuth({ loginOrEmail: email, password }));
+				onClose();
 			} else {
 				dispatch(fetchRegister(usersData));
+				onLoginToggle();
 			}
-			onClose();
 		},
 		...(status === "REGISTER" ? { validationSchema } : { validationSchema2 }),
 	});
@@ -109,16 +111,6 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 					onChange={formik.handleChange}
 					errors={touched.password && errors.password}
 				/>
-				{status === "REGISTER" && (
-					<Field
-						description="Confirm password"
-						type="password"
-						name="changePassword"
-						onChange={formik.handleChange}
-						value={values.changePassword}
-						errors={touched.password && errors.password}
-					/>
-				)}
 			</div>
 			<div className="submit__btn__container">
 				<button className="submit__btn" type="submit">
