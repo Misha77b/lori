@@ -33,7 +33,7 @@ const ProductsCatalogue = () => {
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
-	}, [startPage, params, filteredData]);
+	}, [startPage, params, filteredData, dataFromSearch]);
 
 	function handleClearSearch() {
 		dispatch(clearSearch());
