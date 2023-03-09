@@ -87,5 +87,6 @@ module.exports = {
 		"prettier/prettier": ["error", { endOfLine: "auto" }],
 		"react/jsx-props-no-spreading": "off",
 		"no-underscore-dangle": "off",
+		"react/jsx-wrap-multilines": "off",
 	},
 };

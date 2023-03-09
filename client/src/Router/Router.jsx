@@ -20,6 +20,7 @@ import EditProfile from "../pages/Profile/ProfileMenuBlocks/EditProfile/EditProf
 import OrdersHistory from "../pages/Profile/ProfileMenuBlocks/OrdersHistory/OrdersHistory";
 import { getLocalItem } from "../helpers/getLocalItem";
 import { setIsAuth } from "../store/reducers/authSlice";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 function RootRouters() {
 	const dispatch = useDispatch();
@@ -40,7 +41,14 @@ function RootRouters() {
 			<Route path="/paymentAndDelivery" element={<PaymentAndDelivery />} />
 			<Route path="/exchangeAndReturn" element={<ExchangeAndReturn />} />
 			<Route path="/contacts" element={<Contacts />} />
-			<Route path="/profile" element={<Profile />}>
+			<Route
+				path="/profile"
+				element={
+					<ProtectedRoute>
+						<Profile />
+					</ProtectedRoute>
+				}
+			>
 				<Route path=":profileMenu" element={<EditProfile />} />
 				<Route path=":profileMenu" element={<PasswordChange />} />
 				<Route path=":profileMenu" element={<OrdersHistory />} />
