@@ -56,24 +56,36 @@ const BurgerMenu = () => {
 					"aria-labelledby": "button-burgerMenu",
 				}}
 			>
-				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					<CustomLink to="/">Головна</CustomLink>
-				</MenuItem>
-				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					<CustomLink to="/products">Каталог</CustomLink>
-				</MenuItem>
-				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					<CustomLink to="/guarantee">Гарантія</CustomLink>
-				</MenuItem>
-				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					<CustomLink to="/paymentAndDelivery">Оплата та доставка</CustomLink>
-				</MenuItem>
-				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					<CustomLink to="/exchangeAndReturn">Обмін та повернення</CustomLink>
-				</MenuItem>
-				<MenuItem divider onClick={handleCloseBurgerMenu}>
-					<CustomLink to="/contacts">Контакти</CustomLink>
-				</MenuItem>
+				<CustomLink to="/">
+					<MenuItem divider onClick={handleCloseBurgerMenu}>
+						Головна
+					</MenuItem>
+				</CustomLink>
+				<CustomLink to="/products">
+					<MenuItem divider onClick={handleCloseBurgerMenu}>
+						Каталог
+					</MenuItem>
+				</CustomLink>
+				<CustomLink to="/guarantee">
+					<MenuItem divider onClick={handleCloseBurgerMenu}>
+						Гарантія
+					</MenuItem>
+				</CustomLink>
+				<CustomLink to="/paymentAndDelivery">
+					<MenuItem divider onClick={handleCloseBurgerMenu}>
+						Оплата та доставка
+					</MenuItem>
+				</CustomLink>
+				<CustomLink to="/exchangeAndReturn">
+					<MenuItem divider onClick={handleCloseBurgerMenu}>
+						Обмін та повернення
+					</MenuItem>
+				</CustomLink>
+				<CustomLink to="/contacts">
+					<MenuItem divider onClick={handleCloseBurgerMenu}>
+						Контакти
+					</MenuItem>
+				</CustomLink>
 			</CustomizedMenu>
 		</Box>
 	);
