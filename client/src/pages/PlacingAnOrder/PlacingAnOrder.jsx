@@ -260,7 +260,7 @@ const PlacingAnOrder = () => {
 											marginTop: "20px",
 										}}
 									>
-										Товарів поки немає
+										Кошик пустий
 									</Typography>
 								)}
 								{products?.map((item) => {
