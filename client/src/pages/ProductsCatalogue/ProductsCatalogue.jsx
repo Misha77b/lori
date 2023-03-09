@@ -15,6 +15,7 @@ import useFetchData from "../Home/hooks";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
+
 	const initialProducts = useFetchData();
 	const productsLoading = useSelector((state) => state.products.loader);
 	const [products, setProducts] = useState([...initialProducts]);
