@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
+import styled from "styled-components";
 import RootRouters from "../Router/Router";
 import theme from "../theming";
 import Footer from "../components/Footer";
@@ -21,12 +22,19 @@ const App = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
-				{activeModal}
-				<Header modal={actionModalHandler} />
-				<RootRouters />
-				<Footer />
+				<Wrapper>
+					{activeModal}
+					<Header modal={actionModalHandler} />
+					<RootRouters />
+					<Footer />
+				</Wrapper>
 			</BrowserRouter>
 		</ThemeProvider>
 	);
 };
+const Wrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+`;
 export default App;

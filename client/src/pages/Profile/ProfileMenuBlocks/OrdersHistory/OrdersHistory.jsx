@@ -43,7 +43,7 @@ const OrdersHistory = () => {
 			>
 				Історія замовлень
 			</Typography>
-			<Table stickyHeader responsive>
+			<Table stickyHeader>
 				<TableHead>
 					<StyledTableRow>
 						<TableCell align="center">Замовлення №</TableCell>
