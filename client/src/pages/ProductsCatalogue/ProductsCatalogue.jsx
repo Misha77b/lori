@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Container, Typography, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts, setParams } from "../../store/reducers/productsSlice";
 import { selectSearch } from "../../store/selectors";
@@ -30,6 +29,7 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
+	console.log(dataFromSearch);
 
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
@@ -41,7 +41,7 @@ const ProductsCatalogue = () => {
 	function handleClearSearch() {
 		dispatch(clearSearch());
 	}
-	//  }
+
 	return (
 		<Container>
 			{dataFromSearch.length > 0 && (
@@ -60,17 +60,6 @@ const ProductsCatalogue = () => {
 					>
 						Результати пошуку
 					</Typography>
-
-					<Link
-						onClick={() => handleClearSearch()}
-						style={{ textDecoration: "none" }}
-						to="/products"
-					>
-						<Button color="secondary" variant="contained">
-							Каталог
-						</Button>
-					</Link>
-					{/* </Box> */}
 				</Box>
 			)}
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
