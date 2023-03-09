@@ -28,7 +28,7 @@ import { schema as validationSchema } from "./Schema";
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
-import { setTotalCartSum } from "../../store/reducers/cartSlice";
+import { clearCart, setTotalCartSum } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
 import { setModal, setOrderNo } from "../../store/reducers/modalSlice";
 
@@ -107,6 +107,7 @@ const PlacingAnOrder = () => {
 			console.log("orderNo", orderNo);
 			dispatch(setOrderNo(orderNo));
 			dispatch(setModal("SUCCESS"));
+			dispatch(clearCart());
 		},
 		validationSchema,
 	});
