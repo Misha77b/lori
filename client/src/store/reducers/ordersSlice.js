@@ -13,14 +13,18 @@ const initialState = {
 };
 
 export const createOrder = createAsyncThunk("orders/postData", async (obj) => {
-	await axios
+	const response = await axios
 		.post(`${DOMAIN}/orders`, obj)
-		.then(({ data }) => data)
+		.then(({ data }) => {
+			console.log("data", data);
+			return data;
+		})
 		.catch((err) => {
 			// eslint-disable-next-line
 			alert("Заповніть обов'язкові поля");
 			console.warn(err);
 		});
+	return response;
 });
 
 export const ordersSlice = createSlice({
