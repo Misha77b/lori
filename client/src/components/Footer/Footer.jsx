@@ -7,28 +7,18 @@ import LogoIcon from "../LogoIcon";
 // eslint-disable-next-line import/named
 import { сontact, menuTitle, CustomLink, menuLinkItem } from "./styled";
 
-// ...(location.pathname === "/" ||
-// location.pathname === "/products" ||
-// /^\/products\/\d+$/.test(location.pathname) ||
-// location.pathname === "/orders"
-// 	? { position: "static" }
-// 	: { position: "fixed" }),
-
 const Footer = () => {
 	const location = useLocation();
-	console.log(location.pathname);
 	return (
 		<Box
-			mt={14}
 			component="footer"
 			backgroundColor="grey.main"
 			sx={{
+				marginTop: "150px",
 				bottom: 0,
 				width: "100%",
 				left: 0,
-				...(location.pathname === "/cart" ||
-				location.pathname === "/favorites" ||
-				/^\/profile\/.*/.test(location.pathname)
+				...(location.pathname === "/cart" || location.pathname === "/favorites"
 					? { position: "fixed" }
 					: { position: "static" }),
 			}}
