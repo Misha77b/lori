@@ -11,7 +11,7 @@ import {
 } from "../../../../store/reducers/updateUserInfoSlice";
 import ToastNotification from "../../../../components/ToastNotification";
 
-const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
+const UserInfoForm = ({ email, firstName, lastName, mobile }) => {
 	const dispatch = useDispatch();
 	const message = useSelector((state) => state.customerInfo.message);
 	const formik = useFormik({
@@ -19,7 +19,7 @@ const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 			firstName,
 			lastName,
 			email,
-			mobile: telephone,
+			mobile,
 		},
 		onSubmit: (usersData) => {
 			dispatch(fetchUpdateCustomerInfo(usersData));

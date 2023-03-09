@@ -15,9 +15,7 @@ const initialState = {
 export const createOrder = createAsyncThunk("orders/postData", async (obj) => {
 	await axios
 		.post(`${DOMAIN}/orders`, obj)
-		.then(({ data }) => {
-			console.log(data);
-		})
+		.then(({ data }) => data)
 		.catch((err) => {
 			// eslint-disable-next-line
 			alert("Заповніть обов'язкові поля");

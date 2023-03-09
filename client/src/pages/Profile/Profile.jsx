@@ -13,7 +13,6 @@ import OrdersHistory from "./ProfileMenuBlocks/OrdersHistory";
 import TabPanel from "./components/TabPanel";
 // eslint-disable-next-line import/named
 import { a11yProps } from "./components/TabPanel/TabPanel";
-import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 
 const Profile = () => {
 	const dispatch = useDispatch();

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { Button, ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import RootRouters from "../Router/Router";
 import theme from "../theming";
 import Footer from "../components/Footer";
