@@ -4,7 +4,6 @@ import { useLocation, Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
 	const isAuth = useSelector((state) => state.auth.isAuth);
-	console.log(isAuth);
 
 	if (!isAuth) {
 		return <Navigate to="/" replace />;
