@@ -39,6 +39,7 @@ const OrdersHistory = () => {
 				fontFamily="Open Sans, sans-serif"
 				align="center"
 				color="grey.main"
+				mb={2}
 			>
 				Історія замовлень
 			</Typography>
