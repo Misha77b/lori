@@ -14,7 +14,7 @@ const Search = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams({ query: input });
 
-	function handleClear() {
+	function handleClearSearch() {
 		dispatch(clearSearch());
 	}
 
