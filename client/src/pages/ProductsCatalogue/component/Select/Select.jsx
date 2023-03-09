@@ -16,7 +16,7 @@ export default function Selection({ arrayProps, setCurrentValue, nameLabel, valu
 
 	return (
 		<div>
-			<FormControl sx={{ width: "200px" }}>
+			<FormControl fullWidth>
 				<InputLabel color="secondary" id="demo-simple-select-autowidth-label">
 					{nameLabel}
 				</InputLabel>

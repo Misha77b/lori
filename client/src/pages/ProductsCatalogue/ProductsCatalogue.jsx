@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Container, Typography, Box, Button } from "@mui/material";
-import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts, setParams } from "../../store/reducers/productsSlice";
 import { selectSearch } from "../../store/selectors";
