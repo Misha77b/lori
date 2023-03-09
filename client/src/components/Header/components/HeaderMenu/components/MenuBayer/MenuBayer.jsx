@@ -43,15 +43,21 @@ const MenuBayer = () => {
 					"aria-labelledby": "button-bayer",
 				}}
 			>
-				<MenuItem divider onClick={handleCloseBayer}>
-					<CustomLink to="/guarantee">Гарантія</CustomLink>
-				</MenuItem>
-				<MenuItem divider onClick={handleCloseBayer}>
-					<CustomLink to="/paymentAndDelivery">Оплата та доставка</CustomLink>
-				</MenuItem>
-				<MenuItem divider onClick={handleCloseBayer}>
-					<CustomLink to="/exchangeAndReturn">Обмін та повернення</CustomLink>
-				</MenuItem>
+				<CustomLink to="/guarantee">
+					<MenuItem divider onClick={handleCloseBayer}>
+						Гарантія
+					</MenuItem>
+				</CustomLink>
+				<CustomLink to="/paymentAndDelivery">
+					<MenuItem divider onClick={handleCloseBayer}>
+						Оплата та доставка
+					</MenuItem>
+				</CustomLink>
+				<CustomLink to="/exchangeAndReturn">
+					<MenuItem divider onClick={handleCloseBayer}>
+						Обмін та повернення
+					</MenuItem>
+				</CustomLink>
 			</Menu>
 		</>
 	);
