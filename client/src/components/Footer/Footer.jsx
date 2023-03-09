@@ -1,44 +1,37 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Box, List, ListItem, Grid, Typography, Container } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LogoIcon from "../LogoIcon";
+// eslint-disable-next-line import/named
+import { сontact, menuTitle, CustomLink, menuLinkItem } from "./styled";
+
+// ...(location.pathname === "/" ||
+// location.pathname === "/products" ||
+// /^\/products\/\d+$/.test(location.pathname) ||
+// location.pathname === "/orders"
+// 	? { position: "static" }
+// 	: { position: "fixed" }),
 
 const Footer = () => {
-	const сontact = {
-		fontSize: "14px",
-	};
-
-	const menuTitle = {
-		fontSize: "16px",
-		fontWeight: "700",
-		p: " 0 0 17px 0",
-		textTransform: "uppercase",
-	};
-
-	const CustomLink = styled(NavLink)(({ theme }) => ({
-		color: "#ffffff",
-		fontSize: "14px",
-		textDecoration: "none",
-		padding: "0",
-		"&: hover": {
-			textDecoration: "underline",
-		},
-	}));
-
-	const menuLinkItem = {
-		color: "#ffffff",
-		fontSize: "40px",
-	};
-
+	const location = useLocation();
+	console.log(location.pathname);
 	return (
 		<Box
 			mt={14}
 			component="footer"
 			backgroundColor="grey.main"
-			sx={{ position: "static", bottom: 0, width: "100%", left: 0 }}
+			sx={{
+				bottom: 0,
+				width: "100%",
+				left: 0,
+				...(location.pathname === "/cart" ||
+				location.pathname === "/favorites" ||
+				/^\/profile\/.*/.test(location.pathname)
+					? { position: "fixed" }
+					: { position: "static" }),
+			}}
 		>
 			<Container sx={{ color: "#ffffff" }}>
 				<Grid

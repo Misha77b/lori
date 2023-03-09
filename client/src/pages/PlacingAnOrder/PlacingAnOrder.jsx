@@ -249,6 +249,20 @@ const PlacingAnOrder = () => {
 							</Typography>
 
 							<Box component="div" className="scroll">
+								{!products.length && (
+									<Typography
+										variant="h3"
+										fontWeight="fontWeightBold"
+										sx={{
+											fontSize: "24px",
+											color: "black",
+											textAlign: "center",
+											marginTop: "20px",
+										}}
+									>
+										Товарів поки немає
+									</Typography>
+								)}
 								{products?.map((item) => {
 									const cartQuantity = cartItems[item.itemNo];
 									return <OrderItem key={item.itemNo} item={item} cartQuantity={cartQuantity} />;

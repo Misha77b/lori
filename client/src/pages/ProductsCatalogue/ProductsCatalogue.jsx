@@ -14,7 +14,6 @@ import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import NoItemsFoundMessage from "./component/NoItemsFoundMessage";
 import useFetchData from "../Home/hooks";
-import { clearSearch } from "../../store/reducers/searchSlice";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -36,11 +35,6 @@ const ProductsCatalogue = () => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData, dataFromSearch]);
-
-	function handleClearSearch() {
-		dispatch(clearSearch());
-	}
-	//  }
 	return (
 		<Container>
 			{dataFromSearch.length > 0 && (
@@ -59,17 +53,6 @@ const ProductsCatalogue = () => {
 					>
 						Результати пошуку
 					</Typography>
-
-					<Link
-						onClick={() => handleClearSearch()}
-						style={{ textDecoration: "none" }}
-						to="/products"
-					>
-						<Button color="secondary" variant="contained">
-							Каталог
-						</Button>
-					</Link>
-					{/* </Box> */}
 				</Box>
 			)}
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
@@ -115,7 +98,10 @@ const ProductsCatalogue = () => {
 			<AppPagination
 				pages={Math.ceil(productsQuantity / perPage)}
 				page={startPage}
-				onPageChange={(e, page) => setStartPage((prev) => page)}
+				onPageChange={(e, page) => {
+					setStartPage((prev) => page);
+					setSearchParams(params);
+				}}
 			/>
 		</Container>
 	);
