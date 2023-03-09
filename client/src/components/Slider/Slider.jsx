@@ -46,7 +46,7 @@ const Slider = () => {
 					clickable: true,
 				}}
 				modules={[Navigation, Pagination]}
-				className="mySwiper"
+				className="slider"
 			>
 				{slides?.map(({ _id, imageUrl, title, description, dark, brandPageLink }) => {
 					return (
