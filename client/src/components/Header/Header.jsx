@@ -1,28 +1,34 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { styled } from "@mui/material/styles";
 import { Link, NavLink } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import HeaderMenu from "./components/HeaderMenu";
 import BurgerMenu from "./components/BurgerMenu";
 import Search from "./components/Search";
 import Breadcrumb from "./components/Breadcrumbs";
 import LogoIcon from "../LogoIcon";
-import { selectFavorite, selectShoppingCart } from "../../store/selectors";
+import { selectFavorite, selectShoppingCart, selectUser } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
+import { getLocalItem } from "../../helpers/getLocalItem";
 
 const Header = ({ modal }) => {
+	const dispatch = useDispatch();
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
 	const shoppingCart = useSelector(selectShoppingCart);
-	const menuLinkItem = {
-		color: "#57646E",
-		fontSize: "30px",
-	};
+	const isLoggedIn = useSelector((state) => state.auth.isAuth);
+	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
+	const token = getLocalItem("token");
+
+	useEffect(() => {
+		setCountF(favorite.length);
+		setCountC(totalCartQuantity);
+	}, [favorite, shoppingCart, token, isLoggedIn]);
 
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
@@ -31,21 +37,10 @@ const Header = ({ modal }) => {
 		},
 	}));
 
-	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
-	const token = localStorage.getItem("token");
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		if (token) {
-			dispatch(setIsAuth(true));
-		}
-	}, [isLoggedIn]);
-
-	useEffect(() => {
-		setCountF(favorite.length);
-		setCountC(totalCartQuantity);
-	}, [favorite, shoppingCart]);
+	const menuLinkItem = {
+		color: isLoggedIn ? "#007042" : "#57646E",
+		fontSize: "30px",
+	};
 	return (
 		<Box component="header">
 			<AppBar position="static">

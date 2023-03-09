@@ -1,32 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { schema as validationSchema, validationSchema2 } from "./Schema";
 import Field from "./Field/Field";
 import "./Form.scss";
 import { selectUser } from "../../store/selectors";
-import { fetchAuth, fetchRegister, setIsAuth } from "../../store/reducers/authSlice";
+import { fetchAuth, fetchRegister } from "../../store/reducers/authSlice";
+import { setModal } from "../../store/reducers/modalSlice";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
-	const user = useSelector(selectUser);
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
 			lastName: "",
-			email: "vita@gmail.com",
-			password: "2222222",
+			email: "",
+			password: "",
 			login: "",
+			telephone: "",
 		},
 		onSubmit: (usersData) => {
 			if (status === "LOGIN") {
 				const { email, password } = usersData;
 				dispatch(fetchAuth({ loginOrEmail: email, password }));
-				dispatch(setIsAuth(true));
+				onClose();
 			} else {
 				dispatch(fetchRegister(usersData));
+				onLoginToggle();
 			}
-			onClose();
 		},
 		...(status === "REGISTER" ? { validationSchema } : { validationSchema2 }),
 	});
@@ -76,6 +77,16 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 				)}
 				{status === "REGISTER" && (
 					<Field
+						name="telephone"
+						type="tel"
+						description="Mobile phone"
+						value={values.telephone}
+						onChange={formik.handleChange}
+						errors={touched.telephone && errors.telephone}
+					/>
+				)}
+				{status === "REGISTER" && (
+					<Field
 						name="login"
 						type="text"
 						description="User name"
@@ -100,16 +111,6 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 					onChange={formik.handleChange}
 					errors={touched.password && errors.password}
 				/>
-				{status === "REGISTER" && (
-					<Field
-						description="Confirm password"
-						type="password"
-						name="changePassword"
-						onChange={formik.handleChange}
-						value={values.changePassword}
-						errors={touched.password && errors.password}
-					/>
-				)}
 			</div>
 			<div className="submit__btn__container">
 				<button className="submit__btn" type="submit">

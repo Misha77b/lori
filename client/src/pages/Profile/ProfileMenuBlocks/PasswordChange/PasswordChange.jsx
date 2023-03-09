@@ -1,22 +1,26 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import { selectUser } from "../../../../store/selectors";
+import { Typography } from "@mui/material";
 import { validationSchemaForPasswordChange as validationSchema } from "../../components/UserInfoForm/Schema";
 import { InputWrapper } from "../EditProfile/styled";
 import Field from "../../../../components/Form/Field/Field";
+import { fetchUpdatePassword } from "../../../../store/reducers/changePasswordSlice";
+import { removeMessage } from "../../../../store/reducers/updateUserInfoSlice";
 
 const PasswordChange = () => {
 	const dispatch = useDispatch();
-	const user = useSelector(selectUser);
+	const message = useSelector((state) => state.customerInfo.message);
 	const formik = useFormik({
 		initialValues: {
-			password: "2222222",
+			password: "",
 			newPassword: "",
-			confirmPassword: "",
 		},
-		onSubmit: (usersData) => {
-			console.log(usersData);
+		onSubmit: ({ password, newPassword }) => {
+			dispatch(fetchUpdatePassword({ password, newPassword }));
+			setTimeout(() => {
+				dispatch(removeMessage());
+			}, 3000);
 		},
 		validationSchema,
 	});
@@ -34,6 +38,12 @@ const PasswordChange = () => {
 				gap: "40px",
 			}}
 		>
+			<Typography
+				fontWeight="fontWeightBold"
+				sx={{ fontSize: "20px", color: "#000000", fontFamily: "Open Sans, sans-serif" }}
+			>
+				Пароль
+			</Typography>
 			<InputWrapper>
 				<Field
 					name="password"
@@ -50,14 +60,6 @@ const PasswordChange = () => {
 					value={values.newPassword}
 					onChange={formik.handleChange}
 					errors={touched.newPassword && errors.newPassword}
-				/>
-				<Field
-					description="Confirm password"
-					type="password"
-					name="confirmPassword"
-					onChange={formik.handleChange}
-					value={values.confirmPassword}
-					errors={touched.confirmPassword && errors.confirmPassword}
 				/>
 			</InputWrapper>
 			<div className="submit__btn__container">

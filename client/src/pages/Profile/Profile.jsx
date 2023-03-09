@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Container, Grid, Tabs, Tab } from "@mui/material";
 
@@ -13,11 +13,12 @@ import OrdersHistory from "./ProfileMenuBlocks/OrdersHistory";
 import TabPanel from "./components/TabPanel";
 // eslint-disable-next-line import/named
 import { a11yProps } from "./components/TabPanel/TabPanel";
+import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 
 const Profile = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [value, setValue] = useState(0);
+	const [value, setValue] = useState(1);
 
 	const { profileMenu } = useParams();
 

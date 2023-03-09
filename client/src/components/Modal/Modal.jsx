@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, createRef } from "react";
 import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import styles from "./modal.module.scss";
@@ -7,8 +8,10 @@ import { setModal } from "../../store/reducers/modalSlice";
 
 const modalRootElement = document.querySelector("#modal");
 
-const Modal = ({ children, customWidth, status, orderNo = 300 }) => {
+const Modal = ({ children, customWidth, status }) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const orderNo = useSelector((state) => state.modal.orderNo);
 	const actionModalHandler = (stat) => {
 		dispatch(setModal(stat));
 	};
@@ -37,6 +40,7 @@ const Modal = ({ children, customWidth, status, orderNo = 300 }) => {
 				<div ref={myRef} className={styles.modal} style={{ maxWidth: `${customWidth}px` }}>
 					{children({
 						order: orderNo,
+						onNavigate: navigate,
 						onStatusChange: actionModalHandler,
 					})}
 					<CloseCross

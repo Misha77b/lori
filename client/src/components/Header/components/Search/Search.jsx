@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, InputAdornment, IconButton } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
 import { useDispatch } from "react-redux";
-import { fetchSearchProducts } from "../../../../store/reducers/searchSlice";
+import { fetchSearchProducts, clearSearch } from "../../../../store/reducers/searchSlice";
 import useLocationParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
 
 const Search = () => {
@@ -13,6 +14,10 @@ const Search = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams({ query: input });
 
+	function handleClear() {
+		dispatch(clearSearch());
+	}
+
 	return (
 		<Box
 			onSubmit={(e) => e.preventDefault()}
@@ -21,6 +26,7 @@ const Search = () => {
 				"& .MuiTextField-root": {
 					width: { xs: "280px", sm: "300px", md: "440px" },
 				},
+
 				position: "relative",
 			}}
 			noValidate
@@ -34,18 +40,36 @@ const Search = () => {
 						"&:hover": { border: "#007042" },
 					},
 					"& .MuiInputBase-input": {
-						p: "16px 75px 16px 14px",
+						p: "16px 100px 16px 14px",
 						border: "5px",
 					},
 				}}
 				onChange={(e) => {
 					setInput(e.target.value);
 				}}
-				type="search"
 				color="secondary"
 				id="outlined-search"
 				label="Пошук..."
 				variant="outlined"
+				InputProps={{
+					endAdornment: (
+						<InputAdornment
+							position="end"
+							sx={{
+								"& .MuiIconButton-edgeEnd": {
+									position: "absolute",
+									right: "85px",
+								},
+							}}
+						>
+							{input && (
+								<IconButton edge="end" onClick={() => handleClearSearch()} href="/products">
+									<ClearIcon color="secondary" />
+								</IconButton>
+							)}
+						</InputAdornment>
+					),
+				}}
 			/>
 			<Button
 				onClick={() => {
