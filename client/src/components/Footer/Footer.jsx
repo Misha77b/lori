@@ -7,8 +7,16 @@ import LogoIcon from "../LogoIcon";
 // eslint-disable-next-line import/named
 import { сontact, menuTitle, CustomLink, menuLinkItem } from "./styled";
 
+// ...(location.pathname === "/" ||
+// location.pathname === "/products" ||
+// /^\/products\/\d+$/.test(location.pathname) ||
+// location.pathname === "/orders"
+// 	? { position: "static" }
+// 	: { position: "fixed" }),
+
 const Footer = () => {
 	const location = useLocation();
+	console.log(location.pathname);
 	return (
 		<Box
 			mt={14}
@@ -18,9 +26,11 @@ const Footer = () => {
 				bottom: 0,
 				width: "100%",
 				left: 0,
-				...(location.pathname === "/" || location.pathname === "/products"
-					? { position: "static" }
-					: { position: "fixed" }),
+				...(location.pathname === "/cart" ||
+				location.pathname === "/favorites" ||
+				/^\/profile\/.*/.test(location.pathname)
+					? { position: "fixed" }
+					: { position: "static" }),
 			}}
 		>
 			<Container sx={{ color: "#ffffff" }}>
