@@ -29,6 +29,7 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
+	console.log(dataFromSearch);
 
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
@@ -40,7 +41,7 @@ const ProductsCatalogue = () => {
 	function handleClearSearch() {
 		dispatch(clearSearch());
 	}
-	//  }
+
 	return (
 		<Container>
 			{dataFromSearch.length > 0 && (
@@ -59,17 +60,6 @@ const ProductsCatalogue = () => {
 					>
 						Результати пошуку
 					</Typography>
-
-					<Link
-						onClick={() => handleClearSearch()}
-						style={{ textDecoration: "none" }}
-						to="/products"
-					>
-						<Button color="secondary" variant="contained">
-							Каталог
-						</Button>
-					</Link>
-					{/* </Box> */}
 				</Box>
 			)}
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
