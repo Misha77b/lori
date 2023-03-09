@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { Box, List, ListItem, Grid, Typography, Container } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -8,19 +7,13 @@ import LogoIcon from "../LogoIcon";
 import { сontact, menuTitle, CustomLink, menuLinkItem } from "./styled";
 
 const Footer = () => {
-	const location = useLocation();
 	return (
 		<Box
 			component="footer"
 			backgroundColor="grey.main"
 			sx={{
-				marginTop: "150px",
-				bottom: 0,
+				marginTop: "165px",
 				width: "100%",
-				left: 0,
-				...(location.pathname === "/cart" || location.pathname === "/favorites"
-					? { position: "fixed" }
-					: { position: "static" }),
 			}}
 		>
 			<Container sx={{ color: "#ffffff" }}>
