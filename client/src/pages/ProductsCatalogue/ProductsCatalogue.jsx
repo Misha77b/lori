@@ -14,7 +14,6 @@ import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import NoItemsFoundMessage from "./component/NoItemsFoundMessage";
 import useFetchData from "../Home/hooks";
-import { clearSearch } from "../../store/reducers/searchSlice";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -29,7 +28,6 @@ const ProductsCatalogue = () => {
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
-	console.log(dataFromSearch);
 
 	const { params } = useLocationParams({ startPage, perPage });
 	useEffect(() => {
@@ -37,11 +35,6 @@ const ProductsCatalogue = () => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData, dataFromSearch]);
-
-	function handleClearSearch() {
-		dispatch(clearSearch());
-	}
-
 	return (
 		<Container>
 			{dataFromSearch.length > 0 && (
@@ -105,7 +98,10 @@ const ProductsCatalogue = () => {
 			<AppPagination
 				pages={Math.ceil(productsQuantity / perPage)}
 				page={startPage}
-				onPageChange={(e, page) => setStartPage((prev) => page)}
+				onPageChange={(e, page) => {
+					setStartPage((prev) => page);
+					setSearchParams(params);
+				}}
 			/>
 		</Container>
 	);
