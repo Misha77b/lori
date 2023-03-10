@@ -14,6 +14,7 @@ import LogoIcon from "../LogoIcon";
 import { selectFavorite, selectShoppingCart, selectUser } from "../../store/selectors";
 import { setIsAuth } from "../../store/reducers/authSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
+import BurgerProfile from "./components/BurgerProfile";
 
 const Header = ({ modal }) => {
 	const dispatch = useDispatch();
@@ -44,11 +45,8 @@ const Header = ({ modal }) => {
 	return (
 		<Box component="header">
 			<AppBar position="static">
-				<Container>
-					<Toolbar
-						disableGutters={true}
-						sx={{ justifyContent: "space-between", marginTop: "15px" }}
-					>
+				<Container maxWidth="xl">
+					<Toolbar disableGutters={true} sx={{ justifyContent: "space-evenly", marginTop: "15px" }}>
 						<BurgerMenu />
 						<LogoIcon />
 
@@ -74,7 +72,14 @@ const Header = ({ modal }) => {
 						<Box>
 							{isLoggedIn ? (
 								<IconButton color="grey.main" component={Link} to="/profile/edit-profile">
-									<AccountCircleOutlinedIcon sx={menuLinkItem} />
+									<BurgerProfile isLoggedIn={isLoggedIn} />
+									<AccountCircleOutlinedIcon
+										sx={{
+											display: { xs: "none", md: "block" },
+											color: isLoggedIn ? "#007042" : "#57646E",
+											fontSize: "30px",
+										}}
+									/>
 									<Typography
 										color="grey.main"
 										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
@@ -98,14 +103,24 @@ const Header = ({ modal }) => {
 									</Typography>
 								</IconButton>
 							)}
-							<IconButton size="large" aria-label="Basket" color="grey.main" sx={{ p: "10px" }}>
+							<IconButton
+								size="large"
+								aria-label="Basket"
+								color="grey.main"
+								sx={{ p: { xs: "5px", lg: "10px" } }}
+							>
 								<CustomLink to="/cart">
 									<Badge badgeContent={countC} color="secondary">
 										<ShoppingCartOutlinedIcon sx={menuLinkItem} />
 									</Badge>
 								</CustomLink>
 							</IconButton>
-							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "10px" }}>
+							<IconButton
+								size="large"
+								aria-label="Favorites"
+								color="grey.main"
+								sx={{ p: { xs: "5px", lg: "10px" } }}
+							>
 								<CustomLink to="/favorites">
 									<Badge badgeContent={countF} color="secondary">
 										<FavoriteIcon sx={menuLinkItem} />
@@ -118,19 +133,19 @@ const Header = ({ modal }) => {
 			</AppBar>
 
 			<Box backgroundColor="grey.main" sx={{ display: { xs: "none", sm: "flex" }, mb: "22px" }}>
-				<Container>
+				<Container maxWidth="xl">
 					<HeaderMenu />
 				</Container>
 			</Box>
 
 			<Box backgroundColor="grey.main" sx={{ display: { xs: "flex", sm: "none" }, mb: "22px" }}>
-				<Container>
+				<Container maxWidth="xl">
 					<Box sx={{ display: "flex", justifyContent: "center" }}>
 						<Search />
 					</Box>
 				</Container>
 			</Box>
-			<Container>
+			<Container maxWidth="xl">
 				<Breadcrumb />
 			</Container>
 		</Box>

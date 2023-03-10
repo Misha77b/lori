@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import { NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 const CustomizedMenu = styled(Menu)`
 	& .MuiMenu-paper {
@@ -19,7 +20,7 @@ const CustomLink = styled(NavLink)(({ theme }) => ({
 	},
 }));
 
-const BurgerMenu = () => {
+const BurgerProfile = ({ isLoggedIn }) => {
 	const [burgerMenu, setBurgerMenu] = React.useState(null);
 	const openBurgerMenu = Boolean(burgerMenu);
 
@@ -31,20 +32,27 @@ const BurgerMenu = () => {
 	};
 
 	return (
-		<Box sx={{ display: { xs: "block", sm: "none" } }}>
+		<Box
+			sx={{
+				display: { xs: "flex", md: "none" },
+			}}
+		>
 			<IconButton
-				sx={{ p: "15px 0", display: { xs: "block", sm: "none" } }}
 				id="button-burgerMenu"
 				aria-controls={openBurgerMenu ? "menu-burgerMenu" : undefined}
 				aria-haspopup="true"
 				aria-expanded={openBurgerMenu ? "true" : undefined}
 				onClick={handleClickBurgerMenu}
 			>
-				{!burgerMenu ? (
-					<MenuIcon fontSize="large" color="grey" />
-				) : (
-					<CloseIcon fontSize="large" color="grey" />
-				)}
+				<AccountCircleOutlinedIcon
+					fontSize="large"
+					color="grey"
+					sx={{
+						display: { xs: "flex", md: "none" },
+						color: isLoggedIn ? "#007042" : "#57646E",
+						fontSize: "30px",
+					}}
+				/>
 			</IconButton>
 			<CustomizedMenu
 				sx={{ display: { xs: "block", sm: "none" } }}
@@ -91,4 +99,4 @@ const BurgerMenu = () => {
 	);
 };
 
-export default BurgerMenu;
+export default BurgerProfile;

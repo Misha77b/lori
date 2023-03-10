@@ -15,7 +15,11 @@ const Breadcrumb = () => {
 		</span>
 	));
 	return (
-		<Breadcrumbs mb={2} aria-label="breadcrumb">
+		<Breadcrumbs
+			mb={2}
+			aria-label="breadcrumb"
+			sx={{ p: "15px 0", display: { xs: "none", sm: "block" } }}
+		>
 			{links}
 		</Breadcrumbs>
 	);

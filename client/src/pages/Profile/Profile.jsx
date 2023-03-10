@@ -48,7 +48,7 @@ const Profile = () => {
 					sx={{
 						flexGrow: 1,
 						bgcolor: "background.paper",
-						display: "flex",
+						display: { xs: "none", md: "flex" },
 					}}
 				>
 					<Tabs
@@ -66,6 +66,7 @@ const Profile = () => {
 							width: "300px",
 							height: "272px",
 						}}
+						//
 					>
 						<Tab
 							className="profile-tabs"
