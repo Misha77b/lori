@@ -70,29 +70,26 @@ const Header = ({ modal }) => {
 							<Search />
 						</Box>
 						<Box>
-							<BurgerProfile isLoggedIn={isLoggedIn} />
 							{isLoggedIn ? (
-								<IconButton
-									sx={{
-										display: { xs: "none", sm: "inline-flex" },
-									}}
-									color="grey.main"
-									component={Link}
-									to="/profile/edit-profile"
-								>
-									<AccountCircleOutlinedIcon
+								<Box display="inline">
+									<BurgerProfile isLoggedIn={isLoggedIn} />
+									<IconButton
 										sx={{
-											color: isLoggedIn ? "#007042" : "#57646E",
-											fontSize: "30px",
+											display: { xs: "none", md: "inline-flex" },
 										}}
-									/>
-									<Typography
 										color="grey.main"
-										sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
+										component={Link}
+										to="/profile/edit-profile"
 									>
-										Особистий кабінет
-									</Typography>
-								</IconButton>
+										<AccountCircleOutlinedIcon />
+										<Typography
+											color="grey.main"
+											sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
+										>
+											Особистий кабінет
+										</Typography>
+									</IconButton>
+								</Box>
 							) : (
 								<IconButton
 									color="grey.main"

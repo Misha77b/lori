@@ -41,11 +41,16 @@ const Profile = () => {
 	return (
 		<Container>
 			<CategoryTitle text="Особистий кабінет" />
-			<Box display="flex" gap="60px">
+			<Box
+				display="flex"
+				gap="60px"
+				sx={{
+					flexDirection: { xs: "column", sm: "row" },
+				}}
+			>
 				<Box
 					sx={{
 						display: { xs: "none", md: "flex" },
-						flexDirection: { xs: "column", sm: "row" },
 					}}
 				>
 					<Grid
