@@ -34,7 +34,7 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 						</Typography>
 
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px" }}>
-							Пам&#8217;ть: {item.iternalStorage}
+							Пам&apos;ять: {item.iternalStorage}
 						</Typography>
 
 						{deleteCross && (
