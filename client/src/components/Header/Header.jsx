@@ -74,7 +74,7 @@ const Header = ({ modal }) => {
 							{isLoggedIn ? (
 								<IconButton
 									sx={{
-										display: { xs: "none", md: "inline-flex" },
+										display: { xs: "none", sm: "inline-flex" },
 									}}
 									color="grey.main"
 									component={Link}
@@ -88,7 +88,7 @@ const Header = ({ modal }) => {
 									/>
 									<Typography
 										color="grey.main"
-										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
+										sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
 									>
 										Особистий кабінет
 									</Typography>
@@ -103,7 +103,7 @@ const Header = ({ modal }) => {
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
-										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
+										sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
 									>
 										Увійти
 									</Typography>

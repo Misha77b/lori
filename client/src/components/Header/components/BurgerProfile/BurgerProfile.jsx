@@ -36,7 +36,7 @@ const BurgerProfile = ({ isLoggedIn }) => {
 	return (
 		<Box
 			sx={{
-				display: { xs: "inline", md: "none" },
+				display: { xs: "inline", sm: "none" },
 			}}
 		>
 			<IconButton
