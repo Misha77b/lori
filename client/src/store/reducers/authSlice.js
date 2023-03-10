@@ -9,15 +9,14 @@ const initialState = {
 	error: null,
 };
 export const fetchAuth = createAsyncThunk("user/login", async (object) => {
-	axios
-		.post(`${DOMAIN}/customers/login`, object)
-		.then(({ data }) => {
-			localStorage.setItem("token", data.token);
-		})
-		.catch((err) => {
-			localStorage.removeItem("token");
-			throw err;
-		});
+	// eslint-disable-next-line no-useless-catch
+	try {
+		const response = await axios.post(`${DOMAIN}/customers/login`, object);
+		localStorage.setItem("token", response.data.token);
+		return response.data;
+	} catch (error) {
+		throw error;
+	}
 });
 export const fetchRegister = createAsyncThunk("user/register", async (object) => {
 	axios
@@ -36,21 +35,20 @@ export const userSlice = createSlice({
 			state.isAuth = action.payload;
 		},
 	},
-	extraReducers: (builder) => {
-		builder.addCase(fetchAuth.pending, (state) => {
+	extraReducers: {
+		[fetchAuth.pending]: (state) => {
 			state.loader = true;
-		});
-
-		builder.addCase(fetchAuth.fulfilled, (state, action) => {
+			state.error = null;
+		},
+		[fetchAuth.fulfilled]: (state, action) => {
 			state.user = action.payload;
 			state.isAuth = true;
 			state.loader = false;
-		});
-		builder.addCase(fetchAuth.rejected, (state, action) => {
+		},
+		[fetchAuth.rejected]: (state, action) => {
 			state.loader = false;
-			state.isAuth = false;
 			state.error = action.error.message;
-		});
+		},
 	},
 });
 
