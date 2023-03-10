@@ -4,12 +4,12 @@ import { useFormik } from "formik";
 import { schema as validationSchema, validationSchema2 } from "./Schema";
 import Field from "./Field/Field";
 import "./Form.scss";
-import { selectUser } from "../../store/selectors";
 import { fetchAuth, fetchRegister } from "../../store/reducers/authSlice";
-import { setModal } from "../../store/reducers/modalSlice";
+import ToastNotification from "../ToastNotification";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
+	const error = useSelector((state) => state.auth.error);
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
@@ -23,7 +23,7 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 			if (status === "LOGIN") {
 				const { email, password } = usersData;
 				dispatch(fetchAuth({ loginOrEmail: email, password }));
-				onClose();
+				if (!error) onClose();
 			} else {
 				dispatch(fetchRegister(usersData));
 				onLoginToggle();
@@ -111,6 +111,7 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 					onChange={formik.handleChange}
 					errors={touched.password && errors.password}
 				/>
+				{error && <ToastNotification text={error} />}
 			</div>
 			<div className="submit__btn__container">
 				<button className="submit__btn" type="submit">
