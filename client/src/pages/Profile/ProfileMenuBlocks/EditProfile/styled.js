@@ -4,9 +4,6 @@ export const InputWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	gap: 24px;
-	> * {
-		flex: 1 1 auto;
-	}
 `;
 export const EditProfileWrapper = styled.div`
 	display: flex;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { Container, Grid, Tabs, Tab } from "@mui/material";
+import { Container, Grid, Tabs, Tab, Box } from "@mui/material";
 
 import { setIsAuth } from "../../store/reducers/authSlice";
 import "./Profile.scss";
@@ -41,82 +41,89 @@ const Profile = () => {
 	return (
 		<Container>
 			<CategoryTitle text="Особистий кабінет" />
-			<Grid container>
-				<Grid
-					item
-					xs={4}
+			<Box display="flex" gap="60px">
+				<Box
 					sx={{
-						flexGrow: 1,
-						bgcolor: "background.paper",
 						display: { xs: "none", md: "flex" },
+						flexDirection: { xs: "column", sm: "row" },
 					}}
 				>
-					<Tabs
-						className="profile-tabs-box"
-						orientation="vertical"
-						value={value}
-						onChange={(event, newValue) => {
-							setValue(newValue);
-						}}
-						aria-label="Vertical tabs example"
-						variant="scrollable"
-						scrollButtons="auto"
+					<Grid
+						item
+						xs={4}
 						sx={{
-							backgroundColor: "#F5F5F5",
-							width: "300px",
-							height: "272px",
+							flexGrow: 1,
+							bgcolor: "background.paper",
 						}}
-						//
 					>
-						<Tab
-							className="profile-tabs"
-							color="secondary"
-							label="Редагувати профіль"
-							component={Link}
-							to="/profile/edit-profile"
-							{...a11yProps(0)}
-						/>
-						<Tab
-							className="profile-tabs"
-							color="secondary"
-							label="Змінити пароль"
-							component={Link}
-							to="/profile/change-password"
-							{...a11yProps(1)}
-						/>
-						<Tab
-							className="profile-tabs"
-							color="secondary"
-							label="Мої замовлення"
-							component={Link}
-							to="/profile/orders-history"
-							{...a11yProps(2)}
-						/>
-						<Tab
-							className="profile-tabs"
-							color="secondary"
-							onClick={() => {
-								localStorage.removeItem("token");
-								dispatch(setIsAuth(false));
-								navigate("/");
+						<Tabs
+							className="profile-tabs-box"
+							orientation="vertical"
+							value={value}
+							onChange={(event, newValue) => {
+								setValue(newValue);
 							}}
-							label="Вийти з кабінету"
-						/>
-					</Tabs>
-				</Grid>
-
-				<Grid item xs={8}>
-					<TabPanel value={value} index={0}>
-						<EditProfile />
-					</TabPanel>
-					<TabPanel value={value} index={1}>
-						<PasswordChange />
-					</TabPanel>
-					<TabPanel value={value} index={2}>
-						<OrdersHistory />
-					</TabPanel>
-				</Grid>
-			</Grid>
+							aria-label="Vertical tabs example"
+							variant="scrollable"
+							scrollButtons="auto"
+							sx={{
+								backgroundColor: "#F5F5F5",
+								width: "300px",
+								height: "272px",
+							}}
+							//
+						>
+							<Tab
+								className="profile-tabs"
+								color="secondary"
+								label="Редагувати профіль"
+								component={Link}
+								to="/profile/edit-profile"
+								{...a11yProps(0)}
+							/>
+							<Tab
+								className="profile-tabs"
+								color="secondary"
+								label="Змінити пароль"
+								component={Link}
+								to="/profile/change-password"
+								{...a11yProps(1)}
+							/>
+							<Tab
+								className="profile-tabs"
+								color="secondary"
+								label="Мої замовлення"
+								component={Link}
+								to="/profile/orders-history"
+								{...a11yProps(2)}
+							/>
+							<Tab
+								className="profile-tabs"
+								color="secondary"
+								onClick={() => {
+									localStorage.removeItem("token");
+									dispatch(setIsAuth(false));
+									navigate("/");
+								}}
+								label="Вийти з кабінету"
+							/>
+						</Tabs>
+					</Grid>
+				</Box>
+				<Box>
+					<Grid item xs={8}>
+						<TabPanel value={value} index={0}>
+							<EditProfile />
+						</TabPanel>
+						<TabPanel value={value} index={1}>
+							<PasswordChange />
+						</TabPanel>
+						<TabPanel value={value} index={2}>
+							<OrdersHistory />
+						</TabPanel>
+					</Grid>
+				</Box>
+			</Box>
 		</Container>
 	);
 };
