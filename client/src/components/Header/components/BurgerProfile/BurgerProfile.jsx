@@ -1,10 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { NavLink } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import { NavLink, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { setIsAuth } from "../../../../store/reducers/authSlice";
 
 const CustomizedMenu = styled(Menu)`
 	& .MuiMenu-paper {
@@ -23,6 +23,8 @@ const CustomLink = styled(NavLink)(({ theme }) => ({
 const BurgerProfile = ({ isLoggedIn }) => {
 	const [burgerMenu, setBurgerMenu] = React.useState(null);
 	const openBurgerMenu = Boolean(burgerMenu);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const handleClickBurgerMenu = (event) => {
 		setBurgerMenu(event.currentTarget);
@@ -34,7 +36,7 @@ const BurgerProfile = ({ isLoggedIn }) => {
 	return (
 		<Box
 			sx={{
-				display: { xs: "flex", md: "none" },
+				display: { xs: "inline", md: "none" },
 			}}
 		>
 			<IconButton
@@ -64,34 +66,30 @@ const BurgerProfile = ({ isLoggedIn }) => {
 					"aria-labelledby": "button-burgerMenu",
 				}}
 			>
-				<CustomLink to="/">
+				<CustomLink to="/profile/edit-profile">
 					<MenuItem divider onClick={handleCloseBurgerMenu}>
-						Головна
+						Редагувати профіль
 					</MenuItem>
 				</CustomLink>
-				<CustomLink to="/products">
+				<CustomLink to="/profile/change-password">
 					<MenuItem divider onClick={handleCloseBurgerMenu}>
-						Каталог
+						Змінити пароль
 					</MenuItem>
 				</CustomLink>
-				<CustomLink to="/guarantee">
+				<CustomLink to="/profile/orders-history">
 					<MenuItem divider onClick={handleCloseBurgerMenu}>
-						Гарантія
+						Історія замовлень
 					</MenuItem>
 				</CustomLink>
-				<CustomLink to="/paymentAndDelivery">
+				<CustomLink
+					onClick={() => {
+						localStorage.removeItem("token");
+						dispatch(setIsAuth(false));
+						navigate("/");
+					}}
+				>
 					<MenuItem divider onClick={handleCloseBurgerMenu}>
-						Оплата та доставка
-					</MenuItem>
-				</CustomLink>
-				<CustomLink to="/exchangeAndReturn">
-					<MenuItem divider onClick={handleCloseBurgerMenu}>
-						Обмін та повернення
-					</MenuItem>
-				</CustomLink>
-				<CustomLink to="/contacts">
-					<MenuItem divider onClick={handleCloseBurgerMenu}>
-						Контакти
+						Вийти
 					</MenuItem>
 				</CustomLink>
 			</CustomizedMenu>

@@ -70,12 +70,18 @@ const Header = ({ modal }) => {
 							<Search />
 						</Box>
 						<Box>
+							<BurgerProfile isLoggedIn={isLoggedIn} />
 							{isLoggedIn ? (
-								<IconButton color="grey.main" component={Link} to="/profile/edit-profile">
-									<BurgerProfile isLoggedIn={isLoggedIn} />
+								<IconButton
+									sx={{
+										display: { xs: "none", md: "inline-flex" },
+									}}
+									color="grey.main"
+									component={Link}
+									to="/profile/edit-profile"
+								>
 									<AccountCircleOutlinedIcon
 										sx={{
-											display: { xs: "none", md: "block" },
 											color: isLoggedIn ? "#007042" : "#57646E",
 											fontSize: "30px",
 										}}
