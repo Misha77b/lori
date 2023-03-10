@@ -11,7 +11,7 @@ const LogoIcon = () => {
 			alt="logo"
 			align="center"
 			sx={{
-				maxWidth: "150px",
+				maxWidth: { xs: "100px", sm: "150px" },
 				cursor: "pointer",
 			}}
 			onClick={() => {

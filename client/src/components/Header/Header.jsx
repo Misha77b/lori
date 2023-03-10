@@ -105,7 +105,7 @@ const Header = ({ modal }) => {
 									</Badge>
 								</CustomLink>
 							</IconButton>
-							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "0" }}>
+							<IconButton size="large" aria-label="Favorites" color="grey.main" sx={{ p: "10px" }}>
 								<CustomLink to="/favorites">
 									<Badge badgeContent={countF} color="secondary">
 										<FavoriteIcon sx={menuLinkItem} />
