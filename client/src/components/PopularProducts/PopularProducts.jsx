@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Button, Container, Box } from "@mui/material";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import CategoryTitle from "../CategoryTitle";
@@ -29,10 +30,9 @@ const PopularProducts = ({ products, advertisement = false }) => {
 			<Swiper
 				slidesPerView="auto"
 				spaceBetween={50}
-				pagination={{
-					clickable: true,
-				}}
-				className="mySwiper"
+				navigation={true}
+				modules={[Navigation]}
+				className="productsSwiper"
 			>
 				{products?.map((card, index) => {
 					if (!advertisement) {
