@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Table, TableHead, TableRow, TableCell, TableBody, Typography } from "@mui/material";
+import { Table, TableHead, TableRow, TableCell, TableBody, Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { DOMAIN } from "../../../../config/API";
@@ -32,7 +32,7 @@ const OrdersHistory = () => {
 	}, []);
 
 	return (
-		<div>
+		<Box>
 			<Typography
 				variant="h4"
 				fontWeight="fontWeightBold"
@@ -43,7 +43,7 @@ const OrdersHistory = () => {
 			>
 				Історія замовлень
 			</Typography>
-			<Table stickyHeader>
+			<Table stickyHeader response="true">
 				<TableHead>
 					<StyledTableRow>
 						<TableCell align="center">Замовлення №</TableCell>
@@ -68,7 +68,7 @@ const OrdersHistory = () => {
 						))}
 				</TableBody>
 			</Table>
-		</div>
+		</Box>
 	);
 };
 
