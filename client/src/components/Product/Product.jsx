@@ -1,4 +1,5 @@
 import { Box, Typography, Stack, Button, Container } from "@mui/material";
+import PropTypes from "prop-types";
 import Rating from "@mui/material/Rating";
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -91,4 +92,10 @@ function Product({ props, setNotification }) {
 		</Container>
 	);
 }
+Product.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	props: PropTypes.object.isRequired,
+	//
+	setNotification: PropTypes.func,
+};
 export default Product;

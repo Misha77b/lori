@@ -11,7 +11,7 @@ import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
 import SortBox from "../SortBox";
 import "./FiltersBlock.scss";
 
-const FiltersBlock = ({ products, setFilteredData }) => {
+const FiltersBlock = () => {
 	const dispatch = useDispatch();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams();

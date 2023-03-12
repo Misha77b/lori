@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
@@ -6,8 +7,7 @@ import { setLocalItem } from "../../helpers/setLocalItem";
 import { addShoppingCart } from "../../store/reducers/cartSlice";
 
 const ToCartButton = ({ id, setNotification, favorites = false }) => {
-	const dispach = useDispatch();
-
+	const dispatch = useDispatch();
 	return (
 		<Button
 			color="secondary"
@@ -19,7 +19,7 @@ const ToCartButton = ({ id, setNotification, favorites = false }) => {
 			}}
 			onClick={() => {
 				setLocalItem("cart", id);
-				dispach(addShoppingCart(id));
+				dispatch(addShoppingCart(id));
 				setNotification(true);
 				setTimeout(() => {
 					setNotification(false);
@@ -31,5 +31,12 @@ const ToCartButton = ({ id, setNotification, favorites = false }) => {
 		</Button>
 	);
 };
-
+ToCartButton.defaultProps = {
+	favorites: false,
+};
+ToCartButton.propTypes = {
+	id: PropTypes.string.isRequired,
+	setNotification: PropTypes.func.isRequired,
+	favorites: PropTypes.bool,
+};
 export default ToCartButton;

@@ -1,9 +1,9 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
+import React from "react";
+import PropTypes from "prop-types";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { MenuItem } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 export default function Selection({ arrayProps, setCurrentColor, valueColor, nameLabel }) {
 	const [color, setColor] = React.useState("");
@@ -37,3 +37,10 @@ export default function Selection({ arrayProps, setCurrentColor, valueColor, nam
 		</div>
 	);
 }
+Selection.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	arrayProps: PropTypes.array.isRequired,
+	setCurrentColor: PropTypes.func.isRequired,
+	valueColor: PropTypes.string.isRequired,
+	nameLabel: PropTypes.string.isRequired,
+};

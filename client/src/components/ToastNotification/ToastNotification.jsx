@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const ToastNotification = ({ text }) => {
@@ -28,4 +29,7 @@ const Message = styled.p`
 	font-size: 15px;
 	color: black;
 `;
+ToastNotification.propTypes = {
+	text: PropTypes.string.isRequired,
+};
 export default ToastNotification;

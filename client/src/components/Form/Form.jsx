@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { schema as validationSchema, validationSchema2 } from "./Schema";
@@ -120,5 +121,13 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 			</div>
 		</form>
 	);
+};
+PageForm.propTypes = {
+	status: PropTypes.string.isRequired,
+	onClose: PropTypes.func.isRequired,
+	//
+	onLoginToggle: PropTypes.func,
+	//
+	onRegisterToggle: PropTypes.func,
 };
 export default PageForm;

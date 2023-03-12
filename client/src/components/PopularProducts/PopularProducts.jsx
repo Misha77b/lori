@@ -1,6 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { Button, Container, Box } from "@mui/material";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -53,15 +53,16 @@ const PopularProducts = ({ products, advertisement = false }) => {
 					);
 				})}
 			</Swiper>
-			{/* </CardsContainer> */}
 		</Container>
 	);
 };
-// export const CardsContainer = styled.div`
-// 	display: flex;
-// 	gap: 50px;
-// 	max-height: 700px;
-// 	padding: 35px;
-// 	overflow: scroll;
-// `;
+PopularProducts.defaultProps = {
+	advertisement: false,
+};
+PopularProducts.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	products: PropTypes.array.isRequired,
+	//
+	advertisement: PropTypes.bool,
+};
 export default PopularProducts;

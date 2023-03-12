@@ -5,7 +5,7 @@ import CategoryTitle from "../CategoryTitle";
 import GridItem from "./components/GridItem";
 import "./PopularBrands.scss";
 
-const PopularBrands = ({ products }) => {
+const PopularBrands = () => {
 	return (
 		<Container>
 			<Box sx={{ flexGrow: 1 }}>

@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import styles from "./cartItem.module.scss";
 import Amount from "../Product/Amount";
 import { removeItemShoppingCart } from "../../store/reducers/cartSlice";
-import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { selectShoppingCart } from "../../store/selectors";
 
-const CartItem = ({ dbId, imageUrls, itemNo, name, currentPrice, setTotalSum }) => {
+const CartItem = ({ imageUrls, itemNo, name, currentPrice, setTotalSum }) => {
 	const dispatch = useDispatch();
 	const shoppingCart = useSelector(selectShoppingCart);
 	useEffect(() => {
@@ -46,5 +46,12 @@ const CartItem = ({ dbId, imageUrls, itemNo, name, currentPrice, setTotalSum }) 
 		</Box>
 	);
 };
-
+CartItem.propTypes = {
+	itemNo: PropTypes.string.isRequired,
+	// eslint-disable-next-line react/forbid-prop-types
+	imageUrls: PropTypes.array.isRequired,
+	name: PropTypes.string.isRequired,
+	currentPrice: PropTypes.number.isRequired,
+	setTotalSum: PropTypes.func.isRequired,
+};
 export default CartItem;

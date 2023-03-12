@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./ProductFlag.scss";
 
 const ProductFlag = ({ sale }) => {
@@ -8,5 +9,10 @@ const ProductFlag = ({ sale }) => {
 		</div>
 	);
 };
-
+ProductFlag.defaultProps = {
+	sale: false,
+};
+ProductFlag.propTypes = {
+	sale: PropTypes.bool,
+};
 export default ProductFlag;
