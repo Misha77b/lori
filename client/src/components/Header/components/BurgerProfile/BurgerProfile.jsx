@@ -57,7 +57,7 @@ const BurgerProfile = ({ isLoggedIn }) => {
 				/>
 			</IconButton>
 			<CustomizedMenu
-				sx={{ display: { xs: "block", sm: "none" } }}
+				sx={{ display: { xs: "block", md: "none" } }}
 				id="menu-burgerMenu"
 				anchorEl={burgerMenu}
 				open={openBurgerMenu}
