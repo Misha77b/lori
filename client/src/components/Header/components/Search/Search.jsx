@@ -24,7 +24,7 @@ const Search = () => {
 			component="form"
 			sx={{
 				"& .MuiTextField-root": {
-					width: { xs: "280px", sm: "300px", md: "440px" },
+					width: { xs: "280px", sm: "270px", md: "420px" },
 				},
 
 				position: "relative",
