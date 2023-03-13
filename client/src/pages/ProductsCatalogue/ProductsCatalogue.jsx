@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Container, Typography, Box, Button } from "@mui/material";
 import ProductCard from "../../components/ProductCard";
 import { fetchProducts } from "../../store/reducers/productsSlice";
@@ -25,6 +26,7 @@ const ProductsCatalogue = () => {
 	const [startPage, setStartPage] = useState(1);
 	const [filteredData, setFilteredData] = useState([]);
 	const [filterBar, openFilterBar] = useState(false);
+	const isMobileSize = useMediaQuery("(max-width:700px)");
 	const perPage = 5;
 
 	const productsQuantity = useSelector(selectProductsQuantity);
@@ -38,15 +40,17 @@ const ProductsCatalogue = () => {
 	}, [startPage, params, filteredData, dataFromSearch]);
 	return (
 		<Container>
-			<Button
-				variant="contained"
-				color="primary"
-				onClick={() => {
-					openFilterBar((prev) => !prev);
-				}}
-			>
-				Filters
-			</Button>
+			{isMobileSize && (
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={() => {
+						openFilterBar((prev) => !prev);
+					}}
+				>
+					Filters
+				</Button>
+			)}
 			{dataFromSearch.length > 0 && (
 				<Box
 					pb={6}
@@ -66,8 +70,12 @@ const ProductsCatalogue = () => {
 				</Box>
 			)}
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
-			<FiltersPhonesStyledWrapper>
-				{filterBar && <FiltersBlock />}
+			<FiltersPhonesStyledWrapper
+				isMobileSize={isMobileSize}
+				sx={{ display: { xs: "none", sm: "flex" } }}
+			>
+				{isMobileSize && filterBar && <FiltersBlock />}
+				{!isMobileSize && <FiltersBlock />}
 				{productsLoading && <Spinner />}
 				<CatalogueWrapper>
 					{/* eslint-disable-next-line no-nested-ternary */}

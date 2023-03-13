@@ -8,5 +8,5 @@ export const CatalogueWrapper = styled.div`
 export const FiltersPhonesStyledWrapper = styled.div`
 	display: grid;
 	gap: 10px;
-	grid-template-columns: 300px auto;
+	grid-template-columns: ${(props) => (props.isMobileSize ? "auto" : "300px auto")};
 `;
