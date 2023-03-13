@@ -91,8 +91,8 @@ const Cart = () => {
 								e.preventDefault();
 								dispatch(setTotalCartSum(countOverallPrice(totalSum)));
 								navigate("/orders");
-								dispatch(deleteCartAuth());
-								dispatch(clearCart());
+								// dispatch(deleteCartAuth());
+								// dispatch(clearCart());
 							}}
 							className={styles.btn}
 						>

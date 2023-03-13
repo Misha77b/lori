@@ -9,7 +9,7 @@ import {
 	TextField,
 } from "@mui/material";
 
-import { AdressesDataBase } from "../AdressesDataBase/AdressesDataBase";
+import { AdressesDataBase } from "../../AdressesDataBase/AdressesDataBase";
 
 const PaymentAndShipping = () => {
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");

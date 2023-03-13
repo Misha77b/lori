@@ -15,12 +15,12 @@ import {
 } from "@mui/material";
 import "./PlacingAnOrder.scss";
 import CategoryTitle from "../../components/CategoryTitle";
-import FillTheFromText from "./FillTheFormText";
+import FillTheFromText from "./components/FillTheFormText";
 import OrderItem from "../../components/OrderItem";
 import { submitBtn } from "./sxStyles/submitBtn";
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
-import OrderPrice from "./OrderPrice";
+import OrderPrice from "./components/OrderPrice";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { schema as validationSchema } from "./Schema";
 
@@ -28,7 +28,7 @@ import { schema as validationSchema } from "./Schema";
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
-import { clearCart, setTotalCartSum } from "../../store/reducers/cartSlice";
+import { clearCart, deleteCartAuth, setTotalCartSum } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
 import { setModal, setOrderNo } from "../../store/reducers/modalSlice";
 
@@ -63,7 +63,7 @@ const PlacingAnOrder = () => {
 	useEffect(() => {
 		setTotalCartSum(total);
 		const params = new URLSearchParams();
-		params.set("itemNo", Object.keys(cartItems).join(","));
+		params.set("_id", Object.keys(cartItems).join(","));
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
@@ -73,7 +73,7 @@ const PlacingAnOrder = () => {
 		const result = {};
 		result._id = obj._id;
 		result.product = obj;
-		result.cartQuantity = cartItems[obj.itemNo];
+		result.cartQuantity = cartItems[obj._id];
 		return result;
 	});
 
@@ -107,6 +107,7 @@ const PlacingAnOrder = () => {
 			console.log("orderNo", orderNo);
 			dispatch(setOrderNo(orderNo));
 			dispatch(setModal("SUCCESS"));
+			dispatch(deleteCartAuth());
 			dispatch(clearCart());
 		},
 		validationSchema,
@@ -264,7 +265,7 @@ const PlacingAnOrder = () => {
 									</Typography>
 								)}
 								{products?.map((item) => {
-									const cartQuantity = cartItems[item.itemNo];
+									const cartQuantity = cartItems[item._id];
 									return <OrderItem key={item.itemNo} item={item} cartQuantity={cartQuantity} />;
 								})}
 							</Box>
