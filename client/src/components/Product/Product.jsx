@@ -1,13 +1,13 @@
-import { Box, Typography, Stack, Button, Container } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Product.scss";
+import { Box, Typography, Stack, Container } from "@mui/material";
 import PropTypes from "prop-types";
 import Rating from "@mui/material/Rating";
-import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
 import Selection from "./Select";
 import { DOMAIN } from "../../config/API";
-import "./Product.scss";
 import ToCartButton from "../ToCartButton";
 
 function Product({ props, setNotification }) {

@@ -51,7 +51,8 @@ ProductPrice.defaultProps = {
 };
 ProductPrice.propTypes = {
 	currentPrice: PropTypes.number.isRequired,
-	previousPrice: PropTypes.number,
+	// eslint-disable-next-line react/forbid-prop-types
+	previousPrice: PropTypes.any,
 	priceColor: PropTypes.string,
 };
 export default ProductPrice;
