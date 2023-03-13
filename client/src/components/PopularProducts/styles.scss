@@ -2,9 +2,10 @@
 
 .productsSwiper {
 	max-height: 700px;
-	// overflow: scroll;
-	// overflow: visible hidden;
 	padding: 35px;
+	@media screen and (max-width: 400px) {
+		padding: 35px 0;
+	}
 }
 
 // .productsSwiper::-webkit-scrollbar {
@@ -18,9 +19,6 @@
 	width: auto;
 	display: flex;
 	max-height: 700px;
-	@media screen and (max-width: 400px) {
-		width: 220px;
-	}
 }
 
 .productsSwiper .swiper-button-disabled {
@@ -31,7 +29,7 @@
 	width: 40px;
 	height: 40px;
 	left: 0;
-	@media screen and (max-width: 760px) {
+	@media screen and (max-width: 900px) {
 		display: none;
 	}
 }
@@ -40,7 +38,7 @@
 	width: 40px;
 	height: 40px;
 	right: 0;
-	@media screen and (max-width: 750px) {
+	@media screen and (max-width: 900px) {
 		display: none;
 	}
 }
@@ -69,4 +67,11 @@
 .productsSwiper .swiper-button-prev:hover::after {
 	color: #fff;
 	transition: 500ms;
+}
+
+.productsSwiper .swiper-pagination {
+	display: none;
+	@media screen and (max-width: 900px) {
+		display: block;
+	}
 }

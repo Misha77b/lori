@@ -48,5 +48,9 @@ const ProductCardWrapper = styled.div`
 		box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
 		border-color: #007042;
 	}
+	@media screen and (max-width: 350px) {
+		margin: 0 auto;
+		width: 270px;
+	}
 `;
 export default ProductCard;

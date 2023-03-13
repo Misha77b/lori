@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { Button, Container, Box } from "@mui/material";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation, Pagination } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import CategoryTitle from "../CategoryTitle";
 import ProductCard from "../ProductCard";
 
 import "./styles.scss";
+import { swiperBreakpoints } from "./swiperBreakpoints/swiperBreakpoints";
 
 const PopularProducts = ({ products, advertisement = false }) => {
 	return (
@@ -26,13 +27,15 @@ const PopularProducts = ({ products, advertisement = false }) => {
 					</Link>
 				)}
 			</Box>
-			{/* <CardsContainer> */}
 			<Swiper
-				slidesPerView="auto"
 				spaceBetween={50}
 				navigation={true}
-				modules={[Navigation]}
+				pagination={{
+					clickable: true,
+				}}
+				modules={[Navigation, Pagination]}
 				className="productsSwiper"
+				breakpoints={swiperBreakpoints}
 			>
 				{products?.map((card, index) => {
 					if (!advertisement) {

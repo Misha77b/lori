@@ -86,13 +86,16 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 		</>
 	);
 };
+OrderItem.defaultProps = {
+	cartQuantity: undefined,
+	deleteCross: false,
+	setNotification: null,
+};
 OrderItem.propTypes = {
 	// eslint-disable-next-line react/forbid-prop-types
 	item: PropTypes.object.isRequired,
-	cartQuantity: PropTypes.number.isRequired,
-	//
+	cartQuantity: PropTypes.number,
 	deleteCross: PropTypes.bool,
-	//
 	setNotification: PropTypes.func,
 };
 export default OrderItem;
