@@ -5,11 +5,6 @@ import { DOMAIN } from "../../config/API";
 const initialState = {
 	orderData: "",
 	orderProducts: [],
-	shippingMethod: "",
-	deliveryAdress: "",
-	paymentMethod: "",
-	// customerId: "",
-	// orderNumber: "",
 };
 
 export const createOrder = createAsyncThunk("orders/postData", async (obj) => {
@@ -34,15 +29,6 @@ export const ordersSlice = createSlice({
 		setOrderData: (state, action) => {
 			state.orderData = action.payload;
 		},
-		setShippingMethod: (state, action) => {
-			state.shippingMethod = action.payload;
-		},
-		setDeliveryAdress: (state, action) => {
-			state.deliveryAdress = action.payload;
-		},
-		setPaymentMethod: (state, action) => {
-			state.paymentMethod = action.payload;
-		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(createOrder.pending, (state) => {
@@ -55,6 +41,5 @@ export const ordersSlice = createSlice({
 	},
 });
 
-export const { setOrderData, setShippingMethod, setDeliveryAdress, setPaymentMethod } =
-	ordersSlice.actions;
+export const { setOrderData } = ordersSlice.actions;
 export default ordersSlice.reducer;

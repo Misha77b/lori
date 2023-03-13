@@ -38,7 +38,7 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 						</Typography>
 
 						{deleteCross && (
-							<ToCartButton favorites={true} setNotification={setNotification} id={item.itemNo} />
+							<ToCartButton favorites={true} setNotification={setNotification} id={item._id} />
 						)}
 					</Box>
 				</Grid>
@@ -73,8 +73,8 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 							color="black"
 							sx={{ padding: 0, minWidth: 0 }}
 							onClick={() => {
-								dispatch(removeItemFavorite(item.itemNo));
-								deleteCardIdFromStore(item.itemNo, "favorites");
+								dispatch(removeItemFavorite(item._id));
+								deleteCardIdFromStore(item._id, "favorites");
 							}}
 						>
 							<CloseIcon />
