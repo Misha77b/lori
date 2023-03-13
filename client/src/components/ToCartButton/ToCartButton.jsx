@@ -4,10 +4,20 @@ import { useDispatch } from "react-redux";
 import { Button } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { setLocalItem } from "../../helpers/setLocalItem";
-import { addShoppingCart } from "../../store/reducers/cartSlice";
+import { addShoppingCart, createCartAuth } from "../../store/reducers/cartSlice";
 
 const ToCartButton = ({ id, setNotification, favorites = false }) => {
 	const dispatch = useDispatch();
+	const token = localStorage.getItem("token");
+
+	const cartDispatch = (fid) => {
+		if (token) {
+			dispatch(createCartAuth(fid));
+		} else {
+			setLocalItem("cart", fid);
+		}
+		dispatch(addShoppingCart(fid));
+	};
 	return (
 		<Button
 			color="secondary"
@@ -18,8 +28,7 @@ const ToCartButton = ({ id, setNotification, favorites = false }) => {
 				marginTop: "10px",
 			}}
 			onClick={() => {
-				setLocalItem("cart", id);
-				dispatch(addShoppingCart(id));
+				cartDispatch(id);
 				setNotification(true);
 				setTimeout(() => {
 					setNotification(false);
