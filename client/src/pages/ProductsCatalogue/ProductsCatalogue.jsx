@@ -42,8 +42,13 @@ const ProductsCatalogue = () => {
 		<Container>
 			{isMobileSize && (
 				<Button
+					color="secondary"
 					variant="contained"
-					color="primary"
+					sx={{
+						width: "140px",
+						height: "46px",
+						margin: "20px",
+					}}
 					onClick={() => {
 						openFilterBar((prev) => !prev);
 					}}
@@ -70,10 +75,7 @@ const ProductsCatalogue = () => {
 				</Box>
 			)}
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
-			<FiltersPhonesStyledWrapper
-				isMobileSize={isMobileSize}
-				sx={{ display: { xs: "none", sm: "flex" } }}
-			>
+			<FiltersPhonesStyledWrapper isMobileSize={isMobileSize}>
 				{isMobileSize && filterBar && <FiltersBlock />}
 				{!isMobileSize && <FiltersBlock />}
 				{productsLoading && <Spinner />}
