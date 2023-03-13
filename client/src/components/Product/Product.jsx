@@ -11,7 +11,7 @@ import "./Product.scss";
 import ToCartButton from "../ToCartButton";
 
 function Product({ props, setNotification }) {
-	const { currentPrice, imageUrls, name, rating, color, itemNo: id } = props;
+	const { currentPrice, imageUrls, name, rating, color, _id } = props;
 	const [mainPhoto, setMainPhoto] = useState();
 	const navigate = useNavigate();
 	let difColor = "";
@@ -80,7 +80,7 @@ function Product({ props, setNotification }) {
 								valueColor={color}
 								nameLabel="Оберіть колір"
 							/>
-							<ToCartButton setNotification={setNotification} id={id} />
+							<ToCartButton setNotification={setNotification} id={_id} />
 						</Stack>
 					</div>
 				</div>

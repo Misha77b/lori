@@ -8,34 +8,34 @@ import Amount from "../Product/Amount";
 import { removeItemShoppingCart } from "../../store/reducers/cartSlice";
 import { selectShoppingCart } from "../../store/selectors";
 
-const CartItem = ({ imageUrls, itemNo, name, currentPrice, setTotalSum }) => {
+const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum }) => {
 	const dispatch = useDispatch();
 	const shoppingCart = useSelector(selectShoppingCart);
 	useEffect(() => {
-		if (!itemNo) return;
-		const sum = shoppingCart[itemNo] * currentPrice;
-		setTotalSum((prev) => ({ ...prev, [itemNo]: sum }));
-	}, [shoppingCart, itemNo]);
+		if (!dbId) return;
+		const sum = shoppingCart[dbId] * currentPrice;
+		setTotalSum((prev) => ({ ...prev, [dbId]: sum }));
+	}, [shoppingCart, dbId]);
 	return (
 		<Box className={styles.item}>
 			{imageUrls && (
-				<Link to={`/products/${itemNo}`}>
+				<Link to={`/products/${dbId}`}>
 					<img src={imageUrls[0]} alt="product-item" className={styles.item__image} />
 				</Link>
 			)}
 			<Typography className={styles.item__text}>{name}</Typography>
-			<Amount amount={shoppingCart[itemNo]} setAmount={() => {}} itemNo={itemNo} />
+			<Amount amount={shoppingCart[dbId]} setAmount={() => {}} itemNo={dbId} />
 			<Typography className={styles.item__text}>{currentPrice}</Typography>
-			<Typography className={styles.item__text}> x {shoppingCart[itemNo] ?? 0} </Typography>
+			<Typography className={styles.item__text}> x {shoppingCart[dbId] ?? 0} </Typography>
 			<Typography className={styles.item__text}>
 				{/* eslint-disable-next-line no-unsafe-optional-chaining */}
-				{Math.floor(currentPrice * shoppingCart[itemNo] ?? 0)}
+				{Math.floor(currentPrice * shoppingCart[dbId] ?? 0)}
 			</Typography>
 			<button
 				type="button"
 				className={styles.item__btn}
 				onClick={() => {
-					dispatch(removeItemShoppingCart(itemNo));
+					dispatch(removeItemShoppingCart(dbId));
 				}}
 			>
 				<img

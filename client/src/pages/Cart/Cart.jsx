@@ -15,7 +15,7 @@ const Cart = () => {
 	const [totalSum, setTotalSum] = useState({});
 	useEffect(() => {
 		const params = new URLSearchParams();
-		params.set("itemNo", Object.keys(cartItems).join(","));
+		params.set("_id", Object.keys(cartItems).join(","));
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
@@ -26,8 +26,8 @@ const Cart = () => {
 			setTotalSum({});
 			return;
 		}
-		const totalSumCart = products.reduce((acc, { currentPrice, itemNo }) => {
-			acc[itemNo] = currentPrice * cartItems[itemNo];
+		const totalSumCart = products.reduce((acc, { currentPrice, _id }) => {
+			acc[_id] = currentPrice * cartItems[_id];
 			return acc;
 		}, {});
 		setTotalSum(() => totalSumCart);
