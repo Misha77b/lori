@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import { Grid, Box, Button, Divider, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
 import "./OrderItem.scss";
 import { removeItemFavorite } from "../../store/reducers/favoriteSlice";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
@@ -86,5 +86,13 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 		</>
 	);
 };
-
+OrderItem.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	item: PropTypes.object.isRequired,
+	cartQuantity: PropTypes.number.isRequired,
+	//
+	deleteCross: PropTypes.bool,
+	//
+	setNotification: PropTypes.func,
+};
 export default OrderItem;

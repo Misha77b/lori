@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Box, Slider } from "@mui/material";
 
 function RangeSlider({ setPriceParams }) {
@@ -38,4 +39,7 @@ function RangeSlider({ setPriceParams }) {
 		</Box>
 	);
 }
+RangeSlider.propTypes = {
+	setPriceParams: PropTypes.func.isRequired,
+};
 export default RangeSlider;
