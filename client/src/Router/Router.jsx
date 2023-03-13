@@ -53,7 +53,6 @@ function RootRouters() {
 				<Route path=":profileMenu" element={<PasswordChange />} />
 				<Route path=":profileMenu" element={<OrdersHistory />} />
 			</Route>
-
 			<Route path="*" element={<NotFoundPage />} />
 		</Routes>
 	);
