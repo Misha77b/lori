@@ -5,7 +5,7 @@ import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import styles from "./cart.module.scss";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { setTotalCartSum } from "../../store/reducers/cartSlice";
+import { clearCart, deleteCartAuth, setTotalCartSum } from "../../store/reducers/cartSlice";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -14,11 +14,13 @@ const Cart = () => {
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	const [totalSum, setTotalSum] = useState({});
 	useEffect(() => {
-		const params = new URLSearchParams();
-		params.set("_id", Object.keys(cartItems).join(","));
-		dispatch(fetchProducts(params.toString())).then((res) => {
-			setProducts(res.payload.products);
-		});
+		if (Object.keys(cartItems).length !== 0) {
+			const params = new URLSearchParams();
+			params.set("_id", Object.keys(cartItems).join(","));
+			dispatch(fetchProducts(params.toString())).then((res) => {
+				setProducts(res.payload.products);
+			});
+		}
 	}, [cartItems]);
 
 	useEffect(() => {
@@ -42,19 +44,21 @@ const Cart = () => {
 			<Box className={styles.cart}>
 				<Box className={styles.cart__items}>
 					{products.length ? (
-						products?.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
-							return (
-								<CartItem
-									dbId={id}
-									key={itemNo}
-									itemNo={itemNo}
-									imageUrls={imageUrls}
-									name={name}
-									currentPrice={currentPrice}
-									setTotalSum={setTotalSum}
-								/>
-							);
-						})
+						products
+							?.filter((row) => cartItems[row._id])
+							.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
+								return (
+									<CartItem
+										dbId={id}
+										key={itemNo}
+										itemNo={itemNo}
+										imageUrls={imageUrls}
+										name={name}
+										currentPrice={currentPrice}
+										setTotalSum={setTotalSum}
+									/>
+								);
+							})
 					) : (
 						<Typography variant="h5">Кошик пустий...</Typography>
 					)}
@@ -87,6 +91,8 @@ const Cart = () => {
 								e.preventDefault();
 								dispatch(setTotalCartSum(countOverallPrice(totalSum)));
 								navigate("/orders");
+								dispatch(deleteCartAuth());
+								dispatch(clearCart());
 							}}
 							className={styles.btn}
 						>
