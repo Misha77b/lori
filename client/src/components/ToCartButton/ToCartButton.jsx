@@ -11,10 +11,10 @@ const ToCartButton = ({ id, setNotification, favorites = false }) => {
 	const token = localStorage.getItem("token");
 
 	const cartDispatch = (fid) => {
-		if (token) {
-			dispatch(createCartAuth(fid));
-		} else {
+		if (!token) {
 			setLocalItem("cart", fid);
+		} else {
+			dispatch(createCartAuth(fid));
 		}
 		dispatch(addShoppingCart(fid));
 	};

@@ -19,7 +19,7 @@ const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum }) 
 	return (
 		<Box className={styles.item}>
 			{imageUrls && (
-				<Link to={`/products/${dbId}`}>
+				<Link to={`/products/${itemNo}`}>
 					<img src={imageUrls[0]} alt="product-item" className={styles.item__image} />
 				</Link>
 			)}
