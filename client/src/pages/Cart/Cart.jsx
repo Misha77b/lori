@@ -14,13 +14,12 @@ const Cart = () => {
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	const [totalSum, setTotalSum] = useState({});
 	useEffect(() => {
-		if (Object.keys(cartItems).length !== 0) {
-			const params = new URLSearchParams();
-			params.set("_id", Object.keys(cartItems).join(","));
-			dispatch(fetchProducts(params.toString())).then((res) => {
-				setProducts(res.payload.products);
-			});
-		}
+		const params = new URLSearchParams();
+		params.set("_id", Object.keys(cartItems).join(","));
+		if (params.toString() === "_id=") return;
+		dispatch(fetchProducts(params.toString())).then((res) => {
+			setProducts(res.payload.products);
+		});
 	}, [cartItems]);
 
 	useEffect(() => {
@@ -34,8 +33,10 @@ const Cart = () => {
 		}, {});
 		setTotalSum(() => totalSumCart);
 	}, [products]);
-	const countOverallPrice = (itemsSum) =>
-		Object.values(itemsSum).reduce((acc, item) => acc + item, 0) ?? 0;
+	const countOverallPrice = (itemsSum) => {
+		const cartItemIds = Object.keys(cartItems);
+		return cartItemIds.reduce((acc, id) => acc + (itemsSum[id] || 0), 0);
+	};
 	return (
 		<Container>
 			<Typography variant="h4" className={styles.cart__title}>
@@ -84,20 +85,22 @@ const Cart = () => {
 						>
 							Продовжити покупки
 						</Button>
-						<Button
-							color="secondary"
-							variant="contained"
-							onClick={(e) => {
-								e.preventDefault();
-								dispatch(setTotalCartSum(countOverallPrice(totalSum)));
-								navigate("/orders");
-								// dispatch(deleteCartAuth());
-								// dispatch(clearCart());
-							}}
-							className={styles.btn}
-						>
-							Оформити замовлення
-						</Button>
+						{products.length !== 0 && (
+							<Button
+								color="secondary"
+								variant="contained"
+								onClick={(e) => {
+									e.preventDefault();
+									dispatch(setTotalCartSum(countOverallPrice(totalSum)));
+									navigate("/orders");
+									// dispatch(deleteCartAuth());
+									// dispatch(clearCart());
+								}}
+								className={styles.btn}
+							>
+								Оформити замовлення
+							</Button>
+						)}
 					</Box>
 				</Box>
 			</Box>
