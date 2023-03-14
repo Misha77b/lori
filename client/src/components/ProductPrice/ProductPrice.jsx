@@ -48,9 +48,10 @@ const PreviousPrice = styled.span`
 ProductPrice.defaultProps = {
 	previousPrice: "",
 	priceColor: undefined,
+	currentPrice: "",
 };
 ProductPrice.propTypes = {
-	currentPrice: PropTypes.number.isRequired,
+	currentPrice: PropTypes.number,
 	// eslint-disable-next-line react/forbid-prop-types
 	previousPrice: PropTypes.any,
 	priceColor: PropTypes.string,
