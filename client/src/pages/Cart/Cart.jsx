@@ -16,7 +16,10 @@ const Cart = () => {
 	useEffect(() => {
 		const params = new URLSearchParams();
 		params.set("_id", Object.keys(cartItems).join(","));
-		if (params.toString() === "_id=") return;
+		if (params.toString() === "_id=") {
+			setProducts([]);
+			return;
+		}
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
