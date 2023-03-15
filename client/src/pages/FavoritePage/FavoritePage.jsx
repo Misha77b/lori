@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Container, Button, Typography } from "@mui/material";
-import { getItems } from "../../helpers/getItems";
+import { Box, Container, Typography } from "@mui/material";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import OrderItem from "../../components/OrderItem";
 import { getLocalItem } from "../../helpers/getLocalItem";
@@ -15,7 +14,8 @@ const FavoritePage = () => {
 	const favorites = useSelector((state) => state.favorite.favorite);
 	useEffect(() => {
 		const params = new URLSearchParams();
-		params.set("itemNo", parsed.join(","));
+		params.set("_id", parsed.join(","));
+		if (params.toString() === "_id=") return;
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});

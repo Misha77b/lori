@@ -1,5 +1,6 @@
-import { Typography } from "@mui/material";
 import React from "react";
+import PropTypes from "prop-types";
+import { Typography } from "@mui/material";
 
 const OrderPrice = ({ total }) => {
 	return (
@@ -30,5 +31,7 @@ const OrderPrice = ({ total }) => {
 		</div>
 	);
 };
-
+OrderPrice.propTypes = {
+	total: PropTypes.number.isRequired,
+};
 export default OrderPrice;

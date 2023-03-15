@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Box, InputLabel, TextField } from "@mui/material";
 import { inputLabel } from "../../../pages/PlacingAnOrder/sxStyles/inputLabel";
@@ -38,4 +39,16 @@ export const Error = styled.p`
 		margin-right: 4px;
 	}
 `;
+Field.defaultProps = {
+	value: undefined,
+	errors: undefined,
+};
+Field.propTypes = {
+	description: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
+	value: PropTypes.string,
+	errors: PropTypes.string,
+};
 export default Field;

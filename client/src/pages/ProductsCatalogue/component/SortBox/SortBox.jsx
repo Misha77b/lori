@@ -1,9 +1,9 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
+import React from "react";
+import PropTypes from "prop-types";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 export default function BasicSelect({ setCurrentValue, value }) {
 	const handleChange = (event) => {
@@ -31,3 +31,10 @@ export default function BasicSelect({ setCurrentValue, value }) {
 		</FormControl>
 	);
 }
+BasicSelect.defaultProps = {
+	value: null,
+};
+BasicSelect.propTypes = {
+	setCurrentValue: PropTypes.func.isRequired,
+	value: PropTypes.string,
+};

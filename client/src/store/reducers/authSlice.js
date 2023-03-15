@@ -35,20 +35,21 @@ export const userSlice = createSlice({
 			state.isAuth = action.payload;
 		},
 	},
-	extraReducers: {
-		[fetchAuth.pending]: (state) => {
-			state.loader = true;
-			state.error = null;
-		},
-		[fetchAuth.fulfilled]: (state, action) => {
-			state.user = action.payload;
-			state.isAuth = true;
-			state.loader = false;
-		},
-		[fetchAuth.rejected]: (state, action) => {
-			state.loader = false;
-			state.error = action.error.message;
-		},
+	extraReducers: (builder) => {
+		builder
+			.addCase(fetchAuth.pending, (state) => {
+				state.loader = true;
+				state.error = null;
+			})
+			.addCase(fetchAuth.fulfilled, (state, action) => {
+				state.user = action.payload;
+				state.isAuth = true;
+				state.loader = false;
+			})
+			.addCase(fetchAuth.rejected, (state, action) => {
+				state.loader = false;
+				state.error = action.error.message;
+			});
 	},
 });
 

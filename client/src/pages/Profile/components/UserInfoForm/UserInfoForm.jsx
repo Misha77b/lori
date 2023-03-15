@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { schema as validationSchema } from "./Schema";
@@ -86,5 +87,16 @@ const UserInfoForm = ({ email, firstName, lastName, mobile }) => {
 		</form>
 	);
 };
-
+UserInfoForm.defaultProps = {
+	email: undefined,
+	firstName: undefined,
+	lastName: undefined,
+	mobile: undefined,
+};
+UserInfoForm.propTypes = {
+	email: PropTypes.string,
+	firstName: PropTypes.string,
+	lastName: PropTypes.string,
+	mobile: PropTypes.string,
+};
 export default UserInfoForm;

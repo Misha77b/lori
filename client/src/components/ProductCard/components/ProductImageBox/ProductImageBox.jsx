@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import "./ProductImageBox.scss";
 
-const ProductImageBox = ({ sale, image, brand, newItem, id }) => {
+const ProductImageBox = ({ image, brand, id }) => {
 	return (
 		<Link
 			style={{ textDecoration: "none", position: "relative" }}
@@ -13,5 +14,9 @@ const ProductImageBox = ({ sale, image, brand, newItem, id }) => {
 		</Link>
 	);
 };
-
+ProductImageBox.propTypes = {
+	image: PropTypes.string.isRequired,
+	brand: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired,
+};
 export default ProductImageBox;

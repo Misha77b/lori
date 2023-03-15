@@ -15,12 +15,12 @@ import {
 } from "@mui/material";
 import "./PlacingAnOrder.scss";
 import CategoryTitle from "../../components/CategoryTitle";
-import FillTheFromText from "./FillTheFormText";
+import FillTheFromText from "./components/FillTheFormText";
 import OrderItem from "../../components/OrderItem";
 import { submitBtn } from "./sxStyles/submitBtn";
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
-import OrderPrice from "./OrderPrice";
+import OrderPrice from "./components/OrderPrice";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { schema as validationSchema } from "./Schema";
 
@@ -28,9 +28,10 @@ import { schema as validationSchema } from "./Schema";
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
-import { clearCart, setTotalCartSum } from "../../store/reducers/cartSlice";
+import { clearCart, deleteCartAuth, setTotalCartSum } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
 import { setModal, setOrderNo } from "../../store/reducers/modalSlice";
+import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 
 const RGStyle = {
 	height: "40px",
@@ -45,6 +46,8 @@ const PlacingAnOrder = () => {
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
+	const isLoggedIn = useSelector((state) => state.auth.isAuth);
+	const customer = useSelector((state) => state.customer.customer);
 
 	const [value, setValue] = useState();
 	const [inputValue, setInputValue] = useState();
@@ -61,9 +64,16 @@ const PlacingAnOrder = () => {
 	};
 
 	useEffect(() => {
+		if (isLoggedIn) {
+			dispatch(fetchCustomer()).then(({ payload }) => payload);
+		}
+	}, []);
+
+	useEffect(() => {
 		setTotalCartSum(total);
 		const params = new URLSearchParams();
-		params.set("itemNo", Object.keys(cartItems).join(","));
+		params.set("_id", Object.keys(cartItems).join(","));
+		if (params.toString() === "_id=") return;
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
@@ -73,30 +83,43 @@ const PlacingAnOrder = () => {
 		const result = {};
 		result._id = obj._id;
 		result.product = obj;
-		result.cartQuantity = cartItems[obj.itemNo];
+		result.cartQuantity = cartItems[obj._id];
 		return result;
 	});
 
 	const orders = (values) => {
 		const sendOrder = {};
-		sendOrder.products = newObj;
-		sendOrder.deliveryAddress = values.adress;
-		sendOrder.shipping = shippingMethod;
-		sendOrder.paymentInfo = paymentMethod;
-		sendOrder.email = values.email;
-		sendOrder.mobile = values.phoneNumber;
-		sendOrder.letterSubject = "Thank you for order!";
-		sendOrder.letterHtml = `<h1>Your order is placed.</h1>
-		</br>
-		<p>Сумма замовлення становить ${total} грн.</p>`;
+		if (isLoggedIn) {
+			sendOrder.customerId = customer._id;
+			sendOrder.deliveryAddress = values.adress;
+			sendOrder.shipping = shippingMethod;
+			sendOrder.paymentInfo = paymentMethod;
+			sendOrder.email = values.email;
+			sendOrder.mobile = values.phoneNumber;
+			sendOrder.letterSubject = "Thank you for order!";
+			sendOrder.letterHtml = `<h1>Your order is placed.</h1>
+			</br>
+			<p>Сумма замовлення становить ${total} грн.</p>`;
+		} else {
+			sendOrder.products = newObj;
+			sendOrder.deliveryAddress = values.adress;
+			sendOrder.shipping = shippingMethod;
+			sendOrder.paymentInfo = paymentMethod;
+			sendOrder.email = values.email;
+			sendOrder.mobile = values.phoneNumber;
+			sendOrder.letterSubject = "Thank you for order!";
+			sendOrder.letterHtml = `<h1>Your order is placed.</h1>
+			</br>
+			<p>Сумма замовлення становить ${total} грн.</p>`;
+		}
 		return sendOrder;
 	};
 
 	const formik = useFormik({
 		initialValues: {
-			fullName: "",
-			phoneNumber: "",
-			email: "",
+			fullName: customer?.firstName || "",
+			phoneNumber: customer?.mobile || "",
+			email: customer?.email || "",
 			adress: inputValue || "",
 		},
 		onSubmit: async (values) => {
@@ -104,9 +127,10 @@ const PlacingAnOrder = () => {
 			const orderNo = await dispatch(createOrder(newOrder)).then(
 				(res) => res.payload.order.orderNo,
 			);
-			console.log("orderNo", orderNo);
+			setProducts([]);
 			dispatch(setOrderNo(orderNo));
 			dispatch(setModal("SUCCESS"));
+			dispatch(deleteCartAuth());
 			dispatch(clearCart());
 		},
 		validationSchema,
@@ -264,7 +288,7 @@ const PlacingAnOrder = () => {
 									</Typography>
 								)}
 								{products?.map((item) => {
-									const cartQuantity = cartItems[item.itemNo];
+									const cartQuantity = cartItems[item._id];
 									return <OrderItem key={item.itemNo} item={item} cartQuantity={cartQuantity} />;
 								})}
 							</Box>
@@ -272,9 +296,11 @@ const PlacingAnOrder = () => {
 							<OrderPrice total={total} />
 						</div>
 
-						<Button type="submit" sx={submitBtn} color="primary">
-							ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
-						</Button>
+						{products.length !== 0 && (
+							<Button type="submit" sx={submitBtn} color="primary">
+								ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
+							</Button>
+						)}
 					</Grid>
 				</Grid>
 			</form>

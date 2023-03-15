@@ -1,16 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { Button, Container, Box } from "@mui/material";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation, Pagination } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import CategoryTitle from "../CategoryTitle";
 import ProductCard from "../ProductCard";
 
 import "./styles.scss";
+import { swiperBreakpoints } from "./swiperBreakpoints/swiperBreakpoints";
 
 const PopularProducts = ({ products, advertisement = false }) => {
 	return (
@@ -26,13 +27,15 @@ const PopularProducts = ({ products, advertisement = false }) => {
 					</Link>
 				)}
 			</Box>
-			{/* <CardsContainer> */}
 			<Swiper
-				slidesPerView="auto"
 				spaceBetween={50}
 				navigation={true}
-				modules={[Navigation]}
+				pagination={{
+					clickable: true,
+				}}
+				modules={[Navigation, Pagination]}
 				className="productsSwiper"
+				breakpoints={swiperBreakpoints}
 			>
 				{products?.map((card, index) => {
 					if (!advertisement) {
@@ -53,15 +56,16 @@ const PopularProducts = ({ products, advertisement = false }) => {
 					);
 				})}
 			</Swiper>
-			{/* </CardsContainer> */}
 		</Container>
 	);
 };
-// export const CardsContainer = styled.div`
-// 	display: flex;
-// 	gap: 50px;
-// 	max-height: 700px;
-// 	padding: 35px;
-// 	overflow: scroll;
-// `;
+PopularProducts.defaultProps = {
+	advertisement: false,
+};
+PopularProducts.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	products: PropTypes.array.isRequired,
+	//
+	advertisement: PropTypes.bool,
+};
 export default PopularProducts;

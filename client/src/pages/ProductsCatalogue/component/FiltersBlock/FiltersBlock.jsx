@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import styled from "styled-components";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import useLocationParams from "../../hooks";
 import Selection from "../Select";
@@ -9,10 +10,10 @@ import { fetchProducts } from "../../../../store/reducers/productsSlice";
 import { selectorArrFilters } from "../../../../store/selectors";
 import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
 import SortBox from "../SortBox";
-import "./FiltersBlock.scss";
 
-const FiltersBlock = ({ products, setFilteredData }) => {
+const FiltersBlock = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams();
 	const filters = useSelector(selectorArrFilters);
@@ -87,7 +88,7 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 		});
 	};
 	return (
-		<Box sx={{ margin: "0 auto" }}>
+		<FilterWrapper>
 			<Stack spacing={3} sx={{ position: "sticky", top: "30px" }}>
 				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
 					Діапазон ціни, грн
@@ -188,21 +189,26 @@ const FiltersBlock = ({ products, setFilteredData }) => {
 				>
 					Пошук
 				</Button>
-				<Link to="/products" className="link">
-					<Button
-						onClick={clearFiltersHandler}
-						variant="contained"
-						color="secondary"
-						sx={{
-							width: "245px",
-							height: "46px",
-						}}
-					>
-						Очистити
-					</Button>
-				</Link>
+				<Button
+					onClick={() => {
+						clearFiltersHandler();
+						navigate("/products");
+					}}
+					variant="contained"
+					color="secondary"
+					sx={{
+						width: "245px",
+						height: "46px",
+					}}
+				>
+					Очистити
+				</Button>
 			</Stack>
-		</Box>
+		</FilterWrapper>
 	);
 };
+const FilterWrapper = styled.div`
+	margin-inline: auto;
+	max-width: 300px;
+`;
 export default FiltersBlock;

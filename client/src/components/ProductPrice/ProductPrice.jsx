@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import "../../boilerplates/styles/_mixins.scss";
 
-const ProductPrice = ({ currentPrice, previousPrice = "", priceColor, id }) => {
+const ProductPrice = ({ currentPrice, previousPrice = "", priceColor }) => {
 	return (
 		<PriceWrapper>
 			<CurrentPrice priceColor={priceColor} previousPrice={previousPrice}>
@@ -12,9 +13,6 @@ const ProductPrice = ({ currentPrice, previousPrice = "", priceColor, id }) => {
 		</PriceWrapper>
 	);
 };
-
-export default ProductPrice;
-
 const PriceWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -47,3 +45,15 @@ const PreviousPrice = styled.span`
 		content: " грн";
 	}
 `;
+ProductPrice.defaultProps = {
+	previousPrice: "",
+	priceColor: undefined,
+	currentPrice: "",
+};
+ProductPrice.propTypes = {
+	currentPrice: PropTypes.number,
+	// eslint-disable-next-line react/forbid-prop-types
+	previousPrice: PropTypes.any,
+	priceColor: PropTypes.string,
+};
+export default ProductPrice;

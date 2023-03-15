@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
@@ -17,7 +18,6 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 
 const Header = ({ modal }) => {
-	const dispatch = useDispatch();
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
@@ -153,6 +153,10 @@ const Header = ({ modal }) => {
 			</Container>
 		</Box>
 	);
+};
+
+Header.propTypes = {
+	modal: PropTypes.func.isRequired,
 };
 
 export default Header;

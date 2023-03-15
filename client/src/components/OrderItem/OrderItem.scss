@@ -23,5 +23,25 @@
 	}
 	@media screen and (max-width: 480px) {
 		padding: 5px;
+		.cross {
+			height: 30px;
+		}
+	}
+}
+@media screen and (max-width: 600px) {
+	.cartButton {
+		height: 30px;
+	}
+}
+.displayNo {
+	display: flex;
+	gap: 5%;
+	justify-content: space-around;
+	align-items: center;
+}
+
+@media screen and (max-width: 720px) {
+	.displayNo {
+		display: block;
 	}
 }

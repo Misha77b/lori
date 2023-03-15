@@ -1,8 +1,9 @@
-import * as React from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { MenuItem } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 export default function Selection({ arrayProps, setCurrentValue, nameLabel, value }) {
 	const colorsTag = arrayProps.map((el) => (
@@ -13,7 +14,6 @@ export default function Selection({ arrayProps, setCurrentValue, nameLabel, valu
 	const handleChange = (event) => {
 		setCurrentValue(event.target.value);
 	};
-
 	return (
 		<div>
 			<FormControl fullWidth>
@@ -35,3 +35,13 @@ export default function Selection({ arrayProps, setCurrentValue, nameLabel, valu
 		</div>
 	);
 }
+Selection.defaultProps = {
+	value: null,
+};
+Selection.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	arrayProps: PropTypes.array.isRequired,
+	setCurrentValue: PropTypes.func.isRequired,
+	nameLabel: PropTypes.string.isRequired,
+	value: PropTypes.string,
+};

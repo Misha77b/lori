@@ -1,5 +1,6 @@
+import React from "react";
+import PropTypes from "prop-types";
 import { Box, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import "./Description.scss";
 
 const Description = ({ props }) => {
@@ -108,5 +109,9 @@ const Description = ({ props }) => {
 			</Grid>
 		</Box>
 	);
+};
+Description.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	props: PropTypes.object.isRequired,
 };
 export default Description;

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, createRef } from "react";
 import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -65,4 +66,12 @@ const CloseCross = styled.span`
 	font-size: 20px;
 	cursor: pointer;
 `;
+Modal.defaultProps = {
+	customWidth: 600,
+};
+Modal.propTypes = {
+	status: PropTypes.string.isRequired,
+	children: PropTypes.func.isRequired,
+	customWidth: PropTypes.number,
+};
 export default Modal;

@@ -8,7 +8,7 @@ import FavoriteHeartIcon from "../FavoriteHeartIcon";
 import ProductFlag from "./components/ProductFlag";
 
 const ProductCard = ({ card, withCart = true, priceColor, setNotification }) => {
-	const { name, currentPrice, previousPrice, newItem, itemNo, sale, brand, imageUrls, color } =
+	const { name, currentPrice, previousPrice, newItem, _id, itemNo, sale, brand, imageUrls, color } =
 		card;
 	return (
 		<ProductCardWrapper id={itemNo}>
@@ -27,8 +27,8 @@ const ProductCard = ({ card, withCart = true, priceColor, setNotification }) => 
 				currentPrice={currentPrice}
 				previousPrice={previousPrice}
 			/>
-			{withCart && <ToCartButton id={itemNo} setNotification={setNotification} />}
-			<FavoriteHeartIcon id={itemNo} />
+			{withCart && <ToCartButton id={_id} setNotification={setNotification} />}
+			<FavoriteHeartIcon id={_id} />
 		</ProductCardWrapper>
 	);
 };
@@ -47,6 +47,10 @@ const ProductCardWrapper = styled.div`
 		transform: scale(1.1);
 		box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
 		border-color: #007042;
+	}
+	@media screen and (max-width: 350px) {
+		margin: 0 auto;
+		width: 270px;
 	}
 `;
 export default ProductCard;

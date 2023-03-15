@@ -1,16 +1,17 @@
-import { Box, Typography, Stack, Button, Container } from "@mui/material";
-import Rating from "@mui/material/Rating";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Product.scss";
+import { Box, Typography, Stack, Container } from "@mui/material";
+import PropTypes from "prop-types";
+import Rating from "@mui/material/Rating";
 import ProductPrice from "../ProductPrice/ProductPrice";
 import Description from "./Description";
 import Selection from "./Select";
 import { DOMAIN } from "../../config/API";
-import "./Product.scss";
 import ToCartButton from "../ToCartButton";
 
 function Product({ props, setNotification }) {
-	const { currentPrice, imageUrls, name, rating, color, itemNo: id } = props;
+	const { currentPrice, imageUrls, name, rating, color, _id } = props;
 	const [mainPhoto, setMainPhoto] = useState();
 	const navigate = useNavigate();
 	let difColor = "";
@@ -79,7 +80,7 @@ function Product({ props, setNotification }) {
 								valueColor={color}
 								nameLabel="Оберіть колір"
 							/>
-							<ToCartButton setNotification={setNotification} id={id} />
+							<ToCartButton setNotification={setNotification} id={_id} />
 						</Stack>
 					</div>
 				</div>
@@ -91,4 +92,10 @@ function Product({ props, setNotification }) {
 		</Container>
 	);
 }
+Product.propTypes = {
+	// eslint-disable-next-line react/forbid-prop-types
+	props: PropTypes.object.isRequired,
+	//
+	setNotification: PropTypes.func,
+};
 export default Product;
