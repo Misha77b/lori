@@ -14,7 +14,10 @@ const FavoritePage = () => {
 	const favorites = useSelector((state) => state.favorite.favorite);
 	useEffect(() => {
 		const params = new URLSearchParams();
-		params.set("_id", parsed.join(","));
+		if (params.toString() === "_id=") {
+			setProducts([]);
+			return;
+		}
 		if (params.toString() === "_id=") return;
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
