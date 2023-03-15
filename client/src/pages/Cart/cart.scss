@@ -2,8 +2,6 @@
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	gap: 30px;
-	&__wrapper {
-	}
 	&__title {
 		margin-bottom: 20px;
 	}
@@ -17,8 +15,10 @@
 	}
 	&__info {
 		&_item {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
 			font-weight: 300;
-			font-size: 18px;
+			font-size: 12px;
 			& > span {
 				font-size: 20px;
 				font-weight: 900;
@@ -55,7 +55,7 @@
 	}
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 900px) {
 	.cart {
 		grid-template-columns: 1fr;
 		grid-template-rows: 2fr 1fr;

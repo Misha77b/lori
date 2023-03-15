@@ -17,7 +17,8 @@ const FiltersBlock = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams();
 	const filters = useSelector(selectorArrFilters);
-
+	const [minPrice, setminPrice] = useState(2000);
+	const [maxPrice, setMaxPrice] = useState(100000);
 	const [brands, setBrands] = useState([]);
 	const [processor, setProcessor] = useState([]);
 	const [diagonal, setDiagonal] = useState([]);
@@ -74,26 +75,35 @@ const FiltersBlock = () => {
 		searchParams.delete("waterResistant");
 		searchParams.delete("minPrice");
 		searchParams.delete("maxPrice");
+		setminPrice(2000);
+		setMaxPrice(100000);
 	};
-	const priceHandler = (minPrice, maxPrice) => {
+	const priceHandler = (min, max) => {
 		searchParams.get("minPrice");
+		setminPrice(min);
 		setSearchParams((prev) => {
-			prev.set("minPrice", minPrice);
+			prev.set("minPrice", min);
 			return prev;
 		});
 		searchParams.get("maxPrice");
+		setMaxPrice(max);
 		setSearchParams((prev) => {
-			prev.set("maxPrice", maxPrice);
+			prev.set("maxPrice", max);
 			return prev;
 		});
 	};
 	return (
 		<FilterWrapper>
 			<Stack spacing={3} sx={{ position: "sticky", top: "30px" }}>
-				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
+				<Typography component="legend" sx={{ textAlign: "left", color: "grey", paddingBottom: 2 }}>
 					Діапазон ціни, грн
 				</Typography>
-				<RangePrice setPriceParams={priceHandler} sx={{ "text-align": "center" }} />
+				<RangePrice
+					setPriceParams={priceHandler}
+					min={minPrice}
+					max={maxPrice}
+					sx={{ "text-align": "center" }}
+				/>
 				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
 					Фільтри
 				</Typography>

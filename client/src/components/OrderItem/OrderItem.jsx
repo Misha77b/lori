@@ -19,7 +19,7 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 					<img className="item-product--img" src={item.imageUrls[0]} alt="product img" />
 				</Grid>
 
-				<Grid item xs={6}>
+				<Grid item xs={3}>
 					<Box>
 						<Typography fontWeight="fontWeightBold" sx={{ fontSize: "14px" }}>
 							{item.model}
@@ -36,17 +36,16 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 						<Typography fontWeight="fontWeightRegular" sx={{ fontSize: "12px" }}>
 							Пам&apos;ять: {item.iternalStorage}
 						</Typography>
-
-						{deleteCross && (
-							<ToCartButton favorites={true} setNotification={setNotification} id={item._id} />
-						)}
 					</Box>
 				</Grid>
-				<Grid item xs={deleteCross ? 2 : 3} sx={deleteCross ? favPriceSX : null}>
-					<Box>
+				<Grid item xs={5} className="displayNo">
+					<Box sx={{ textAlign: "center" }}>
 						<Typography
 							fontWeight="fontWeightBold"
-							sx={{ fontSize: "16px", "@media (max-width: 400px)": { fontSize: "14px" } }}
+							sx={{
+								fontSize: "16px",
+								"@media (max-width: 600px)": { fontSize: "14px" },
+							}}
 							className="price"
 						>
 							{deleteCross
@@ -65,7 +64,19 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 							</Typography>
 						)}
 					</Box>
+
+					<Box sx={{ textAlign: "center" }}>
+						{deleteCross && (
+							<ToCartButton
+								favorites={true}
+								setNotification={setNotification}
+								id={item._id}
+								className="cartButton"
+							/>
+						)}
+					</Box>
 				</Grid>
+
 				{deleteCross && (
 					<Grid item xs={1} sx={deleteCross ? favCrossSx : null}>
 						<Button
