@@ -53,7 +53,7 @@ const ProductsCatalogue = () => {
 						openFilterBar((prev) => !prev);
 					}}
 				>
-					Filters
+					Фільтри
 				</Button>
 			)}
 			{dataFromSearch.length > 0 && (
