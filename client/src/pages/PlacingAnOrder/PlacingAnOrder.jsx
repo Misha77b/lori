@@ -15,12 +15,12 @@ import {
 } from "@mui/material";
 import "./PlacingAnOrder.scss";
 import CategoryTitle from "../../components/CategoryTitle";
-import FillTheFromText from "./components/FillTheFormText";
+import FillTheFromText from "./components/FillTheFormText/FillTheFormText";
 import OrderItem from "../../components/OrderItem";
 import { submitBtn } from "./sxStyles/submitBtn";
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
-import OrderPrice from "./components/OrderPrice";
+import OrderPrice from "./components/OrderPrice/OrderPrice";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { schema as validationSchema } from "./Schema";
 
@@ -73,7 +73,10 @@ const PlacingAnOrder = () => {
 		setTotalCartSum(total);
 		const params = new URLSearchParams();
 		params.set("_id", Object.keys(cartItems).join(","));
-		if (params.toString() === "_id=") return;
+		if (params.toString() === "_id=") {
+			setProducts([]);
+			return;
+		}
 		dispatch(fetchProducts(params.toString())).then((res) => {
 			setProducts(res.payload.products);
 		});
@@ -124,14 +127,12 @@ const PlacingAnOrder = () => {
 		},
 		onSubmit: async (values) => {
 			const newOrder = orders(values);
-			const orderNo = await dispatch(createOrder(newOrder)).then(
-				(res) => res.payload.order.orderNo,
+			await dispatch(createOrder(newOrder)).then(
+				(res) => dispatch(setOrderNo(res.payload.order.orderNo)),
+				dispatch(setModal("SUCCESS")),
+				dispatch(deleteCartAuth()),
+				dispatch(clearCart()),
 			);
-			setProducts([]);
-			dispatch(setOrderNo(orderNo));
-			dispatch(setModal("SUCCESS"));
-			dispatch(deleteCartAuth());
-			dispatch(clearCart());
 		},
 		validationSchema,
 	});
