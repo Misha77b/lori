@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
-import styles from "./cartItem.module.scss";
+import "./cartItem.scss";
 import Amount from "../Product/Amount";
 import { removeItemShoppingCart } from "../../store/reducers/cartSlice";
 import { selectShoppingCart } from "../../store/selectors";
@@ -17,32 +17,38 @@ const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum }) 
 		setTotalSum((prev) => ({ ...prev, [dbId]: sum }));
 	}, [shoppingCart, dbId]);
 	return (
-		<Box className={styles.item}>
-			{imageUrls && (
-				<Link to={`/products/${itemNo}`}>
-					<img src={imageUrls[0]} alt="product-item" className={styles.item__image} />
-				</Link>
-			)}
-			<Typography className={styles.item__text}>{name}</Typography>
-			<Amount amount={shoppingCart[dbId]} setAmount={() => {}} itemNo={dbId} />
-			<Typography className={styles.item__text}>{currentPrice}</Typography>
-			<Typography className={styles.item__text}> x {shoppingCart[dbId] ?? 0} </Typography>
-			<Typography className={styles.item__text}>
-				{/* eslint-disable-next-line no-unsafe-optional-chaining */}
-				{Math.floor(currentPrice * shoppingCart[dbId] ?? 0)}
-			</Typography>
-			<button
-				type="button"
-				className={styles.item__btn}
-				onClick={() => {
-					dispatch(removeItemShoppingCart(dbId));
-				}}
-			>
-				<img
-					src="https://res.cloudinary.com/dyvsyavmb/image/upload/v1676543739/images/llvbuvkf2jaupb5sfimm.svg"
-					alt="arrow"
-				/>
-			</button>
+		<Box className="item">
+			<Box className="itemBlock">
+				{" "}
+				{imageUrls && (
+					<Link to={`/products/${itemNo}`}>
+						<img src={imageUrls[0]} alt="product-item" className="item__image" />
+					</Link>
+				)}
+				<Typography className="item__text">{name}</Typography>
+			</Box>
+
+			<Box className="itemBlock">
+				<Amount amount={shoppingCart[dbId]} setAmount={() => {}} itemNo={dbId} />
+				<Typography className="item__text">{currentPrice}</Typography>
+				<Typography className="item__text">{shoppingCart[dbId] ?? 0}шт.</Typography>
+				<Typography className="item__text">
+					{/* eslint-disable-next-line no-unsafe-optional-chaining */}
+					{Math.floor(currentPrice * shoppingCart[dbId] ?? 0)}
+				</Typography>
+				<button
+					type="button"
+					className="item__btn"
+					onClick={() => {
+						dispatch(removeItemShoppingCart(dbId));
+					}}
+				>
+					<img
+						src="https://res.cloudinary.com/dyvsyavmb/image/upload/v1676543739/images/llvbuvkf2jaupb5sfimm.svg"
+						alt="arrow"
+					/>
+				</button>
+			</Box>
 		</Box>
 	);
 };
