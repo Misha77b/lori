@@ -38,8 +38,6 @@ const OrdersHistory = () => {
 				console.log(error);
 			});
 	}, []);
-
-	debugger; // eslint-disable-line no-debugger
 	return (
 		<Box>
 			{!loading && <Spinner />}
