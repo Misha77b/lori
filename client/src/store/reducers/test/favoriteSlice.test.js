@@ -7,7 +7,6 @@ const initialState = {
 const mockCard = {
 	name: "TouYinger M4 FullHD",
 	price: 3700,
-	imageUrls: "https://images.prom.ua/3468122255_touyinger-m4-fullhd.jpg",
 	article: 12345,
 	brand: "Apple",
 };
