@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
-import "./cart.scss";
 import { fetchProducts } from "../../store/reducers/productsSlice";
-import { clearCart, deleteCartAuth, setTotalCartSum } from "../../store/reducers/cartSlice";
+import { setTotalCartSum } from "../../store/reducers/cartSlice";
+import Spinner from "../../components/Spinner";
+import "./cart.scss";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const Cart = () => {
 	const [products, setProducts] = useState([]);
 	const cartItems = useSelector((state) => state.cart.shoppingCart);
 	const [totalSum, setTotalSum] = useState({});
+	const productsLoading = useSelector((state) => state.products.loader);
 	useEffect(() => {
 		const params = new URLSearchParams();
 		params.set("_id", Object.keys(cartItems).join(","));
@@ -45,6 +47,7 @@ const Cart = () => {
 			<Typography variant="h4" className="cart__title">
 				Корзина
 			</Typography>
+			{productsLoading && <Spinner />}
 			<Box className="cart">
 				<Box className="cart__items">
 					{products.length ? (

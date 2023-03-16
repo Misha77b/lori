@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { DOMAIN } from "../../../../config/API";
 import { getLocalItem } from "../../../../helpers/getLocalItem";
+import Spinner from "../../../../components/Spinner";
 
 const OrdersHistory = () => {
 	const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -18,6 +19,7 @@ const OrdersHistory = () => {
 		},
 	}));
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
+	const [loading, setLoading] = useState(false);
 	const [orders, setOrders] = useState([]);
 
 	const accessToken = getLocalItem("token");
@@ -29,6 +31,7 @@ const OrdersHistory = () => {
 				},
 			})
 			.then((response) => {
+				setLoading(!loading);
 				setOrders(response.data);
 			})
 			.catch((error) => {
@@ -36,8 +39,10 @@ const OrdersHistory = () => {
 			});
 	}, []);
 
+	debugger; // eslint-disable-line no-debugger
 	return (
 		<Box>
+			{!loading && <Spinner />}
 			<Typography
 				variant="h4"
 				fontWeight="fontWeightBold"
@@ -50,14 +55,18 @@ const OrdersHistory = () => {
 			</Typography>
 			<Table sx={{ display: { xs: "none", sm: "block" } }}>
 				<TableHead>
-					<StyledTableRow>
-						<TableCell align="center">Замовлення №</TableCell>
-						<TableCell align="center">Назва товару</TableCell>
-						<TableCell align="center">Кількість</TableCell>
-						<TableCell align="center">Сума</TableCell>
-						<TableCell align="center">Дата</TableCell>
-						<TableCell align="center">Статус</TableCell>
-					</StyledTableRow>
+					{orders.length ? (
+						<StyledTableRow>
+							<TableCell align="center">Замовлення №</TableCell>
+							<TableCell align="center">Назва товару</TableCell>
+							<TableCell align="center">Кількість</TableCell>
+							<TableCell align="center">Сума</TableCell>
+							<TableCell align="center">Дата</TableCell>
+							<TableCell align="center">Статус</TableCell>
+						</StyledTableRow>
+					) : (
+						<Typography>Замовлення відсутні</Typography>
+					)}
 				</TableHead>
 				<TableBody>
 					{isLoggedIn &&

@@ -5,6 +5,7 @@ import { fetchProducts } from "../../store/reducers/productsSlice";
 import OrderItem from "../../components/OrderItem";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import ToastNotification from "../../components/ToastNotification";
+import Spinner from "../../components/Spinner";
 
 const FavoritePage = () => {
 	const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const FavoritePage = () => {
 	const [products, setProducts] = useState([]);
 	const parsed = JSON.parse(getLocalItem("favorites") || "[]");
 	const favorites = useSelector((state) => state.favorite.favorite);
+	const productsLoading = useSelector((state) => state.products.loader);
 	useEffect(() => {
 		const params = new URLSearchParams();
 		params.set("_id", parsed.join(","));
@@ -32,6 +34,7 @@ const FavoritePage = () => {
 				>
 					Улюблене
 				</Typography>
+				{productsLoading && <Spinner />}
 				{!products.length && (
 					<Typography
 						variant="h3"
