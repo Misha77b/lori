@@ -127,13 +127,12 @@ const PlacingAnOrder = () => {
 		},
 		onSubmit: async (values) => {
 			const newOrder = orders(values);
-			const orderNo = await dispatch(createOrder(newOrder)).then(
-				(res) => res.payload.order.orderNo,
+			await dispatch(createOrder(newOrder)).then(
+				(res) => dispatch(setOrderNo(res.payload.order.orderNo)),
+				dispatch(setModal("SUCCESS")),
 				dispatch(deleteCartAuth()),
 				dispatch(clearCart()),
 			);
-			dispatch(setOrderNo(orderNo));
-			dispatch(setModal("SUCCESS"));
 		},
 		validationSchema,
 	});
