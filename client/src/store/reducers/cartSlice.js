@@ -68,9 +68,11 @@ export const cartSlice = createSlice({
 						products: [state.shoppingCart],
 					};
 					const mergedCart = { ...upCart, ...localCart };
+
 					axios.put(`${DOMAIN}/cart`, mergedCart).then((data) => data);
 				}
 				state.totalCartQuantity = 0;
+
 				Object.keys(state.shoppingCart).forEach((key) => {
 					state.totalCartQuantity += state.shoppingCart[key];
 				});
