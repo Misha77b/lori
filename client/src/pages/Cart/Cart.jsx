@@ -48,68 +48,72 @@ const Cart = () => {
 				Корзина
 			</Typography>
 			{productsLoading && <Spinner />}
-			<Box className="cart">
-				<Box className="cart__items">
-					{products.length ? (
-						products
-							?.filter((row) => cartItems[row._id])
-							.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
-								return (
-									<CartItem
-										dbId={id}
-										key={itemNo}
-										itemNo={itemNo}
-										imageUrls={imageUrls}
-										name={name}
-										currentPrice={currentPrice}
-										setTotalSum={setTotalSum}
-									/>
-								);
-							})
-					) : (
-						<Typography variant="h5">Кошик пустий...</Typography>
-					)}
-				</Box>
-				<Box className="cart__info">
-					<Box className="cart__description">
-						<Typography className="cart__info_item">Ваше замовлення</Typography>
-						<Typography className="cart__info_item">
-							Загальна сума: {countOverallPrice(totalSum)}
-							грн.
-						</Typography>
-					</Box>
+			{!productsLoading && (
+				<>
+					<Box className="cart">
+						<Box className="cart__items">
+							{products.length ? (
+								products
+									?.filter((row) => cartItems[row._id])
+									.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
+										return (
+											<CartItem
+												dbId={id}
+												key={itemNo}
+												itemNo={itemNo}
+												imageUrls={imageUrls}
+												name={name}
+												currentPrice={currentPrice}
+												setTotalSum={setTotalSum}
+											/>
+										);
+									})
+							) : (
+								<Typography variant="h5">Кошик пустий...</Typography>
+							)}
+						</Box>
+						<Box className="cart__info">
+							<Box className="cart__description">
+								<Typography className="cart__info_item">Ваше замовлення</Typography>
+								<Typography className="cart__info_item">
+									Загальна сума: {countOverallPrice(totalSum)}
+									грн.
+								</Typography>
+							</Box>
 
-					<Box className="cart__controllers">
-						<Button
-							color="secondary"
-							variant="outlined"
-							className="btn"
-							onClick={(e) => {
-								e.preventDefault();
-								navigate("/products");
-							}}
-						>
-							Продовжити покупки
-						</Button>
-						{products.length !== 0 && (
-							<Button
-								color="secondary"
-								variant="contained"
-								onClick={(e) => {
-									e.preventDefault();
-									dispatch(setTotalCartSum(countOverallPrice(totalSum)));
-									navigate("/orders");
-									// dispatch(deleteCartAuth());
-									// dispatch(clearCart());
-								}}
-								className="btn"
-							>
-								Оформити замовлення
-							</Button>
-						)}
+							<Box className="cart__controllers">
+								<Button
+									color="secondary"
+									variant="outlined"
+									className="btn"
+									onClick={(e) => {
+										e.preventDefault();
+										navigate("/products");
+									}}
+								>
+									Продовжити покупки
+								</Button>
+								{products.length !== 0 && (
+									<Button
+										color="secondary"
+										variant="contained"
+										onClick={(e) => {
+											e.preventDefault();
+											dispatch(setTotalCartSum(countOverallPrice(totalSum)));
+											navigate("/orders");
+											// dispatch(deleteCartAuth());
+											// dispatch(clearCart());
+										}}
+										className="btn"
+									>
+										Оформити замовлення
+									</Button>
+								)}
+							</Box>
+						</Box>
 					</Box>
-				</Box>
-			</Box>
+				</>
+			)}
 		</Container>
 	);
 };
