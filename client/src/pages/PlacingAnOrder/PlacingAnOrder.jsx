@@ -48,7 +48,7 @@ const PlacingAnOrder = () => {
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const customer = useSelector((state) => state.customer.customer);
-	const token = useSelector((state) => state.auth.user.tokenUser);
+	/* const token = useSelector((state) => state.auth.user.tokenUser); */
 
 	const [value, setValue] = useState();
 	const [inputValue, setInputValue] = useState();
@@ -129,7 +129,7 @@ const PlacingAnOrder = () => {
 		onSubmit: async (values) => {
 			const newOrder = orders(values);
 			const orderNo = await dispatch(createOrder(newOrder)).then((res) => {
-				if (token) {
+				if (isLoggedIn) {
 					dispatch(deleteCartAuth());
 				}
 				dispatch(clearCart());

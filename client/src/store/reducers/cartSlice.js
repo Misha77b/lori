@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { DOMAIN } from "../../config/API";
+
 import { getLocalItem } from "../../helpers/getLocalItem";
 
 const initialState = {
@@ -15,12 +16,7 @@ Object.keys(initialState.shoppingCart).forEach((key) => {
 });
 
 export const createCartAuth = createAsyncThunk("cart/createCartAuth", async (id) => {
-	const token = useSelector((state) => state.auth.user.tokenUser);
-	const response = await axios.put(`${DOMAIN}/cart/${id}`, {
-		headers: {
-			Authorization: token,
-		},
-	});
+	const response = await axios.put(`${DOMAIN}/cart/${id}`);
 	return response.data;
 });
 export const deleteCartAuth = createAsyncThunk("cart/deleteCartAuth", async () => {

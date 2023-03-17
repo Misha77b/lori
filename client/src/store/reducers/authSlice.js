@@ -1,20 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
+import setAuthToken from "../../config/setAuthToken";
 
 const initialState = {
 	user: {},
 	isAuth: false,
 	loader: true,
 	error: null,
-	tokenUser: localStorage.getItem("token"),
+	tokenUser: "",
 };
 export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 	// eslint-disable-next-line no-useless-catch
 	try {
 		const response = await axios.post(`${DOMAIN}/customers/login`, object);
 		localStorage.setItem("token", response.data.token);
-		state.tokenUser = response.data.token;
+
 		return response.data;
 	} catch (error) {
 		throw error;
@@ -22,6 +23,7 @@ export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 });
 export const fetchRegister = createAsyncThunk("user/register", async (object) => {
 	axios
+
 		.post(`${DOMAIN}/customers`, object)
 		.then((savedCustomer) => savedCustomer)
 		.catch((err) => {
@@ -35,6 +37,13 @@ export const userSlice = createSlice({
 	reducers: {
 		setIsAuth: (state, action) => {
 			state.isAuth = action.payload;
+			if (state.isAuth) {
+				state.tokenUser = localStorage.getItem("token");
+			} else {
+				state.tokenUser = "";
+			}
+
+			setAuthToken(state.tokenUser);
 		},
 	},
 	extraReducers: (builder) => {
