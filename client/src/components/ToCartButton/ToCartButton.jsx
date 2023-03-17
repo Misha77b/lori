@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { setLocalItem } from "../../helpers/setLocalItem";
@@ -8,7 +8,7 @@ import { addShoppingCart, createCartAuth } from "../../store/reducers/cartSlice"
 
 const ToCartButton = ({ id, setNotification, favorites = false }) => {
 	const dispatch = useDispatch();
-	const token = localStorage.getItem("token");
+	const token = useSelector((state) => state.auth.tokenUser);
 
 	const cartDispatch = (fid) => {
 		if (!token) {
