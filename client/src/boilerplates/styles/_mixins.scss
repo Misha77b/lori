@@ -14,6 +14,7 @@
 	background-position: center;
 	background-attachment: inherit;
 }
+
 @function calcFluidFontSize($f-min, $f-max, $v-min, $v-max) {
 	$k: ($f-max - $f-min)/ ($v-max - $v-min);
 	$b: $f-min - $k * $v-min;

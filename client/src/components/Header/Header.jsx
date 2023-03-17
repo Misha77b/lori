@@ -84,7 +84,7 @@ const Header = ({ modal }) => {
 										<AccountCircleOutlinedIcon />
 										<Typography
 											color="grey.main"
-											sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
+											sx={{ display: { sm: "none", lg: "block" }, p: "0" }}
 										>
 											Особистий кабінет
 										</Typography>
@@ -100,7 +100,7 @@ const Header = ({ modal }) => {
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
-										sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
+										sx={{ display: { sm: "none", lg: "block" }, p: "0" }}
 									>
 										Увійти
 									</Typography>

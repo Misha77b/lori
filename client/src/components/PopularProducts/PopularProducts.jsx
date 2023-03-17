@@ -65,7 +65,6 @@ PopularProducts.defaultProps = {
 PopularProducts.propTypes = {
 	// eslint-disable-next-line react/forbid-prop-types
 	products: PropTypes.array.isRequired,
-	//
 	advertisement: PropTypes.bool,
 };
 export default PopularProducts;
