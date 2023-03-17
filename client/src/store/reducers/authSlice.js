@@ -7,12 +7,14 @@ const initialState = {
 	isAuth: false,
 	loader: true,
 	error: null,
+	tokenUser: localStorage.getItem("token"),
 };
 export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 	// eslint-disable-next-line no-useless-catch
 	try {
 		const response = await axios.post(`${DOMAIN}/customers/login`, object);
 		localStorage.setItem("token", response.data.token);
+		state.tokenUser = response.data.token;
 		return response.data;
 	} catch (error) {
 		throw error;
