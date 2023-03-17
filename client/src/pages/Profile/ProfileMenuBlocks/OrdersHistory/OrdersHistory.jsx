@@ -40,7 +40,7 @@ const OrdersHistory = () => {
 	}, []);
 
 	return (
-		<Box sx={{ "min-width": "400px", height: "300px" }}>
+		<Box sx={{ "min-width": "400px" }}>
 			{!loading && <Spinner />}
 			{loading && (
 				<>

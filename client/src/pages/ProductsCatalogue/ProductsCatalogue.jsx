@@ -27,19 +27,30 @@ const ProductsCatalogue = () => {
 	const [filteredData, setFilteredData] = useState([]);
 	const [filterBar, openFilterBar] = useState(false);
 	const isMobileSize = useMediaQuery("(max-width:700px)");
+	const [prevParams, setPrevParams] = useState({});
 	const perPage = 5;
 
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
 
 	const { params } = useLocationParams({ startPage, perPage });
+
 	useEffect(() => {
+		setPrevParams(params);
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData, dataFromSearch]);
+
+	useEffect(() => {
+		if (params !== prevParams) {
+			openFilterBar(false);
+		}
+		setPrevParams(params);
+	}, [params]);
 	return (
 		<Container>
+			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			{isMobileSize && (
 				<Button
 					color="secondary"
@@ -74,7 +85,6 @@ const ProductsCatalogue = () => {
 					</Typography>
 				</Box>
 			)}
-			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
 			<FiltersPhonesStyledWrapper isMobileSize={isMobileSize}>
 				{isMobileSize && filterBar && <FiltersBlock />}
 				{!isMobileSize && <FiltersBlock />}

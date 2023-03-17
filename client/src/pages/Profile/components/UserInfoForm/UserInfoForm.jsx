@@ -12,7 +12,7 @@ import {
 } from "../../../../store/reducers/updateUserInfoSlice";
 import ToastNotification from "../../../../components/ToastNotification";
 
-const UserInfoForm = ({ email, firstName, lastName, mobile }) => {
+const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 	const dispatch = useDispatch();
 	const message = useSelector((state) => state.customerInfo.message);
 	const formik = useFormik({
@@ -20,7 +20,7 @@ const UserInfoForm = ({ email, firstName, lastName, mobile }) => {
 			firstName,
 			lastName,
 			email,
-			mobile,
+			telephone,
 		},
 		onSubmit: (usersData) => {
 			dispatch(fetchUpdateCustomerInfo(usersData));
@@ -71,12 +71,12 @@ const UserInfoForm = ({ email, firstName, lastName, mobile }) => {
 					errors={touched.email && errors.email}
 				/>
 				<Field
-					name="mobile"
+					name="telephone"
 					type="tel"
 					description="Mobile"
-					value={values.mobile}
+					value={values.telephone}
 					onChange={formik.handleChange}
-					errors={touched.mobile && errors.mobile}
+					errors={touched.telephone && errors.telephone}
 				/>
 			</InputWrapper>
 			<div className="submit__btn__container">
@@ -91,12 +91,12 @@ UserInfoForm.defaultProps = {
 	email: undefined,
 	firstName: undefined,
 	lastName: undefined,
-	mobile: undefined,
+	telephone: undefined,
 };
 UserInfoForm.propTypes = {
 	email: PropTypes.string,
 	firstName: PropTypes.string,
 	lastName: PropTypes.string,
-	mobile: PropTypes.string,
+	telephone: PropTypes.string,
 };
 export default UserInfoForm;

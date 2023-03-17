@@ -48,6 +48,7 @@ const PlacingAnOrder = () => {
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const customer = useSelector((state) => state.customer.customer);
+	/* const token = useSelector((state) => state.auth.user.tokenUser); */
 
 	const [value, setValue] = useState();
 	const [inputValue, setInputValue] = useState();
@@ -121,17 +122,19 @@ const PlacingAnOrder = () => {
 	const formik = useFormik({
 		initialValues: {
 			fullName: customer?.firstName || "",
-			phoneNumber: customer?.mobile || "",
+			phoneNumber: customer?.telephone || "",
 			email: customer?.email || "",
 			adress: inputValue || "",
 		},
 		onSubmit: async (values) => {
 			const newOrder = orders(values);
-			const orderNo = await dispatch(createOrder(newOrder)).then(
-				(res) => res.payload.order.orderNo,
-				dispatch(deleteCartAuth()),
-				dispatch(clearCart()),
-			);
+			const orderNo = await dispatch(createOrder(newOrder)).then((res) => {
+				if (isLoggedIn) {
+					dispatch(deleteCartAuth());
+				}
+				dispatch(clearCart());
+				return res.payload.order.orderNo;
+			});
 			dispatch(setOrderNo(orderNo));
 			dispatch(setModal("SUCCESS"));
 		},

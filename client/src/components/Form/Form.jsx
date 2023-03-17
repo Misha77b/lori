@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import { schema as validationSchema, validationSchema2 } from "./Schema";
 import Field from "./Field/Field";
 import "./Form.scss";
-import { fetchAuth, fetchRegister } from "../../store/reducers/authSlice";
+import { fetchAuth, fetchRegister, setIsAuth } from "../../store/reducers/authSlice";
 import ToastNotification from "../ToastNotification";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
@@ -20,10 +20,13 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 			login: "",
 			telephone: "",
 		},
-		onSubmit: (usersData) => {
+		onSubmit: async (usersData) => {
 			if (status === "LOGIN") {
 				const { email, password } = usersData;
-				dispatch(fetchAuth({ loginOrEmail: email, password }));
+				const res = await dispatch(fetchAuth({ loginOrEmail: email, password }));
+				if (res.payload.token) {
+					dispatch(setIsAuth(true));
+				}
 				if (!error) onClose();
 			} else {
 				dispatch(fetchRegister(usersData));

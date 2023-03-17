@@ -84,7 +84,7 @@ const Header = ({ modal }) => {
 										<AccountCircleOutlinedIcon />
 										<Typography
 											color="grey.main"
-											sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
+											sx={{ display: { xs: "none", lg: "block" }, p: "0" }}
 										>
 											Особистий кабінет
 										</Typography>
@@ -100,7 +100,7 @@ const Header = ({ modal }) => {
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
-										sx={{ display: { xs: "none", sm: "block" }, p: "0" }}
+										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
 									>
 										Увійти
 									</Typography>
@@ -110,7 +110,7 @@ const Header = ({ modal }) => {
 								size="large"
 								aria-label="Basket"
 								color="grey.main"
-								sx={{ p: { xs: "5px", lg: "10px" } }}
+								sx={{ p: { xs: "5px", md: "10px" } }}
 							>
 								<CustomLink to="/cart">
 									<Badge badgeContent={countC} color="secondary">

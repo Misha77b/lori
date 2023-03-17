@@ -38,7 +38,7 @@ const Modal = ({ children, customWidth, status }) => {
 	if (status) {
 		return createPortal(
 			<div className={styles.overlay} onClick={outsideCloseHandler}>
-				<div ref={myRef} className={styles.modal} style={{ maxWidth: `${customWidth}px` }}>
+				<div ref={myRef} className={styles.modal}>
 					{children({
 						order: orderNo,
 						onNavigate: navigate,
@@ -67,7 +67,7 @@ const CloseCross = styled.span`
 	cursor: pointer;
 `;
 Modal.defaultProps = {
-	customWidth: 600,
+	customWidth: 40,
 };
 Modal.propTypes = {
 	status: PropTypes.string.isRequired,

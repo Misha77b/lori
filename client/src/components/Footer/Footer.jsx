@@ -92,12 +92,12 @@ const Footer = () => {
 							<ListItem>info@mobilegalaxy.com.ua</ListItem>
 						</List>
 					</Grid>
-					<Grid item>
+					<Grid item sm={12} md={4} lg={3}>
 						<List>
 							<ListItem fontWeight="fontWeightBold" sx={menuTitle}>
 								Стежте за нами
 							</ListItem>
-							<ListItem sx={{ display: "flex", justifyContent: "space-around" }}>
+							<ListItem sx={{ display: "flex", justifyContent: "center" }}>
 								<CustomLink to="https://uk-ua.facebook.com/" target="_blank">
 									<FacebookIcon sx={menuLinkItem} />
 								</CustomLink>
