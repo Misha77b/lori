@@ -18,7 +18,11 @@ const token = localStorage.getItem("token");
 setAuthToken(token);
 
 export const createCartAuth = createAsyncThunk("cart/createCartAuth", async (id) => {
-	const response = await axios.put(`${DOMAIN}/cart/${id}`);
+	const response = await axios.put(`${DOMAIN}/cart/${id}`, {
+		headers: {
+			Authorization: token,
+		},
+	});
 	return response.data;
 });
 export const deleteCartAuth = createAsyncThunk("cart/deleteCartAuth", async () => {
