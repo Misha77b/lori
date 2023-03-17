@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { DOMAIN } from "../../config/API";
-import setAuthToken from "../../config/setAuthToken";
+
 import { getLocalItem } from "../../helpers/getLocalItem";
 
 const initialState = {
@@ -13,9 +14,6 @@ const initialState = {
 Object.keys(initialState.shoppingCart).forEach((key) => {
 	initialState.totalCartQuantity += initialState.shoppingCart[key];
 });
-
-const token = localStorage.getItem("token");
-setAuthToken(token);
 
 export const createCartAuth = createAsyncThunk("cart/createCartAuth", async (id) => {
 	const response = await axios.put(`${DOMAIN}/cart/${id}`);
@@ -68,9 +66,11 @@ export const cartSlice = createSlice({
 						products: [state.shoppingCart],
 					};
 					const mergedCart = { ...upCart, ...localCart };
+
 					axios.put(`${DOMAIN}/cart`, mergedCart).then((data) => data);
 				}
 				state.totalCartQuantity = 0;
+
 				Object.keys(state.shoppingCart).forEach((key) => {
 					state.totalCartQuantity += state.shoppingCart[key];
 				});
@@ -85,6 +85,7 @@ export const cartSlice = createSlice({
 			state.totalCartQuantity = 0;
 			state.totalCartSum = 0;
 			localStorage.setItem("cart", JSON.stringify(state.shoppingCart));
+			localStorage.setItem("totalCartSum", JSON.stringify(state.totalCartSum));
 		},
 	},
 });

@@ -6,7 +6,7 @@ export const schema = yup.object().shape({
 	firstName: yup.string().required(REQUIRED),
 	lastName: yup.string().required(REQUIRED),
 	email: yup.string().required(REQUIRED),
-	mobile: yup.string(),
+	telephone: yup.string(),
 });
 export const validationSchemaForPasswordChange = yup.object().shape({
 	password: yup.string().required(REQUIRED),
