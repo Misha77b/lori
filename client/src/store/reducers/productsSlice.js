@@ -2,9 +2,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
-import sendRequest from "../../helpers/sendRequest";
-
-import { getItems } from "../../helpers/getItems";
 
 const initialState = {
 	data: [],
