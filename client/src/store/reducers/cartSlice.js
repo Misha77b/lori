@@ -87,6 +87,7 @@ export const cartSlice = createSlice({
 			state.totalCartQuantity = 0;
 			state.totalCartSum = 0;
 			localStorage.setItem("cart", JSON.stringify(state.shoppingCart));
+			localStorage.setItem("totalCartSum", JSON.stringify(state.totalCartSum));
 		},
 	},
 });
