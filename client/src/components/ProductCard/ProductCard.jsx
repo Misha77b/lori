@@ -43,10 +43,15 @@ const ProductCardWrapper = styled.div`
 	width: 100%;
 	height: 100%;
 	transition: all 0.3s ease-in;
-	&:hover {
-		transform: scale(1.1);
-		box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
-		border-color: #007042;
+	@media screen and (max-width: 700px) {
+		width: 80%;
+	}
+	@media screen and (min-width: 920px) {
+		&:hover {
+			transform: scale(1.1);
+			box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
+			border-color: #007042;
+		}
 	}
 	@media screen and (max-width: 350px) {
 		margin: 0 auto;

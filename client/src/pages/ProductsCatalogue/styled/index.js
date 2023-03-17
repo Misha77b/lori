@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CatalogueWrapper = styled.div`
 	display: grid;
 	gap: 60px;
-	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr));
 `;
 export const FiltersPhonesStyledWrapper = styled.div`
 	display: grid;

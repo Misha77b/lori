@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Typography } from "@mui/material";
 import Modal from "../Modal";
@@ -32,8 +31,7 @@ export const modals = {
 								component="p"
 								sx={{ fontSize: "18px", lineHeight: " 180%", marginBottom: "50px" }}
 							>
-								`Ваше замовлення № {order} успішно оформлене. Чекайте на дзвінок від нашого
-								фахівця.`
+								Ваше замовлення № {order} успішно оформлене. Чекайте на дзвінок від нашого фахівця.
 							</Typography>
 							<Button
 								color="secondary"
