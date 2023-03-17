@@ -122,7 +122,7 @@ const PlacingAnOrder = () => {
 	const formik = useFormik({
 		initialValues: {
 			fullName: customer?.firstName || "",
-			phoneNumber: customer?.mobile || "",
+			phoneNumber: customer?.telephone || "",
 			email: customer?.email || "",
 			adress: inputValue || "",
 		},
