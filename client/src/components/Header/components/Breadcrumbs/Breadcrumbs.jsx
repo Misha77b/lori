@@ -1,5 +1,6 @@
 import React from "react";
 import { Breadcrumbs, Link } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { data } from "./helper/helperBreadcrump";
 
@@ -8,7 +9,13 @@ const Breadcrumb = () => {
 
 	const links = breadcrumbs.map(({ breadcrumb, match }, index) => (
 		<span key={match.pathname}>
-			<Link underline="hover" color="grey.main" key={match.pathname} href={match.pathname}>
+			<Link
+				underline="hover"
+				color="grey.main"
+				key={match.pathname}
+				component={NavLink}
+				to={match.pathname}
+			>
 				{breadcrumb}
 			</Link>
 			{index < breadcrumbs.length - 1}
