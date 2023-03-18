@@ -19,7 +19,7 @@ const CustomLink = styled(NavLink)(({ theme }) => ({
 	},
 }));
 
-const BurgerMenu = () => {
+const BurgerMenu = React.memo(() => {
 	const [burgerMenu, setBurgerMenu] = React.useState(null);
 	const openBurgerMenu = Boolean(burgerMenu);
 
@@ -89,6 +89,6 @@ const BurgerMenu = () => {
 			</CustomizedMenu>
 		</Box>
 	);
-};
+});
 
 export default BurgerMenu;

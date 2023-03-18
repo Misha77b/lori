@@ -20,7 +20,7 @@ const CustomLink = styled(NavLink)(({ theme }) => ({
 	},
 }));
 
-const BurgerProfile = ({ isLoggedIn }) => {
+const BurgerProfile = React.memo(({ isLoggedIn }) => {
 	const [burgerMenu, setBurgerMenu] = React.useState(null);
 	const openBurgerMenu = Boolean(burgerMenu);
 	const navigate = useNavigate();
@@ -95,6 +95,6 @@ const BurgerProfile = ({ isLoggedIn }) => {
 			</CustomizedMenu>
 		</Box>
 	);
-};
+});
 
 export default BurgerProfile;

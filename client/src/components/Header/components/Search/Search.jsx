@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField, InputAdornment, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { fetchSearchProducts, clearSearch } from "../../../../store/reducers/searchSlice";
 import useLocationParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
 
-const Search = () => {
+const Search = React.memo(() => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [input, setInput] = useState("");
@@ -63,7 +63,12 @@ const Search = () => {
 							}}
 						>
 							{input && (
-								<IconButton edge="end" onClick={() => handleClearSearch()} href="/products">
+								<IconButton
+									edge="end"
+									onClick={() => handleClearSearch()}
+									component={Link}
+									to="/products"
+								>
 									<ClearIcon color="secondary" />
 								</IconButton>
 							)}
@@ -106,6 +111,6 @@ const Search = () => {
 			</Button>
 		</Box>
 	);
-};
+});
 
 export default Search;
