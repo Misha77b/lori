@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 import { data } from "./helper/helperBreadcrump";
 
-const Breadcrumb = () => {
+const Breadcrumb = React.memo(() => {
 	const breadcrumbs = useBreadcrumbs(data);
 
 	const links = breadcrumbs.map(({ breadcrumb, match }, index) => (
@@ -30,6 +30,6 @@ const Breadcrumb = () => {
 			{links}
 		</Breadcrumbs>
 	);
-};
+});
 
 export default Breadcrumb;

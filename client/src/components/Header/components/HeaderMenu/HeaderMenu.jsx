@@ -8,7 +8,7 @@ import MenuBayer from "./components/MenuBayer";
 import MenuAbout from "./components/MenuAbout";
 import MenuContact from "./components/MenuContact/MenuContact";
 
-const HeaderMenu = () => {
+const HeaderMenu = React.memo(() => {
 	return (
 		<div style={{ textAlign: "center", whiteSpace: "nowrap" }}>
 			<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
@@ -20,7 +20,7 @@ const HeaderMenu = () => {
 			<MenuContact />
 		</div>
 	);
-};
+});
 const CustomLink = styled(NavLink)(({ theme }) => ({
 	color: "inherit",
 	textDecoration: "none",

@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { fetchSearchProducts, clearSearch } from "../../../../store/reducers/searchSlice";
 import useLocationParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
 
-const Search = () => {
+const Search = React.memo(() => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [input, setInput] = useState("");
@@ -111,6 +111,6 @@ const Search = () => {
 			</Button>
 		</Box>
 	);
-};
+});
 
 export default Search;

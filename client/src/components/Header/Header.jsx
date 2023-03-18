@@ -49,23 +49,25 @@ const Header = React.memo(({ modal }) => {
 					<Toolbar disableGutters={true} sx={{ justifyContent: "space-evenly", marginTop: "15px" }}>
 						<BurgerMenu />
 						<LogoIcon />
+						<Box>
+							<Typography
+								fontWeight="fontWeightBold"
+								fontFamily="Open Sans"
+								color="graphite.main"
+								sx={{ display: { xs: "none", lg: "inline" } }}
+							>
+								(096)166-64-16
+							</Typography>
+							<Typography
+								fontWeight="fontWeightBold"
+								fontFamily="Open Sans"
+								color="graphite.main"
+								sx={{ m: "0 10px", display: { xs: "none", lg: "inline" } }}
+							>
+								(098)259-25-99
+							</Typography>
+						</Box>
 
-						<Typography
-							fontWeight="fontWeightBold"
-							fontFamily="Open Sans"
-							color="graphite.main"
-							sx={{ display: { xs: "none", lg: "block" } }}
-						>
-							(096)166-64-16
-						</Typography>
-						<Typography
-							fontWeight="fontWeightBold"
-							fontFamily="Open Sans"
-							color="graphite.main"
-							sx={{ m: " 0 10px", display: { xs: "none", lg: "block" } }}
-						>
-							(098)259-25-99
-						</Typography>
 						<Box sx={{ display: { xs: "none", sm: "flex" } }}>
 							<Search />
 						</Box>
