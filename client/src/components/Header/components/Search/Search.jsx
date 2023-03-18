@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField, InputAdornment, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -63,7 +63,12 @@ const Search = () => {
 							}}
 						>
 							{input && (
-								<IconButton edge="end" onClick={() => handleClearSearch()} href="/products">
+								<IconButton
+									edge="end"
+									onClick={() => handleClearSearch()}
+									component={Link}
+									to="/products"
+								>
 									<ClearIcon color="secondary" />
 								</IconButton>
 							)}

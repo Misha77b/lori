@@ -17,7 +17,7 @@ import { setIsAuth } from "../../store/reducers/authSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 
-const Header = ({ modal }) => {
+const Header = React.memo(({ modal }) => {
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
@@ -81,10 +81,10 @@ const Header = ({ modal }) => {
 										component={Link}
 										to="/profile/edit-profile"
 									>
-										<AccountCircleOutlinedIcon />
+										<AccountCircleOutlinedIcon sx={menuLinkItem} />
 										<Typography
 											color="grey.main"
-											sx={{ display: { xs: "none", lg: "block" }, p: "0" }}
+											sx={{ display: { xs: "none", lg: "block" }, p: "0 0 0 5px" }}
 										>
 											Особистий кабінет
 										</Typography>
@@ -100,7 +100,7 @@ const Header = ({ modal }) => {
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
-										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
+										sx={{ display: { xs: "none", md: "block" }, p: "0 0 0 5px" }}
 									>
 										Увійти
 									</Typography>
@@ -153,7 +153,7 @@ const Header = ({ modal }) => {
 			</Container>
 		</Box>
 	);
-};
+});
 
 Header.propTypes = {
 	modal: PropTypes.func.isRequired,
