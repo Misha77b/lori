@@ -6,7 +6,6 @@ function RangeSlider({ setPriceParams, min, max }) {
 	const handleChangeCommitted = (event, newValue) => {
 		setPriceParams(newValue[0], newValue[1]);
 	};
-
 	return (
 		<Box sx={{ width: 250, margin: 0 }}>
 			<Slider

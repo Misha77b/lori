@@ -34,20 +34,23 @@ const ProductsCatalogue = () => {
 	const dataFromSearch = useSelector(selectSearch);
 
 	const { params } = useLocationParams({ startPage, perPage });
-
 	useEffect(() => {
 		setPrevParams(params);
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [startPage, params, filteredData, dataFromSearch]);
-
 	useEffect(() => {
-		if (params !== prevParams) {
+		const urlParams = new URLSearchParams(params);
+		const minPrice = urlParams.get("minPrice");
+		const maxPrice = urlParams.get("maxPrice");
+		if (minPrice !== null && maxPrice !== null) {
+			openFilterBar(true);
+		} else {
 			openFilterBar(false);
 		}
 		setPrevParams(params);
-	}, [params]);
+	}, [params, openFilterBar]);
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
