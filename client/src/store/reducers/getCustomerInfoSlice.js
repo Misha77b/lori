@@ -3,7 +3,7 @@ import axios from "axios";
 import { DOMAIN } from "../../config/API";
 import setAuthToken from "../../config/setAuthToken";
 
-const initialState = { customer: {}, meta: { loading: false, loaded: true } };
+const initialState = { customer: {} };
 
 export const fetchCustomer = createAsyncThunk("customer/fetchCustomer", async () => {
 	const token = localStorage.getItem("token");
@@ -19,12 +19,8 @@ export const customerSlice = createSlice({
 	name: "customer",
 	initialState,
 	extraReducers: (builder) => {
-		builder.addCase(fetchCustomer.pending, (state, action) => {
-			state.meta = { ...state.meta, loading: true, loaded: false };
-		});
 		builder.addCase(fetchCustomer.fulfilled, (state, action) => {
 			state.customer = action.payload;
-			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 	},
 });

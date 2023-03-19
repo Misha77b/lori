@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
@@ -14,7 +14,6 @@ import { WrapperStyled } from "./styled";
 
 const App = () => {
 	const modal = useSelector((state) => state.modal.value);
-
 	const dispatch = useDispatch();
 	const actionModalHandler = (status) => {
 		dispatch(setModal(status));

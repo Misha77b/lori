@@ -34,6 +34,7 @@ const ProductsCatalogue = () => {
 	const dataFromSearch = useSelector(selectSearch);
 	const [emptyArray, setEmptyArray] = useState(false);
 	const { params } = useLocationParams({ startPage, perPage });
+
 	useEffect(() => {
 		setPrevParams(params);
 		dispatch(fetchProducts(params)).then((res) => {
@@ -45,17 +46,13 @@ const ProductsCatalogue = () => {
 			}
 		});
 	}, [startPage, params, filteredData, dataFromSearch]);
+
 	useEffect(() => {
-		const urlParams = new URLSearchParams(params);
-		const minPrice = urlParams.get("minPrice");
-		const maxPrice = urlParams.get("maxPrice");
-		if (minPrice !== null && maxPrice !== null) {
-			openFilterBar(true);
-		} else {
+		if (params !== prevParams) {
 			openFilterBar(false);
 		}
 		setPrevParams(params);
-	}, [params, openFilterBar]);
+	}, [params]);
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField, InputAdornment, IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -13,14 +13,11 @@ const Search = React.memo(() => {
 	const [input, setInput] = useState("");
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams({ query: input });
-	const handleClearSearch = () => {
+
+	function handleClearSearch() {
 		dispatch(clearSearch());
-		setSearchParams((prev) => {
-			prev.delete("query");
-			return prev;
-		});
-		setInput("");
-	};
+	}
+
 	return (
 		<Box
 			onSubmit={(e) => e.preventDefault()}
@@ -47,7 +44,6 @@ const Search = React.memo(() => {
 						border: "5px",
 					},
 				}}
-				value={input}
 				onChange={(e) => {
 					setInput(e.target.value);
 				}}
@@ -69,9 +65,9 @@ const Search = React.memo(() => {
 							{input && (
 								<IconButton
 									edge="end"
-									onClick={() => {
-										handleClearSearch();
-									}}
+									onClick={() => handleClearSearch()}
+									component={Link}
+									to="/products"
 								>
 									<ClearIcon color="secondary" />
 								</IconButton>
@@ -92,6 +88,7 @@ const Search = React.memo(() => {
 							query: searchParams.get("query"),
 						}),
 					);
+
 					navigate(`/products?${params}`);
 				}}
 				sx={{

@@ -47,7 +47,7 @@ const PlacingAnOrder = () => {
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const initialValues = useSelector((state) => state.customer.customer);
+	const customer = useSelector((state) => state.customer.customer);
 	/* const token = useSelector((state) => state.auth.user.tokenUser); */
 
 	const [value, setValue] = useState();
@@ -121,9 +121,9 @@ const PlacingAnOrder = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			fullName: initialValues.firstName || "",
-			phoneNumber: initialValues.telephone || "",
-			email: initialValues.email || "",
+			fullName: customer?.firstName || "",
+			phoneNumber: customer?.telephone || "",
+			email: customer?.email || "",
 			adress: inputValue || "",
 		},
 		onSubmit: async (values) => {
@@ -138,7 +138,6 @@ const PlacingAnOrder = () => {
 			dispatch(setOrderNo(orderNo));
 			dispatch(setModal("SUCCESS"));
 		},
-		enableReinitialize: true,
 		validationSchema,
 	});
 	const { values, errors, touched } = formik;
