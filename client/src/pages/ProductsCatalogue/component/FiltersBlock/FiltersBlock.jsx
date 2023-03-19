@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
 import { fetchProducts } from "../../../../store/reducers/productsSlice";
 import { selectorArrFilters } from "../../../../store/selectors";
 import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
+import PointPrices from "./PointPrices/PointPrices";
 import SortBox from "../SortBox";
 
 const FiltersBlock = () => {
@@ -94,10 +95,13 @@ const FiltersBlock = () => {
 	};
 	return (
 		<FilterWrapper>
-			<Stack spacing={3} sx={{ position: "sticky", top: "30px" }}>
-				<Typography component="legend" sx={{ textAlign: "left", color: "grey", paddingBottom: 2 }}>
+			<Stack spacing={2} sx={{ position: "sticky", top: "30px" }}>
+				<Typography component="legend" sx={{ textAlign: "left", color: "grey", padding: 0 }}>
 					Діапазон ціни, грн
 				</Typography>
+				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+					<PointPrices minPrice={minPrice} maxPrice={maxPrice} />
+				</Box>
 				<RangePrice
 					setPriceParams={priceHandler}
 					min={minPrice}

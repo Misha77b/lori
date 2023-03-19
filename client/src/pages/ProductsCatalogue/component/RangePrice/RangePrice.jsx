@@ -9,7 +9,7 @@ function RangeSlider({ setPriceParams, min, max }) {
 				sx={{
 					margin: 0,
 					"& .css-14pt78w-MuiSlider-rail": { margin: 0 },
-					"& .css-ouckof-MuiSlider-valueLabel": { backgroundColor: "#2e7d32" },
+					"& .css-ouckof-MuiSlider-valueLabel": { backgroundColor: "#2e7d32", padding: "3px" },
 					"& .MuiSlider-valueLabelLabel": {
 						left: "calc(-50% + 4px)",
 						padding: 0,
