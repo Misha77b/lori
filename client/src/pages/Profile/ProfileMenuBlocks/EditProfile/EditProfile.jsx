@@ -7,10 +7,9 @@ import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
 
 const EditProfile = () => {
 	const dispatch = useDispatch();
-	const { email, firstName, lastName, telephone } = useSelector((state) => state.customer.customer);
 	useEffect(() => {
 		dispatch(fetchCustomer()).then(({ payload }) => payload);
-	}, [email, firstName, lastName, telephone]);
+	}, []);
 	return (
 		<EditProfileWrapper>
 			<Typography
@@ -19,7 +18,7 @@ const EditProfile = () => {
 			>
 				Профіль користувача
 			</Typography>
-			<UserInfoForm email={email} firstName={firstName} lastName={lastName} telephone={telephone} />
+			<UserInfoForm />
 		</EditProfileWrapper>
 	);
 };
