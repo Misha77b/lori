@@ -73,7 +73,7 @@ module.exports = {
 		ignoredNodes: 0,
 		"react/prop-types": [0],
 		"react/require-default-props": "off",
-		"react/jsx-indent": [1, "tab"],
+		"react/jsx-indent": [0],
 		"react/jsx-indent-props": [1, "tab"],
 		semi: 0,
 		camelcase: 0,
