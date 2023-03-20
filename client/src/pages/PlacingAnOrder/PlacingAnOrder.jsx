@@ -121,15 +121,14 @@ const PlacingAnOrder = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			fullName: initialValues.firstName || "",
-			phoneNumber: initialValues.telephone || "",
-			email: initialValues.email || "",
+			fullName: initialValues?.firstName || "",
+			phoneNumber: initialValues?.telephone || "",
+			email: initialValues?.email || "",
 			adress: inputValue || "",
 		},
 		onSubmit: async (values) => {
 			const newOrder = orders(values);
 			const orderNo = await dispatch(createOrder(newOrder)).then((res) => {
-				// const resOrderNo = res.payload.order.orderNo;
 				return res.payload.order.orderNo;
 			});
 			dispatch(setOrderNo(orderNo));
@@ -190,29 +189,13 @@ const PlacingAnOrder = () => {
 									<FormControlLabel
 										sx={RGStyle}
 										value="Кур’єром додому"
-										control={
-											<Radio
-												sx={{
-													"&.Mui-checked": {
-														color: "#007042",
-													},
-												}}
-											/>
-										}
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Кур’єром додому"
 									/>
 									<FormControlLabel
 										sx={RGStyle}
 										value="Самовивіз"
-										control={
-											<Radio
-												sx={{
-													"&.Mui-checked": {
-														color: "#007042",
-													},
-												}}
-											/>
-										}
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Самовивіз"
 									/>
 								</RadioGroup>
@@ -229,29 +212,13 @@ const PlacingAnOrder = () => {
 									<FormControlLabel
 										sx={RGStyle}
 										value="Банківською карткою онлайн"
-										control={
-											<Radio
-												sx={{
-													"&.Mui-checked": {
-														color: "#007042",
-													},
-												}}
-											/>
-										}
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Банківською карткою онлайн"
 									/>
 									<FormControlLabel
 										sx={RGStyle}
 										value="Готівкою або карткою при отриманні"
-										control={
-											<Radio
-												sx={{
-													"&.Mui-checked": {
-														color: "#007042",
-													},
-												}}
-											/>
-										}
+										control={<Radio sx={{ "&.Mui-checked": { color: "#007042" } }} />}
 										label="Готівкою або карткою при отриманні"
 									/>
 								</RadioGroup>

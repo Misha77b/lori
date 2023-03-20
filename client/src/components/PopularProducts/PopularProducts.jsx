@@ -23,13 +23,7 @@ const PopularProducts = ({ products, advertisement = false }) => {
 	}, [isAuth]);
 	return (
 		<Container>
-			<Box
-				sx={{
-					display: "flex",
-					justifyContent: "space-between",
-					alignItems: "center",
-				}}
-			>
+			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 				{!advertisement && <CategoryTitle text="Популярні товари" />}
 				{advertisement && <CategoryTitle text="Ви також можете розглянути товари на знижкі" />}
 				{!advertisement && (

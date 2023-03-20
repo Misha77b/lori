@@ -58,10 +58,7 @@ export const cartSlice = createSlice({
 				if (newVal < 1) {
 					newVal = 1;
 				}
-				state.shoppingCart = {
-					...state.shoppingCart,
-					[action.payload.itemNo]: newVal,
-				};
+				state.shoppingCart = { ...state.shoppingCart, [action.payload.itemNo]: newVal };
 				// for auth update all cart
 				if (getLocalItem("token")) {
 					const localCart = JSON.parse(localStorage.getItem("cart") || "{}");

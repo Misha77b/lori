@@ -67,10 +67,7 @@ const Header = React.memo(({ modal }) => {
 								fontWeight="fontWeightBold"
 								fontFamily="Open Sans"
 								color="graphite.main"
-								sx={{
-									m: "0 10px",
-									display: { xs: "none", lg: "inline" },
-								}}
+								sx={{ m: "0 10px", display: { xs: "none", lg: "inline" } }}
 							>
 								(098)259-25-99
 							</Typography>
@@ -85,10 +82,7 @@ const Header = React.memo(({ modal }) => {
 									<BurgerProfile isLoggedIn={isLoggedIn} />
 									<IconButton
 										sx={{
-											display: {
-												xs: "none",
-												md: "inline-flex",
-											},
+											display: { xs: "none", md: "inline-flex" },
 										}}
 										color="grey.main"
 										component={Link}
@@ -97,13 +91,7 @@ const Header = React.memo(({ modal }) => {
 										<AccountCircleOutlinedIcon sx={menuLinkItem} />
 										<Typography
 											color="grey.main"
-											sx={{
-												display: {
-													xs: "none",
-													lg: "block",
-												},
-												p: "0 0 0 5px",
-											}}
+											sx={{ display: { xs: "none", lg: "block" }, p: "0 0 0 5px" }}
 										>
 											Особистий кабінет
 										</Typography>
@@ -119,13 +107,7 @@ const Header = React.memo(({ modal }) => {
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
-										sx={{
-											display: {
-												xs: "none",
-												md: "block",
-											},
-											p: "0 0 0 5px",
-										}}
+										sx={{ display: { xs: "none", md: "block" }, p: "0 0 0 5px" }}
 									>
 										Увійти
 									</Typography>

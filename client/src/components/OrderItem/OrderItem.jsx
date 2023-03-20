@@ -9,7 +9,7 @@ import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { favCrossSx } from "./FavoriteSx/crossSx";
 import ToCartButton from "../ToCartButton";
 
-const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification }) => {
+const OrderItem = React.memo(({ item, cartQuantity, deleteCross = false, setNotification }) => {
 	const dispatch = useDispatch();
 	const isAuth = useSelector((state) => state.auth.isAuth);
 	return (
@@ -100,7 +100,7 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 			<Divider />
 		</>
 	);
-};
+});
 OrderItem.defaultProps = {
 	cartQuantity: undefined,
 	deleteCross: false,
