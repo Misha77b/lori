@@ -94,7 +94,7 @@ const PlacingAnOrder = () => {
 	const orders = (values) => {
 		const sendOrder = {};
 		if (isLoggedIn) {
-			sendOrder.customerId = customer._id;
+			sendOrder.customerId = initialValues._id;
 			sendOrder.deliveryAddress = values.adress;
 			sendOrder.shipping = shippingMethod;
 			sendOrder.paymentInfo = paymentMethod;
@@ -121,18 +121,14 @@ const PlacingAnOrder = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			fullName: initialValues.firstName || "",
-			phoneNumber: initialValues.telephone || "",
-			email: initialValues.email || "",
+			fullName: initialValues?.firstName || "",
+			phoneNumber: initialValues?.telephone || "",
+			email: initialValues?.email || "",
 			adress: inputValue || "",
 		},
 		onSubmit: async (values) => {
 			const newOrder = orders(values);
 			const orderNo = await dispatch(createOrder(newOrder)).then((res) => {
-				if (isLoggedIn) {
-					dispatch(deleteCartAuth());
-				}
-				dispatch(clearCart());
 				return res.payload.order.orderNo;
 			});
 			dispatch(setOrderNo(orderNo));

@@ -18,7 +18,7 @@ import { darkBackButton } from "./sxMuiComponents/slideButton";
 import { fetchSlides } from "../../store/reducers/slidesSlice";
 import { selectSlidesData } from "../../store/selectors";
 
-const Slider = () => {
+const Slider = React.memo(() => {
 	const dispatch = useDispatch();
 	const slides = useSelector(selectSlidesData);
 	useEffect(
@@ -90,6 +90,6 @@ const Slider = () => {
 			</Swiper>
 		</Container>
 	);
-};
+});
 
 export default Slider;
