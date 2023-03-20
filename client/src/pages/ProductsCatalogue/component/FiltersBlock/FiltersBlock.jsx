@@ -46,7 +46,6 @@ const FiltersBlock = () => {
 	}, [filters]);
 
 	useEffect(() => {
-		console.log("searchParams update", searchParams.toString());
 		const abort = new AbortController();
 		dispatch(actionFetchFilters(abort.signal, searchParams));
 		return () => {
@@ -75,8 +74,6 @@ const FiltersBlock = () => {
 				return prev;
 			});
 		}
-
-		console.log("searchParams", searchParams.toString());
 	};
 	const arrayField = ["brand", "processor", "diagonal", "iternalStorage", "RAM", "waterResistant"];
 	const arrayNameLabel = [
