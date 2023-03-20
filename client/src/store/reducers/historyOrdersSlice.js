@@ -7,7 +7,5 @@ const initialState = {
 };
 
 export const historyOrder = createAsyncThunk("orders/historyOrders", async () => {
-	await axios.get(`${DOMAIN}/orders`).then(({ data }) => {
-		console.log(data);
-	});
+	await axios.get(`${DOMAIN}/orders`).then(({ data }) => data);
 });

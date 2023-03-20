@@ -1,26 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
+import { clearCart, deleteCartAuth } from "./cartSlice";
 
 const initialState = {
 	orderData: "",
 	orderProducts: [],
 };
 
-export const createOrder = createAsyncThunk("orders/postData", async (obj) => {
-	const response = await axios
-		.post(`${DOMAIN}/orders`, obj)
-		.then(({ data }) => {
-			console.log("data", data);
-			return data;
-		})
-		.catch((err) => {
-			// eslint-disable-next-line
-			alert("Заповніть обов'язкові поля");
-			console.warn(err);
-		});
-	return response;
-});
+export const createOrder = createAsyncThunk(
+	"orders/postData",
+	async (obj, { dispatch, rejectWithValue, getState }) => {
+		try {
+			const { auth } = getState();
+			const response = await axios
+				.post(`${DOMAIN}/orders`, obj)
+				.then(({ data }) => {
+					if (auth.isAuth) {
+						dispatch(deleteCartAuth());
+					}
+					dispatch(clearCart());
+					return data;
+				})
+				.catch((err) => {
+					// eslint-disable-next-line
+					alert("Заповніть обов'язкові поля");
+					console.warn(err);
+				});
+			return response;
+		} catch {
+			return rejectWithValue(error);
+		}
+	},
+);
 
 export const ordersSlice = createSlice({
 	name: "orders",

@@ -13,52 +13,53 @@ const GridItem = () => {
 	const filters = useSelector(selectorArrFilters);
 	useEffect(() => {
 		const abort = new AbortController();
-		dispatch(actionFetchFilters(abort.signal));
+		dispatch(actionFetchFilters(abort.signal, "", "brand"));
 		return () => {
 			abort.abort();
 		};
 	}, []);
 
-	const brands = filters.filter((obj) => obj.type === "brand");
-	const blockBrand = brands.map(({ name, description }, index) => {
-		const params = new URLSearchParams();
-		params.set("brand", name);
-		return (
-			<Grid item xs={12} sm={12} md={6} key={index}>
-				<div className={`popular popular--${name}`}>
-					<div className="popular--overlay" />
-					<div className="popular--text">
-						<Stack spacing={4} sx={{ width: "50%" }}>
-							<Stack spacing={1}>
-								<Typography
-									variant="h4"
-									fontWeight="fontWeightBold"
-									sx={heading}
-									className="typography"
-									gutterBottom
-								>
-									{name}
-								</Typography>
-								<Typography
-									variant="h5"
-									fontWeight="fontWeightMedium"
-									sx={paragraph}
-									className="typography--p"
-								>
-									{description}
-								</Typography>
+	const blockBrand =
+		Array.isArray(filters) &&
+		filters.map(({ name, description }, index) => {
+			const params = new URLSearchParams();
+			params.set("brand", name);
+			return (
+				<Grid item xs={12} sm={12} md={6} key={index}>
+					<div className={`popular popular--${name}`}>
+						<div className="popular--overlay" />
+						<div className="popular--text">
+							<Stack spacing={4} sx={{ width: "50%" }}>
+								<Stack spacing={1}>
+									<Typography
+										variant="h4"
+										fontWeight="fontWeightBold"
+										sx={heading}
+										className="typography"
+										gutterBottom
+									>
+										{name}
+									</Typography>
+									<Typography
+										variant="h5"
+										fontWeight="fontWeightMedium"
+										sx={paragraph}
+										className="typography--p"
+									>
+										{description}
+									</Typography>
+								</Stack>
+								<Link to={`/products?${params.toString()}`} className="link">
+									<Button color="primary" variant="contained" sx={button}>
+										Детальніше
+									</Button>
+								</Link>
 							</Stack>
-							<Link to={`/products?${params.toString()}`} className="link">
-								<Button color="primary" variant="contained" sx={button}>
-									Детальніше
-								</Button>
-							</Link>
-						</Stack>
+						</div>
 					</div>
-				</div>
-			</Grid>
-		);
-	});
+				</Grid>
+			);
+		});
 
 	return <>{blockBrand}</>;
 };

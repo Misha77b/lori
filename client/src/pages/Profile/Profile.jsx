@@ -4,6 +4,8 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { Container, Grid, Tabs, Tab, Box } from "@mui/material";
 
 import { setIsAuth } from "../../store/reducers/authSlice";
+// eslint-disable-next-line import/named
+import { clearFavorites } from "../../store/reducers/favoriteSlice";
 import "./Profile.scss";
 
 import CategoryTitle from "../../components/CategoryTitle";
@@ -108,6 +110,7 @@ const Profile = () => {
 								onClick={() => {
 									localStorage.removeItem("token");
 									dispatch(setIsAuth(false));
+									dispatch(clearFavorites());
 									navigate("/");
 								}}
 								label="Вийти з кабінету"

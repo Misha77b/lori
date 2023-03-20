@@ -1,16 +1,17 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Grid, Box, Button, Divider, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./OrderItem.scss";
-import { removeItemFavorite } from "../../store/reducers/favoriteSlice";
+import { deleteFromFavorites, removeItemFavorite } from "../../store/reducers/favoriteSlice";
 import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 import { favCrossSx } from "./FavoriteSx/crossSx";
 import ToCartButton from "../ToCartButton";
 
-const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification }) => {
+const OrderItem = React.memo(({ item, cartQuantity, deleteCross = false, setNotification }) => {
 	const dispatch = useDispatch();
+	const isAuth = useSelector((state) => state.auth.isAuth);
 	return (
 		<>
 			<Grid container className="item-product">
@@ -83,8 +84,12 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 							color="black"
 							sx={{ padding: 0, minWidth: 0 }}
 							onClick={() => {
-								dispatch(removeItemFavorite(item._id));
-								deleteCardIdFromStore(item._id, "favorites");
+								if (!isAuth) {
+									dispatch(removeItemFavorite(item._id));
+									deleteCardIdFromStore(item._id, "favorites");
+								} else {
+									dispatch(deleteFromFavorites(item._id));
+								}
 							}}
 						>
 							<CloseIcon />
@@ -95,7 +100,7 @@ const OrderItem = ({ item, cartQuantity, deleteCross = false, setNotification })
 			<Divider />
 		</>
 	);
-};
+});
 OrderItem.defaultProps = {
 	cartQuantity: undefined,
 	deleteCross: false,

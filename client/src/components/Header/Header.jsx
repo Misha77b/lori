@@ -17,19 +17,24 @@ import { setIsAuth } from "../../store/reducers/authSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 
-const Header = ({ modal }) => {
+const Header = React.memo(({ modal }) => {
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
 	const shoppingCart = useSelector(selectShoppingCart);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
+	const authFav = useSelector((state) => state.favorite.favoritesAuth);
 	const token = getLocalItem("token");
 
 	useEffect(() => {
-		setCountF(favorite.length);
-		setCountC(totalCartQuantity);
-	}, [favorite, shoppingCart, token, isLoggedIn]);
+		if (!isLoggedIn) {
+			setCountF(favorite?.length || "0");
+			setCountC(totalCartQuantity);
+		} else {
+			setCountF(authFav?.length || "0");
+		}
+	}, [favorite, authFav, shoppingCart, isLoggedIn]);
 
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
@@ -49,23 +54,25 @@ const Header = ({ modal }) => {
 					<Toolbar disableGutters={true} sx={{ justifyContent: "space-evenly", marginTop: "15px" }}>
 						<BurgerMenu />
 						<LogoIcon />
+						<Box>
+							<Typography
+								fontWeight="fontWeightBold"
+								fontFamily="Open Sans"
+								color="graphite.main"
+								sx={{ display: { xs: "none", lg: "inline" } }}
+							>
+								(096)166-64-16
+							</Typography>
+							<Typography
+								fontWeight="fontWeightBold"
+								fontFamily="Open Sans"
+								color="graphite.main"
+								sx={{ m: "0 10px", display: { xs: "none", lg: "inline" } }}
+							>
+								(098)259-25-99
+							</Typography>
+						</Box>
 
-						<Typography
-							fontWeight="fontWeightBold"
-							fontFamily="Open Sans"
-							color="graphite.main"
-							sx={{ display: { xs: "none", lg: "block" } }}
-						>
-							(096)166-64-16
-						</Typography>
-						<Typography
-							fontWeight="fontWeightBold"
-							fontFamily="Open Sans"
-							color="graphite.main"
-							sx={{ m: " 0 10px", display: { xs: "none", lg: "block" } }}
-						>
-							(098)259-25-99
-						</Typography>
 						<Box sx={{ display: { xs: "none", sm: "flex" } }}>
 							<Search />
 						</Box>
@@ -81,10 +88,10 @@ const Header = ({ modal }) => {
 										component={Link}
 										to="/profile/edit-profile"
 									>
-										<AccountCircleOutlinedIcon />
+										<AccountCircleOutlinedIcon sx={menuLinkItem} />
 										<Typography
 											color="grey.main"
-											sx={{ display: { xs: "none", lg: "block" }, p: "0" }}
+											sx={{ display: { xs: "none", lg: "block" }, p: "0 0 0 5px" }}
 										>
 											Особистий кабінет
 										</Typography>
@@ -100,7 +107,7 @@ const Header = ({ modal }) => {
 									<AccountCircleOutlinedIcon sx={menuLinkItem} />
 									<Typography
 										color="grey.main"
-										sx={{ display: { xs: "none", md: "block" }, p: "0" }}
+										sx={{ display: { xs: "none", md: "block" }, p: "0 0 0 5px" }}
 									>
 										Увійти
 									</Typography>
@@ -153,7 +160,7 @@ const Header = ({ modal }) => {
 			</Container>
 		</Box>
 	);
-};
+});
 
 Header.propTypes = {
 	modal: PropTypes.func.isRequired,

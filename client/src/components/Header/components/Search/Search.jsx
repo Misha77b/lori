@@ -7,17 +7,20 @@ import { useDispatch } from "react-redux";
 import { fetchSearchProducts, clearSearch } from "../../../../store/reducers/searchSlice";
 import useLocationParams from "../../../../pages/ProductsCatalogue/hooks/useLocationParams";
 
-const Search = () => {
+const Search = React.memo(() => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [input, setInput] = useState("");
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams({ query: input });
-
-	function handleClearSearch() {
+	const handleClearSearch = () => {
 		dispatch(clearSearch());
-	}
-
+		setSearchParams((prev) => {
+			prev.delete("query");
+			return prev;
+		});
+		setInput("");
+	};
 	return (
 		<Box
 			onSubmit={(e) => e.preventDefault()}
@@ -44,6 +47,7 @@ const Search = () => {
 						border: "5px",
 					},
 				}}
+				value={input}
 				onChange={(e) => {
 					setInput(e.target.value);
 				}}
@@ -63,7 +67,12 @@ const Search = () => {
 							}}
 						>
 							{input && (
-								<IconButton edge="end" onClick={() => handleClearSearch()} href="/products">
+								<IconButton
+									edge="end"
+									onClick={() => {
+										handleClearSearch();
+									}}
+								>
 									<ClearIcon color="secondary" />
 								</IconButton>
 							)}
@@ -83,7 +92,6 @@ const Search = () => {
 							query: searchParams.get("query"),
 						}),
 					);
-
 					navigate(`/products?${params}`);
 				}}
 				sx={{
@@ -106,6 +114,6 @@ const Search = () => {
 			</Button>
 		</Box>
 	);
-};
+});
 
 export default Search;

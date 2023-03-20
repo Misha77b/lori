@@ -14,9 +14,11 @@ const MenuAbout = () => {
 
 	return (
 		<>
-			<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
-				<CustomLink to="/about">Про нас</CustomLink>
-			</Button>
+			<CustomLink to="/about">
+				<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
+					Про нас
+				</Button>
+			</CustomLink>
 		</>
 	);
 };

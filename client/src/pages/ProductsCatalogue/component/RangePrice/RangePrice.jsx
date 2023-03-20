@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Box, Slider } from "@mui/material";
 
-function RangeSlider({ setPriceParams, min, max }) {
+function RangeSlider({ setPriceParams, minVal, maxVal, min, max }) {
+	const handleChangeCommitted = (event, newValue, changeSearchParamsPrice = false) => {
+		setPriceParams(newValue[0], newValue[1], changeSearchParamsPrice);
+	};
 	return (
 		<Box sx={{ width: 250, margin: 0 }}>
 			<Slider
 				sx={{
 					margin: 0,
 					"& .css-14pt78w-MuiSlider-rail": { margin: 0 },
-					"& .css-ouckof-MuiSlider-valueLabel": { backgroundColor: "#2e7d32" },
+					"& .css-ouckof-MuiSlider-valueLabel": { backgroundColor: "#2e7d32", padding: "3px" },
 					"& .MuiSlider-valueLabelLabel": {
 						left: "calc(-50% + 4px)",
 						padding: 0,
@@ -19,14 +22,12 @@ function RangeSlider({ setPriceParams, min, max }) {
 				}}
 				color="secondary"
 				getAriaLabel={() => "Ціна"}
-				value={[min, max]}
-				onChange={(event, newValue) => {
-					setPriceParams(newValue[0], newValue[1]);
-				}}
+				value={[minVal, maxVal]}
+				onChange={(event, newValue) => handleChangeCommitted(event, newValue)}
+				onChangeCommitted={(event, newValue) => handleChangeCommitted(event, newValue, true)}
 				valueLabelDisplay="auto"
-				min={2000}
-				max={100000}
-				step={500}
+				min={min}
+				max={max}
 			/>
 		</Box>
 	);

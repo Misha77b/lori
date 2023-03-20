@@ -10,10 +10,13 @@ import Spinner from "../../components/Spinner";
 const FavoritePage = () => {
 	const dispatch = useDispatch();
 	const [notification, setNotification] = useState(false);
+	const isAuth = useSelector((state) => state.auth.isAuth);
 	const [products, setProducts] = useState([]);
 	const parsed = JSON.parse(getLocalItem("favorites") || "[]");
 	const favorites = useSelector((state) => state.favorite.favorite);
-	const productsLoading = useSelector((state) => state.products.loader);
+	const authFav = useSelector((state) => state.favorite.favoritesAuth);
+	const { loaded } = useSelector((state) => state.favorite.meta);
+	const unauthLoaded = useSelector((state) => state.products.loader);
 	useEffect(() => {
 		const params = new URLSearchParams();
 		params.set("_id", parsed.join(","));
@@ -25,6 +28,31 @@ const FavoritePage = () => {
 			setProducts(res.payload.products);
 		});
 	}, [favorites]);
+	const prodsToRender = isAuth
+		? authFav?.map((item) => {
+				return (
+					<OrderItem
+						setNotification={setNotification}
+						key={item.itemNo}
+						item={item}
+						deleteCross={true}
+					/>
+				);
+				// eslint-disable-next-line no-mixed-spaces-and-tabs
+		  })
+		: products?.map((item) => {
+				return (
+					<OrderItem
+						setNotification={setNotification}
+						key={item.itemNo}
+						item={item}
+						deleteCross={true}
+					/>
+				);
+				// eslint-disable-next-line no-mixed-spaces-and-tabs
+		  });
+	if (isAuth && !loaded) return <Spinner />;
+	if (!isAuth && unauthLoaded) return <Spinner />;
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
@@ -37,35 +65,27 @@ const FavoritePage = () => {
 				>
 					Улюблене
 				</Typography>
-				{productsLoading && <Spinner />}
-				{!productsLoading && (
-					<>
-						{!products.length && (
-							<Typography
-								variant="h3"
-								fontWeight="fontWeightBold"
-								sx={{ fontSize: "30px", color: "black", textAlign: "center", marginTop: "150px" }}
-							>
-								Товарів поки немає
-							</Typography>
-						)}
-						<Box component="div" className="scroll">
-							{products?.map((item) => {
-								return (
-									<OrderItem
-										setNotification={setNotification}
-										key={item.itemNo}
-										item={item}
-										deleteCross={true}
-									/>
-								);
-							})}
-						</Box>
-					</>
-				)}
+				<>
+					{!favorites.length && !authFav.length && (
+						<Typography
+							variant="h3"
+							fontWeight="fontWeightBold"
+							sx={{
+								fontSize: "30px",
+								color: "black",
+								textAlign: "center",
+								marginTop: "150px",
+							}}
+						>
+							Товарів поки немає
+						</Typography>
+					)}
+					<Box component="div" className="scroll">
+						{prodsToRender}
+					</Box>
+				</>
 			</div>
 		</Container>
 	);
 };
-
 export default FavoritePage;
