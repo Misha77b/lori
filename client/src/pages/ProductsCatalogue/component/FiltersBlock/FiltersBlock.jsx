@@ -6,7 +6,6 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
-import { fetchProducts } from "../../../../store/reducers/productsSlice";
 import { selectorArrFilters } from "../../../../store/selectors";
 import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
 import PointPrices from "./PointPrices/PointPrices";
@@ -136,7 +135,7 @@ const FiltersBlock = () => {
 					}}
 				/>
 				{arrSelect}
-				<Button
+				{/* <Button
 					variant="contained"
 					color="secondary"
 					sx={{
@@ -152,7 +151,7 @@ const FiltersBlock = () => {
 					}}
 				>
 					Пошук
-				</Button>
+				</Button> */}
 				<Button
 					onClick={() => {
 						clearFiltersHandler();
@@ -165,7 +164,7 @@ const FiltersBlock = () => {
 						height: "46px",
 					}}
 				>
-					Очистити
+					Очистити всі фільтри
 				</Button>
 			</Stack>
 		</FilterWrapper>
