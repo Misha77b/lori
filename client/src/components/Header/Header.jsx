@@ -24,12 +24,17 @@ const Header = React.memo(({ modal }) => {
 	const shoppingCart = useSelector(selectShoppingCart);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
+	const authFav = useSelector((state) => state.favorite.favoritesAuth);
 	const token = getLocalItem("token");
 
 	useEffect(() => {
-		setCountF(favorite.length);
-		setCountC(totalCartQuantity);
-	}, [favorite, shoppingCart, token, isLoggedIn]);
+		if (!isLoggedIn) {
+			setCountF(favorite?.length || "0");
+			setCountC(totalCartQuantity);
+		} else {
+			setCountF(authFav?.length || "0");
+		}
+	}, [favorite, authFav, shoppingCart, isLoggedIn]);
 
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",

@@ -13,7 +13,7 @@ import ProductCard from "../ProductCard";
 import "./styles.scss";
 import { swiperBreakpoints } from "./swiperBreakpoints/swiperBreakpoints";
 
-const PopularProducts = ({ products, advertisement = false }) => {
+const PopularProducts = ({ products, advertisement = false, authFav }) => {
 	return (
 		<Container>
 			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
