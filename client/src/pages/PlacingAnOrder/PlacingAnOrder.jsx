@@ -129,10 +129,7 @@ const PlacingAnOrder = () => {
 		onSubmit: async (values) => {
 			const newOrder = orders(values);
 			const orderNo = await dispatch(createOrder(newOrder)).then((res) => {
-				if (isLoggedIn) {
-					dispatch(deleteCartAuth());
-				}
-				dispatch(clearCart());
+				// const resOrderNo = res.payload.order.orderNo;
 				return res.payload.order.orderNo;
 			});
 			dispatch(setOrderNo(orderNo));
