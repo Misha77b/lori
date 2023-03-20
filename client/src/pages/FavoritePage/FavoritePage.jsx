@@ -51,6 +51,8 @@ const FavoritePage = () => {
 				);
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  });
+	if (isAuth && !loaded) return <Spinner />;
+	if (!isAuth && unauthLoaded) return <Spinner />;
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
@@ -63,8 +65,6 @@ const FavoritePage = () => {
 				>
 					Улюблене
 				</Typography>
-				{isAuth && !loaded && <Spinner />}
-				{!isAuth && unauthLoaded && <Spinner />}
 				<>
 					{!favorites.length && !authFav.length && (
 						<Typography

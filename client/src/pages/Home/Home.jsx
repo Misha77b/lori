@@ -8,13 +8,8 @@ import Spinner from "../../components/Spinner";
 import { getFavorites } from "../../store/reducers/favoriteSlice";
 
 const Home = () => {
-	const dispatch = useDispatch();
 	const productsLoading = useSelector((state) => state.products.loader);
-	const isAuth = useSelector((state) => state.auth.isAuth);
 	const products = useFetchData();
-	useEffect(() => {
-		if (isAuth) dispatch(getFavorites());
-	}, [isAuth]);
 	if (productsLoading) return <Spinner />;
 	return (
 		<div>

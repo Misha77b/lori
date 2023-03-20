@@ -26,7 +26,7 @@ const UserInfoForm = () => {
 			email: initialValues.email || "",
 			telephone: initialValues.telephone || "",
 		},
-		// enableReinitialize: true,
+		enableReinitialize: true,
 		onSubmit: (usersData) => {
 			dispatch(fetchUpdateCustomerInfo(usersData));
 			setTimeout(() => {
