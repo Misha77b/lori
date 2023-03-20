@@ -44,7 +44,12 @@ const FavoritePage = () => {
 							<Typography
 								variant="h3"
 								fontWeight="fontWeightBold"
-								sx={{ fontSize: "30px", color: "black", textAlign: "center", marginTop: "150px" }}
+								sx={{
+									fontSize: "30px",
+									color: "black",
+									textAlign: "center",
+									marginTop: "150px",
+								}}
 							>
 								Товарів поки немає
 							</Typography>

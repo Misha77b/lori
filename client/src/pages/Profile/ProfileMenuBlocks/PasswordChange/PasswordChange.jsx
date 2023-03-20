@@ -40,7 +40,11 @@ const PasswordChange = () => {
 		>
 			<Typography
 				fontWeight="fontWeightBold"
-				sx={{ fontSize: "20px", color: "#000000", fontFamily: "Open Sans, sans-serif" }}
+				sx={{
+					fontSize: "20px",
+					color: "#000000",
+					fontFamily: "Open Sans, sans-serif",
+				}}
 			>
 				Пароль
 			</Typography>

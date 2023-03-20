@@ -23,7 +23,6 @@ export const fetchAuth = createAsyncThunk("user/login", async (object) => {
 });
 export const fetchRegister = createAsyncThunk("user/register", async (object) => {
 	axios
-
 		.post(`${DOMAIN}/customers`, object)
 		.then((savedCustomer) => savedCustomer)
 		.catch((err) => {
