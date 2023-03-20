@@ -29,6 +29,7 @@ export const actionFetchFilters =
 		const stringPath = !searchParams?.toString().trim()
 			? `${DOMAIN}/filters/${type}`
 			: `${DOMAIN}/filters/${type}?${searchParams.toString()}`;
+
 		axios(stringPath, { signal })
 			.then((res) => {
 				if (type === "agregate") {
