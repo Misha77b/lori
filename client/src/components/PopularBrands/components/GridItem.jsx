@@ -13,14 +13,13 @@ const GridItem = () => {
 	const filters = useSelector(selectorArrFilters);
 	useEffect(() => {
 		const abort = new AbortController();
-		dispatch(actionFetchFilters(abort.signal));
+		dispatch(actionFetchFilters(abort.signal, "", "brand"));
 		return () => {
 			abort.abort();
 		};
 	}, []);
 
-	const brands = filters.filter((obj) => obj.type === "brand");
-	const blockBrand = brands.map(({ name, description }, index) => {
+	const blockBrand = filters.map(({ name, description }, index) => {
 		const params = new URLSearchParams();
 		params.set("brand", name);
 		return (

@@ -6,9 +6,9 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
-import { fetchProducts } from "../../../../store/reducers/productsSlice";
 import { selectorArrFilters } from "../../../../store/selectors";
 import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
+import PointPrices from "./PointPrices/PointPrices";
 import SortBox from "../SortBox";
 
 const FiltersBlock = () => {
@@ -17,56 +17,46 @@ const FiltersBlock = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams();
 	const filters = useSelector(selectorArrFilters);
-	const [minPrice, setminPrice] = useState(2000);
-	const [maxPrice, setMaxPrice] = useState(100000);
-	const [brands, setBrands] = useState([]);
-	const [processor, setProcessor] = useState([]);
-	const [diagonal, setDiagonal] = useState([]);
-	const [iternalStorage, setIternalStorage] = useState([]);
-	const [RAM, setRAM] = useState([]);
-	const [waterResistant, setWaterResistant] = useState([]);
+	const [minPrice, setMinPrice] = useState(0);
+	const [maxPrice, setMaxPrice] = useState(0);
+
+	const priceHandler = (min, max, changeSearchParamsPrice = false) => {
+		searchParams.get("minPrice");
+		setMinPrice(min);
+		setMaxPrice(max);
+		if (changeSearchParamsPrice) {
+			setSearchParams((prev) => {
+				prev.set("minPrice", min);
+				return prev;
+			});
+			searchParams.get("maxPrice");
+			setSearchParams((prev) => {
+				prev.set("maxPrice", max);
+				return prev;
+			});
+		}
+	};
 	useEffect(() => {
-		setBrands([]);
-		setProcessor([]);
-		setIternalStorage([]);
-		setDiagonal([]);
-		setRAM([]);
-		setWaterResistant([]);
-		filters.forEach((obj) => {
-			switch (obj.type) {
-				case "brand":
-					setBrands((prev) => [...prev, obj.name]);
-					break;
-				case "processor":
-					setProcessor((prev) => [...prev, obj.name]);
-					break;
-				case "diagonal":
-					setDiagonal((prev) => [...prev, obj.name]);
-					break;
-				case "iternalStorage":
-					setIternalStorage((prev) => [...prev, obj.name]);
-					break;
-				case "RAM":
-					setRAM((prev) => [...prev, obj.name]);
-					break;
-				case "waterResistant":
-					setWaterResistant((prev) => [...prev, obj.name]);
-					break;
-				default:
-					break;
-			}
-		});
+		if (!minPrice) {
+			setMinPrice(() => filters.minPrice);
+		}
+		if (!maxPrice) {
+			setMaxPrice(() => filters.maxPrice);
+		}
 	}, [filters]);
 
 	useEffect(() => {
+		console.log("searchParams update", searchParams.toString());
 		const abort = new AbortController();
-		dispatch(actionFetchFilters(abort.signal));
+		dispatch(actionFetchFilters(abort.signal, searchParams));
 		return () => {
 			abort.abort();
 		};
-	}, []);
+	}, [searchParams]);
 
 	const clearFiltersHandler = () => {
+		setMinPrice(0);
+		setMaxPrice(0);
 		searchParams.delete("brand");
 		searchParams.delete("processor");
 		searchParams.delete("diagonal");
@@ -75,33 +65,61 @@ const FiltersBlock = () => {
 		searchParams.delete("waterResistant");
 		searchParams.delete("minPrice");
 		searchParams.delete("maxPrice");
-		setminPrice(2000);
-		setMaxPrice(100000);
 	};
-	const priceHandler = (min, max) => {
-		searchParams.get("minPrice");
-		setminPrice(min);
-		setSearchParams((prev) => {
-			prev.set("minPrice", min);
-			return prev;
-		});
-		searchParams.get("maxPrice");
-		setMaxPrice(max);
-		setSearchParams((prev) => {
-			prev.set("maxPrice", max);
-			return prev;
-		});
+	const clearFiltersField = (field) => {
+		if (searchParams.toString().includes(field)) {
+			setMinPrice(() => 0);
+			setMaxPrice(() => 0);
+			setSearchParams((prev) => {
+				prev.delete(field);
+				return prev;
+			});
+		}
+
+		console.log("searchParams", searchParams.toString());
 	};
+	const arrayField = ["brand", "processor", "diagonal", "iternalStorage", "RAM", "waterResistant"];
+	const arrayNameLabel = [
+		"Бренд",
+		"Процесор",
+		"Діагональ",
+		"Внутрішня память",
+		"RAM",
+		"Захист від вологи",
+	];
+	const arrSelect = arrayField.map((el, ind) => (
+		<Selection
+			value={searchParams.get(el)}
+			setCurrentValue={(value) => {
+				setMinPrice(() => 0);
+				setMaxPrice(() => 0);
+				setSearchParams((prev) => {
+					prev.set(el, value);
+					prev.delete("minPrice");
+					prev.delete("maxPrice");
+					return prev;
+				});
+			}}
+			nameLabel={arrayNameLabel[ind]}
+			arrayProps={filters[el] ? filters[el] : []}
+			clearFiltersField={() => clearFiltersField(el)}
+		/>
+	));
 	return (
 		<FilterWrapper>
-			<Stack spacing={3} sx={{ position: "sticky", top: "30px" }}>
-				<Typography component="legend" sx={{ textAlign: "left", color: "grey", paddingBottom: 2 }}>
+			<Stack spacing={2} sx={{ position: "sticky", top: "30px" }}>
+				<Typography component="legend" sx={{ textAlign: "left", color: "grey", padding: 0 }}>
 					Діапазон ціни, грн
 				</Typography>
+				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+					<PointPrices minPrice={minPrice} maxPrice={maxPrice} />
+				</Box>
 				<RangePrice
 					setPriceParams={priceHandler}
-					min={minPrice}
-					max={maxPrice}
+					minVal={minPrice}
+					maxVal={maxPrice}
+					min={filters.minPrice}
+					max={filters.maxPrice}
 					sx={{ "text-align": "center" }}
 				/>
 				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
@@ -116,73 +134,8 @@ const FiltersBlock = () => {
 						});
 					}}
 				/>
-				<Selection
-					value={searchParams.get("brand")}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("brand", value);
-							return prev;
-						});
-					}}
-					nameLabel="Бренд"
-					arrayProps={brands}
-				/>
-				<Selection
-					value={searchParams.get("processor")}
-					nameLabel="Процесор"
-					arrayProps={processor}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("processor", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("diagonal")}
-					nameLabel="Діагональ"
-					arrayProps={diagonal}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("diagonal", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("iternalStorage")}
-					nameLabel="Внутрішня память"
-					arrayProps={iternalStorage}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("iternalStorage", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("RAM")}
-					nameLabel="RAM"
-					arrayProps={RAM}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("RAM", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("waterResistant")}
-					nameLabel="Захист від вологи"
-					arrayProps={waterResistant}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("waterResistant", value);
-							return prev;
-						});
-					}}
-				/>
-				<Button
+				{arrSelect}
+				{/* <Button
 					variant="contained"
 					color="secondary"
 					sx={{
@@ -198,7 +151,7 @@ const FiltersBlock = () => {
 					}}
 				>
 					Пошук
-				</Button>
+				</Button> */}
 				<Button
 					onClick={() => {
 						clearFiltersHandler();
@@ -211,7 +164,7 @@ const FiltersBlock = () => {
 						height: "46px",
 					}}
 				>
-					Очистити
+					Очистити всі фільтри
 				</Button>
 			</Stack>
 		</FilterWrapper>

@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
@@ -20,19 +21,28 @@ const filtersSlice = createSlice({
 });
 export const { actionLoad, actionFilters } = filtersSlice.actions;
 
-export const actionFetchFilters = (signal) => (dispatch) => {
-	dispatch(actionLoad(true));
-	fetch(`${DOMAIN}/filters`, { signal })
-		.then((data) => {
-			return data.json();
-		})
-		.then((data) => {
-			dispatch(actionFilters(data));
-			dispatch(actionLoad(false));
-		})
-		.catch((err) => {
-			// console.warn(err);
-		});
-};
+export const actionFetchFilters =
+	(signal, searchParams, type = "agregate") =>
+	(dispatch) => {
+		dispatch(actionLoad(true));
+
+		const stringPath = !searchParams?.toString().trim()
+			? `${DOMAIN}/filters/${type}`
+			: `${DOMAIN}/filters/${type}?${searchParams.toString()}`;
+
+		debugger; // eslint-disable-line no-debugger
+		axios(stringPath, { signal })
+			.then((res) => {
+				if (type === "agregate") {
+					dispatch(actionFilters(res.data[0]));
+				} else {
+					dispatch(actionFilters(res.data));
+				}
+				dispatch(actionLoad(false));
+			})
+			.catch((err) => {
+				// console.warn(err);
+			});
+	};
 
 export default filtersSlice.reducer;
