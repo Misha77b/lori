@@ -94,7 +94,7 @@ const PlacingAnOrder = () => {
 	const orders = (values) => {
 		const sendOrder = {};
 		if (isLoggedIn) {
-			sendOrder.customerId = customer._id;
+			sendOrder.customerId = initialValues._id;
 			sendOrder.deliveryAddress = values.adress;
 			sendOrder.shipping = shippingMethod;
 			sendOrder.paymentInfo = paymentMethod;
