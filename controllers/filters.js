@@ -133,26 +133,7 @@ exports.getFiltersByType = (req, res, next) => {
       fieldQuery.forEach((field) => {
         switch (field) {
           case "minPrice":
-            // {
-            //   let filterPrice = {};
-            //   if (match.currentPrice) {
-            //     filterPrice = match.currentPrice;
-            //   }
-            //   filterPrice["$gte"] = +req.query[field];
-            //   match.currentPrice = filterPrice;
-            // }
-
-            break;
           case "maxPrice":
-            // {
-            //   let filterPrice = {};
-            //   if (match.currentPrice) {
-            //     filterPrice = match.currentPrice;
-            //   }
-            //   filterPrice["$lte"] = +req.query[field];
-            //   match.currentPrice = filterPrice;
-            // }
-            break;
           case "sort":
             break;
           default:

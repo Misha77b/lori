@@ -2,10 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import { MenuItem } from "@mui/material";
+import { Button, MenuItem } from "@mui/material";
 import Select from "@mui/material/Select";
+import ButtonClean from "./components/ButtonClean";
 
-export default function Selection({ arrayProps, setCurrentValue, nameLabel, value }) {
+export default function Selection({
+	arrayProps,
+	setCurrentValue,
+	nameLabel,
+	value,
+	clearFiltersField,
+}) {
 	const colorsTag = arrayProps.map((el) => (
 		<MenuItem key={el} value={el} sx={{ width: "200px" }}>
 			{el}
@@ -16,7 +23,8 @@ export default function Selection({ arrayProps, setCurrentValue, nameLabel, valu
 	};
 	return (
 		<div>
-			<FormControl fullWidth>
+			<FormControl sx={{ position: "relative", width: "250px" }}>
+				<ButtonClean field={clearFiltersField} />
 				<InputLabel color="secondary" id="demo-simple-select-autowidth-label">
 					{nameLabel}
 				</InputLabel>

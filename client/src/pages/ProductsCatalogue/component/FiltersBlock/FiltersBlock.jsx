@@ -20,79 +20,30 @@ const FiltersBlock = () => {
 	const filters = useSelector(selectorArrFilters);
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(0);
-	const [brands, setBrands] = useState([]);
-	const [processor, setProcessor] = useState([]);
-	const [diagonal, setDiagonal] = useState([]);
-	const [iternalStorage, setIternalStorage] = useState([]);
-	const [RAM, setRAM] = useState([]);
-	const [waterResistant, setWaterResistant] = useState([]);
-	const priceHandler = (min, max) => {
+
+	const priceHandler = (min, max, changeSearchParamsPrice = false) => {
 		searchParams.get("minPrice");
 		setMinPrice(min);
-		setSearchParams((prev) => {
-			prev.set("minPrice", min);
-			return prev;
-		});
-		searchParams.get("maxPrice");
 		setMaxPrice(max);
-		setSearchParams((prev) => {
-			prev.set("maxPrice", max);
-			return prev;
-		});
-	};
-	//console.log("searchParams", searchParams.toString());
-	useEffect(() => {
-		console.log("filters update", filters);
-		if (filters.brand && brands.length < filters.brand.length) {
-			setBrands(() => (filters.brand ? filters.brand : []));
+		if (changeSearchParamsPrice) {
+			setSearchParams((prev) => {
+				prev.set("minPrice", min);
+				return prev;
+			});
+			searchParams.get("maxPrice");
+			setSearchParams((prev) => {
+				prev.set("maxPrice", max);
+				return prev;
+			});
 		}
-		setProcessor(() => (filters.processor ? filters.processor : []));
-		setIternalStorage(() => (filters.iternalStorage ? filters.iternalStorage : []));
-		setDiagonal(() => (filters.diagonal ? filters.diagonal : []));
-		setRAM(() => (filters.RAM ? filters.RAM : []));
-		setWaterResistant(() => (filters.waterResistant ? filters.waterResistant : []));
-		/* let changeMinPrice = false;
-		let changeMaxPrice = false; */
-		// if (!minPrice || minPrice < filters.minPrice || minPrice > filters.maxPrice) {
-		// 	setMinPrice(() => filters.minPrice);
-		// 	changeMinPrice = true;
-		// }
-		// if (!maxPrice || maxPrice > filters.maxPrice || maxPrice < filters.minPrice) {
-		// 	setMaxPrice(() => filters.maxPrice);
-		// 	changeMaxPrice = true;
-		// }
-
-		// if (changeMinPrice && changeMaxPrice) {
-		// 	priceHandler(filters.minPrice, filters.maxPrice);
-		// } else if (changeMinPrice) {
-		// 	priceHandler(filters.minPrice, maxPrice);
-		// } else if (changeMaxPrice) {
-		// 	priceHandler(minPrice, filters.maxPrice);
-		// }
-		/* filters.forEach((obj) => {
-			switch (obj.type) {
-				case "brand":
-					setBrands((prev) => [...prev, obj.name]);
-					break;
-				case "processor":
-					setProcessor((prev) => [...prev, obj.name]);
-					break;
-				case "diagonal":
-					setDiagonal((prev) => [...prev, obj.name]);
-					break;
-				case "iternalStorage":
-					setIternalStorage((prev) => [...prev, obj.name]);
-					break;
-				case "RAM":
-					setRAM((prev) => [...prev, obj.name]);
-					break;
-				case "waterResistant":
-					setWaterResistant((prev) => [...prev, obj.name]);
-					break;
-				default:
-					break;
-			}
-		}); */
+	};
+	useEffect(() => {
+		if (!minPrice) {
+			setMinPrice(() => filters.minPrice);
+		}
+		if (!maxPrice) {
+			setMaxPrice(() => filters.maxPrice);
+		}
 	}, [filters]);
 
 	useEffect(() => {
@@ -116,7 +67,45 @@ const FiltersBlock = () => {
 		searchParams.delete("minPrice");
 		searchParams.delete("maxPrice");
 	};
+	const clearFiltersField = (field) => {
+		if (searchParams.toString().includes(field)) {
+			setMinPrice(() => 0);
+			setMaxPrice(() => 0);
+			setSearchParams((prev) => {
+				prev.delete(field);
+				return prev;
+			});
+		}
 
+		console.log("searchParams", searchParams.toString());
+	};
+	const arrayField = ["brand", "processor", "diagonal", "iternalStorage", "RAM", "waterResistant"];
+	const arrayNameLabel = [
+		"Бренд",
+		"Процесор",
+		"Діагональ",
+		"Внутрішня память",
+		"RAM",
+		"Захист від вологи",
+	];
+	const arrSelect = arrayField.map((el, ind) => (
+		<Selection
+			value={searchParams.get(el)}
+			setCurrentValue={(value) => {
+				setMinPrice(() => 0);
+				setMaxPrice(() => 0);
+				setSearchParams((prev) => {
+					prev.set(el, value);
+					prev.delete("minPrice");
+					prev.delete("maxPrice");
+					return prev;
+				});
+			}}
+			nameLabel={arrayNameLabel[ind]}
+			arrayProps={filters[el] ? filters[el] : []}
+			clearFiltersField={() => clearFiltersField(el)}
+		/>
+	));
 	return (
 		<FilterWrapper>
 			<Stack spacing={2} sx={{ position: "sticky", top: "30px" }}>
@@ -146,72 +135,7 @@ const FiltersBlock = () => {
 						});
 					}}
 				/>
-				<Selection
-					value={searchParams.get("brand")}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("brand", value);
-							return prev;
-						});
-					}}
-					nameLabel="Бренд"
-					arrayProps={brands}
-				/>
-				<Selection
-					value={searchParams.get("processor")}
-					nameLabel="Процесор"
-					arrayProps={processor}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("processor", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("diagonal")}
-					nameLabel="Діагональ"
-					arrayProps={diagonal}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("diagonal", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("iternalStorage")}
-					nameLabel="Внутрішня память"
-					arrayProps={iternalStorage}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("iternalStorage", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("RAM")}
-					nameLabel="RAM"
-					arrayProps={RAM}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("RAM", value);
-							return prev;
-						});
-					}}
-				/>
-				<Selection
-					value={searchParams.get("waterResistant")}
-					nameLabel="Захист від вологи"
-					arrayProps={waterResistant}
-					setCurrentValue={(value) => {
-						setSearchParams((prev) => {
-							prev.set("waterResistant", value);
-							return prev;
-						});
-					}}
-				/>
+				{arrSelect}
 				<Button
 					variant="contained"
 					color="secondary"
