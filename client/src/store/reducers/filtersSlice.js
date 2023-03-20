@@ -30,7 +30,6 @@ export const actionFetchFilters =
 			? `${DOMAIN}/filters/${type}`
 			: `${DOMAIN}/filters/${type}?${searchParams.toString()}`;
 
-		debugger; // eslint-disable-line no-debugger
 		axios(stringPath, { signal })
 			.then((res) => {
 				if (type === "agregate") {
