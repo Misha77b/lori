@@ -19,7 +19,7 @@ const GridItem = () => {
 		};
 	}, []);
 
-	const blockBrand = filters.map(({ name, description }, index) => {
+	const blockBrand = filters?.map(({ name, description }, index) => {
 		const params = new URLSearchParams();
 		params.set("brand", name);
 		return (
