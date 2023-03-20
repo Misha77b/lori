@@ -11,7 +11,6 @@ export const createOrder = createAsyncThunk("orders/postData", async (obj) => {
 	const response = await axios
 		.post(`${DOMAIN}/orders`, obj)
 		.then(({ data }) => {
-			console.log("data", data);
 			return data;
 		})
 		.catch((err) => {
