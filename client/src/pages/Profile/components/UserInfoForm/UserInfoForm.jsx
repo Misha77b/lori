@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -11,17 +11,22 @@ import {
 	removeMessage,
 } from "../../../../store/reducers/updateUserInfoSlice";
 import ToastNotification from "../../../../components/ToastNotification";
+import Spinner from "../../../../components/Spinner";
+import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
 
-const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
+const UserInfoForm = () => {
 	const dispatch = useDispatch();
 	const message = useSelector((state) => state.customerInfo.message);
+	const { loading } = useSelector((state) => state.customer.meta);
+	const initialValues = useSelector((state) => state.customer.customer);
 	const formik = useFormik({
 		initialValues: {
-			firstName,
-			lastName,
-			email,
-			telephone,
+			firstName: initialValues.firstName || "",
+			lastName: initialValues.lastName || "",
+			email: initialValues.email || "",
+			telephone: initialValues.telephone || "",
 		},
+		// enableReinitialize: true,
 		onSubmit: (usersData) => {
 			dispatch(fetchUpdateCustomerInfo(usersData));
 			setTimeout(() => {
@@ -31,6 +36,7 @@ const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 		validationSchema,
 	});
 	const { values, errors, touched } = formik;
+	if (loading) return <Spinner />;
 	return (
 		<form
 			onSubmit={(e) => {
@@ -87,16 +93,16 @@ const UserInfoForm = ({ email, firstName, lastName, telephone }) => {
 		</form>
 	);
 };
-UserInfoForm.defaultProps = {
-	email: undefined,
-	firstName: undefined,
-	lastName: undefined,
-	telephone: undefined,
-};
-UserInfoForm.propTypes = {
-	email: PropTypes.string,
-	firstName: PropTypes.string,
-	lastName: PropTypes.string,
-	telephone: PropTypes.string,
-};
+// UserInfoForm.defaultProps = {
+// 	email: undefined,
+// 	firstName: undefined,
+// 	lastName: undefined,
+// 	telephone: undefined,
+// };
+// UserInfoForm.propTypes = {
+// 	email: PropTypes.string,
+// 	firstName: PropTypes.string,
+// 	lastName: PropTypes.string,
+// 	telephone: PropTypes.string,
+// };
 export default UserInfoForm;

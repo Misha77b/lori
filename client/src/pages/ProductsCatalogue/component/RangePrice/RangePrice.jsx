@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Box, Slider } from "@mui/material";
 
-function RangeSlider({ setPriceParams, minVal, maxVal, min, max }) {
+function RangeSlider({ setPriceParams, min, max }) {
+	const handleChangeCommitted = (event, newValue) => {
+		setPriceParams(newValue[0], newValue[1]);
+	};
 	return (
 		<Box sx={{ width: 250, margin: 0 }}>
 			<Slider
@@ -19,10 +22,8 @@ function RangeSlider({ setPriceParams, minVal, maxVal, min, max }) {
 				}}
 				color="secondary"
 				getAriaLabel={() => "Ціна"}
-				value={[minVal, maxVal]}
-				onChange={(event, newValue) => {
-					setPriceParams(newValue[0], newValue[1]);
-				}}
+				value={[min, max]}
+				onChangeCommitted={handleChangeCommitted}
 				valueLabelDisplay="auto"
 				min={min}
 				max={max}
