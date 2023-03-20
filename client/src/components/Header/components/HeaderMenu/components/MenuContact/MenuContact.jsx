@@ -14,11 +14,11 @@ const MenuContact = () => {
 
 	return (
 		<>
-			<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
-				<CustomLink onClick={() => handleClearSearch()} to="/contacts">
+			<CustomLink onClick={() => handleClearSearch()} to="/contacts">
+				<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
 					Контакти
-				</CustomLink>
-			</Button>
+				</Button>
+			</CustomLink>
 		</>
 	);
 };
