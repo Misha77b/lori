@@ -18,22 +18,58 @@ const FiltersBlock = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { params } = useLocationParams();
 	const filters = useSelector(selectorArrFilters);
-	const [minPrice, setminPrice] = useState(2000);
-	const [maxPrice, setMaxPrice] = useState(100000);
+	const [minPrice, setMinPrice] = useState(0);
+	const [maxPrice, setMaxPrice] = useState(0);
 	const [brands, setBrands] = useState([]);
 	const [processor, setProcessor] = useState([]);
 	const [diagonal, setDiagonal] = useState([]);
 	const [iternalStorage, setIternalStorage] = useState([]);
 	const [RAM, setRAM] = useState([]);
 	const [waterResistant, setWaterResistant] = useState([]);
+	const priceHandler = (min, max) => {
+		searchParams.get("minPrice");
+		setMinPrice(min);
+		setSearchParams((prev) => {
+			prev.set("minPrice", min);
+			return prev;
+		});
+		searchParams.get("maxPrice");
+		setMaxPrice(max);
+		setSearchParams((prev) => {
+			prev.set("maxPrice", max);
+			return prev;
+		});
+	};
+	//console.log("searchParams", searchParams.toString());
 	useEffect(() => {
-		setBrands([]);
-		setProcessor([]);
-		setIternalStorage([]);
-		setDiagonal([]);
-		setRAM([]);
-		setWaterResistant([]);
-		filters.forEach((obj) => {
+		console.log("filters update", filters);
+		if (filters.brand && brands.length < filters.brand.length) {
+			setBrands(() => (filters.brand ? filters.brand : []));
+		}
+		setProcessor(() => (filters.processor ? filters.processor : []));
+		setIternalStorage(() => (filters.iternalStorage ? filters.iternalStorage : []));
+		setDiagonal(() => (filters.diagonal ? filters.diagonal : []));
+		setRAM(() => (filters.RAM ? filters.RAM : []));
+		setWaterResistant(() => (filters.waterResistant ? filters.waterResistant : []));
+		/* let changeMinPrice = false;
+		let changeMaxPrice = false; */
+		// if (!minPrice || minPrice < filters.minPrice || minPrice > filters.maxPrice) {
+		// 	setMinPrice(() => filters.minPrice);
+		// 	changeMinPrice = true;
+		// }
+		// if (!maxPrice || maxPrice > filters.maxPrice || maxPrice < filters.minPrice) {
+		// 	setMaxPrice(() => filters.maxPrice);
+		// 	changeMaxPrice = true;
+		// }
+
+		// if (changeMinPrice && changeMaxPrice) {
+		// 	priceHandler(filters.minPrice, filters.maxPrice);
+		// } else if (changeMinPrice) {
+		// 	priceHandler(filters.minPrice, maxPrice);
+		// } else if (changeMaxPrice) {
+		// 	priceHandler(minPrice, filters.maxPrice);
+		// }
+		/* filters.forEach((obj) => {
 			switch (obj.type) {
 				case "brand":
 					setBrands((prev) => [...prev, obj.name]);
@@ -56,18 +92,21 @@ const FiltersBlock = () => {
 				default:
 					break;
 			}
-		});
+		}); */
 	}, [filters]);
 
 	useEffect(() => {
+		console.log("searchParams update", searchParams.toString());
 		const abort = new AbortController();
-		dispatch(actionFetchFilters(abort.signal));
+		dispatch(actionFetchFilters(abort.signal, searchParams));
 		return () => {
 			abort.abort();
 		};
-	}, []);
+	}, [searchParams]);
 
 	const clearFiltersHandler = () => {
+		setMinPrice(0);
+		setMaxPrice(0);
 		searchParams.delete("brand");
 		searchParams.delete("processor");
 		searchParams.delete("diagonal");
@@ -76,23 +115,8 @@ const FiltersBlock = () => {
 		searchParams.delete("waterResistant");
 		searchParams.delete("minPrice");
 		searchParams.delete("maxPrice");
-		setminPrice(2000);
-		setMaxPrice(100000);
 	};
-	const priceHandler = (min, max) => {
-		searchParams.get("minPrice");
-		setminPrice(min);
-		setSearchParams((prev) => {
-			prev.set("minPrice", min);
-			return prev;
-		});
-		searchParams.get("maxPrice");
-		setMaxPrice(max);
-		setSearchParams((prev) => {
-			prev.set("maxPrice", max);
-			return prev;
-		});
-	};
+
 	return (
 		<FilterWrapper>
 			<Stack spacing={2} sx={{ position: "sticky", top: "30px" }}>
@@ -104,8 +128,10 @@ const FiltersBlock = () => {
 				</Box>
 				<RangePrice
 					setPriceParams={priceHandler}
-					min={minPrice}
-					max={maxPrice}
+					minVal={minPrice}
+					maxVal={maxPrice}
+					min={filters.minPrice}
+					max={filters.maxPrice}
 					sx={{ "text-align": "center" }}
 				/>
 				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
