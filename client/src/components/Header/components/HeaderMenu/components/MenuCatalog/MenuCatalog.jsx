@@ -21,11 +21,11 @@ const MenuCatalog = () => {
 	}
 	return (
 		<>
-			<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
-				<CustomLink onClick={() => handleClearSearch()} to="/products">
+			<CustomLink onClick={() => handleClearSearch()} to="/products">
+				<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
 					Каталог
-				</CustomLink>
-			</Button>
+				</Button>
+			</CustomLink>
 		</>
 	);
 };

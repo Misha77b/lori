@@ -35,6 +35,7 @@ module.exports = {
 		"jsx-quotes": ["error", "prefer-double"],
 		"implicit-arrow-linebreak": "off",
 		"react/function-component-definition": "off",
+		"no-lonely-if": "off",
 		"react/jsx-filename-extension": [2, { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
 		"react/jsx-one-expression-per-line": 0,
 		"jsx-a11y/click-events-have-key-events": 0,
