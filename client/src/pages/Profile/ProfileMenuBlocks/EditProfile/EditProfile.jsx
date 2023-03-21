@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import { Typography } from "@mui/material";
 import UserInfoForm from "../../components/UserInfoForm";
 import { EditProfileWrapper } from "./styled";
-import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
 
 const EditProfile = () => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(fetchCustomer()).then(({ payload }) => payload);
-	}, []);
 	return (
 		<EditProfileWrapper>
 			<Typography

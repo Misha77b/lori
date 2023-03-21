@@ -48,7 +48,6 @@ const PlacingAnOrder = () => {
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const initialValues = useSelector((state) => state.customer.customer);
-	/* const token = useSelector((state) => state.auth.user.tokenUser); */
 
 	const [value, setValue] = useState();
 	const [inputValue, setInputValue] = useState();
@@ -63,12 +62,6 @@ const PlacingAnOrder = () => {
 	const handlePaymentMethodChange = (e) => {
 		setPaymentMethod(e.target.value);
 	};
-
-	useEffect(() => {
-		if (isLoggedIn) {
-			dispatch(fetchCustomer()).then(({ payload }) => payload);
-		}
-	}, []);
 
 	useEffect(() => {
 		setTotalCartSum(total);

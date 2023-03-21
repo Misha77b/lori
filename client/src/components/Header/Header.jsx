@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { AppBar, Toolbar, Typography, Box, IconButton, Container, Badge } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -16,17 +16,18 @@ import { selectFavorite, selectShoppingCart, selectUser } from "../../store/sele
 import { setIsAuth } from "../../store/reducers/authSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
+import { getFavorites } from "../../store/reducers/favoriteSlice";
 
 const Header = React.memo(({ modal }) => {
+	const dispatch = useDispatch();
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
 	const shoppingCart = useSelector(selectShoppingCart);
-	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
 	const authFav = useSelector((state) => state.favorite.favoritesAuth);
+	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const token = getLocalItem("token");
-
 	useEffect(() => {
 		if (!isLoggedIn) {
 			setCountF(favorite?.length || "0");
