@@ -2,6 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
 import setAuthToken from "../../config/setAuthToken";
+import { getLocalItem } from "../../helpers/getLocalItem";
+import { getFavorites } from "./favoriteSlice";
+import { fetchCustomer } from "./getCustomerInfoSlice";
 
 const initialState = {
 	user: {},
@@ -10,12 +13,13 @@ const initialState = {
 	error: null,
 	tokenUser: "",
 };
-export const fetchAuth = createAsyncThunk("user/login", async (object) => {
+export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI) => {
 	// eslint-disable-next-line no-useless-catch
 	try {
 		const response = await axios.post(`${DOMAIN}/customers/login`, object);
 		localStorage.setItem("token", response.data.token);
-
+		await thunkAPI.dispatch(getFavorites());
+		await thunkAPI.dispatch(fetchCustomer());
 		return response.data;
 	} catch (error) {
 		throw error;
@@ -38,7 +42,7 @@ export const userSlice = createSlice({
 		setIsAuth: (state, action) => {
 			state.isAuth = action.payload;
 			if (state.isAuth) {
-				state.tokenUser = localStorage.getItem("token");
+				state.tokenUser = getLocalItem("token");
 			} else {
 				state.tokenUser = "";
 			}
