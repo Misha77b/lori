@@ -26,9 +26,9 @@ describe("favoriteSlice", () => {
 	});
 
 	it("should remove goods to favorites by id 'actionAddIsFavorite' action", () => {
-		const action = { type: removeItemFavorite.type, payload: mockCard.article };
+		const action = { type: removeItemFavorite.type, payload: mockCard };
 		const result = favoriteReducer(initialState, action);
-		expect(result.favorite.article).not.toEqual(mockCard.article);
+		expect(result.favorite).not.toEqual(mockCard);
 		expect(result.favorite).toEqual([]);
 	});
 });
