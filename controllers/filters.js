@@ -135,6 +135,7 @@ exports.getFiltersByType = (req, res, next) => {
           case "minPrice":
           case "maxPrice":
           case "sort":
+          case "query":
             break;
           default:
             match[field] = req.query[field];
