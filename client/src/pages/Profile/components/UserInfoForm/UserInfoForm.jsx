@@ -12,7 +12,6 @@ import {
 } from "../../../../store/reducers/updateUserInfoSlice";
 import ToastNotification from "../../../../components/ToastNotification";
 import Spinner from "../../../../components/Spinner";
-import { fetchCustomer } from "../../../../store/reducers/getCustomerInfoSlice";
 
 const UserInfoForm = () => {
 	const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const UserInfoForm = () => {
 			email: initialValues.email || "",
 			telephone: initialValues.telephone || "",
 		},
-		// enableReinitialize: true,
+		enableReinitialize: true,
 		onSubmit: (usersData) => {
 			dispatch(fetchUpdateCustomerInfo(usersData));
 			setTimeout(() => {

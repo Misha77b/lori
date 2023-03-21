@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Container, Box } from "@mui/material";
 // Import Swiper React components
@@ -12,8 +13,14 @@ import ProductCard from "../ProductCard";
 
 import "./styles.scss";
 import { swiperBreakpoints } from "./swiperBreakpoints/swiperBreakpoints";
+import { getFavorites } from "../../store/reducers/favoriteSlice";
 
-const PopularProducts = ({ products, advertisement = false, authFav }) => {
+const PopularProducts = ({ products, advertisement = false }) => {
+	const dispatch = useDispatch();
+	const isAuth = useSelector((state) => state.auth.isAuth);
+	// useEffect(() => {
+	// 	if (isAuth) dispatch(getFavorites());
+	// }, [isAuth]);
 	return (
 		<Container>
 			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
