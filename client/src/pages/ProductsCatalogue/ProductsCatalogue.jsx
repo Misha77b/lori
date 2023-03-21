@@ -56,6 +56,7 @@ const ProductsCatalogue = () => {
 		}
 		setPrevParams(params);
 	}, [params, openFilterBar]);
+	const noItems = emptyArray && dataFromSearch.length === 0;
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
@@ -129,7 +130,7 @@ const ProductsCatalogue = () => {
 									/>
 									// eslint-disable-next-line no-mixed-spaces-and-tabs
 							  ))}
-						{emptyArray && <NoItemsFoundMessage />}
+						{noItems && <NoItemsFoundMessage />}
 					</CatalogueWrapper>
 				)}
 			</FiltersPhonesStyledWrapper>
