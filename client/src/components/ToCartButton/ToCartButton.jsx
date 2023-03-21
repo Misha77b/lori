@@ -4,19 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { setLocalItem } from "../../helpers/setLocalItem";
-import { addShoppingCart, createCartAuth } from "../../store/reducers/cartSlice";
+// eslint-disable-next-line import/named
+import { addOneProductAuth, addShoppingCart } from "../../store/reducers/cartSlice";
 
 const ToCartButton = ({ id, setNotification, favorites = false }) => {
 	const dispatch = useDispatch();
-	const token = useSelector((state) => state.auth.tokenUser);
+	const isAuth = useSelector((state) => state.auth.isAuth);
 
-	const cartDispatch = (fid) => {
-		if (!token) {
-			setLocalItem("cart", fid);
+	const setCartHandler = (prodId) => {
+		if (!isAuth) {
+			setLocalItem("cart", prodId);
+			dispatch(addShoppingCart(prodId));
 		} else {
-			dispatch(createCartAuth(fid));
+			dispatch(addOneProductAuth(prodId));
 		}
-		dispatch(addShoppingCart(fid));
 	};
 	return (
 		<Button
@@ -28,7 +29,7 @@ const ToCartButton = ({ id, setNotification, favorites = false }) => {
 				marginTop: "10px",
 			}}
 			onClick={() => {
-				cartDispatch(id);
+				setCartHandler(id);
 				setNotification(true);
 				setTimeout(() => {
 					setNotification(false);

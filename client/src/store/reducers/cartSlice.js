@@ -1,27 +1,78 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { DOMAIN } from "../../config/API";
 
 import { getLocalItem } from "../../helpers/getLocalItem";
+import {
+	addToFavorites,
+	deleteFromFavorites,
+	getFavorites,
+	postFavorites,
+	updateFavorites,
+} from "./favoriteSlice";
 
 const initialState = {
-	shoppingCart: JSON.parse(localStorage.getItem("cart") || "{}"),
+	shoppingCart: JSON.parse(getLocalItem("cart") || "{}"),
+	shoppingCartAuth: [],
+	cartAuthTotalSum: 0,
 	totalCartQuantity: 0,
-	totalCartSum: JSON.parse(localStorage.getItem("totalCartSum") || 0),
+	totalCartSum: JSON.parse(getLocalItem("totalCartSum") || 0),
+	meta: { loading: false, loaded: true, error: null },
 };
 
-Object.keys(initialState.shoppingCart).forEach((key) => {
-	initialState.totalCartQuantity += initialState.shoppingCart[key];
+// Object.keys(initialState.shoppingCart).forEach((key) => {
+// 	initialState.totalCartQuantity += initialState.shoppingCart[key];
+// });
+export const getCartAuth = createAsyncThunk("cart/getData", async (thunkAPI) => {
+	try {
+		const response = await axios.get(`${DOMAIN}/cart`, {
+			headers: {
+				Authorization: getLocalItem("token"),
+			},
+		});
+		return response.data.products;
+	} catch (error) {
+		return thunkAPI.rejectWithValue(error);
+	}
 });
+export const addOneProductAuth = createAsyncThunk(
+	"cart/addOneProductAuth",
+	async (id, thunkAPI) => {
+		try {
+			const response = await axios.put(`${DOMAIN}/cart/${id}`);
+			return response.data;
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error);
+		}
+	},
+);
+export const deleteOneProduct = createAsyncThunk("cart/deleteOneProduct", async (id, thunkAPI) => {
+	try {
+		const response = await axios.delete(`${DOMAIN}/cart/${id}`);
+		return response.data;
+	} catch (error) {
+		return thunkAPI.rejectWithValue(error);
+	}
+});
+export const decreaseAmountAuth = createAsyncThunk(
+	"cart/decreaseAmountAuth",
+	async (id, thunkAPI) => {
+		try {
+			const response = await axios.delete(`${DOMAIN}/cart/product/${id}`);
+			return response.data;
+		} catch (error) {
+			return thunkAPI.rejectWithValue(error);
+		}
+	},
+);
 
-export const createCartAuth = createAsyncThunk("cart/createCartAuth", async (id) => {
-	const response = await axios.put(`${DOMAIN}/cart/${id}`);
-	return response.data;
-});
-export const deleteCartAuth = createAsyncThunk("cart/deleteCartAuth", async () => {
-	const response = await axios.delete(`${DOMAIN}/cart`);
-	return response.data;
+export const deleteCartAuth = createAsyncThunk("cart/deleteCartAuth", async (thunkAPI) => {
+	try {
+		const response = await axios.delete(`${DOMAIN}/cart`);
+		return response.data;
+	} catch (error) {
+		return thunkAPI.rejectWithValue(error);
+	}
 });
 export const cartSlice = createSlice({
 	name: "cart",
@@ -81,12 +132,55 @@ export const cartSlice = createSlice({
 			state.totalCartSum = action.payload;
 		},
 		clearCart: (state) => {
-			state.shoppingCart = {};
+			state.shoppingCart = [];
 			state.totalCartQuantity = 0;
 			state.totalCartSum = 0;
-			localStorage.setItem("cart", JSON.stringify(state.shoppingCart));
-			localStorage.setItem("totalCartSum", JSON.stringify(state.totalCartSum));
+			localStorage.removeItem("cart");
+			localStorage.removeItem("totalCartSum");
 		},
+		getTotatlAuthCartSum: (state, action) => {
+			state.cartAuthTotalSum = action.payload;
+		},
+	},
+	extraReducers: (builder) => {
+		builder.addCase(addOneProductAuth.pending, (state, action) => {
+			state.meta = { ...state.meta, loading: true, loaded: false };
+		});
+		builder.addCase(addOneProductAuth.fulfilled, (state, action) => {
+			state.shoppingCartAuth = action.payload.products;
+			state.meta = { ...state.meta, loading: false, loaded: true };
+		});
+		builder.addCase(addOneProductAuth.rejected, (state, action) => {
+			state.meta = {
+				...state.meta,
+				loading: false,
+				loaded: false,
+				error: action.payload,
+			};
+		});
+		builder.addCase(deleteOneProduct.fulfilled, (state, action) => {
+			state.shoppingCartAuth = action.payload.products;
+			state.meta = { ...state.meta, loading: false, loaded: true };
+		});
+		builder.addCase(decreaseAmountAuth.fulfilled, (state, action) => {
+			state.shoppingCartAuth = action.payload.products;
+			state.meta = { ...state.meta, loading: false, loaded: true };
+		});
+		builder.addCase(getCartAuth.pending, (state, action) => {
+			state.meta = { ...state.meta, loading: true, loaded: false };
+		});
+		builder.addCase(getCartAuth.fulfilled, (state, action) => {
+			state.shoppingCartAuth = action.payload;
+			state.meta = { ...state.meta, loading: false, loaded: true };
+		});
+		builder.addCase(getCartAuth.rejected, (state, action) => {
+			state.meta = {
+				...state.meta,
+				loading: false,
+				loaded: false,
+				error: action.payload,
+			};
+		});
 	},
 });
 export const {
@@ -95,5 +189,6 @@ export const {
 	setTotalCartSum,
 	addQuantityToShoppingCart,
 	clearCart,
+	getTotatlAuthCartSum,
 } = cartSlice.actions;
 export default cartSlice.reducer;

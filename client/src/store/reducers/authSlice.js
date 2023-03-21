@@ -5,6 +5,7 @@ import setAuthToken from "../../config/setAuthToken";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import { getFavorites } from "./favoriteSlice";
 import { fetchCustomer } from "./getCustomerInfoSlice";
+import { getCartAuth } from "./cartSlice";
 
 const initialState = {
 	user: {},
@@ -19,6 +20,7 @@ export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI)
 		const response = await axios.post(`${DOMAIN}/customers/login`, object);
 		localStorage.setItem("token", response.data.token);
 		await thunkAPI.dispatch(getFavorites());
+		await thunkAPI.dispatch(getCartAuth());
 		await thunkAPI.dispatch(fetchCustomer());
 		return response.data;
 	} catch (error) {
