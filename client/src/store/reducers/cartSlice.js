@@ -116,9 +116,6 @@ export const cartSlice = createSlice({
 					const upCart = {
 						products: [state.shoppingCart],
 					};
-					const mergedCart = { ...upCart, ...localCart };
-
-					axios.put(`${DOMAIN}/cart`, mergedCart).then((data) => data);
 				}
 				state.totalCartQuantity = 0;
 
