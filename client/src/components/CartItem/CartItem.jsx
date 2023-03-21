@@ -5,12 +5,13 @@ import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import "./cartItem.scss";
 import Amount from "../Product/Amount";
-import { removeItemShoppingCart } from "../../store/reducers/cartSlice";
+import { deleteOneProduct, removeItemShoppingCart } from "../../store/reducers/cartSlice";
 import { selectShoppingCart } from "../../store/selectors";
 
-const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum }) => {
+const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum, quantity = "" }) => {
 	const dispatch = useDispatch();
 	const shoppingCart = useSelector(selectShoppingCart);
+	const isAuth = useSelector((state) => state.auth.isAuth);
 	useEffect(() => {
 		if (!dbId) return;
 		const sum = shoppingCart[dbId] * currentPrice;
@@ -29,18 +30,27 @@ const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum }) 
 			</Box>
 
 			<Box className="itemBlock">
-				<Amount amount={shoppingCart[dbId]} setAmount={() => {}} itemNo={dbId} />
+				<Amount
+					amount={shoppingCart[dbId]}
+					quantityAuth={quantity}
+					setAmount={() => {}}
+					itemNo={dbId}
+				/>
 				<Typography className="item__text">{currentPrice}</Typography>
-				<Typography className="item__text">{shoppingCart[dbId] ?? 0}шт.</Typography>
 				<Typography className="item__text">
 					{/* eslint-disable-next-line no-unsafe-optional-chaining */}
-					{Math.floor(currentPrice * shoppingCart[dbId] ?? 0)}
+					{!isAuth
+						? Math.floor(currentPrice * shoppingCart[dbId] ?? 0)
+						: Math.floor(currentPrice * quantity ?? 0)}
 				</Typography>
 				<button
 					type="button"
 					className="item__btn"
 					onClick={() => {
-						dispatch(removeItemShoppingCart(dbId));
+						if (!isAuth) {
+							dispatch(removeItemShoppingCart(dbId));
+						}
+						dispatch(deleteOneProduct(dbId));
 					}}
 				>
 					<img

@@ -1,17 +1,30 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { addQuantityToShoppingCart } from "../../../store/reducers/cartSlice";
+import {
+	addOneProductAuth,
+	addQuantityToShoppingCart,
+	decreaseAmountAuth,
+} from "../../../store/reducers/cartSlice";
 import "./Amount.scss";
 
-export default function Amount({ amount, setAmount, itemNo }) {
+export default function Amount({ amount, itemNo, quantityAuth }) {
 	const dispatch = useDispatch();
+	const isAuth = useSelector((state) => state.auth.isAuth);
 	const increment = () => {
-		dispatch(addQuantityToShoppingCart({ itemNo, addToQty: 1 }));
+		if (!isAuth) {
+			dispatch(addQuantityToShoppingCart({ itemNo, addToQty: 1 }));
+		} else {
+			dispatch(addOneProductAuth(itemNo));
+		}
 	};
 
 	const decrement = () => {
 		if (amount === 1) return;
-		dispatch(addQuantityToShoppingCart({ itemNo, addToQty: -1 }));
+		if (!isAuth) {
+			dispatch(addQuantityToShoppingCart({ itemNo, addToQty: -1 }));
+		} else {
+			dispatch(decreaseAmountAuth(itemNo));
+		}
 	};
 
 	return (
@@ -19,7 +32,7 @@ export default function Amount({ amount, setAmount, itemNo }) {
 			<button type="button" className="inpt__button" onClick={decrement}>
 				-
 			</button>
-			<p className="inpt__text">{amount}</p>
+			<p className="inpt__text">{!isAuth ? amount : quantityAuth}</p>
 			<button type="button" className="inpt__button" onClick={increment}>
 				+
 			</button>
@@ -27,7 +40,5 @@ export default function Amount({ amount, setAmount, itemNo }) {
 	);
 }
 Amount.propTypes = {
-	amount: PropTypes.number.isRequired,
-	setAmount: PropTypes.func.isRequired,
 	itemNo: PropTypes.string.isRequired,
 };

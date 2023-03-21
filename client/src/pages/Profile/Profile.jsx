@@ -6,6 +6,7 @@ import { Container, Grid, Tabs, Tab, Box } from "@mui/material";
 import { setIsAuth } from "../../store/reducers/authSlice";
 // eslint-disable-next-line import/named
 import { clearFavorites } from "../../store/reducers/favoriteSlice";
+import { clearCart } from "../../store/reducers/cartSlice";
 import "./Profile.scss";
 
 import CategoryTitle from "../../components/CategoryTitle";
@@ -111,6 +112,7 @@ const Profile = () => {
 									localStorage.removeItem("token");
 									dispatch(setIsAuth(false));
 									dispatch(clearFavorites());
+									dispatch(clearCart());
 									navigate("/");
 								}}
 								label="Вийти з кабінету"

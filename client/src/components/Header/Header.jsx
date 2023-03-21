@@ -13,10 +13,8 @@ import Search from "./components/Search";
 import Breadcrumb from "./components/Breadcrumbs";
 import LogoIcon from "../LogoIcon";
 import { selectFavorite, selectShoppingCart, selectUser } from "../../store/selectors";
-import { setIsAuth } from "../../store/reducers/authSlice";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
-import { getFavorites } from "../../store/reducers/favoriteSlice";
 
 const Header = React.memo(({ modal }) => {
 	const dispatch = useDispatch();
@@ -26,6 +24,7 @@ const Header = React.memo(({ modal }) => {
 	const shoppingCart = useSelector(selectShoppingCart);
 	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
 	const authFav = useSelector((state) => state.favorite.favoritesAuth);
+	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const token = getLocalItem("token");
 	useEffect(() => {
@@ -34,8 +33,9 @@ const Header = React.memo(({ modal }) => {
 			setCountC(totalCartQuantity);
 		} else {
 			setCountF(authFav?.length || "0");
+			setCountC(authCart?.length || "0");
 		}
-	}, [favorite, authFav, shoppingCart, isLoggedIn]);
+	}, [favorite, authFav, shoppingCart, authCart, isLoggedIn]);
 
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
