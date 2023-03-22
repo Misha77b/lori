@@ -19,6 +19,7 @@ const FiltersBlock = () => {
 	const filters = useSelector(selectorArrFilters);
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(0);
+	const [upDateFilt, setUpDateFilt] = useState("");
 
 	const priceHandler = (min, max, changeSearchParamsPrice = false) => {
 		searchParams.get("minPrice");
@@ -51,7 +52,7 @@ const FiltersBlock = () => {
 		return () => {
 			abort.abort();
 		};
-	}, [searchParams]);
+	}, [upDateFilt]);
 
 	const clearFiltersHandler = () => {
 		setMinPrice(0);
@@ -69,6 +70,7 @@ const FiltersBlock = () => {
 		if (searchParams.toString().includes(field)) {
 			setMinPrice(() => 0);
 			setMaxPrice(() => 0);
+			setUpDateFilt(`clear${field}`);
 			setSearchParams((prev) => {
 				prev.delete(field);
 				return prev;
@@ -90,6 +92,7 @@ const FiltersBlock = () => {
 			setCurrentValue={(value) => {
 				setMinPrice(() => 0);
 				setMaxPrice(() => 0);
+				setUpDateFilt(el);
 				setSearchParams((prev) => {
 					prev.set(el, value);
 					prev.delete("minPrice");

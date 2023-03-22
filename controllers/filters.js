@@ -132,13 +132,16 @@ exports.getFiltersByType = (req, res, next) => {
       const match = {};
       fieldQuery.forEach((field) => {
         switch (field) {
-          case "minPrice":
-          case "maxPrice":
-          case "sort":
-          case "query":
+          case "brand":
+          case "processor":
+          case "waterResistant":
+          case "iternalStorage":
+          case "RAM":
+          case "diagonal":
+          case "screenType":
+            match[field] = req.query[field];
             break;
           default:
-            match[field] = req.query[field];
             break;
         }
       });

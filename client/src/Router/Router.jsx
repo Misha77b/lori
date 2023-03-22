@@ -8,7 +8,7 @@ import About from "../pages/About";
 import Guarantee from "../pages/Guarantee";
 import PaymentAndDelivery from "../pages/PaymentAndDelivery";
 import ExchangeAndReturn from "../pages/ExchangeAndReturn";
-import ProductsCatalogue from "../pages/ProductsCatalogue";
+import ProductsCatalogue from "../pages/ProductsCatalogue/ProductsCatalogue";
 import PlacingAnOrder from "../pages/PlacingAnOrder";
 import Cart from "../pages/Cart/Cart";
 import Contacts from "../pages/Contacts";
