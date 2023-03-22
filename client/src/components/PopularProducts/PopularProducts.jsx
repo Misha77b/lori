@@ -16,11 +16,6 @@ import { swiperBreakpoints } from "./swiperBreakpoints/swiperBreakpoints";
 import { getFavorites } from "../../store/reducers/favoriteSlice";
 
 const PopularProducts = ({ products, advertisement = false }) => {
-	const dispatch = useDispatch();
-	const isAuth = useSelector((state) => state.auth.isAuth);
-	// useEffect(() => {
-	// 	if (isAuth) dispatch(getFavorites());
-	// }, [isAuth]);
 	return (
 		<Container>
 			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
