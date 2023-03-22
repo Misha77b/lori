@@ -27,7 +27,6 @@ const PopularProducts = ({ advertisement = false }) => {
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
-		console.log("productsLoading", productsLoading);
 	}, []);
 
 	return (
