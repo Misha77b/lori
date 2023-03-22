@@ -8,6 +8,7 @@ import { fetchProducts } from "../../store/reducers/productsSlice";
 import { getCartAuth, setTotalCartSum, getTotatlAuthCartSum } from "../../store/reducers/cartSlice";
 import Spinner from "../../components/Spinner";
 import "./cart.scss";
+import useItemsToRender from "./hooks";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -18,18 +19,16 @@ const Cart = () => {
 	const isAuth = useSelector((state) => state.auth.isAuth);
 	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const productsLoading = useSelector((state) => state.products.loader);
+	const { loaded } = useSelector((state) => state.cart.meta);
 	useEffect(() => {
 		if (!isAuth) return;
 		dispatch(getCartAuth());
 	}, [isAuth]);
 	useEffect(() => {
-		const params = new URLSearchParams();
-		params.set("_id", Object.keys(cartItems).join(","));
-		if (params.toString() === "_id=") {
-			setProducts([]);
-			return;
-		}
-		dispatch(fetchProducts(params.toString())).then((res) => {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const params = useItemsToRender(cartItems, setProducts);
+		if (params === "_id=") return;
+		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [cartItems]);
@@ -60,7 +59,7 @@ const Cart = () => {
 				);
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  })
-		: products.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
+		: products?.map(({ _id: id, imageUrls, name, itemNo, currentPrice }) => {
 				return (
 					<CartItem
 						dbId={id}
@@ -76,7 +75,9 @@ const Cart = () => {
 		  });
 	const countOverallPrice = (itemsSum) => {
 		const cartItemIds = Object.keys(cartItems);
-		return cartItemIds.reduce((acc, id) => acc + (itemsSum[id] || 0), 0);
+		const total = cartItemIds.reduce((acc, id) => acc + (itemsSum[id] || 0), 0);
+		dispatch(setTotalCartSum(total));
+		return total;
 	};
 	const countTotalPriceAuth = () => {
 		const total = authCart.reduce((acc, item) => {
@@ -88,12 +89,13 @@ const Cart = () => {
 		dispatch(getTotatlAuthCartSum(total));
 		return total;
 	};
+	if (isAuth && !loaded) return <Spinner />;
+	if (!isAuth && productsLoading) return <Spinner />;
 	return (
 		<Container>
 			<Typography variant="h4" className="cart__title">
 				Корзина
 			</Typography>
-			{productsLoading && <Spinner />}
 			{!productsLoading && (
 				<>
 					<Box className="cart">
@@ -133,16 +135,29 @@ const Cart = () => {
 								>
 									Продовжити покупки
 								</Button>
-								{products.length !== 0 && (
+								{isAuth && authCart.length !== 0 && (
+									<Button
+										color="secondary"
+										variant="contained"
+										onClick={(e) => {
+											e.preventDefault();
+											dispatch(setTotalCartSum(countTotalPriceAuth()));
+											navigate("/orders");
+										}}
+										className="btn"
+									>
+										Оформити замовлення
+									</Button>
+								)}
+								{products.length !== 0 && !isAuth && (
 									<Button
 										color="secondary"
 										variant="contained"
 										onClick={(e) => {
 											e.preventDefault();
 											dispatch(setTotalCartSum(countOverallPrice(totalSum)));
+
 											navigate("/orders");
-											// dispatch(deleteCartAuth());
-											// dispatch(clearCart());
 										}}
 										className="btn"
 									>

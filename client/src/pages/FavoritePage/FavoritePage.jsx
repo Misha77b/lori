@@ -4,6 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import OrderItem from "../../components/OrderItem";
 import { getLocalItem } from "../../helpers/getLocalItem";
+import useItemsToRender from "../Cart/hooks";
 import ToastNotification from "../../components/ToastNotification";
 import Spinner from "../../components/Spinner";
 
@@ -18,13 +19,10 @@ const FavoritePage = () => {
 	const { loaded } = useSelector((state) => state.favorite.meta);
 	const unauthLoaded = useSelector((state) => state.products.loader);
 	useEffect(() => {
-		const params = new URLSearchParams();
-		params.set("_id", parsed.join(","));
-		if (params.toString() === "_id=") {
-			setProducts([]);
-			return;
-		}
-		dispatch(fetchProducts(params.toString())).then((res) => {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const params = useItemsToRender(parsed, setProducts);
+		if (params === "_id=") return;
+		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
 	}, [favorites]);

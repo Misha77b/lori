@@ -10,7 +10,7 @@ const initialState = {
 	loader: false,
 };
 
-export const fetchProducts = createAsyncThunk("products/fetchData", async (filters = "") => {
+export const fetchProducts = createAsyncThunk("products/fetchData", async (filters) => {
 	let url = `${DOMAIN}/products`;
 	if (filters) {
 		url = `${url}/filter?${filters}`;
