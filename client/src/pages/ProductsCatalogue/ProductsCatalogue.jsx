@@ -12,16 +12,14 @@ import { selectProductsQuantity } from "../../store/selectors/products.selectors
 import FiltersBlock from "./component/FiltersBlock/FiltersBlock";
 import Spinner from "../../components/Spinner";
 import NoItemsFoundMessage from "./component/NoItemsFoundMessage";
-import useFetchData from "../Home/hooks";
 import useLocationParams from "./hooks";
 import { CatalogueWrapper, FiltersPhonesStyledWrapper } from "./styled";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
 	const [searchParams, setSearchParams] = useSearchParams();
-	const initialProducts = useFetchData();
 	const productsLoading = useSelector((state) => state.products.loader);
-	const [products, setProducts] = useState([...initialProducts]);
+	const [products, setProducts] = useState([]);
 	const [notification, setNotification] = useState(false);
 	const [startPage, setStartPage] = useState(1);
 	const [filteredData, setFilteredData] = useState([]);

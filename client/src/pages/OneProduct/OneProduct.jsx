@@ -7,7 +7,6 @@ import { selectorPageObj } from "../../store/selectors";
 import Spinner from "../../components/Spinner";
 import PopularProducts from "../../components/PopularProducts";
 import "./OneProduct.scss";
-import useFetchData from "../Home/hooks";
 import ToastNotification from "../../components/ToastNotification";
 
 function OneProduct() {
@@ -22,7 +21,6 @@ function OneProduct() {
 	const stateLoad = useSelector((state) => {
 		return state.oneProduct.loading;
 	});
-	const products = useFetchData();
 	const dispatch = useDispatch();
 	useEffect(() => {
 		setCanRender(() => false);
@@ -43,7 +41,7 @@ function OneProduct() {
 						<ToastNotification text="An item has been successfully added to the cart" />
 					)}
 					<Product props={data} setNotification={setNotification} />
-					<PopularProducts products={products} advertisement={true} />
+					<PopularProducts advertisement={true} />
 				</div>
 			)}
 		</>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -13,56 +13,71 @@ import ProductCard from "../ProductCard";
 
 import "./styles.scss";
 import { swiperBreakpoints } from "./swiperBreakpoints/swiperBreakpoints";
-import { getFavorites } from "../../store/reducers/favoriteSlice";
+import { fetchProducts } from "../../store/reducers/productsSlice";
+import Spinner from "../Spinner";
 
-const PopularProducts = ({ products, advertisement = false }) => {
+const PopularProducts = ({ advertisement = false }) => {
 	const dispatch = useDispatch();
-	const isAuth = useSelector((state) => state.auth.isAuth);
-	// useEffect(() => {
-	// 	if (isAuth) dispatch(getFavorites());
-	// }, [isAuth]);
+	const [products, setProducts] = useState([]);
+	const productsLoading = useSelector((state) => state.products.loader);
+	useEffect(() => {
+		const params = new URLSearchParams();
+		params.set("popular", "true");
+		params.set("perPage", "5");
+		dispatch(fetchProducts(params)).then((res) => {
+			setProducts(res.payload.products);
+		});
+		console.log("productsLoading", productsLoading);
+	}, []);
+
 	return (
 		<Container>
-			<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-				{!advertisement && <CategoryTitle text="Популярні товари" />}
-				{advertisement && <CategoryTitle text="Ви також можете розглянути товари на знижкі" />}
-				{!advertisement && (
-					<Link style={{ textDecoration: "none" }} to="/products">
-						<Button color="secondary" variant="contained">
-							Усі товари
-						</Button>
-					</Link>
-				)}
-			</Box>
-			<Swiper
-				spaceBetween={50}
-				navigation={true}
-				pagination={{
-					clickable: true,
-				}}
-				modules={[Navigation, Pagination]}
-				className="productsSwiper"
-				breakpoints={swiperBreakpoints}
-			>
-				{products?.map((card, index) => {
-					if (!advertisement) {
-						return (
-							card.popular && (
-								<SwiperSlide key={index} className="popularProducts-swiperSlide">
-									<ProductCard key={index} card={card} withCart={false} />
-								</SwiperSlide>
-							)
-						);
-					}
-					return (
-						card.sale && (
-							<SwiperSlide key={index} className="popularProducts-swiperSlide">
-								<ProductCard key={index} card={card} withCart={false} />
-							</SwiperSlide>
-						)
-					);
-				})}
-			</Swiper>
+			{productsLoading && <Spinner />}
+			{!productsLoading && (
+				<>
+					<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+						{!advertisement && <CategoryTitle text="Популярні товари" />}
+						{advertisement && <CategoryTitle text="Акційний товар" />}
+						{!advertisement && (
+							<Link style={{ textDecoration: "none" }} to="/products">
+								<Button color="secondary" variant="contained">
+									Усі товари
+								</Button>
+							</Link>
+						)}
+					</Box>
+
+					<Swiper
+						spaceBetween={50}
+						navigation={true}
+						pagination={{
+							clickable: true,
+						}}
+						modules={[Navigation, Pagination]}
+						className="productsSwiper"
+						breakpoints={swiperBreakpoints}
+					>
+						{products?.map((card, index) => {
+							if (!advertisement) {
+								return (
+									card.popular && (
+										<SwiperSlide key={index} className="popularProducts-swiperSlide">
+											<ProductCard key={index} card={card} withCart={false} />
+										</SwiperSlide>
+									)
+								);
+							}
+							return (
+								card.sale && (
+									<SwiperSlide key={index} className="popularProducts-swiperSlide">
+										<ProductCard key={index} card={card} withCart={false} />
+									</SwiperSlide>
+								)
+							);
+						})}
+					</Swiper>
+				</>
+			)}
 		</Container>
 	);
 };
@@ -71,7 +86,6 @@ PopularProducts.defaultProps = {
 };
 PopularProducts.propTypes = {
 	// eslint-disable-next-line react/forbid-prop-types
-	products: PropTypes.array.isRequired,
 	advertisement: PropTypes.bool,
 };
 export default PopularProducts;
