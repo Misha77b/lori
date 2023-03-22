@@ -18,7 +18,7 @@ export default function PointPrices({ minPrice, maxPrice }) {
 				"& .css-1x51dt5-MuiInputBase-input-MuiInput-input.Mui-disabled": {
 					padding: "25 0 0 0",
 					color: "#2e7d32",
-					"-webkit-text-fill-color": "#2e7d32",
+					webkitTextFillColor: "#2e7d32",
 				},
 			}}
 			color="secondary"

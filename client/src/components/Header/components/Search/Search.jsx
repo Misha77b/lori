@@ -82,7 +82,7 @@ const Search = React.memo(() => {
 			/>
 			<Button
 				onClick={() => {
-					if (input.length <= 2) return;
+					if (input.length <= 1) return;
 					setSearchParams((prev) => {
 						prev.set("query", input);
 						return prev;

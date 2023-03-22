@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import {
 	Container,
@@ -18,6 +19,7 @@ import CategoryTitle from "../../components/CategoryTitle";
 import FillTheFromText from "./components/FillTheFormText/FillTheFormText";
 import OrderItem from "../../components/OrderItem";
 import { submitBtn } from "./sxStyles/submitBtn";
+import { RGStyle } from "./sxStyles/RGStyle";
 import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 
 import OrderPrice from "./components/OrderPrice/OrderPrice";
@@ -28,29 +30,34 @@ import { schema as validationSchema } from "./Schema";
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
-import { clearCart, deleteCartAuth, setTotalCartSum } from "../../store/reducers/cartSlice";
+import { getCartAuth } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
-import { setModal, setOrderNo } from "../../store/reducers/modalSlice";
-import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
-
-const RGStyle = {
-	height: "40px",
-	"@media (max-width: 448px)": { height: "72px" },
-};
+import { setModal } from "../../store/reducers/modalSlice";
+import useItemsToRender from "../Cart/hooks";
+import useSendOrderInfo from "./hooks/useSendOrderInfo";
+import { validationSchema2 } from "../../components/Form/Schema";
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
-	const [products, setProducts] = useState([]);
+	const navigate = useNavigate();
+	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const cartItems = useSelector(selectShoppingCart);
-	const total = useSelector(selectTotalCartSum);
+	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
+	const totalNotAuth = useSelector(selectTotalCartSum);
+	const totalAuth = useSelector((state) => state.cart.cartAuthTotalSum);
+	const [products, setProducts] = useState([]);
 	const [shippingMethod, setShippingMethod] = useState("Кур’єром додому");
 	const [paymentMethod, setPaymentMethod] = useState("Банківською карткою онлайн");
 	const [adressTitle, setAdressTitle] = useState("Адреса");
-	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const initialValues = useSelector((state) => state.customer.customer);
-
+	const { dataSent } = useSelector((state) => state.orders.meta);
 	const [value, setValue] = useState();
 	const [inputValue, setInputValue] = useState();
+
+	useEffect(() => {
+		if (!isLoggedIn) return;
+		dispatch(getCartAuth());
+	}, [isLoggedIn]);
 
 	const handleShippingMethodChange = (e) => {
 		if (shippingMethod === "Кур’єром додому") {
@@ -64,54 +71,17 @@ const PlacingAnOrder = () => {
 	};
 
 	useEffect(() => {
-		setTotalCartSum(total);
-		const params = new URLSearchParams();
-		params.set("_id", Object.keys(cartItems).join(","));
-		if (params.toString() === "_id=") {
-			setProducts([]);
-			return;
-		}
-		dispatch(fetchProducts(params.toString())).then((res) => {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const params = useItemsToRender(cartItems, setProducts);
+		if (params === "_id=") return;
+		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
 		});
-		localStorage.setItem("totalCartSum", total);
-	}, [cartItems, total]);
-	const newObj = products.map((obj) => {
-		const result = {};
-		result._id = obj._id;
-		result.product = obj;
-		result.cartQuantity = cartItems[obj._id];
-		return result;
-	});
-
-	const orders = (values) => {
-		const sendOrder = {};
-		if (isLoggedIn) {
-			sendOrder.customerId = initialValues._id;
-			sendOrder.deliveryAddress = values.adress;
-			sendOrder.shipping = shippingMethod;
-			sendOrder.paymentInfo = paymentMethod;
-			sendOrder.email = values.email;
-			sendOrder.mobile = values.phoneNumber;
-			sendOrder.letterSubject = "Thank you for order!";
-			sendOrder.letterHtml = `<h1>Your order is placed.</h1>
-			</br>
-			<p>Сумма замовлення становить ${total} грн.</p>`;
-		} else {
-			sendOrder.products = newObj;
-			sendOrder.deliveryAddress = values.adress;
-			sendOrder.shipping = shippingMethod;
-			sendOrder.paymentInfo = paymentMethod;
-			sendOrder.email = values.email;
-			sendOrder.mobile = values.phoneNumber;
-			sendOrder.letterSubject = "Thank you for order!";
-			sendOrder.letterHtml = `<h1>Your order is placed.</h1>
-			</br>
-			<p>Сумма замовлення становить ${total} грн.</p>`;
-		}
-		return sendOrder;
-	};
-
+		// eslint-disable-next-line no-unused-expressions
+		!isLoggedIn
+			? localStorage.setItem("totalCartSum", totalNotAuth)
+			: localStorage.setItem("totalCartSum", totalAuth);
+	}, [cartItems, totalAuth, totalNotAuth]);
 	const formik = useFormik({
 		initialValues: {
 			fullName: initialValues?.firstName || "",
@@ -119,17 +89,44 @@ const PlacingAnOrder = () => {
 			email: initialValues?.email || "",
 			adress: inputValue || "",
 		},
-		onSubmit: async (values) => {
-			const newOrder = orders(values);
-			const orderNo = await dispatch(createOrder(newOrder)).then((res) => {
-				return res.payload.order.orderNo;
-			});
-			dispatch(setOrderNo(orderNo));
+		onSubmit: (values) => {
+			// eslint-disable-next-line react-hooks/rules-of-hooks
+			const newOrder = useSendOrderInfo(
+				values,
+				initialValues,
+				isLoggedIn,
+				products,
+				cartItems,
+				shippingMethod,
+				paymentMethod,
+				isLoggedIn ? totalAuth : totalNotAuth,
+			);
+			dispatch(createOrder(newOrder));
 			dispatch(setModal("SUCCESS"));
+			if (dataSent) {
+				dispatch(setModal(null));
+				navigate("/products");
+			}
 		},
 		enableReinitialize: true,
 		validationSchema,
 	});
+	const itemsToRender = !isLoggedIn
+		? products?.map((item) => {
+				const cartQuantity = cartItems[item._id];
+				return <OrderItem key={item.itemNo} item={item} cartQuantity={cartQuantity} />;
+				// eslint-disable-next-line no-mixed-spaces-and-tabs
+		  })
+		: authCart?.map((item) => {
+				return (
+					<OrderItem
+						key={item.product.itemNo}
+						item={item.product}
+						cartQuantity={item.cartQuantity}
+					/>
+				);
+				// eslint-disable-next-line no-mixed-spaces-and-tabs
+		  });
 	const { values, errors, touched } = formik;
 	return (
 		<Container>
@@ -268,30 +265,17 @@ const PlacingAnOrder = () => {
 							</Typography>
 
 							<Box component="div" className="scroll">
-								{!products.length && (
-									<Typography
-										variant="h3"
-										fontWeight="fontWeightBold"
-										sx={{
-											fontSize: "24px",
-											color: "black",
-											textAlign: "center",
-											marginTop: "20px",
-										}}
-									>
-										Кошик пустий
-									</Typography>
-								)}
-								{products?.map((item) => {
-									const cartQuantity = cartItems[item._id];
-									return <OrderItem key={item.itemNo} item={item} cartQuantity={cartQuantity} />;
-								})}
+								{itemsToRender}
 							</Box>
 
-							<OrderPrice total={total} />
+							<OrderPrice total={isLoggedIn ? totalAuth : totalNotAuth} />
 						</div>
-
-						{products.length !== 0 && (
+						{!isLoggedIn && products.length !== 0 && (
+							<Button type="submit" sx={submitBtn} color="primary">
+								ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
+							</Button>
+						)}
+						{isLoggedIn && authCart.length !== 0 && (
 							<Button type="submit" sx={submitBtn} color="primary">
 								ПІДТВЕРДИТИ ЗАМОВЛЕННЯ
 							</Button>

@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { DOMAIN } from "../../config/API";
-import { clearCart, deleteCartAuth } from "./cartSlice";
+import { clearCart, deleteCartAuth, getCartAuth } from "./cartSlice";
+import { setOrderNo } from "./modalSlice";
 
 const initialState = {
 	orderData: "",
 	orderProducts: [],
+	orderNo: 0,
+	meta: { loading: false, loaded: true, error: null, dataSent: false },
 };
 
 export const createOrder = createAsyncThunk(
@@ -13,22 +16,17 @@ export const createOrder = createAsyncThunk(
 	async (obj, { dispatch, rejectWithValue, getState }) => {
 		try {
 			const { auth } = getState();
-			const response = await axios
-				.post(`${DOMAIN}/orders`, obj)
-				.then(({ data }) => {
-					if (auth.isAuth) {
-						dispatch(deleteCartAuth());
-					}
-					dispatch(clearCart());
-					return data;
-				})
-				.catch((err) => {
-					// eslint-disable-next-line
-					alert("Заповніть обов'язкові поля");
-					console.warn(err);
-				});
+			const response = await axios.post(`${DOMAIN}/orders`, obj).then(({ data }) => data);
+			dispatch(setOrderNo(response.order.orderNo));
+			if (auth.isAuth) {
+				dispatch(deleteCartAuth());
+			}
+			dispatch(clearCart());
+			dispatch(getCartAuth());
 			return response;
 		} catch {
+			alert("Заповніть обов'язкові поля");
+			console.warn(error);
 			return rejectWithValue(error);
 		}
 	},
@@ -44,11 +42,25 @@ export const ordersSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(createOrder.pending, (state) => {
-			state.loader = true;
+			state.meta = { ...state.meta, loading: true, loaded: false, dataSent: false };
 		});
 		builder.addCase(createOrder.fulfilled, (state, action) => {
-			state.slidesData = action.payload;
-			state.loader = false;
+			state.orderProducts = action.payload;
+			state.meta = {
+				...state.meta,
+				loading: false,
+				loaded: true,
+				dataSent: true,
+			};
+		});
+		builder.addCase(createOrder.rejected, (state, action) => {
+			state.meta = {
+				...state.meta,
+				loading: false,
+				loaded: false,
+				dataSent: false,
+				error: action.payload,
+			};
 		});
 	},
 });

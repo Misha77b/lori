@@ -27,9 +27,8 @@ const ProductsCatalogue = () => {
 	const [filteredData, setFilteredData] = useState([]);
 	const [filterBar, openFilterBar] = useState(false);
 	const isMobileSize = useMediaQuery("(max-width:700px)");
-	const [prevParams, setPrevParams] = useState({});
 	const perPage = 5;
-
+	const [prevParams, setPrevParams] = useState({ startPage: 1, perPage });
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
 	const [emptyArray, setEmptyArray] = useState(false);
