@@ -89,7 +89,7 @@ describe("searchSlice", () => {
 
 		const state = searchReducer(initialState, action);
 
-		expect(state.loader).toEqual(true);
+		expect(state.loader).toEqual(false);
 		expect(state.searchProducts).toEqual([]);
 		expect(state.Error).toEqual("Server Error !");
 	});
