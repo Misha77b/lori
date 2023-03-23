@@ -7,7 +7,6 @@ import {
 
 const mockProducts = [{ name: "TouYinger M4 FullHD", price: 3700, article: 12345, brand: "Apple" }];
 const mockQuantity = 0;
-
 describe("should products from state", () => {
 	it("test selector selectProductsData", () => {
 		expect(

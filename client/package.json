@@ -57,6 +57,11 @@
 			"prettier --write"
 		]
 	},
+	"jest": {
+		"moduleNameMapper": {
+			"axios": "axios/dist/node/axios.cjs"
+		}
+	},
 	"watch": {
 		"eslint": {
 			"patterns": [
