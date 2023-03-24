@@ -20,10 +20,11 @@ export const createOrder = createAsyncThunk(
 			dispatch(setOrderNo(response.order.orderNo));
 			if (auth.isAuth) {
 				dispatch(deleteCartAuth());
+				dispatch(getCartAuth());
 			} else {
 				dispatch(clearCart());
 			}
-			dispatch(getCartAuth());
+
 			return response;
 		} catch {
 			return rejectWithValue(error);
