@@ -49,8 +49,9 @@ const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum, qu
 					onClick={() => {
 						if (!isAuth) {
 							dispatch(removeItemShoppingCart(dbId));
+						} else {
+							dispatch(deleteOneProduct(dbId));
 						}
-						dispatch(deleteOneProduct(dbId));
 					}}
 				>
 					<img

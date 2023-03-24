@@ -90,11 +90,6 @@ export const cartSlice = createSlice({
 		},
 		removeItemShoppingCart: (state, action) => {
 			if (state.shoppingCart[action.payload]) {
-				// for auth delete 1 product
-				if (localStorage.getItem("token")) {
-					axios.delete(`${DOMAIN}/cart/product/${action.payload}`);
-				}
-				//
 				delete state.shoppingCart[action.payload];
 				state.totalCartQuantity = 0;
 				Object.keys(state.shoppingCart).forEach((key) => {
@@ -110,15 +105,7 @@ export const cartSlice = createSlice({
 					newVal = 1;
 				}
 				state.shoppingCart = { ...state.shoppingCart, [action.payload.itemNo]: newVal };
-				// for auth update all cart
-				if (getLocalItem("token")) {
-					const localCart = JSON.parse(localStorage.getItem("cart") || "{}");
-					const upCart = {
-						products: [state.shoppingCart],
-					};
-				}
 				state.totalCartQuantity = 0;
-
 				Object.keys(state.shoppingCart).forEach((key) => {
 					state.totalCartQuantity += state.shoppingCart[key];
 				});

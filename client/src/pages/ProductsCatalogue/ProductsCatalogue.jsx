@@ -127,7 +127,7 @@ const ProductsCatalogue = () => {
 									/>
 									// eslint-disable-next-line no-mixed-spaces-and-tabs
 							  ))}
-						{noItems && <NoItemsFoundMessage />}
+						{noItems && <NoItemsFoundMessage text="Товарів не знайдено" />}
 					</CatalogueWrapper>
 				)}
 			</FiltersPhonesStyledWrapper>

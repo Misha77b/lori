@@ -10,9 +10,8 @@ import { getCartAuth } from "./cartSlice";
 const initialState = {
 	user: {},
 	isAuth: false,
-	loader: true,
-	error: null,
 	tokenUser: "",
+	meta: { loading: false, loaded: true, error: null },
 };
 export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI) => {
 	// eslint-disable-next-line no-useless-catch
@@ -55,17 +54,20 @@ export const userSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchAuth.pending, (state) => {
-				state.loader = true;
-				state.error = null;
+				state.meta = { ...state.meta, loading: true, loaded: false };
 			})
 			.addCase(fetchAuth.fulfilled, (state, action) => {
 				state.user = action.payload;
 				state.isAuth = true;
-				state.loader = false;
+				state.meta = { ...state.meta, loading: false, loaded: true };
 			})
 			.addCase(fetchAuth.rejected, (state, action) => {
-				state.loader = false;
-				state.error = action.error.message;
+				state.meta = {
+					...state.meta,
+					loading: false,
+					loaded: false,
+					error: action.payload,
+				};
 			});
 	},
 });
