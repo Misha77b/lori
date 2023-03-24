@@ -21,12 +21,9 @@ import { selectSlidesData } from "../../store/selectors";
 const Slider = React.memo(() => {
 	const dispatch = useDispatch();
 	const slides = useSelector(selectSlidesData);
-	useEffect(
-		() => () => {
-			dispatch(fetchSlides());
-		},
-		[],
-	);
+	useEffect(() => {
+		dispatch(fetchSlides());
+	}, []);
 
 	SwiperCore.use([Autoplay]);
 
