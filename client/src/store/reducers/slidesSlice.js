@@ -1,15 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { DOMAIN } from "../../config/API";
-import sendRequest from "../../helpers/sendRequest";
 
 const initialState = {
 	slidesData: [],
 	loader: true,
 };
 
-export const fetchSlides = createAsyncThunk("slides/fetchData", async () => {
-	const response = sendRequest(`${DOMAIN}/slides`);
-	return response;
+export const fetchSlides = createAsyncThunk("slides/fetchData", async (thunkAPI) => {
+	try {
+		const response = axios.get(`${DOMAIN}/slides`).then(({ data }) => data);
+		return response;
+	} catch {
+		return thunkAPI.rejectWithValue(error);
+	}
 });
 
 export const slidesSlice = createSlice({
