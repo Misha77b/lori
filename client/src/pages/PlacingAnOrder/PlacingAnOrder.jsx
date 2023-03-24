@@ -35,7 +35,6 @@ import Field from "../../components/Form/Field/Field";
 import { setModal } from "../../store/reducers/modalSlice";
 import useItemsToRender from "../Cart/hooks";
 import useSendOrderInfo from "./hooks/useSendOrderInfo";
-import { validationSchema2 } from "../../components/Form/Schema";
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
@@ -163,7 +162,6 @@ const PlacingAnOrder = () => {
 								errors={touched.email && errors.email}
 							/>
 						</Box>
-
 						<Typography sx={{ margin: "40px 0 20px" }} variant="h6">
 							Доставка та оплата
 						</Typography>

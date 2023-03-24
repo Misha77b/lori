@@ -13,6 +13,7 @@ const Modal = ({ children, customWidth, status }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const orderNo = useSelector((state) => state.modal.orderNo);
+	const { loading } = useSelector((state) => state.orders.meta);
 	const actionModalHandler = (stat) => {
 		dispatch(setModal(stat));
 	};
@@ -43,6 +44,7 @@ const Modal = ({ children, customWidth, status }) => {
 						order: orderNo,
 						onNavigate: navigate,
 						onStatusChange: actionModalHandler,
+						loader: loading,
 					})}
 					<CloseCross
 						className={styles.modal__btn}
