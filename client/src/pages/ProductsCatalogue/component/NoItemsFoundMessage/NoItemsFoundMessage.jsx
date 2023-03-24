@@ -1,10 +1,13 @@
 import React from "react";
 import { Typography } from "@mui/material";
 
-const NoItemsFoundMessage = () => {
+const NoItemsFoundMessage = ({ text = "Товарів немає" }) => {
 	return (
-		<Typography variant="h3" sx={{ textAlign: "center", fontSize: "30px" }}>
-			Товарів не знайдено
+		<Typography
+			variant="h4"
+			sx={{ textAlign: "center", fontSize: "30px", padding: "100px", fontWeight: "bold" }}
+		>
+			{text}
 		</Typography>
 	);
 };

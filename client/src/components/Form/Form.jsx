@@ -10,7 +10,9 @@ import ToastNotification from "../ToastNotification";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
-	const error = useSelector((state) => state.auth.error);
+	const { error } = useSelector((state) => state.auth.meta);
+	const { loading } = useSelector((state) => state.auth.meta);
+	const isAuth = useSelector((state) => state.auth.isAuth);
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
@@ -118,9 +120,11 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 				{error && <ToastNotification text={error} />}
 			</div>
 			<div className="submit__btn__container">
-				<button className="submit__btn" type="submit">
-					{status === "LOGIN" ? "Увійти" : "Зареєструватися"}
-				</button>
+				{!loading && (
+					<button className="submit__btn" type="submit">
+						{status === "LOGIN" ? "Увійти" : "Зареєструватися"}
+					</button>
+				)}
 			</div>
 		</form>
 	);

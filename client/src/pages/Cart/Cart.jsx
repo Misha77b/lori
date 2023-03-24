@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Container, Box, Typography, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
+import NoItemsFoundMessage from "../ProductsCatalogue/component/NoItemsFoundMessage";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 // eslint-disable-next-line import/named
 import { getCartAuth, setTotalCartSum, getTotatlAuthCartSum } from "../../store/reducers/cartSlice";
@@ -77,14 +78,14 @@ const Cart = () => {
 		const cartItemIds = Object.keys(cartItems);
 		const total = cartItemIds.reduce((acc, id) => acc + (itemsSum[id] || 0), 0);
 		dispatch(setTotalCartSum(total));
-		return total;
+		return total ?? 0;
 	};
 	const countTotalPriceAuth = () => {
 		const total = authCart.reduce((acc, item) => {
 			const quantity = item.cartQuantity;
 			const prodPrice = item.product.currentPrice;
 			const itemTotal = quantity * prodPrice;
-			return acc + itemTotal;
+			return acc + itemTotal ?? 0;
 		}, 0);
 		dispatch(getTotatlAuthCartSum(total));
 		return total;
@@ -92,27 +93,14 @@ const Cart = () => {
 	if (isAuth && !loaded) return <Spinner />;
 	if (!isAuth && productsLoading) return <Spinner />;
 	return (
-		<Container>
-			<Typography variant="h4" className="cart__title">
-				Корзина
-			</Typography>
-			{!productsLoading && (
-				<>
+		<div className="cart__wrapper">
+			<Container>
+				<Typography variant="h4" className="cart__title">
+					Корзина
+				</Typography>
+				{!products.length && !authCart.length && <NoItemsFoundMessage />}
+				{!productsLoading && (
 					<Box className="cart">
-						{!products.length && !authCart.length && (
-							<Typography
-								variant="h3"
-								fontWeight="fontWeightBold"
-								sx={{
-									fontSize: "30px",
-									color: "black",
-									textAlign: "center",
-									marginTop: "150px",
-								}}
-							>
-								Товарів поки немає
-							</Typography>
-						)}
 						<Box className="cart__items">{itemsToRender}</Box>
 						<Box className="cart__info">
 							<Box className="cart__description">
@@ -135,7 +123,7 @@ const Cart = () => {
 								>
 									Продовжити покупки
 								</Button>
-								{isAuth && authCart.length !== 0 && (
+								{authCart.length !== 0 && (
 									<Button
 										color="secondary"
 										variant="contained"
@@ -149,14 +137,13 @@ const Cart = () => {
 										Оформити замовлення
 									</Button>
 								)}
-								{products.length !== 0 && !isAuth && (
+								{products.length !== 0 && (
 									<Button
 										color="secondary"
 										variant="contained"
 										onClick={(e) => {
 											e.preventDefault();
 											dispatch(setTotalCartSum(countOverallPrice(totalSum)));
-
 											navigate("/orders");
 										}}
 										className="btn"
@@ -167,9 +154,9 @@ const Cart = () => {
 							</Box>
 						</Box>
 					</Box>
-				</>
-			)}
-		</Container>
+				)}
+			</Container>
+		</div>
 	);
 };
 

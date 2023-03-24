@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import { CloseCross } from "./configs/styled";
 import styles from "./modal.module.scss";
 import { setModal } from "../../store/reducers/modalSlice";
 
@@ -59,13 +59,6 @@ const Modal = ({ children, customWidth, status }) => {
 	}
 	return null;
 };
-const CloseCross = styled.span`
-	font-family: Tilt Warp, sans-serif;
-	font-weight: bold;
-	color: #a0a9af;
-	font-size: 20px;
-	cursor: pointer;
-`;
 Modal.defaultProps = {
 	customWidth: 40,
 };

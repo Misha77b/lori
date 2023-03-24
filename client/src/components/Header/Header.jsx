@@ -17,7 +17,6 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 
 const Header = React.memo(({ modal }) => {
-	const dispatch = useDispatch();
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);

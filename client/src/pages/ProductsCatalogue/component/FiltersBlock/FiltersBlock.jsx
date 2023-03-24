@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import styled from "styled-components";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
 import { selectorArrFilters } from "../../../../store/selectors";
 import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
+import { arrayField, arrayNameLabel, FilterWrapper } from "./helper";
 import PointPrices from "./PointPrices/PointPrices";
 import SortBox from "../SortBox";
 
@@ -20,7 +20,6 @@ const FiltersBlock = () => {
 	const [minPrice, setMinPrice] = useState(0);
 	const [maxPrice, setMaxPrice] = useState(0);
 	const [upDateFilt, setUpDateFilt] = useState("");
-
 	const priceHandler = (min, max, changeSearchParamsPrice = false) => {
 		searchParams.get("minPrice");
 		setMinPrice(min);
@@ -77,34 +76,6 @@ const FiltersBlock = () => {
 			});
 		}
 	};
-	const arrayField = ["brand", "processor", "diagonal", "iternalStorage", "RAM", "waterResistant"];
-	const arrayNameLabel = [
-		"Бренд",
-		"Процесор",
-		"Діагональ",
-		"Внутрішня память",
-		"RAM",
-		"Захист від вологи",
-	];
-	const arrSelect = arrayField.map((el, ind) => (
-		<Selection
-			value={searchParams.get(el)}
-			setCurrentValue={(value) => {
-				setMinPrice(() => 0);
-				setMaxPrice(() => 0);
-				setUpDateFilt(el);
-				setSearchParams((prev) => {
-					prev.set(el, value);
-					prev.delete("minPrice");
-					prev.delete("maxPrice");
-					return prev;
-				});
-			}}
-			nameLabel={arrayNameLabel[ind]}
-			arrayProps={filters[el] ? filters[el] : []}
-			clearFiltersField={() => clearFiltersField(el)}
-		/>
-	));
 	return (
 		<FilterWrapper>
 			<Stack spacing={2} sx={{ position: "sticky", top: "30px" }}>
@@ -134,24 +105,26 @@ const FiltersBlock = () => {
 						});
 					}}
 				/>
-				{arrSelect}
-				{/* <Button
-					variant="contained"
-					color="secondary"
-					sx={{
-						width: "245px",
-						height: "46px",
-					}}
-					onClick={() => {
-						if (searchParams.has("query")) {
-							searchParams.delete("query");
-							setSearchParams(searchParams);
-						}
-						dispatch(fetchProducts(params));
-					}}
-				>
-					Пошук
-				</Button> */}
+				{arrayField.map((el, ind) => (
+					<Selection
+						value={searchParams.get(el)}
+						key={ind}
+						setCurrentValue={(value) => {
+							setMinPrice(() => 0);
+							setMaxPrice(() => 0);
+							setUpDateFilt(el);
+							setSearchParams((prev) => {
+								prev.set(el, value);
+								prev.delete("minPrice");
+								prev.delete("maxPrice");
+								return prev;
+							});
+						}}
+						nameLabel={arrayNameLabel[ind]}
+						arrayProps={filters[el] ? filters[el] : []}
+						clearFiltersField={() => clearFiltersField(el)}
+					/>
+				))}
 				<Button
 					onClick={() => {
 						clearFiltersHandler();
@@ -170,8 +143,4 @@ const FiltersBlock = () => {
 		</FilterWrapper>
 	);
 };
-const FilterWrapper = styled.div`
-	margin-inline: auto;
-	max-width: 300px;
-`;
 export default FiltersBlock;

@@ -1,18 +1,8 @@
 import React from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
-import { NavLink } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+import { CustomLink } from "../styled";
 
 const MenuBayer = () => {
-	const CustomLink = styled(NavLink)(({ theme }) => ({
-		color: "inherit",
-		textDecoration: "none",
-		"&: hover": {
-			color: "#007042",
-			fontWeight: 700,
-		},
-	}));
-
 	const [bayer, setBayer] = React.useState(null);
 	const openBayer = Boolean(bayer);
 	const handleClickBayer = (event) => {
