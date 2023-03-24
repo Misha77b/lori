@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Button, Typography } from "@mui/material";
 import Modal from "../Modal";
 import PageForm from "../../Form/Form";
+import Spinner from "../../Spinner";
 
 const ModalContainer = styled.div`
 	text-align: center;
@@ -10,8 +11,9 @@ const ModalContainer = styled.div`
 
 export const modals = {
 	SUCCESS: (
-		<Modal status="SUCCESS" customWidth={600}>
-			{({ order, onStatusChange, onNavigate }) => {
+		<Modal status="SUCCESS">
+			{({ order, onStatusChange, onNavigate, loader }) => {
+				if (loader) return <Spinner />;
 				return (
 					<>
 						<ModalContainer>
@@ -53,7 +55,7 @@ export const modals = {
 		</Modal>
 	),
 	LOGIN: (
-		<Modal status="LOGIN" customWidth={600}>
+		<Modal status="LOGIN">
 			{({ onStatusChange }) => {
 				return (
 					<>

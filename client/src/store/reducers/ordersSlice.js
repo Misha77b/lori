@@ -8,7 +8,7 @@ const initialState = {
 	orderData: "",
 	orderProducts: [],
 	orderNo: 0,
-	meta: { loading: false, loaded: true, error: null, dataSent: false },
+	meta: { loading: false, loaded: true, error: null, dataSent: false, order: false },
 };
 
 export const createOrder = createAsyncThunk(
@@ -20,13 +20,12 @@ export const createOrder = createAsyncThunk(
 			dispatch(setOrderNo(response.order.orderNo));
 			if (auth.isAuth) {
 				dispatch(deleteCartAuth());
+			} else {
+				dispatch(clearCart());
 			}
-			dispatch(clearCart());
 			dispatch(getCartAuth());
 			return response;
 		} catch {
-			alert("Заповніть обов'язкові поля");
-			console.warn(error);
 			return rejectWithValue(error);
 		}
 	},

@@ -23,7 +23,7 @@ export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI)
 		await thunkAPI.dispatch(fetchCustomer());
 		return response.data;
 	} catch (error) {
-		throw error;
+		return thunkAPI.rejectWithValue(error);
 	}
 });
 export const fetchRegister = createAsyncThunk("user/register", async (object) => {
