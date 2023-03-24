@@ -102,10 +102,6 @@ const PlacingAnOrder = () => {
 			);
 			dispatch(createOrder(newOrder));
 			dispatch(setModal("SUCCESS"));
-			if (dataSent) {
-				dispatch(setModal(null));
-				navigate("/products");
-			}
 		},
 		enableReinitialize: true,
 		validationSchema,
