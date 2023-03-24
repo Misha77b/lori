@@ -1,11 +1,12 @@
 import React from "react";
-import styled from "styled-components";
 import ProductImageBox from "./components/ProductImageBox";
 import ProductDescription from "./components/ProductDescription";
 import ProductPrice from "../ProductPrice";
 import ToCartButton from "../ToCartButton";
 import FavoriteHeartIcon from "../FavoriteHeartIcon";
 import ProductFlag from "./components/ProductFlag";
+// eslint-disable-next-line import/named
+import { ProductCardWrapper } from "./styled";
 
 const ProductCard = ({ card, withCart = true, priceColor, setNotification }) => {
 	const { name, currentPrice, previousPrice, newItem, _id, itemNo, sale, brand, imageUrls, color } =
@@ -32,30 +33,4 @@ const ProductCard = ({ card, withCart = true, priceColor, setNotification }) => 
 		</ProductCardWrapper>
 	);
 };
-const ProductCardWrapper = styled.div`
-	background-color: rgba(245, 245, 245, 0.5);
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	gap: 25px;
-	padding: 10px;
-	position: relative;
-	width: 100%;
-	height: 100%;
-	transition: all 0.3s ease-in;
-	@media screen and (max-width: 700px) {
-		width: 80%;
-	}
-	@media screen and (min-width: 920px) {
-		&:hover {
-			transform: scale(1.1);
-			box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.4);
-			border-color: #007042;
-		}
-	}
-	@media screen and (max-width: 350px) {
-		margin: 0 auto;
-		width: 270px;
-	}
-`;
 export default ProductCard;

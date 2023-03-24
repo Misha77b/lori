@@ -12,7 +12,6 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
 	const { error } = useSelector((state) => state.auth.meta);
 	const { loading } = useSelector((state) => state.auth.meta);
-	const isAuth = useSelector((state) => state.auth.isAuth);
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
