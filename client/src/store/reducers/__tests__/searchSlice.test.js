@@ -54,7 +54,7 @@ describe("searchSlice", () => {
 		expect(result).toEqual(initialState);
 	});
 
-	it("should add new goods to search 'clearSearch' action", () => {
+	it("should delete goods to search 'clearSearch' action", () => {
 		const action = { type: clearSearch.type, payload: [] };
 		const result = searchReducer(initialState, action);
 
