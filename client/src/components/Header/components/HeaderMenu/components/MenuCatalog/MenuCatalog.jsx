@@ -6,14 +6,9 @@ import { CustomLink } from "../styled";
 import { clearSearch } from "../../../../../../store/reducers/searchSlice";
 
 const MenuCatalog = () => {
-	const dispatch = useDispatch;
-
-	function handleClearSearch() {
-		dispatch(clearSearch());
-	}
 	return (
 		<>
-			<CustomLink onClick={() => handleClearSearch()} to="/products">
+			<CustomLink to="/products">
 				<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
 					Каталог
 				</Button>
