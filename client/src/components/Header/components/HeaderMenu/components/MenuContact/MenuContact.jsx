@@ -5,7 +5,7 @@ import { CustomLink } from "../styled";
 const MenuContact = () => {
 	return (
 		<>
-			<CustomLink onClick={() => handleClearSearch()} to="/contacts">
+			<CustomLink to="/contacts">
 				<Button sx={{ padding: { sm: "20px 18px", md: "20px 35px" } }} id="button-home">
 					Контакти
 				</Button>
