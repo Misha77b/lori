@@ -86,7 +86,7 @@ const PlacingAnOrder = () => {
 			fullName: initialValues?.firstName || "",
 			phoneNumber: initialValues?.telephone || "",
 			email: initialValues?.email || "",
-			adress: inputValue || "",
+			adress: "",
 		},
 		onSubmit: (values) => {
 			// eslint-disable-next-line react-hooks/rules-of-hooks

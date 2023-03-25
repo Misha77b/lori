@@ -90,5 +90,6 @@ module.exports = {
 		"react/jsx-props-no-spreading": "off",
 		"no-underscore-dangle": "off",
 		"react/jsx-wrap-multilines": "off",
+		// "function-paren-newline": "off"
 	},
 };
