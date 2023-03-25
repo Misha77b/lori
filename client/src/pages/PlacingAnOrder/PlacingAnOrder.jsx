@@ -51,7 +51,6 @@ const PlacingAnOrder = () => {
 	const initialValues = useSelector((state) => state.customer.customer);
 	const { dataSent } = useSelector((state) => state.orders.meta);
 	const [value, setValue] = useState(undefined || "");
-	// const [inputValue, setInputValue] = useState();
 
 	useEffect(() => {
 		if (!isLoggedIn) return;
@@ -232,14 +231,6 @@ const PlacingAnOrder = () => {
 										placeholder="Оберіть пункт видачі"
 									/>
 								)}
-								// renderInput={(params) => (
-								// 	<TextField
-								// 		fullWidth
-								// 		color="secondary"
-								// 		placeholder="Оберіть пункт видачі"
-								// 		{...params}
-								// 	/>
-								// )}
 							/>
 						) : (
 							<TextField
