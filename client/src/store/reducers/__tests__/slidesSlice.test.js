@@ -1,3 +1,4 @@
+import axios from "axios";
 import slidesReducer, { fetchSlides } from "../slidesSlice";
 
 const initialState = {
@@ -5,7 +6,7 @@ const initialState = {
 	loader: true,
 };
 
-global.fetch = jest.fn();
+jest.mock("axios");
 
 const mockProduct = {
 	id: "22222",
@@ -23,10 +24,8 @@ const mockProduct = {
 
 describe("fetchSlides", () => {
 	it("shoud fetchSlides with resolved response", async () => {
-		fetch.mockResolvedValue({
-			ok: true,
-			json: () => Promise.resolve(mockProduct),
-		});
+		const data = { name: "Product A" };
+		axios.get.mockResolvedValue({ data });
 		const dispatch = jest.fn();
 		const thunk = fetchSlides();
 
@@ -39,7 +38,7 @@ describe("fetchSlides", () => {
 
 		expect(start[0].type).toBe(fetchSlides.pending().type);
 		expect(end[0].type).toBe(fetchSlides.fulfilled().type);
-		expect(end[0].payload).toBe(mockProduct);
+		expect(end[0].payload).toBe(data);
 	});
 	it("should change status with 'fetchSlides.pending' action", () => {
 		const state = slidesReducer(initialState, fetchSlides.pending());
