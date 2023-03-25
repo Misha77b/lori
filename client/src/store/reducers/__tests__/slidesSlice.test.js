@@ -40,6 +40,29 @@ describe("fetchSlides", () => {
 		expect(end[0].type).toBe(fetchSlides.fulfilled().type);
 		expect(end[0].payload).toBe(data);
 	});
+
+	it("should handle error and reject with error message fetchSlides", async () => {
+		const thunkAPI = {
+			rejectWithValue: jest.fn(),
+		};
+		const error = new Error("fetch failed");
+		axios.post.mockRejectedValueOnce(error);
+
+		const dispatch = jest.fn();
+		const thunk = fetchSlides();
+
+		await thunk(dispatch, () => ({}));
+
+		const { calls } = dispatch.mock;
+		expect(calls).toHaveLength(2);
+
+		const [start, end] = calls;
+
+		expect(start[0].type).toBe(fetchSlides.pending().type);
+		expect(end[0].type).toBe(fetchSlides.rejected().type);
+		expect(end[0].meta.rejectedWithValue).toBe(false);
+	});
+
 	it("should change status with 'fetchSlides.pending' action", () => {
 		const state = slidesReducer(initialState, fetchSlides.pending());
 
