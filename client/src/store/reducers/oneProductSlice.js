@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { DOMAIN } from "../../config/API";
-import sendRequest from "../../helpers/sendRequest";
 
 const initialState = {
 	pageObj: {},
@@ -23,7 +23,7 @@ export const { actionPage, actionLoading } = oneProductSlice.actions;
 
 export const actionFetchProduct = (id) => (dispatch) => {
 	dispatch(actionLoading(true));
-	return sendRequest(`${DOMAIN}/products/${id}`).then((data) => {
+	return axios.get(`${DOMAIN}/products/${id}`).then(({ data }) => {
 		dispatch(actionPage(data));
 		dispatch(actionLoading(false));
 	});

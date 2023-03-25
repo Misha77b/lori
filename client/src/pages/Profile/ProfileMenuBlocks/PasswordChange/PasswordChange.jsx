@@ -10,7 +10,6 @@ import { removeMessage } from "../../../../store/reducers/updateUserInfoSlice";
 
 const PasswordChange = () => {
 	const dispatch = useDispatch();
-	const message = useSelector((state) => state.customerInfo.message);
 	const formik = useFormik({
 		initialValues: {
 			password: "",
@@ -61,6 +60,7 @@ const PasswordChange = () => {
 					onChange={formik.handleChange}
 					errors={touched.newPassword && errors.newPassword}
 				/>
+				<Field name="confirmPassword" type="password" description="Confirm password" />
 			</InputWrapper>
 			<div className="submit__btn__container">
 				<button className="submit__btn" type="submit">

@@ -1,16 +1,15 @@
+import axios from "axios";
 import oneProductsReducer, {
 	actionFetchProduct,
 	actionPage,
 	actionLoading,
 } from "../oneProductSlice";
+import { DOMAIN } from "../../../config/API";
 
 const initialState = {
 	pageObj: {},
 	loading: false,
 };
-
-global.fetch = jest.fn();
-
 const mockProduct = {
 	id: "22222",
 	name: "Apple iPhone 13 128gb",
@@ -24,23 +23,26 @@ const mockProduct = {
 	currentPrice: 56999,
 	popular: false,
 };
+const id = "123";
+
+jest.mock("axios");
 
 describe("oneProductSlice", () => {
 	it("shoud actionFetchProduct with resolved response", async () => {
-		fetch.mockResolvedValue({
-			ok: true,
-			json: () => Promise.resolve(mockProduct),
-		});
-		const dispatch = jest.fn();
-		const thunk = actionFetchProduct();
+		const data = { name: "Product A" };
+		axios.get.mockResolvedValue({ data });
 
-		await thunk(dispatch, () => ({}));
+		const dispatch = jest.fn();
+		await actionFetchProduct(id)(dispatch);
 
 		const { calls } = dispatch.mock;
 		expect(calls).toHaveLength(3);
 
-		const [start, end] = calls;
-		expect(end[0].payload).toBe(mockProduct);
+		// const [start, end] = calls;
+		expect(dispatch).toHaveBeenCalledWith(actionLoading(true));
+		expect(axios.get).toHaveBeenCalledWith(`${DOMAIN}/products/${id}`);
+		expect(dispatch).toHaveBeenCalledWith(actionPage(data));
+		expect(dispatch).toHaveBeenCalledWith(actionLoading(false));
 	});
 
 	it("should return default state when passed an empty actions", () => {

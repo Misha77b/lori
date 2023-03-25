@@ -19,10 +19,12 @@ const initialState = {
 	totalCartSum: JSON.parse(getLocalItem("totalCartSum") || 0),
 	meta: { loading: false, loaded: true, error: null },
 };
-
-// Object.keys(initialState.shoppingCart).forEach((key) => {
-// 	initialState.totalCartQuantity += initialState.shoppingCart[key];
-// });
+//When the page reloads, totalCartQuantity is recalculated through
+// the shoppingCart object, otherwise totalCartQuantity = 0
+Object.keys(initialState.shoppingCart).forEach((key) => {
+	initialState.totalCartQuantity += initialState.shoppingCart[key];
+});
+//
 export const getCartAuth = createAsyncThunk("cart/getData", async (thunkAPI) => {
 	try {
 		const response = await axios.get(`${DOMAIN}/cart`, {
