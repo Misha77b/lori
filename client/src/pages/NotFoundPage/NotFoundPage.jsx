@@ -72,7 +72,7 @@ const NotFoundPage = () => {
 					<Box className="NFP-box img-container">
 						<img
 							className="NFP-logo-img"
-							src="https://res.cloudinary.com/dsx708og4/image/upload/v1676297440/Lori_project/logo_b1xcve.png"
+							src="https://res.cloudinary.com/dsx708og4/image/upload/v1679135318/logo_b11xcve_zsxftk.png"
 						/>
 					</Box>
 				</Grid>

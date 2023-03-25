@@ -50,8 +50,7 @@ const PlacingAnOrder = () => {
 	const [adressTitle, setAdressTitle] = useState("Адреса");
 	const initialValues = useSelector((state) => state.customer.customer);
 	const { dataSent } = useSelector((state) => state.orders.meta);
-	const [value, setValue] = useState();
-	const [inputValue, setInputValue] = useState();
+	const [value, setValue] = useState(undefined || "");
 
 	useEffect(() => {
 		if (!isLoggedIn) return;
@@ -86,7 +85,7 @@ const PlacingAnOrder = () => {
 			fullName: initialValues?.firstName || "",
 			phoneNumber: initialValues?.telephone || "",
 			email: initialValues?.email || "",
-			adress: inputValue || "",
+			adress: "",
 		},
 		onSubmit: (values) => {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -215,22 +214,21 @@ const PlacingAnOrder = () => {
 								disablePortal
 								id="adress"
 								name="adress"
-								value={(values.adress = inputValue)}
-								onChange={(event, newValue) => {
-									setValue(newValue);
+								value={value}
+								onChange={(event, targetValue) => {
+									setValue(targetValue.label);
+									formik.setFieldValue("adress", targetValue.label);
 								}}
-								inputValue={inputValue}
-								onInputChange={(event, newInputValue) => {
-									setInputValue(newInputValue);
-								}}
+								defaultValue=""
+								isOptionEqualToValue={(option, targetValue) => option.label === targetValue}
 								options={AdressesDataBase}
 								sx={{ width: "100%" }}
 								renderInput={(params) => (
 									<TextField
+										{...params}
 										fullWidth
 										color="secondary"
 										placeholder="Оберіть пункт видачі"
-										{...params}
 									/>
 								)}
 							/>
