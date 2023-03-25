@@ -26,13 +26,17 @@ const Header = React.memo(({ modal }) => {
 	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const token = getLocalItem("token");
+	let totalCartQuantityAuth = 0;
+	const arrCartQuantityAuth = authCart.map(
+		(itemProduct) => (totalCartQuantityAuth += itemProduct.cartQuantity),
+	);
 	useEffect(() => {
 		if (!isLoggedIn) {
 			setCountF(favorite?.length || "0");
-			setCountC(totalCartQuantity);
+			setCountC(totalCartQuantity || "0");
 		} else {
 			setCountF(authFav?.length || "0");
-			setCountC(authCart?.length || "0");
+			setCountC(totalCartQuantityAuth || "0");
 		}
 	}, [favorite, authFav, shoppingCart, authCart, isLoggedIn]);
 
