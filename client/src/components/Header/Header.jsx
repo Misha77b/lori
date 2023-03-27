@@ -15,8 +15,10 @@ import LogoIcon from "../LogoIcon";
 import { selectFavorite, selectShoppingCart, selectUser } from "../../store/selectors";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
+import { getCartAuth } from "../../store/reducers/cartSlice";
 
 const Header = React.memo(({ modal }) => {
+	const dispatch = useDispatch();
 	const [countF, setCountF] = useState(0);
 	const [countC, setCountC] = useState(0);
 	const favorite = useSelector(selectFavorite);
@@ -26,20 +28,18 @@ const Header = React.memo(({ modal }) => {
 	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const token = getLocalItem("token");
-	let totalCartQuantityAuth = 0;
-	const arrCartQuantityAuth = authCart.map(
-		(itemProduct) => (totalCartQuantityAuth += itemProduct.cartQuantity),
-	);
+
 	useEffect(() => {
 		if (!isLoggedIn) {
 			setCountF(favorite?.length || "0");
-			setCountC(totalCartQuantity || "0");
 		} else {
 			setCountF(authFav?.length || "0");
-			setCountC(totalCartQuantityAuth || "0");
 		}
+		setCountC(totalCartQuantity || "0");
 	}, [favorite, authFav, shoppingCart, authCart, isLoggedIn]);
-
+	useEffect(() => {
+		dispatch(getCartAuth());
+	}, []);
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
 		"&: hover": {

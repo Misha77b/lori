@@ -3,14 +3,14 @@ import axios from "axios";
 import { DOMAIN } from "../../config/API";
 
 import { getLocalItem } from "../../helpers/getLocalItem";
-import {
+/* import {
 	addToFavorites,
 	deleteFromFavorites,
 	getFavorites,
 	postFavorites,
 	updateFavorites,
 } from "./favoriteSlice";
-
+ */
 const initialState = {
 	shoppingCart: JSON.parse(getLocalItem("cart") || "{}"),
 	shoppingCartAuth: [],
@@ -134,6 +134,10 @@ export const cartSlice = createSlice({
 		});
 		builder.addCase(addOneProductAuth.fulfilled, (state, action) => {
 			state.shoppingCartAuth = action.payload.products;
+			state.totalCartQuantity = 0;
+			state.shoppingCartAuth.forEach(
+				(itemProduct) => (state.totalCartQuantity += itemProduct.cartQuantity),
+			);
 			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 		builder.addCase(addOneProductAuth.rejected, (state, action) => {
@@ -157,6 +161,10 @@ export const cartSlice = createSlice({
 		});
 		builder.addCase(getCartAuth.fulfilled, (state, action) => {
 			state.shoppingCartAuth = action.payload;
+			state.totalCartQuantity = 0;
+			state.shoppingCartAuth.forEach(
+				(itemProduct) => (state.totalCartQuantity += itemProduct.cartQuantity),
+			);
 			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 		builder.addCase(deleteCartAuth.fulfilled, (state, action) => {
