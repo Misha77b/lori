@@ -20,7 +20,7 @@ const Cart = () => {
 	const isAuth = useSelector((state) => state.auth.isAuth);
 	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const productsLoading = useSelector((state) => state.products.loader);
-	const { loaded } = useSelector((state) => state.cart.meta);
+	const { loading } = useSelector((state) => state.cart.meta);
 	useEffect(() => {
 		if (!isAuth) return;
 		dispatch(getCartAuth());
@@ -80,6 +80,7 @@ const Cart = () => {
 		dispatch(setTotalCartSum(total));
 		return total ?? 0;
 	};
+
 	const countTotalPriceAuth = () => {
 		const total = authCart.reduce((acc, item) => {
 			const quantity = item.cartQuantity;
@@ -90,7 +91,7 @@ const Cart = () => {
 		dispatch(getTotatlAuthCartSum(total));
 		return total;
 	};
-	if (isAuth && !loaded) return <Spinner />;
+	if (isAuth && loading) return <Spinner />;
 	if (!isAuth && productsLoading) return <Spinner />;
 	return (
 		<div className="cart__wrapper">
