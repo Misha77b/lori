@@ -216,8 +216,8 @@ const PlacingAnOrder = () => {
 								name="adress"
 								value={value}
 								onChange={(event, targetValue) => {
-									setValue(targetValue.label);
-									formik.setFieldValue("adress", targetValue.label);
+									setValue(targetValue?.label || targetValue);
+									formik.setFieldValue("adress", targetValue?.label || targetValue);
 								}}
 								defaultValue=""
 								isOptionEqualToValue={(option, targetValue) => option.label === targetValue}
