@@ -94,22 +94,20 @@ const Cart = () => {
 	if (isAuth && loading) return <Spinner />;
 	if (!isAuth && productsLoading) return <Spinner />;
 	return (
-		<div className="cart__wrapper">
-			<Container>
-				<Typography variant="h4" className="cart__title">
-					Корзина
-				</Typography>
+		<Container>
+			<div className="cart__wrapper">
+				<h4 className="cart__title">Корзина</h4>
 				{!products.length && !authCart.length && <NoItemsFoundMessage />}
 				{!productsLoading && (
 					<Box className="cart">
-						<Box className="cart__items">{itemsToRender}</Box>
+						<div className="cart__items">{itemsToRender}</div>
 						<Box className="cart__info">
 							<Box className="cart__description">
-								<Typography className="cart__info_item">Ваше замовлення</Typography>
-								<Typography className="cart__info_item">
+								<h4 className="cart__info_item">Ваше замовлення</h4>
+								<span className="cart__info_item">
 									Загальна сума: {!isAuth ? countOverallPrice(totalSum) : countTotalPriceAuth()}
 									грн.
-								</Typography>
+								</span>
 							</Box>
 
 							<Box className="cart__controllers">
@@ -156,8 +154,8 @@ const Cart = () => {
 						</Box>
 					</Box>
 				)}
-			</Container>
-		</div>
+			</div>
+		</Container>
 	);
 };
 

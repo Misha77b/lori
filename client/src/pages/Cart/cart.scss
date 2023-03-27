@@ -1,20 +1,22 @@
+@import "../../boilerplates/styles/mixins";
+@import "../../boilerplates/styles/variables";
+
 .cart__wrapper {
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
 	gap: 30px;
+	padding: 0 60px 0 30px;
 }
 .cart {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-template-rows: 1fr;
 	&__title {
-		margin-bottom: 20px;
+		font-size: calcFluidFontSize(35, 50, 320, 1400);
+		margin-bottom: 5%;
 	}
 	&__items {
-		max-height: 300px;
-		width: 100%;
-		overflow: scroll;
 		& > :last-child {
 			border-bottom: 1px solid #007042;
 		}
@@ -24,14 +26,14 @@
 		align-self: center;
 		align-items: center;
 		grid-template-columns: 2fr 1fr;
-		gap: 30px;
+		padding: 20px 0 30px 0;
 		&_item {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
 			font-weight: 300;
-			font-size: 12px;
+			font-size: calcFluidFontSize(14, 18, 320, 1400);
 			& > span {
-				font-size: 20px;
+				font-size: calcFluidFontSize(16, 20, 320, 1400);
 				font-weight: 900;
 			}
 		}
@@ -47,14 +49,17 @@
 		border-radius: 5px;
 		margin: 10px;
 		& > :first-child {
-			font-size: 25px;
+			font-size: calcFluidFontSize(23, 30, 320, 1400);
 			font-weight: 900;
 		}
 	}
 	&__controllers {
 		width: 85%;
 		& > :first-child {
-			margin-bottom: 10px;
+			margin-bottom: 15px;
+		}
+		& > * {
+			font-size: calcFluidFontSize(10, 18, 320, 1400) !important;
 		}
 	}
 }
@@ -73,6 +78,6 @@
 		align-self: center;
 		align-items: center;
 		grid-template-columns: 2fr 1fr;
-		gap: 30px;
+		gap: 15%;
 	}
 }

@@ -26,7 +26,7 @@ const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum, qu
 						<img src={imageUrls[0]} alt="product-item" className="item__image" />
 					</Link>
 				)}
-				<Typography className="item__text">{name}</Typography>
+				<h3 className="item__text">{name}</h3>
 			</Box>
 
 			<Box className="itemBlock">
@@ -36,13 +36,13 @@ const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum, qu
 					setAmount={() => {}}
 					itemNo={dbId}
 				/>
-				<Typography className="item__text">{currentPrice}</Typography>
-				<Typography className="item__text">
+				<p className="item__text">{currentPrice}</p>
+				<p className="item__text">
 					{/* eslint-disable-next-line no-unsafe-optional-chaining */}
 					{!isAuth
 						? Math.floor(currentPrice * shoppingCart[dbId] ?? 0)
 						: Math.floor(currentPrice * quantity ?? 0)}
-				</Typography>
+				</p>
 				<button
 					type="button"
 					className="item__btn"
