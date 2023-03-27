@@ -122,7 +122,7 @@ const Cart = () => {
 								>
 									Продовжити покупки
 								</Button>
-								{authCart.length !== 0 && (
+								{isAuth && authCart.length !== 0 && (
 									<Button
 										color="secondary"
 										variant="contained"
@@ -136,7 +136,7 @@ const Cart = () => {
 										Оформити замовлення
 									</Button>
 								)}
-								{products.length !== 0 && (
+								{!isAuth && products.length !== 0 && (
 									<Button
 										color="secondary"
 										variant="contained"
