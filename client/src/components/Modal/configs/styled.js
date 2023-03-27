@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const ModalContainer = styled.div`
+	text-align: center;
+	padding: 40px 85px;
+`;
 export const CloseCross = styled.span`
 	font-family: Tilt Warp, sans-serif;
 	font-weight: bold;

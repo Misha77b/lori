@@ -1,16 +1,19 @@
+@import "../../boilerplates/styles/mixins";
+@import "../../boilerplates/styles/variables";
+
 .overlay {
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	right: 0;
 	left: 0;
-	background: rgba(33, 39, 40, 0.6);
+	background: $black-color;
 	z-index: 4;
 }
 .modal {
 	display: flex;
 	flex-direction: column;
-	background-color: #ffffff;
+	background-color: $secondary-color;
 	gap: 30px;
 	text-align: center;
 	position: absolute;
