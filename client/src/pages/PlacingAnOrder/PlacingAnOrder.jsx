@@ -50,7 +50,6 @@ const PlacingAnOrder = () => {
 	const initialValues = useSelector((state) => state.customer.customer);
 	const { dataSent } = useSelector((state) => state.orders.meta);
 	const [value, setValue] = useState(undefined || "");
-	console.log(isLoggedIn);
 	useEffect(() => {
 		if (!isLoggedIn) return;
 		dispatch(getCartAuth());

@@ -17,6 +17,7 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 import { getCartAuth } from "../../store/reducers/cartSlice";
 import { getFavorites } from "../../store/reducers/favoriteSlice";
+import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 
 const Header = React.memo(({ modal }) => {
 	const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const Header = React.memo(({ modal }) => {
 	}, [favorite, authFav, shoppingCart, authCart, isLoggedIn]);
 	useEffect(() => {
 		if (isLoggedIn) {
+			dispatch(fetchCustomer());
 			dispatch(getFavorites());
 			dispatch(getCartAuth());
 		}
