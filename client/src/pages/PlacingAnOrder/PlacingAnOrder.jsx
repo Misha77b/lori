@@ -25,8 +25,6 @@ import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 import OrderPrice from "./components/OrderPrice/OrderPrice";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { schema as validationSchema } from "./Schema";
-
-// order data testing
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
@@ -35,6 +33,7 @@ import Field from "../../components/Form/Field/Field";
 import { setModal } from "../../store/reducers/modalSlice";
 import useItemsToRender from "../Cart/hooks";
 import useSendOrderInfo from "./hooks/useSendOrderInfo";
+import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
@@ -51,10 +50,11 @@ const PlacingAnOrder = () => {
 	const initialValues = useSelector((state) => state.customer.customer);
 	const { dataSent } = useSelector((state) => state.orders.meta);
 	const [value, setValue] = useState(undefined || "");
-
+	console.log(isLoggedIn);
 	useEffect(() => {
 		if (!isLoggedIn) return;
 		dispatch(getCartAuth());
+		dispatch(fetchCustomer());
 	}, [isLoggedIn]);
 
 	const handleShippingMethodChange = (e) => {
