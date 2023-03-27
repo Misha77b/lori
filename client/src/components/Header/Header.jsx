@@ -16,6 +16,7 @@ import { selectFavorite, selectShoppingCart, selectUser } from "../../store/sele
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 import { getCartAuth } from "../../store/reducers/cartSlice";
+import { getFavorites } from "../../store/reducers/favoriteSlice";
 
 const Header = React.memo(({ modal }) => {
 	const dispatch = useDispatch();
@@ -38,8 +39,11 @@ const Header = React.memo(({ modal }) => {
 		setCountC(totalCartQuantity || "0");
 	}, [favorite, authFav, shoppingCart, authCart, isLoggedIn]);
 	useEffect(() => {
-		dispatch(getCartAuth());
-	}, []);
+		if (isLoggedIn) {
+			dispatch(getFavorites());
+			dispatch(getCartAuth());
+		}
+	}, [isLoggedIn]);
 	const CustomLink = styled(NavLink)(({ theme }) => ({
 		color: "#ffffff",
 		"&: hover": {
