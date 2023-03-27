@@ -165,6 +165,8 @@ export const cartSlice = createSlice({
 		});
 		builder.addCase(deleteCartAuth.fulfilled, (state, action) => {
 			state.shoppingCartAuth = [];
+			state.totalCartQuantity = 0;
+			state.cartAuthTotalSum = 0;
 			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 		builder.addCase(getCartAuth.rejected, (state, action) => {

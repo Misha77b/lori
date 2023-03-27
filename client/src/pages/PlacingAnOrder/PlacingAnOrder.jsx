@@ -28,7 +28,7 @@ import { schema as validationSchema } from "./Schema";
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
-import { getCartAuth } from "../../store/reducers/cartSlice";
+import { getTotatlAuthCartSum } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
 import { setModal } from "../../store/reducers/modalSlice";
 import useItemsToRender from "../Cart/hooks";
@@ -50,11 +50,22 @@ const PlacingAnOrder = () => {
 	const initialValues = useSelector((state) => state.customer.customer);
 	const { dataSent } = useSelector((state) => state.orders.meta);
 	const [value, setValue] = useState(undefined || "");
+
+	const countTotalPriceAuth = () => {
+		const total = authCart.reduce((acc, item) => {
+			const quantity = item.cartQuantity;
+			const prodPrice = item.product.currentPrice;
+			const itemTotal = quantity * prodPrice;
+			return acc + itemTotal ?? 0;
+		}, 0);
+		return total;
+	};
 	useEffect(() => {
 		if (!isLoggedIn) return;
-		dispatch(getCartAuth());
-		dispatch(fetchCustomer());
-	}, [isLoggedIn]);
+		if (totalAuth === 0) {
+			dispatch(getTotatlAuthCartSum(countTotalPriceAuth()));
+		}
+	}, [isLoggedIn, authCart]);
 
 	const handleShippingMethodChange = (e) => {
 		if (shippingMethod === "Кур’єром додому") {
@@ -261,7 +272,6 @@ const PlacingAnOrder = () => {
 							>
 								Товари у кошику
 							</Typography>
-
 							<Box component="div" className="scroll">
 								{itemsToRender}
 							</Box>
