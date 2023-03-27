@@ -27,11 +27,7 @@ Object.keys(initialState.shoppingCart).forEach((key) => {
 //
 export const getCartAuth = createAsyncThunk("cart/getData", async (thunkAPI) => {
 	try {
-		const response = await axios.get(`${DOMAIN}/cart`, {
-			headers: {
-				Authorization: getLocalItem("token"),
-			},
-		});
+		const response = await axios.get(`${DOMAIN}/cart`);
 		return response.data.products;
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error);
