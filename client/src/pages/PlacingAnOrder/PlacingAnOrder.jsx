@@ -79,6 +79,7 @@ const PlacingAnOrder = () => {
 			? localStorage.setItem("totalCartSum", totalNotAuth)
 			: localStorage.setItem("totalCartSum", totalAuth);
 	}, [cartItems, totalAuth, totalNotAuth]);
+
 	const formik = useFormik({
 		initialValues: {
 			fullName: initialValues?.firstName || "",
@@ -223,25 +224,31 @@ const PlacingAnOrder = () => {
 								options={AdressesDataBase}
 								sx={{ width: "100%" }}
 								renderInput={(params) => (
-									<TextField
-										{...params}
-										fullWidth
-										color="secondary"
-										placeholder="Оберіть пункт видачі"
-									/>
+									<>
+										<TextField
+											{...params}
+											fullWidth
+											color="secondary"
+											placeholder="Оберіть пункт видачі"
+										/>
+										{errors.adress && <p className="error">{touched.adress && errors.adress}</p>}
+									</>
 								)}
 							/>
 						) : (
-							<TextField
-								fullWidth
-								id="adress"
-								name="adress"
-								color="secondary"
-								value={values.adress}
-								onChange={formik.handleChange}
-								placeholder="Місто, вулиця, будинок, квартира"
-								multiline={true}
-							/>
+							<>
+								<TextField
+									fullWidth
+									id="adress"
+									name="adress"
+									color="secondary"
+									value={values.adress}
+									onChange={formik.handleChange}
+									placeholder="Місто, вулиця, будинок, квартира"
+									multiline={true}
+								/>
+								{errors.adress && <p className="error">{touched.adress && errors.adress}</p>}
+							</>
 						)}
 					</Grid>
 					<Grid item xs={12} sm={12} md={6}>
