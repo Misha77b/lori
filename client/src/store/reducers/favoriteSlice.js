@@ -135,22 +135,3 @@ export const favoriteSlice = createSlice({
 
 export const { removeItemFavorite, setFavorite, clearFavorites } = favoriteSlice.actions;
 export default favoriteSlice.reducer;
-
-// export const postFavorites = createAsyncThunk(
-// 	"favorites/postData",
-// 	async (newWishlist, { getState, rejectWithValue }) => {
-// 		try {
-// 			const { auth } = getState();
-// 			if (auth.isAuth) {
-// 				const response = await axios.post(`${DOMAIN}/wishlist`, newWishlist);
-// 				return newWishlist;
-// 			}
-// 			const currentWishlist = JSON.parse(getLocalItem("favorites") || "[]");
-// 			const updatedWishlist = [...new Set([...currentWishlist, ...newWishlist])];
-// 			localStorage.setItem("favorites", JSON.stringify(updatedWishlist));
-// 			return updatedWishlist;
-// 		} catch (error) {
-// 			return rejectWithValue(error.response.data);
-// 		}
-// 	},
-// );

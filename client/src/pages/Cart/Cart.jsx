@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Typography, Button } from "@mui/material";
+import { Container, Box, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import NoItemsFoundMessage from "../ProductsCatalogue/component/NoItemsFoundMessage";
 import { fetchProducts } from "../../store/reducers/productsSlice";
@@ -103,10 +103,9 @@ const Cart = () => {
 						<div className="cart__items">{itemsToRender}</div>
 						<Box className="cart__info">
 							<Box className="cart__description">
-								<h4 className="cart__info_item">Ваше замовлення</h4>
-								<span className="cart__info_item">
+								<h4 className="cart__description-order">Ваше замовлення</h4>
+								<span className="cart__description-total">
 									Загальна сума: {!isAuth ? countOverallPrice(totalSum) : countTotalPriceAuth()}
-									грн.
 								</span>
 							</Box>
 

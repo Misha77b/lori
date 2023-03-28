@@ -5,7 +5,8 @@ import setAuthToken from "../../config/setAuthToken";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import { getFavorites } from "./favoriteSlice";
 import { fetchCustomer } from "./getCustomerInfoSlice";
-import { getCartAuth } from "./cartSlice";
+import { getCartAuth, updateCartFromNotAuthToAuth } from "./cartSlice";
+import { updateNotAuthToAuthCart } from "../../helpers/updateNotAuthToAuthCart";
 
 const initialState = {
 	user: {},
@@ -19,8 +20,12 @@ export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI)
 		const response = await axios.post(`${DOMAIN}/customers/login`, object);
 		localStorage.setItem("token", response.data.token);
 		await thunkAPI.dispatch(getFavorites());
-		await thunkAPI.dispatch(getCartAuth());
 		await thunkAPI.dispatch(fetchCustomer());
+		await thunkAPI.dispatch(getCartAuth());
+		const { cart } = thunkAPI.getState();
+		await thunkAPI.dispatch(
+			updateCartFromNotAuthToAuth(updateNotAuthToAuthCart(cart.shoppingCart)),
+		);
 		return response.data;
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error);
