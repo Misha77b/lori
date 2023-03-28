@@ -7,6 +7,7 @@ import { getLocalItem } from "../../helpers/getLocalItem";
 import useItemsToRender from "../Cart/hooks";
 import ToastNotification from "../../components/ToastNotification";
 import Spinner from "../../components/Spinner";
+import NoItemsFoundMessage from "../ProductsCatalogue/component/NoItemsFoundMessage";
 
 const FavoritePage = () => {
 	const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const FavoritePage = () => {
 				);
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  });
-	if (isAuth && !loaded) return <Spinner />;
+	if (isAuth && loaded) return <Spinner />;
 	if (!isAuth && unauthLoaded) return <Spinner />;
 	return (
 		<Container>
@@ -64,20 +65,7 @@ const FavoritePage = () => {
 					Улюблене
 				</Typography>
 				<>
-					{!favorites.length && !authFav.length && (
-						<Typography
-							variant="h3"
-							fontWeight="fontWeightBold"
-							sx={{
-								fontSize: "30px",
-								color: "black",
-								textAlign: "center",
-								marginTop: "150px",
-							}}
-						>
-							Товарів поки немає
-						</Typography>
-					)}
+					{!favorites.length && !authFav.length && <NoItemsFoundMessage />}
 					<Box component="div" className="scroll">
 						{prodsToRender}
 					</Box>
