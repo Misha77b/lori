@@ -21,7 +21,6 @@ export const postFavorites = createAsyncThunk(
 );
 export const getFavorites = createAsyncThunk("favorites/getData", async (thunkAPI) => {
 	try {
-		console.log("get");
 		const response = await axios.get(`${DOMAIN}/wishlist`, {
 			headers: {
 				Authorization: getLocalItem("token"),

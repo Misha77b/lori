@@ -56,12 +56,7 @@ const Header = React.memo(({ modal }) => {
 			dispatch(fetchCustomer());
 			dispatch(getCartAuth());
 			if (favorite.length !== 0) {
-				/* dispatch(getFavorites().then(resp => {
-
-				})); */
-				console.log({ authFav });
 				unionFavorite(authFav, favorite);
-				console.log({ authFav });
 			} else {
 				dispatch(getFavorites());
 			}
