@@ -3,7 +3,7 @@ import Modal from "../Modal";
 import PageForm from "../../Form/Form";
 import Spinner from "../../Spinner";
 // eslint-disable-next-line import/named
-import { ModalContainer } from "./styled";
+import { ModalContainer, LoadingContainer } from "./styled";
 
 export const modals = {
 	SUCCESS: (
@@ -11,9 +11,9 @@ export const modals = {
 			{({ order, onStatusChange, onNavigate, loader }) => {
 				if (loader) {
 					return (
-						<ModalContainer>
+						<LoadingContainer>
 							<Spinner />
-						</ModalContainer>
+						</LoadingContainer>
 					);
 				}
 				return (
