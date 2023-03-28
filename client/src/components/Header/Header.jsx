@@ -28,7 +28,7 @@ const Header = React.memo(({ modal }) => {
 	const shoppingCart = useSelector(selectShoppingCart);
 	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
 	const authFav = useSelector((state) => state.favorite.favoritesAuth);
-	// const authCart = useSelector((state) => state.cart.shoppingCartAuth);
+	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	// const token = getLocalItem("token");
 
@@ -41,7 +41,7 @@ const Header = React.memo(({ modal }) => {
 	}, [favorite, authFav, isLoggedIn]);
 	useEffect(() => {
 		setCountC(totalCartQuantity || "0");
-	}, [shoppingCart]);
+	}, [shoppingCart, authCart]);
 
 	useEffect(() => {
 		if (isLoggedIn) {
