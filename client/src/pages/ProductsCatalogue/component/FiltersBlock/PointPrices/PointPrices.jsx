@@ -12,7 +12,7 @@ export default function PointPrices({ minPrice, maxPrice }) {
 					<TextField
 						id="filled-disabled"
 						variant="standard"
-						defaultValue="    "
+						defaultValue=""
 						value={el}
 						disabled
 						sx={{

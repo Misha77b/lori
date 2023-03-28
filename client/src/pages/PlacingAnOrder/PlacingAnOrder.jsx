@@ -25,16 +25,15 @@ import { AdressesDataBase } from "./AdressesDataBase/AdressesDataBase";
 import OrderPrice from "./components/OrderPrice/OrderPrice";
 import { fetchProducts } from "../../store/reducers/productsSlice";
 import { schema as validationSchema } from "./Schema";
-
-// order data testing
 import { createOrder } from "../../store/reducers/ordersSlice";
 import { selectTotalCartSum } from "../../store/selectors/cart.selectors";
 import { selectShoppingCart } from "../../store/selectors";
-import { getCartAuth } from "../../store/reducers/cartSlice";
+import { getTotatlAuthCartSum } from "../../store/reducers/cartSlice";
 import Field from "../../components/Form/Field/Field";
 import { setModal } from "../../store/reducers/modalSlice";
 import useItemsToRender from "../Cart/hooks";
 import useSendOrderInfo from "./hooks/useSendOrderInfo";
+import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
@@ -52,10 +51,21 @@ const PlacingAnOrder = () => {
 	const { dataSent } = useSelector((state) => state.orders.meta);
 	const [value, setValue] = useState(undefined || "");
 
+	const countTotalPriceAuth = () => {
+		const total = authCart.reduce((acc, item) => {
+			const quantity = item.cartQuantity;
+			const prodPrice = item.product.currentPrice;
+			const itemTotal = quantity * prodPrice;
+			return acc + itemTotal ?? 0;
+		}, 0);
+		return total;
+	};
 	useEffect(() => {
 		if (!isLoggedIn) return;
-		dispatch(getCartAuth());
-	}, [isLoggedIn]);
+		if (totalAuth === 0) {
+			dispatch(getTotatlAuthCartSum(countTotalPriceAuth()));
+		}
+	}, [isLoggedIn, authCart]);
 
 	const handleShippingMethodChange = (e) => {
 		if (shippingMethod === "Кур’єром додому") {
@@ -80,6 +90,7 @@ const PlacingAnOrder = () => {
 			? localStorage.setItem("totalCartSum", totalNotAuth)
 			: localStorage.setItem("totalCartSum", totalAuth);
 	}, [cartItems, totalAuth, totalNotAuth]);
+
 	const formik = useFormik({
 		initialValues: {
 			fullName: initialValues?.firstName || "",
@@ -224,25 +235,31 @@ const PlacingAnOrder = () => {
 								options={AdressesDataBase}
 								sx={{ width: "100%" }}
 								renderInput={(params) => (
-									<TextField
-										{...params}
-										fullWidth
-										color="secondary"
-										placeholder="Оберіть пункт видачі"
-									/>
+									<>
+										<TextField
+											{...params}
+											fullWidth
+											color="secondary"
+											placeholder="Оберіть пункт видачі"
+										/>
+										{errors.adress && <p className="error">{touched.adress && errors.adress}</p>}
+									</>
 								)}
 							/>
 						) : (
-							<TextField
-								fullWidth
-								id="adress"
-								name="adress"
-								color="secondary"
-								value={values.adress}
-								onChange={formik.handleChange}
-								placeholder="Місто, вулиця, будинок, квартира"
-								multiline={true}
-							/>
+							<>
+								<TextField
+									fullWidth
+									id="adress"
+									name="adress"
+									color="secondary"
+									value={values.adress}
+									onChange={formik.handleChange}
+									placeholder="Місто, вулиця, будинок, квартира"
+									multiline={true}
+								/>
+								{errors.adress && <p className="error">{touched.adress && errors.adress}</p>}
+							</>
 						)}
 					</Grid>
 					<Grid item xs={12} sm={12} md={6}>
@@ -255,7 +272,6 @@ const PlacingAnOrder = () => {
 							>
 								Товари у кошику
 							</Typography>
-
 							<Box component="div" className="scroll">
 								{itemsToRender}
 							</Box>

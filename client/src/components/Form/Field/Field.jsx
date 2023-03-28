@@ -39,16 +39,4 @@ export const Error = styled.p`
 		margin-right: 4px;
 	}
 `;
-Field.defaultProps = {
-	value: undefined,
-	errors: undefined,
-};
-Field.propTypes = {
-	description: PropTypes.string.isRequired,
-	name: PropTypes.string.isRequired,
-	type: PropTypes.string.isRequired,
-	onChange: PropTypes.func.isRequired,
-	value: PropTypes.string,
-	errors: PropTypes.string,
-};
 export default Field;

@@ -1,19 +1,21 @@
-import styled from "styled-components";
 import { Button, Typography } from "@mui/material";
 import Modal from "../Modal";
 import PageForm from "../../Form/Form";
 import Spinner from "../../Spinner";
-
-const ModalContainer = styled.div`
-	text-align: center;
-	padding: 60px 85px;
-`;
+// eslint-disable-next-line import/named
+import { ModalContainer, LoadingContainer } from "./styled";
 
 export const modals = {
 	SUCCESS: (
 		<Modal status="SUCCESS">
 			{({ order, onStatusChange, onNavigate, loader }) => {
-				if (loader) return <Spinner />;
+				if (loader) {
+					return (
+						<LoadingContainer>
+							<Spinner />
+						</LoadingContainer>
+					);
+				}
 				return (
 					<>
 						<ModalContainer>

@@ -92,23 +92,6 @@ const PaymentAndShipping = () => {
 					multiline={true}
 				/>
 			)}
-			{/* <TextField
-				fullWidth
-				color="black"
-				// value={}
-				placeholder="Місто, вулиця, будинок, квартира"
-				multiline={true}
-			/>
-			<Typography sx={{ margin: "20px 0 10px" }}>{adressTitle}</Typography>
-			<Autocomplete
-				disablePortal
-				id="combo-box-demo"
-				options={AdressesDataBase}
-				sx={{ width: "100%" }}
-				renderInput={(params) => (
-					<TextField fullWidth color="black" placeholder="Оберіть пункт видачі" {...params} />
-				)}
-			/> */}
 		</Grid>
 	);
 };

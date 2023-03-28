@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Typography, Button } from "@mui/material";
+import { Container, Box, Button } from "@mui/material";
 import CartItem from "../../components/CartItem/CartItem";
 import NoItemsFoundMessage from "../ProductsCatalogue/component/NoItemsFoundMessage";
 import { fetchProducts } from "../../store/reducers/productsSlice";
@@ -20,7 +20,7 @@ const Cart = () => {
 	const isAuth = useSelector((state) => state.auth.isAuth);
 	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const productsLoading = useSelector((state) => state.products.loader);
-	const { loaded } = useSelector((state) => state.cart.meta);
+	const { loading } = useSelector((state) => state.cart.meta);
 	useEffect(() => {
 		if (!isAuth) return;
 		dispatch(getCartAuth());
@@ -80,6 +80,7 @@ const Cart = () => {
 		dispatch(setTotalCartSum(total));
 		return total ?? 0;
 	};
+
 	const countTotalPriceAuth = () => {
 		const total = authCart.reduce((acc, item) => {
 			const quantity = item.cartQuantity;
@@ -90,25 +91,22 @@ const Cart = () => {
 		dispatch(getTotatlAuthCartSum(total));
 		return total;
 	};
-	if (isAuth && !loaded) return <Spinner />;
+	if (isAuth && loading) return <Spinner />;
 	if (!isAuth && productsLoading) return <Spinner />;
 	return (
-		<div className="cart__wrapper">
-			<Container>
-				<Typography variant="h4" className="cart__title">
-					Корзина
-				</Typography>
+		<Container>
+			<div className="cart__wrapper">
+				<h4 className="cart__title">Корзина</h4>
 				{!products.length && !authCart.length && <NoItemsFoundMessage />}
 				{!productsLoading && (
 					<Box className="cart">
-						<Box className="cart__items">{itemsToRender}</Box>
+						<div className="cart__items">{itemsToRender}</div>
 						<Box className="cart__info">
 							<Box className="cart__description">
-								<Typography className="cart__info_item">Ваше замовлення</Typography>
-								<Typography className="cart__info_item">
+								<h4 className="cart__description-order">Ваше замовлення</h4>
+								<span className="cart__description-total">
 									Загальна сума: {!isAuth ? countOverallPrice(totalSum) : countTotalPriceAuth()}
-									грн.
-								</Typography>
+								</span>
 							</Box>
 
 							<Box className="cart__controllers">
@@ -123,7 +121,7 @@ const Cart = () => {
 								>
 									Продовжити покупки
 								</Button>
-								{authCart.length !== 0 && (
+								{isAuth && authCart.length !== 0 && (
 									<Button
 										color="secondary"
 										variant="contained"
@@ -137,7 +135,7 @@ const Cart = () => {
 										Оформити замовлення
 									</Button>
 								)}
-								{products.length !== 0 && (
+								{!isAuth && products.length !== 0 && (
 									<Button
 										color="secondary"
 										variant="contained"
@@ -155,8 +153,8 @@ const Cart = () => {
 						</Box>
 					</Box>
 				)}
-			</Container>
-		</div>
+			</div>
+		</Container>
 	);
 };
 
