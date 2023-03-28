@@ -16,8 +16,9 @@ import { selectFavorite, selectShoppingCart, selectUser } from "../../store/sele
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 import { getCartAuth } from "../../store/reducers/cartSlice";
-import { getFavorites } from "../../store/reducers/favoriteSlice";
+import { getFavorites, updateFavorites } from "../../store/reducers/favoriteSlice";
 import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
+import { unionFavorite } from "../../helpers/mergeFavorites";
 
 const Header = React.memo(({ modal }) => {
 	const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const Header = React.memo(({ modal }) => {
 	const authFav = useSelector((state) => state.favorite.favoritesAuth);
 	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const token = getLocalItem("token");
+	// const token = getLocalItem("token");
 
 	useEffect(() => {
 		if (!isLoggedIn) {
@@ -37,13 +38,21 @@ const Header = React.memo(({ modal }) => {
 		} else {
 			setCountF(authFav?.length || "0");
 		}
+	}, [favorite, authFav, isLoggedIn]);
+	useEffect(() => {
 		setCountC(totalCartQuantity || "0");
-	}, [favorite, authFav, shoppingCart, authCart, isLoggedIn]);
+	}, [shoppingCart, authCart]);
+
 	useEffect(() => {
 		if (isLoggedIn) {
 			dispatch(fetchCustomer());
-			dispatch(getFavorites());
 			dispatch(getCartAuth());
+			if (favorite.length !== 0) {
+				dispatch(updateFavorites(unionFavorite(authFav, favorite)));
+				dispatch(getCartAuth());
+			} else {
+				dispatch(getFavorites());
+			}
 		}
 	}, [isLoggedIn]);
 	const CustomLink = styled(NavLink)(({ theme }) => ({
