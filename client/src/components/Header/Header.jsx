@@ -16,7 +16,7 @@ import { selectFavorite, selectShoppingCart, selectUser } from "../../store/sele
 import { getLocalItem } from "../../helpers/getLocalItem";
 import BurgerProfile from "./components/BurgerProfile";
 import { getCartAuth } from "../../store/reducers/cartSlice";
-import { getFavorites } from "../../store/reducers/favoriteSlice";
+import { getFavorites, updateFavorites } from "../../store/reducers/favoriteSlice";
 import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
 
 const Header = React.memo(({ modal }) => {
@@ -27,9 +27,9 @@ const Header = React.memo(({ modal }) => {
 	const shoppingCart = useSelector(selectShoppingCart);
 	const totalCartQuantity = useSelector((state) => state.cart.totalCartQuantity);
 	const authFav = useSelector((state) => state.favorite.favoritesAuth);
-	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
+	// const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
-	const token = getLocalItem("token");
+	// const token = getLocalItem("token");
 
 	useEffect(() => {
 		if (!isLoggedIn) {
@@ -37,13 +37,29 @@ const Header = React.memo(({ modal }) => {
 		} else {
 			setCountF(authFav?.length || "0");
 		}
+	}, [favorite, authFav, isLoggedIn]);
+	useEffect(() => {
 		setCountC(totalCartQuantity || "0");
-	}, [favorite, authFav, shoppingCart, authCart, isLoggedIn]);
+	}, [shoppingCart]);
+
+	async function unionFavorite(auFav, favor) {
+		const unionFav = auFav?.map((item) => item._id);
+		unionFav.push(...favor);
+		const objFetchFav = {
+			products: [...new Set([...unionFav])],
+		};
+		await dispatch(updateFavorites(objFetchFav));
+	}
+
 	useEffect(() => {
 		if (isLoggedIn) {
 			dispatch(fetchCustomer());
-			dispatch(getFavorites());
 			dispatch(getCartAuth());
+			if (favorite.length !== 0) {
+				unionFavorite(authFav, favorite);
+			} else {
+				dispatch(getFavorites());
+			}
 		}
 	}, [isLoggedIn]);
 	const CustomLink = styled(NavLink)(({ theme }) => ({

@@ -148,6 +148,10 @@ export const cartSlice = createSlice({
 		});
 		builder.addCase(deleteOneProduct.fulfilled, (state, action) => {
 			state.shoppingCartAuth = action.payload.products;
+			state.totalCartQuantity = 0;
+			state.shoppingCartAuth.forEach(
+				(itemProduct) => (state.totalCartQuantity += itemProduct.cartQuantity),
+			);
 			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 		builder.addCase(decreaseAmountAuth.fulfilled, (state, action) => {
