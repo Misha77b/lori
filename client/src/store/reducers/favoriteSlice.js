@@ -21,6 +21,7 @@ export const postFavorites = createAsyncThunk(
 );
 export const getFavorites = createAsyncThunk("favorites/getData", async (thunkAPI) => {
 	try {
+		console.log("get");
 		const response = await axios.get(`${DOMAIN}/wishlist`, {
 			headers: {
 				Authorization: getLocalItem("token"),
@@ -115,7 +116,7 @@ export const favoriteSlice = createSlice({
 			state.meta = { ...state.meta, loading: true, loaded: false };
 		});
 		builder.addCase(updateFavorites.fulfilled, (state, action) => {
-			state.favoritesAuth = action.payload;
+			state.favoritesAuth = action.payload.products;
 			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 		builder.addCase(deleteFromFavorites.fulfilled, (state, action) => {
