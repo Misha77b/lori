@@ -38,7 +38,6 @@ describe("oneProductSlice", () => {
 		const { calls } = dispatch.mock;
 		expect(calls).toHaveLength(3);
 
-		// const [start, end] = calls;
 		expect(dispatch).toHaveBeenCalledWith(actionLoading(true));
 		expect(axios.get).toHaveBeenCalledWith(`${DOMAIN}/products/${id}`);
 		expect(dispatch).toHaveBeenCalledWith(actionPage(data));
@@ -51,14 +50,14 @@ describe("oneProductSlice", () => {
 		expect(result).toEqual(initialState);
 	});
 
-	it("should add new goods to search 'actionPage' action", () => {
+	it("should add new goods 'actionPage' action", () => {
 		const action = { type: actionPage.type, payload: mockProduct };
 		const result = oneProductsReducer(initialState, action);
 
 		expect(result.pageObj).toEqual(mockProduct);
 	});
 
-	it("should add new goods to search 'actionLoading' action", () => {
+	it("should add new goods 'actionLoading' action", () => {
 		const action = { type: actionLoading.type, payload: false };
 		const result = oneProductsReducer(initialState, action);
 
