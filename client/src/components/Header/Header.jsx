@@ -18,6 +18,7 @@ import BurgerProfile from "./components/BurgerProfile";
 import { getCartAuth } from "../../store/reducers/cartSlice";
 import { getFavorites, updateFavorites } from "../../store/reducers/favoriteSlice";
 import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
+import { unionFavorite } from "../../helpers/mergeFavorites";
 
 const Header = React.memo(({ modal }) => {
 	const dispatch = useDispatch();
@@ -42,21 +43,13 @@ const Header = React.memo(({ modal }) => {
 		setCountC(totalCartQuantity || "0");
 	}, [shoppingCart]);
 
-	async function unionFavorite(auFav, favor) {
-		const unionFav = auFav?.map((item) => item._id);
-		unionFav.push(...favor);
-		const objFetchFav = {
-			products: [...new Set([...unionFav])],
-		};
-		await dispatch(updateFavorites(objFetchFav));
-	}
-
 	useEffect(() => {
 		if (isLoggedIn) {
 			dispatch(fetchCustomer());
 			dispatch(getCartAuth());
 			if (favorite.length !== 0) {
-				unionFavorite(authFav, favorite);
+				dispatch(updateFavorites(unionFavorite(authFav, favorite)));
+				dispatch(getCartAuth());
 			} else {
 				dispatch(getFavorites());
 			}
