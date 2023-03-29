@@ -10,7 +10,6 @@ export const menuTitle = {
 	fontWeight: "700",
 	p: " 0 0 17px 0",
 	textTransform: "uppercase",
-	display: "table-footer-group",
 };
 
 export const CustomLink = styled(NavLink)(({ theme }) => ({

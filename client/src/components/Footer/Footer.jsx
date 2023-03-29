@@ -97,7 +97,7 @@ const Footer = () => {
 							<ListItem fontWeight="fontWeightBold" sx={menuTitle}>
 								Стежте за нами
 							</ListItem>
-							<ListItem sx={{ display: "flex", justifyContent: "center" }}>
+							<ListItem sx={{ display: "flex", pl: "35px" }}>
 								<CustomLink to="https://uk-ua.facebook.com/" target="_blank">
 									<FacebookIcon sx={menuLinkItem} />
 								</CustomLink>
