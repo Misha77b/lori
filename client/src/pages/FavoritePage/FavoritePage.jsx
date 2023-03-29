@@ -17,7 +17,7 @@ const FavoritePage = () => {
 	const parsed = JSON.parse(getLocalItem("favorites") || "[]");
 	const favorites = useSelector((state) => state.favorite.favorite);
 	const authFav = useSelector((state) => state.favorite.favoritesAuth);
-	const { loaded } = useSelector((state) => state.favorite.meta);
+	const { loading } = useSelector((state) => state.favorite.meta);
 	const unauthLoaded = useSelector((state) => state.products.loader);
 	useEffect(() => {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -50,7 +50,7 @@ const FavoritePage = () => {
 				);
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  });
-	if (isAuth && loaded) return <Spinner />;
+	if (isAuth && loading) return <Spinner />;
 	if (!isAuth && unauthLoaded) return <Spinner />;
 	return (
 		<Container>
