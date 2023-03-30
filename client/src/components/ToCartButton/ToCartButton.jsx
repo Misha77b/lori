@@ -24,8 +24,7 @@ const ToCartButton = ({ id, setNotification, favorites = false }) => {
 			color="secondary"
 			variant="contained"
 			sx={{
-				...(favorites ? { width: "140px" } : { width: "70%" }),
-				height: "46px",
+				...(favorites ? { width: "140px" } : { width: "55%" }),
 				marginTop: "10px",
 			}}
 			onClick={() => {
