@@ -8,6 +8,8 @@ import FavoriteHeartIcon from "../FavoriteHeartIcon";
 import ProductFlag from "./components/ProductFlag";
 // eslint-disable-next-line import/named
 import { ProductCardWrapper, Inactive } from "./styled";
+import { InactiveTextPopProd } from "./components/InactiveText/InactiveTextPopProd";
+import { InactiveTextCataloge } from "./components/InactiveText/InactiveTextCataloge";
 
 const ProductCard = ({ card, withCart = true, priceColor, setNotification }) => {
 	const {
@@ -43,18 +45,7 @@ const ProductCard = ({ card, withCart = true, priceColor, setNotification }) => 
 							currentPrice={currentPrice}
 							previousPrice={previousPrice}
 						/>
-						<Typography
-							fontWeight="fontWeightRegular"
-							sx={{
-								position: "absolute",
-								left: "50%",
-								bottom: "8%",
-								fontSize: "14px",
-								transform: "translate(-50%)",
-							}}
-						>
-							Немає в наявності
-						</Typography>
+						{withCart ? <InactiveTextCataloge /> : <InactiveTextPopProd />}
 						<FavoriteHeartIcon id={_id} />
 					</ProductCardWrapper>
 				</Inactive>
