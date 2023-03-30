@@ -46,6 +46,8 @@ const FiltersBlock = () => {
 	}, [filters]);
 
 	useEffect(() => {
+		setMinPrice(() => 0);
+		setMaxPrice(() => 0);
 		const abort = new AbortController();
 		dispatch(actionFetchFilters(abort.signal, searchParams));
 		return () => {
@@ -54,8 +56,7 @@ const FiltersBlock = () => {
 	}, [upDateFilt]);
 
 	const clearFiltersHandler = () => {
-		setMinPrice(0);
-		setMaxPrice(0);
+		setUpDateFilt("clearAll");
 		searchParams.delete("brand");
 		searchParams.delete("processor");
 		searchParams.delete("diagonal");
@@ -67,8 +68,6 @@ const FiltersBlock = () => {
 	};
 	const clearFiltersField = (field) => {
 		if (searchParams.toString().includes(field)) {
-			setMinPrice(() => 0);
-			setMaxPrice(() => 0);
 			setUpDateFilt(`clear${field}`);
 			setSearchParams((prev) => {
 				prev.delete(field);

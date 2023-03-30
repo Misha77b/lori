@@ -7,6 +7,7 @@ import Field from "./Field/Field";
 import "./Form.scss";
 import { fetchAuth, fetchRegister, setIsAuth } from "../../store/reducers/authSlice";
 import ToastNotification from "../ToastNotification";
+import Spinner from "../Spinner";
 
 const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 	const dispatch = useDispatch();
@@ -119,6 +120,7 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 				{error && <ToastNotification text={error} />}
 			</div>
 			<div className="submit__btn__container">
+				{loading && <Spinner />}
 				{!loading && (
 					<button className="submit__btn" type="submit">
 						{status === "LOGIN" ? "Увійти" : "Зареєструватися"}

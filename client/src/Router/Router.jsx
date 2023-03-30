@@ -13,6 +13,7 @@ import PlacingAnOrder from "../pages/PlacingAnOrder";
 import Cart from "../pages/Cart/Cart";
 import Contacts from "../pages/Contacts";
 import NotFoundPage from "../pages/NotFoundPage";
+import NotPage from "../pages/NotPage";
 import FavoritePage from "../pages/FavoritePage";
 import Profile from "../pages/Profile";
 import PasswordChange from "../pages/Profile/ProfileMenuBlocks/PasswordChange/PasswordChange";
@@ -41,6 +42,7 @@ function RootRouters() {
 			<Route path="/paymentAndDelivery" element={<PaymentAndDelivery />} />
 			<Route path="/exchangeAndReturn" element={<ExchangeAndReturn />} />
 			<Route path="/contacts" element={<Contacts />} />
+			<Route path="*" element={<NotPage />} />
 			<Route
 				path="/profile"
 				element={

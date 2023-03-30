@@ -28,7 +28,6 @@ const PopularProducts = ({ advertisement = false }) => {
 			setProducts(res.payload.products);
 		});
 	}, []);
-
 	return (
 		<Container>
 			{productsLoading && <Spinner />}

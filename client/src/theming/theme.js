@@ -6,10 +6,11 @@ const theme = createTheme({
 		Button: {
 			styleOverrides: {
 				root: {
-					padding: "20px 35px",
+					padding: "25px 35px",
 					fontWeight: 700,
 					fontFamily: "Open Sans, sans-serif",
-					fontSize: "15px",
+					textTransform: "uppercase",
+					fontSize: "1 rem",
 					borderRadius: "3px",
 				},
 			},
