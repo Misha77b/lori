@@ -49,7 +49,12 @@ const FavoriteHeartIcon = ({ id }) => {
 				isAuth ? authLikeUpdateHandler() : likeUpdateHandler();
 			}}
 			color={liked ? "error" : "mediumgrey"}
-			sx={{ position: "absolute", cursor: "pointer", fontSize: "40px" }}
+			sx={{
+				position: "absolute",
+				cursor: "pointer",
+				fontSize: "40px",
+				top: "-2px",
+			}}
 		/>
 	);
 };

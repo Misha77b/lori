@@ -35,9 +35,8 @@ export const PreviousPrice = styled.span`
 	font-weight: 900;
 	font-size: 18px;
 	line-height: 23px;
-	color: #a0a9af;
+	color: #57646e;
 	text-decoration: line-through;
-	margin: 2% 15% 0 0;
 	&:after {
 		content: " грн";
 	}
