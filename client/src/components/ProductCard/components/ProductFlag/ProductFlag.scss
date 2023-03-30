@@ -56,9 +56,10 @@
 	border-top-color: transparent;
 	border-right-color: transparent;
 }
-.ribbon-top-right::before {
+.ribbon-top-right.red::before {
 	top: 0;
 	left: 0;
+	z-index: 0;
 }
 .ribbon-top-right::after {
 	bottom: 0;
