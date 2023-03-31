@@ -28,10 +28,11 @@ const partners = require("./routes/partners");
 
 const app = express();
 app.use(express.json());
-const corsOption = {
-  origin: ["http://localhost:3000"],
-};
-app.use(cors(corsOption));
+// const corsOption = {
+//   origin: ["http://localhost:3000"],
+// };
+// app.use(cors(corsOption));
+app.use(cors());
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
