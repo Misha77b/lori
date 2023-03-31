@@ -14,6 +14,7 @@ import Spinner from "../../components/Spinner";
 import NoItemsFoundMessage from "./component/NoItemsFoundMessage";
 import useLocationParams from "./hooks";
 import { CatalogueWrapper, FiltersPhonesStyledWrapper } from "./styled";
+import { fetchSearchProducts } from "../../store/reducers/searchSlice";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
@@ -28,24 +29,46 @@ const ProductsCatalogue = () => {
 	const perPage = 5;
 	const [prevParams, setPrevParams] = useState({ startPage: 1, perPage });
 	const productsQuantity = useSelector(selectProductsQuantity);
+	const searchProductsQuantity = useSelector((state) => state.search.matchedProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
 	const [emptyArray, setEmptyArray] = useState(false);
 	const { params } = useLocationParams({ startPage, perPage });
+	const quantity = !searchParams.toString().includes("query")
+		? productsQuantity
+		: searchProductsQuantity;
 	useEffect(() => {
-		setPrevParams(params);
-		dispatch(fetchProducts(params)).then((res) => {
-			setProducts(res.payload.products);
-			if (res.payload.products.length === 0) {
-				setEmptyArray(true);
-			} else {
-				setEmptyArray(false);
-			}
-		});
-	}, [startPage, params, filteredData, dataFromSearch]);
+		/* setPrevParams(params); */
+		console.log(searchParams.get("query"));
+		if (searchParams.toString().includes("query")) {
+			setSearchParams((prev) => {
+				prev.set("startPage", startPage);
+				return prev;
+			});
+			setSearchParams((prev) => {
+				prev.set("perPage", perPage);
+				return prev;
+			});
+			dispatch(
+				fetchSearchProducts({
+					query: searchParams.get("query"),
+					startPage: searchParams.get("startPage"),
+					perPage: searchParams.get("perPage"),
+				}),
+			);
+		} else {
+			dispatch(fetchProducts(params)).then((res) => {
+				setProducts(res.payload.products);
+				if (res.payload.products.length === 0) {
+					setEmptyArray(true);
+				} else {
+					setEmptyArray(false);
+				}
+			});
+		}
+	}, [startPage, params, filteredData]);
 	useEffect(() => {
-		const urlParams = new URLSearchParams(params);
-		const minPrice = urlParams.get("minPrice");
-		const maxPrice = urlParams.get("maxPrice");
+		const minPrice = searchParams.get("minPrice");
+		const maxPrice = searchParams.get("maxPrice");
 		if (minPrice !== null && maxPrice !== null) {
 			openFilterBar(true);
 		} else {
@@ -98,7 +121,7 @@ const ProductsCatalogue = () => {
 				{!productsLoading && (
 					<CatalogueWrapper>
 						{/* eslint-disable-next-line no-nested-ternary */}
-						{filteredData.length
+						{filteredData.length && !searchParams.toString().includes("query")
 							? filteredData?.map((card, index) => (
 									<ProductCard
 										priceColor="#57646E"
@@ -108,7 +131,7 @@ const ProductsCatalogue = () => {
 									/>
 									// eslint-disable-next-line no-mixed-spaces-and-tabs
 							  ))
-							: dataFromSearch.length
+							: dataFromSearch.length && searchParams.toString().includes("query")
 							? dataFromSearch?.map((card, index) => (
 									<ProductCard
 										priceColor="#57646E"
@@ -132,7 +155,7 @@ const ProductsCatalogue = () => {
 				)}
 			</FiltersPhonesStyledWrapper>
 			<AppPagination
-				pages={Math.ceil(productsQuantity / perPage)}
+				pages={Math.ceil(quantity / perPage)}
 				page={startPage}
 				onPageChange={(e, page) => {
 					setStartPage((prev) => page);

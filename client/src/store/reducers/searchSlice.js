@@ -3,6 +3,7 @@ import axios from "axios";
 import { DOMAIN } from "../../config/API";
 
 const initialState = {
+	matchedProductsQuantity: 0,
 	searchProducts: [],
 	loader: false,
 };
@@ -26,7 +27,8 @@ export const searchSlice = createSlice({
 			state.loader = true;
 		});
 		builder.addCase(fetchSearchProducts.fulfilled, (state, action) => {
-			state.searchProducts = action.payload;
+			state.matchedProductsQuantity = action.payload.matchedProductsQuantity;
+			state.searchProducts = action.payload.matchedProducts;
 			state.loader = false;
 		});
 		builder.addCase(fetchSearchProducts.rejected, (state, action) => {
