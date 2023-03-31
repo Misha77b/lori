@@ -22,11 +22,11 @@ const ProductsCatalogue = () => {
 	const productsLoading = useSelector((state) => state.products.loader);
 	const [products, setProducts] = useState([]);
 	const [notification, setNotification] = useState(false);
-	const [startPage, setStartPage] = useState(1);
+	const [startPage, setStartPage] = useState(searchParams.get("startPage") || 1);
 	const [filteredData, setFilteredData] = useState([]);
 	const [filterBar, openFilterBar] = useState(false);
 	const isMobileSize = useMediaQuery("(max-width:700px)");
-	const perPage = 5;
+	const perPage = 6;
 	const [prevParams, setPrevParams] = useState({ startPage: 1, perPage });
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const searchProductsQuantity = useSelector((state) => state.search.matchedProductsQuantity);
@@ -38,21 +38,13 @@ const ProductsCatalogue = () => {
 		: searchProductsQuantity;
 	useEffect(() => {
 		/* setPrevParams(params); */
-		console.log(searchParams.get("query"));
+		console.log(searchParams.get("startPage"));
 		if (searchParams.toString().includes("query")) {
-			setSearchParams((prev) => {
-				prev.set("startPage", startPage);
-				return prev;
-			});
-			setSearchParams((prev) => {
-				prev.set("perPage", perPage);
-				return prev;
-			});
 			dispatch(
 				fetchSearchProducts({
 					query: searchParams.get("query"),
-					startPage: searchParams.get("startPage"),
-					perPage: searchParams.get("perPage"),
+					startPage: searchParams.get("startPage") || 1,
+					perPage,
 				}),
 			);
 		} else {
@@ -65,7 +57,8 @@ const ProductsCatalogue = () => {
 				}
 			});
 		}
-	}, [startPage, params, filteredData]);
+		setStartPage(parseInt(searchParams.get("startPage") ?? "1", 10));
+	}, [searchParams, params, filteredData]);
 	useEffect(() => {
 		const minPrice = searchParams.get("minPrice");
 		const maxPrice = searchParams.get("maxPrice");
@@ -76,7 +69,13 @@ const ProductsCatalogue = () => {
 		}
 		setPrevParams(params);
 	}, [params, openFilterBar]);
-	const noItems = emptyArray && dataFromSearch.length === 0;
+	let noItems = true;
+	if (searchParams.get("query")) {
+		noItems = !dataFromSearch.length;
+	} else {
+		noItems = emptyArray;
+	}
+	console.log({ noItems });
 	return (
 		<Container>
 			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
@@ -120,9 +119,10 @@ const ProductsCatalogue = () => {
 				{productsLoading && <Spinner />}
 				{!productsLoading && (
 					<CatalogueWrapper>
+						{noItems && <NoItemsFoundMessage text="Товарів не знайдено" />}
 						{/* eslint-disable-next-line no-nested-ternary */}
-						{filteredData.length && !searchParams.toString().includes("query")
-							? filteredData?.map((card, index) => (
+						{!searchParams.toString().includes("query")
+							? products?.map((card, index) => (
 									<ProductCard
 										priceColor="#57646E"
 										key={index}
@@ -131,17 +131,7 @@ const ProductsCatalogue = () => {
 									/>
 									// eslint-disable-next-line no-mixed-spaces-and-tabs
 							  ))
-							: dataFromSearch.length && searchParams.toString().includes("query")
-							? dataFromSearch?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))
-							: products?.map((card, index) => (
+							: dataFromSearch?.map((card, index) => (
 									<ProductCard
 										priceColor="#57646E"
 										key={index}
@@ -150,7 +140,6 @@ const ProductsCatalogue = () => {
 									/>
 									// eslint-disable-next-line no-mixed-spaces-and-tabs
 							  ))}
-						{noItems && <NoItemsFoundMessage text="Товарів не знайдено" />}
 					</CatalogueWrapper>
 				)}
 			</FiltersPhonesStyledWrapper>
@@ -158,8 +147,11 @@ const ProductsCatalogue = () => {
 				pages={Math.ceil(quantity / perPage)}
 				page={startPage}
 				onPageChange={(e, page) => {
-					setStartPage((prev) => page);
-					setSearchParams(params);
+					//setStartPage((prev) => page);
+					setSearchParams((prev) => {
+						prev.set("startPage", page);
+						return prev;
+					});
 				}}
 			/>
 		</Container>

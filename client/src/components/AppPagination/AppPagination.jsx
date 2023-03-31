@@ -4,6 +4,7 @@ import { Pagination } from "@mui/material";
 import PropTypes from "prop-types";
 
 const AppPagination = ({ pages, onPageChange, page }) => {
+	console.log({ page, pages });
 	return (
 		<PaginationWrapper>
 			<Pagination

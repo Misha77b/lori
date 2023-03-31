@@ -12,14 +12,17 @@ const filtersSlice = createSlice({
 	initialState,
 	reducers: {
 		actionFilters: (state, action) => {
-			state.arrFilters = action.payload;
+			state.arrFilters = action.payload || {};
 		},
 		actionLoad: (state, { payload }) => {
 			state.load = payload;
 		},
+		clearFilters: (state, action) => {
+			state.arrFilters = [];
+		},
 	},
 });
-export const { actionLoad, actionFilters } = filtersSlice.actions;
+export const { actionLoad, actionFilters, clearFilters } = filtersSlice.actions;
 
 export const actionFetchFilters =
 	(signal, searchParams, type = "agregate") =>
