@@ -9,7 +9,7 @@ export const InactiveTextPopProd = () => {
 				position: "absolute",
 				left: "50%",
 				transform: "translate(-50%)",
-				fontSize: "16px",
+				fontSize: "14px",
 				padding: "8px",
 				textAlign: "center",
 			}}

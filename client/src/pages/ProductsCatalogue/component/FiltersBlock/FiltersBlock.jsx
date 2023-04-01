@@ -6,7 +6,7 @@ import useLocationParams from "../../hooks";
 import Selection from "../Select";
 import RangePrice from "../RangePrice";
 import { selectorArrFilters } from "../../../../store/selectors";
-import { actionFetchFilters } from "../../../../store/reducers/filtersSlice";
+import { actionFetchFilters, clearFilters } from "../../../../store/reducers/filtersSlice";
 import { arrayField, arrayNameLabel, FilterWrapper } from "./helper";
 import PointPrices from "./PointPrices/PointPrices";
 import SortBox from "../SortBox";
@@ -43,6 +43,10 @@ const FiltersBlock = () => {
 		if (!maxPrice) {
 			setMaxPrice(() => filters.maxPrice);
 		}
+		if (!Array.isArray(filters) && !Object.keys(filters).length) {
+			dispatch(clearFilters());
+			navigate("/404");
+		}
 	}, [filters]);
 
 	useEffect(() => {
@@ -54,6 +58,12 @@ const FiltersBlock = () => {
 			abort.abort();
 		};
 	}, [upDateFilt]);
+
+	useEffect(() => {
+		if (searchParams.get("query")) {
+			setUpDateFilt("clear");
+		}
+	}, [searchParams]);
 
 	const clearFiltersHandler = () => {
 		setUpDateFilt("clearAll");
@@ -70,6 +80,7 @@ const FiltersBlock = () => {
 		if (searchParams.toString().includes(field)) {
 			setUpDateFilt(`clear${field}`);
 			setSearchParams((prev) => {
+				prev.delete("startPage");
 				prev.delete(field);
 				return prev;
 			});
@@ -88,8 +99,8 @@ const FiltersBlock = () => {
 					setPriceParams={priceHandler}
 					minVal={minPrice}
 					maxVal={maxPrice}
-					min={filters.minPrice}
-					max={filters.maxPrice}
+					min={filters?.minPrice ?? 0}
+					max={filters?.maxPrice ?? 0}
 					sx={{ "text-align": "center" }}
 				/>
 				<Typography component="legend" sx={{ textAlign: "left", color: "grey" }}>
@@ -114,8 +125,10 @@ const FiltersBlock = () => {
 							setUpDateFilt(el);
 							setSearchParams((prev) => {
 								prev.set(el, value);
+								prev.delete("query");
 								prev.delete("minPrice");
 								prev.delete("maxPrice");
+								prev.delete("startPage");
 								return prev;
 							});
 						}}

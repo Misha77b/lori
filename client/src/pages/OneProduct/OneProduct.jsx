@@ -37,9 +37,7 @@ function OneProduct() {
 			{!canRender && <Spinner />}
 			{canRender && (
 				<div>
-					{notification && (
-						<ToastNotification text="An item has been successfully added to the cart" />
-					)}
+					{notification && <ToastNotification text="Товар успішно додано до кошика" />}
 					<Product props={data} setNotification={setNotification} />
 					<PopularProducts advertisement={true} />
 				</div>
