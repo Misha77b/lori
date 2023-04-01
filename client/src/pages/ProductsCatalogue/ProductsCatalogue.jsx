@@ -20,6 +20,7 @@ const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const productsLoading = useSelector((state) => state.products.loader);
+	const searchLoading = useSelector((state) => state.search.loader);
 	const [products, setProducts] = useState([]);
 	const [notification, setNotification] = useState(false);
 	const [startPage, setStartPage] = useState(searchParams.get("startPage") || 1);
@@ -70,11 +71,10 @@ const ProductsCatalogue = () => {
 	}, [params, openFilterBar]);
 	let noItems = true;
 	if (searchParams.get("query")) {
-		noItems = !dataFromSearch.length;
+		noItems = !dataFromSearch.length && !searchLoading;
 	} else {
 		noItems = emptyArray;
 	}
-	console.log({ noItems });
 	return (
 		<Container>
 			{notification && <ToastNotification text="Товар успішно додано до кошика" />}

@@ -98,12 +98,6 @@ const Search = React.memo(() => {
 						prev.set("query", input);
 						return prev;
 					});
-					// dispatch(
-					// 	fetchSearchProducts({
-					// 		query: searchParams.get("query"),
-					// 	}),
-					// );
-					navigate(`/products?${SearchParams.toString()}`);
 				}}
 				sx={{
 					position: "absolute",
