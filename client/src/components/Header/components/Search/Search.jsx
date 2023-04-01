@@ -98,6 +98,7 @@ const Search = React.memo(() => {
 						prev.set("query", input);
 						return prev;
 					});
+					navigate(`/products?${searchParams.toString()}`);
 				}}
 				sx={{
 					position: "absolute",
