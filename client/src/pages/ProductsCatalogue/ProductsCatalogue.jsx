@@ -38,7 +38,6 @@ const ProductsCatalogue = () => {
 		: searchProductsQuantity;
 	useEffect(() => {
 		/* setPrevParams(params); */
-		console.log(searchParams.get("startPage"));
 		if (searchParams.toString().includes("query")) {
 			dispatch(
 				fetchSearchProducts({

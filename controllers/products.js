@@ -162,7 +162,6 @@ exports.searchProducts = async (req, res, next) => {
   const perPage = Number(req.body.perPage);
   const startPage = Number(req.body.startPage);
   const sort = req.query.sort;
-  console.log(req.body);
   //Taking the entered value from client in lower-case and trimed
   let query = req.body.query.toLowerCase().trim().replace(/\s\s+/g, " ");
 
@@ -176,8 +175,6 @@ exports.searchProducts = async (req, res, next) => {
     .skip(startPage * perPage - perPage)
     .limit(perPage)
     .sort(sort);
-  console.log(startPage, perPage);
-
   const matchedProductsQuantity = await Product.find({
     $text: { $search: query },
   });
