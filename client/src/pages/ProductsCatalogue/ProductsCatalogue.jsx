@@ -77,7 +77,7 @@ const ProductsCatalogue = () => {
 	console.log({ noItems });
 	return (
 		<Container>
-			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
+			{notification && <ToastNotification text="Товар успішно додано до кошика" />}
 			{isMobileSize && (
 				<Button
 					color="secondary"
