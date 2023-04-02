@@ -183,4 +183,46 @@ describe("updateCartFromNotAuthToAuth", () => {
 		expect(resultAction.type).toEqual("cart/decreaseAmountAuth/rejected");
 		expect(resultAction.payload).toEqual(error);
 	});
+
+	it("should handle adding a new item to the cart", () => {
+		const state = {
+			shoppingCart: {},
+			totalCartQuantity: 0,
+		};
+		const action = {
+			type: addShoppingCart.type,
+			payload: "product1",
+		};
+		const newState = cartReducer(state, action);
+		expect(newState.shoppingCart.product1).toEqual(1);
+		expect(newState.totalCartQuantity).toEqual(1);
+	});
+
+	it("should handle adding an existing item to the cart", () => {
+		const state = {
+			shoppingCart: { product1: 1 },
+			totalCartQuantity: 1,
+		};
+		const action = {
+			type: addShoppingCart.type,
+			payload: "product1",
+		};
+		const newState = cartReducer(state, action);
+		expect(newState.shoppingCart.product1).toEqual(1);
+		expect(newState.totalCartQuantity).toEqual(1);
+	});
+
+	it("should handle not adding a new item if it already exists in the cart", () => {
+		const state = {
+			shoppingCart: { product1: 1 },
+			totalCartQuantity: 1,
+		};
+		const action = {
+			type: addShoppingCart.type,
+			payload: "product1",
+		};
+		const newState = cartReducer(state, action);
+		expect(newState.shoppingCart.product1).toEqual(1);
+		expect(newState.totalCartQuantity).toEqual(1);
+	});
 });
