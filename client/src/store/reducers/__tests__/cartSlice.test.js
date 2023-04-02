@@ -362,4 +362,176 @@ describe("updateCartFromNotAuthToAuth", () => {
 		const result = cartReducer(prevState, action);
 		expect(result).toEqual(expectedState);
 	});
+
+	it("should change status with 'addOneProductAuth.pending' action", () => {
+		const initialState = {
+			meta: { loading: false, loaded: true, error: null },
+		};
+		const state = cartReducer(initialState, addOneProductAuth.pending());
+
+		expect(state.meta.loaded).toBe(false);
+		expect(state.meta.loading).toBe(true);
+	});
+
+	it("should change status with 'addOneProductAuth.fulfilled' action", () => {
+		const initialState = {
+			shoppingCartAuth: [],
+			totalCartQuantity: 0,
+			meta: { loading: false, loaded: false },
+		};
+		const products = [
+			{ id: 1, cartQuantity: 1 },
+			{ id: 2, cartQuantity: 2 },
+		];
+		const action = {
+			type: addOneProductAuth.fulfilled.type,
+			payload: { products },
+		};
+		const state = cartReducer(initialState, action);
+
+		expect(state.shoppingCartAuth).toEqual(products);
+		expect(state.totalCartQuantity).toEqual(3);
+		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toBe(true);
+	});
+
+	it("should change status with 'addOneProductAuth.rejected' action", () => {
+		const initialState = {
+			meta: { loading: false, loaded: true, error: null },
+		};
+		const state = cartReducer(initialState, addOneProductAuth.rejected());
+
+		expect(state.meta.loaded).toBe(false);
+		expect(state.meta.loading).toBe(false);
+	});
+
+	it("should change status with 'deleteOneProduct.fulfilled,' action", () => {
+		const initialState = {
+			shoppingCartAuth: [],
+			totalCartQuantity: 0,
+			meta: { loading: false, loaded: false },
+		};
+		const products = [
+			{ id: 1, cartQuantity: 1 },
+			{ id: 2, cartQuantity: 2 },
+		];
+		const action = {
+			type: deleteOneProduct.fulfilled.type,
+			payload: { products },
+		};
+		const state = cartReducer(initialState, action);
+
+		expect(state.shoppingCartAuth).toEqual(products);
+		expect(state.totalCartQuantity).toEqual(3);
+		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toBe(true);
+	});
+
+	it("should change status with 'getCartAuth.fulfilled,' action", () => {
+		const initialState = {
+			shoppingCartAuth: [],
+			totalCartQuantity: 0,
+			meta: { loading: false, loaded: false },
+		};
+		const products = [
+			{ id: 1, cartQuantity: 1 },
+			{ id: 2, cartQuantity: 2 },
+		];
+		const action = {
+			type: getCartAuth.fulfilled.type,
+			payload: products,
+		};
+		const state = cartReducer(initialState, action);
+
+		expect(state.shoppingCartAuth).toEqual(products);
+		expect(state.totalCartQuantity).toEqual(3);
+		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toBe(true);
+	});
+
+	it("should change status with 'getCartAuth.pending' action", () => {
+		const initialState = {
+			meta: { loading: false, loaded: true, error: null },
+		};
+		const state = cartReducer(initialState, getCartAuth.pending());
+
+		expect(state.meta.loaded).toBe(false);
+		expect(state.meta.loading).toBe(true);
+	});
+
+	it("should change status with 'updateCartFromNotAuthToAuth.fulfilled,' action", () => {
+		const initialState = {
+			shoppingCartAuth: [],
+			totalCartQuantity: 0,
+			meta: { loading: false, loaded: false },
+		};
+		const products = [
+			{ id: 1, cartQuantity: 1 },
+			{ id: 2, cartQuantity: 2 },
+		];
+		const action = {
+			type: updateCartFromNotAuthToAuth.fulfilled.type,
+			payload: { products },
+		};
+		const state = cartReducer(initialState, action);
+
+		expect(state.shoppingCartAuth).toEqual(products);
+		expect(state.totalCartQuantity).toEqual(3);
+		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toBe(true);
+	});
+
+	it("should change status with 'updateCartFromNotAuthToAuth.rejected' action", () => {
+		const initialState = {
+			meta: { loading: false, loaded: true, error: null },
+		};
+		const state = cartReducer(initialState, updateCartFromNotAuthToAuth.rejected());
+
+		expect(state.meta.loaded).toBe(false);
+		expect(state.meta.loading).toBe(false);
+	});
+
+	it("should change status with 'decreaseAmountAuth.fulfilled,' action", () => {
+		const initialState = {
+			shoppingCartAuth: [],
+			totalCartQuantity: 0,
+			meta: { loading: false, loaded: false },
+		};
+		const products = [
+			{ id: 1, cartQuantity: 1 },
+			{ id: 2, cartQuantity: 2 },
+		];
+		const action = {
+			type: decreaseAmountAuth.fulfilled.type,
+			payload: { products },
+		};
+		const state = cartReducer(initialState, action);
+
+		expect(state.shoppingCartAuth).toEqual(products);
+		expect(state.totalCartQuantity).toEqual(0);
+		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toBe(true);
+	});
+
+	it("should change status with 'deleteCartAuth.fulfilled,' action", () => {
+		const initialState = {
+			shoppingCartAuth: [],
+			totalCartQuantity: 0,
+			meta: { loading: false, loaded: false },
+		};
+		const products = [
+			{ id: 1, cartQuantity: 1 },
+			{ id: 2, cartQuantity: 2 },
+		];
+		const action = {
+			type: deleteCartAuth.fulfilled.type,
+			payload: { products },
+		};
+		const state = cartReducer(initialState, action);
+
+		expect(state.shoppingCartAuth).toEqual([]);
+		expect(state.totalCartQuantity).toEqual(0);
+		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toBe(true);
+	});
 });
