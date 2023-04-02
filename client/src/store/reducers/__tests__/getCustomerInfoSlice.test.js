@@ -17,7 +17,7 @@ describe("fetchCustomer", () => {
 		localStorage.setItem("token", token);
 
 		const dispatch = jest.fn();
-		const result = await fetchCustomer()(dispatch);
+		await fetchCustomer()(dispatch);
 
 		const { calls } = dispatch.mock;
 		expect(calls).toHaveLength(2);

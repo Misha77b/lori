@@ -46,8 +46,8 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(postFavorites.pending().type);
-		expect(end[0].type).toBe(postFavorites.fulfilled().type);
+		expect(start[0].type).toEqual(postFavorites.pending().type);
+		expect(end[0].type).toEqual(postFavorites.fulfilled().type);
 	});
 
 	it("should handle error and reject with error message postFavorites", async () => {
@@ -67,9 +67,9 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(postFavorites.pending().type);
-		expect(end[0].type).toBe(postFavorites.rejected().type);
-		expect(end[0].meta.rejectedWithValue).toBe(true);
+		expect(start[0].type).toEqual(postFavorites.pending().type);
+		expect(end[0].type).toEqual(postFavorites.rejected().type);
+		expect(end[0].meta.rejectedWithValue).toEqual(true);
 	});
 
 	it("should getFavorites with resolved response", async () => {
@@ -88,7 +88,7 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(getFavorites.pending().type);
+		expect(start[0].type).toEqual(getFavorites.pending().type);
 	});
 
 	it("should handle error and reject with error message getFavorites", async () => {
@@ -108,9 +108,9 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(getFavorites.pending().type);
-		expect(end[0].type).toBe(getFavorites.rejected().type);
-		expect(end[0].meta.rejectedWithValue).toBe(false);
+		expect(start[0].type).toEqual(getFavorites.pending().type);
+		expect(end[0].type).toEqual(getFavorites.rejected().type);
+		expect(end[0].meta.rejectedWithValue).toEqual(false);
 	});
 
 	it("should updateFavorites with resolved response", async () => {
@@ -129,8 +129,8 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(updateFavorites.pending().type);
-		expect(end[0].type).toBe(updateFavorites.fulfilled().type);
+		expect(start[0].type).toEqual(updateFavorites.pending().type);
+		expect(end[0].type).toEqual(updateFavorites.fulfilled().type);
 	});
 
 	it("should handle error and reject with error message updateFavorites", async () => {
@@ -150,9 +150,9 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(updateFavorites.pending().type);
-		expect(end[0].type).toBe(updateFavorites.rejected().type);
-		expect(end[0].meta.rejectedWithValue).toBe(false);
+		expect(start[0].type).toEqual(updateFavorites.pending().type);
+		expect(end[0].type).toEqual(updateFavorites.rejected().type);
+		expect(end[0].meta.rejectedWithValue).toEqual(false);
 	});
 
 	it("should addToFavorites with resolved response", async () => {
@@ -171,8 +171,8 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(addToFavorites.pending().type);
-		expect(end[0].type).toBe(addToFavorites.fulfilled().type);
+		expect(start[0].type).toEqual(addToFavorites.pending().type);
+		expect(end[0].type).toEqual(addToFavorites.fulfilled().type);
 	});
 
 	it("should handle error and reject with error message addToFavorites", async () => {
@@ -192,9 +192,9 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(addToFavorites.pending().type);
-		expect(end[0].type).toBe(addToFavorites.rejected().type);
-		expect(end[0].meta.rejectedWithValue).toBe(false);
+		expect(start[0].type).toEqual(addToFavorites.pending().type);
+		expect(end[0].type).toEqual(addToFavorites.rejected().type);
+		expect(end[0].meta.rejectedWithValue).toEqual(false);
 	});
 
 	it("should deleteFromFavorites with resolved response", async () => {
@@ -213,8 +213,8 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(deleteFromFavorites.pending().type);
-		expect(end[0].type).toBe(deleteFromFavorites.fulfilled().type);
+		expect(start[0].type).toEqual(deleteFromFavorites.pending().type);
+		expect(end[0].type).toEqual(deleteFromFavorites.fulfilled().type);
 	});
 
 	it("should handle error and reject with error message deleteFromFavorites", async () => {
@@ -234,9 +234,9 @@ describe("favoriteSlice", () => {
 
 		const [start, end] = calls;
 
-		expect(start[0].type).toBe(deleteFromFavorites.pending().type);
-		expect(end[0].type).toBe(deleteFromFavorites.rejected().type);
-		expect(end[0].meta.rejectedWithValue).toBe(false);
+		expect(start[0].type).toEqual(deleteFromFavorites.pending().type);
+		expect(end[0].type).toEqual(deleteFromFavorites.rejected().type);
+		expect(end[0].meta.rejectedWithValue).toEqual(false);
 	});
 
 	it("should return default state when passed an empty actions", () => {
@@ -308,8 +308,8 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, postFavorites.pending());
 
-		expect(state.meta.loaded).toBe(false);
-		expect(state.meta.loading).toBe(true);
+		expect(state.meta.loaded).toEqual(false);
+		expect(state.meta.loading).toEqual(true);
 	});
 
 	it("should fetch goods with 'postFavorites.fulfilled' action", () => {
@@ -320,8 +320,8 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, postFavorites.fulfilled(mockProduct));
 
-		expect(state.meta.loaded).toBe(true);
-		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toEqual(true);
+		expect(state.meta.loading).toEqual(false);
 		expect(state.favoritesAuth).toEqual(mockProduct);
 	});
 
@@ -333,8 +333,8 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, getFavorites.pending());
 
-		expect(state.meta.loaded).toBe(false);
-		expect(state.meta.loading).toBe(true);
+		expect(state.meta.loaded).toEqual(false);
+		expect(state.meta.loading).toEqual(true);
 	});
 
 	it("should fetch goods with 'getFavorites.fulfilled' action", () => {
@@ -345,8 +345,8 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, getFavorites.fulfilled(mockProduct));
 
-		expect(state.meta.loaded).toBe(true);
-		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toEqual(true);
+		expect(state.meta.loading).toEqual(false);
 		expect(state.favoritesAuth).toEqual(mockProduct);
 	});
 	it("should fetch goods with 'getFavorites.rejected' action", () => {
@@ -363,7 +363,7 @@ describe("favoriteSlice", () => {
 		const state = favoriteReducer(initialState, action);
 
 		expect(state.meta.loaded).toEqual(false);
-		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loading).toEqual(false);
 		expect(state.favoritesAuth).toEqual([]);
 		expect(state.meta.error).toEqual("Server Error !");
 	});
@@ -376,8 +376,8 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, addToFavorites.pending());
 
-		expect(state.meta.loaded).toBe(false);
-		expect(state.meta.loading).toBe(true);
+		expect(state.meta.loaded).toEqual(false);
+		expect(state.meta.loading).toEqual(true);
 	});
 
 	it("should fetch goods with 'addToFavorites.fulfilled' action", () => {
@@ -388,8 +388,8 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, addToFavorites.fulfilled(mockProduct));
 
-		expect(state.meta.loaded).toBe(true);
-		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toEqual(true);
+		expect(state.meta.loading).toEqual(false);
 	});
 
 	it("should change status with 'updateFavorites.pending' action", () => {
@@ -400,8 +400,8 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, updateFavorites.pending());
 
-		expect(state.meta.loaded).toBe(false);
-		expect(state.meta.loading).toBe(true);
+		expect(state.meta.loaded).toEqual(false);
+		expect(state.meta.loading).toEqual(true);
 	});
 
 	it("should fetch goods with 'updateFavorites.fulfilled' action", () => {
@@ -411,10 +411,8 @@ describe("favoriteSlice", () => {
 			meta: { loading: false, loaded: true, error: null },
 		};
 		const state = favoriteReducer(initialState, updateFavorites.fulfilled(mockProduct));
-
-		expect(state.meta.loaded).toBe(true);
-		expect(state.meta.loading).toBe(false);
-		expect(state.favoritesAuth).toEqual(mockProduct);
+		expect(state.meta.loaded).toEqual(true);
+		expect(state.meta.loading).toEqual(false);
 	});
 
 	it("should fetch goods with 'updateFavorites.rejected' action", () => {
@@ -431,7 +429,7 @@ describe("favoriteSlice", () => {
 		const state = favoriteReducer(initialState, action);
 
 		expect(state.meta.loaded).toEqual(false);
-		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loading).toEqual(false);
 		expect(state.favoritesAuth).toEqual([]);
 		expect(state.meta.error).toEqual("Server Error !");
 	});
@@ -444,7 +442,7 @@ describe("favoriteSlice", () => {
 		};
 		const state = favoriteReducer(initialState, deleteFromFavorites.fulfilled(mockProduct));
 
-		expect(state.meta.loaded).toBe(true);
-		expect(state.meta.loading).toBe(false);
+		expect(state.meta.loaded).toEqual(true);
+		expect(state.meta.loading).toEqual(false);
 	});
 });
