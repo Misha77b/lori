@@ -225,4 +225,141 @@ describe("updateCartFromNotAuthToAuth", () => {
 		expect(newState.shoppingCart.product1).toEqual(1);
 		expect(newState.totalCartQuantity).toEqual(1);
 	});
+
+	it("should remove item from shopping cart", () => {
+		const initialState = {
+			shoppingCart: {
+				1: 2,
+				2: 1,
+			},
+			totalCartQuantity: 3,
+		};
+		const action = {
+			type: removeItemShoppingCart.type,
+			payload: 1,
+		};
+
+		const expectedState = {
+			shoppingCart: {
+				2: 1,
+			},
+			totalCartQuantity: 1,
+		};
+
+		const actualState = cartReducer(initialState, action);
+
+		expect(actualState).toEqual(expectedState);
+	});
+
+	it("should handle addQuantityToShoppingCart action with existing item", () => {
+		const prevState = {
+			shoppingCart: {
+				"item-1": 2,
+				"item-2": 1,
+			},
+			totalCartQuantity: 3,
+			totalCartSum: 50,
+		};
+		const action = {
+			type: addQuantityToShoppingCart.type,
+			payload: {
+				itemNo: "item-1",
+				addToQty: 2,
+			},
+		};
+		const newState = cartReducer(prevState, action);
+		expect(newState.shoppingCart["item-1"]).toBe(4);
+		expect(newState.totalCartQuantity).toBe(5);
+	});
+
+	it("should handle addQuantityToShoppingCart action with new item", () => {
+		const prevState = {
+			shoppingCart: {
+				"item-1": 2,
+				"item-2": 1,
+			},
+			totalCartQuantity: 3,
+			totalCartSum: 50,
+		};
+		const action = {
+			type: addQuantityToShoppingCart.type,
+			payload: {
+				itemNo: "item-2",
+				addToQty: 2,
+			},
+		};
+		const newState = cartReducer(prevState, action);
+		expect(newState.shoppingCart["item-2"]).toBe(3);
+		expect(newState.totalCartQuantity).toBe(5);
+	});
+
+	it("should handle setTotalCartSum action", () => {
+		const prevState = {
+			shoppingCart: {
+				"item-1": 2,
+				"item-2": 1,
+			},
+			totalCartQuantity: 3,
+			totalCartSum: 50,
+		};
+		const action = {
+			type: setTotalCartSum.type,
+			payload: 75,
+		};
+		const newState = cartReducer(prevState, action);
+		expect(newState.totalCartSum).toBe(75);
+	});
+
+	it("should not modify state for invalid action type", () => {
+		const prevState = {
+			shoppingCart: {
+				"item-1": 2,
+				"item-2": 1,
+			},
+			totalCartQuantity: 3,
+			totalCartSum: 50,
+		};
+		const action = {
+			type: "invalidActionType",
+			payload: {},
+		};
+		const newState = cartReducer(prevState, action);
+		expect(newState).toEqual(prevState);
+	});
+
+	it("should clear the cart", () => {
+		const prevState = {
+			shoppingCart: ["item1", "item2"],
+			totalCartQuantity: 2,
+			totalCartSum: 50,
+			cartAuthTotalSum: 0,
+		};
+		const expectedState = {
+			shoppingCart: [],
+			totalCartQuantity: 0,
+			totalCartSum: 0,
+			cartAuthTotalSum: 0,
+		};
+		const action = { type: clearCart.type };
+		const result = cartReducer(prevState, action);
+		expect(result).toEqual(expectedState);
+	});
+
+	it("should update the authenticated cart total sum", () => {
+		const prevState = {
+			shoppingCart: ["item1", "item2"],
+			totalCartQuantity: 2,
+			totalCartSum: 50,
+			cartAuthTotalSum: 0,
+		};
+		const expectedState = {
+			shoppingCart: ["item1", "item2"],
+			totalCartQuantity: 2,
+			totalCartSum: 50,
+			cartAuthTotalSum: 100,
+		};
+		const action = { type: getTotatlAuthCartSum.type, payload: 100 };
+		const result = cartReducer(prevState, action);
+		expect(result).toEqual(expectedState);
+	});
 });
