@@ -65,11 +65,11 @@ const FavoritePage = () => {
 					Улюблене
 				</Typography>
 				<>
-					{!favorites.length && !authFav.length && <NoItemsFoundMessage />}
 					<Box component="div" className="scroll">
 						{prodsToRender}
 					</Box>
 				</>
+				{!favorites.length && !authFav.length && <NoItemsFoundMessage />}
 			</div>
 		</Container>
 	);
