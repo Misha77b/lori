@@ -8,8 +8,8 @@ export const schema = yup.object().shape({
 	email: yup.string().email("Enter a valid email").required("Email is required"),
 	phoneNumber: yup
 		.string()
-		.matches(phoneRegExp, "Phone number is not valid")
+		.matches(phoneRegExp, "Phone must begin with +38")
 		.nullable()
 		.required(REQUIRED),
-	adress: yup.string().required("Adress is required"),
+	adress: yup.string().nullable().required("Adress is required"),
 });
