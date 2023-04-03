@@ -94,7 +94,6 @@ const Search = React.memo(() => {
 							keys.push(key);
 						});
 						keys.forEach((key) => prev.delete(key));
-						console.log(prev.toString());
 						prev.set("query", input);
 						return prev;
 					});

@@ -24,6 +24,7 @@ export const searchSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchSearchProducts.pending, (state) => {
+			state.searchProducts = [];
 			state.loader = true;
 		});
 		builder.addCase(fetchSearchProducts.fulfilled, (state, action) => {

@@ -6,8 +6,10 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { setLocalItem } from "../../helpers/setLocalItem";
 // eslint-disable-next-line import/named
 import { addOneProductAuth, addShoppingCart } from "../../store/reducers/cartSlice";
+import { deleteFromFavorites, removeItemFavorite } from "../../store/reducers/favoriteSlice";
+import { deleteCardIdFromStore } from "../../helpers/deleteCardIdFromStore";
 
-const ToCartButton = ({ id, setNotification, favorites = false }) => {
+const ToCartButton = ({ id, setNotification, favorites }) => {
 	const dispatch = useDispatch();
 	const isAuth = useSelector((state) => state.auth.isAuth);
 
@@ -23,16 +25,24 @@ const ToCartButton = ({ id, setNotification, favorites = false }) => {
 		<Button
 			color="secondary"
 			variant="contained"
-			sx={{
+			/* sx={{
 				...(favorites ? { width: "140px" } : { width: "55%" }),
 				marginTop: "10px",
-			}}
+			}} */
 			onClick={() => {
 				setCartHandler(id);
 				setNotification(true);
 				setTimeout(() => {
 					setNotification(false);
 				}, 3000);
+				if (favorites) {
+					if (!isAuth) {
+						dispatch(removeItemFavorite(id));
+						deleteCardIdFromStore(id, "favorites");
+					} else {
+						dispatch(deleteFromFavorites(id));
+					}
+				}
 			}}
 		>
 			У кошик

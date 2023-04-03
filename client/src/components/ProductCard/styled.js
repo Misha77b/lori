@@ -8,7 +8,9 @@ export const ProductCardWrapper = styled.div`
 	padding: 10px;
 	position: relative;
 	width: 100%;
-	height: 93%;
+	height: 95%;
+	max-width: 300px;
+	max-height: 550px;
 	transition: all 0.3s ease-in;
 	@media screen and (max-width: 700px) {
 		width: 90%;
