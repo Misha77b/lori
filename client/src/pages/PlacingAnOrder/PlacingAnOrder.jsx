@@ -34,6 +34,7 @@ import { setModal } from "../../store/reducers/modalSlice";
 import useItemsToRender from "../Cart/hooks";
 import useSendOrderInfo from "./hooks/useSendOrderInfo";
 import { fetchCustomer } from "../../store/reducers/getCustomerInfoSlice";
+import { Error } from "./components/Error/Error";
 
 const PlacingAnOrder = () => {
 	const dispatch = useDispatch();
@@ -242,7 +243,9 @@ const PlacingAnOrder = () => {
 											color="secondary"
 											placeholder="Оберіть пункт видачі"
 										/>
-										{errors.adress && <p className="error">{touched.adress && errors.adress}</p>}
+										{touched.adress && errors.adress ? (
+											<Error>{touched.adress && errors.adress}</Error>
+										) : null}
 									</>
 								)}
 							/>
@@ -258,7 +261,9 @@ const PlacingAnOrder = () => {
 									placeholder="Місто, вулиця, будинок, квартира"
 									multiline={true}
 								/>
-								{errors.adress && <p className="error">{touched.adress && errors.adress}</p>}
+								{touched.adress && errors.adress ? (
+									<Error>{touched.adress && errors.adress}</Error>
+								) : null}
 							</>
 						)}
 					</Grid>
