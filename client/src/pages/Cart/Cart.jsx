@@ -33,6 +33,7 @@ const Cart = () => {
 			setProducts(res.payload.products);
 		});
 	}, [cartItems]);
+
 	useEffect(() => {
 		if (!products.length) {
 			setTotalSum({});
@@ -48,14 +49,14 @@ const Cart = () => {
 		? authCart?.map((item) => {
 				return (
 					<CartItem
-						dbId={item.product._id}
-						key={item.product.itemNo}
-						itemNo={item.product.itemNo}
-						imageUrls={item.product.imageUrls}
-						name={item.product.name}
-						currentPrice={item.product.currentPrice}
-						quantity={item.cartQuantity}
-						setTotalSum={setTotalSum}
+						dbId={item?.product?._id || ""}
+						key={item?.product?.itemNo || ""}
+						itemNo={item?.product?.itemNo || ""}
+						imageUrls={item?.product?.imageUrls || ""}
+						name={item?.product?.name || ""}
+						currentPrice={item?.product?.currentPrice || ""}
+						quantity={item?.cartQuantity || ""}
+						setTotalSum={setTotalSum || ""}
 					/>
 				);
 				// eslint-disable-next-line no-mixed-spaces-and-tabs

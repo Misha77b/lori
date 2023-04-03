@@ -161,13 +161,28 @@ export const cartSlice = createSlice({
 		builder.addCase(getCartAuth.pending, (state, action) => {
 			state.meta = { ...state.meta, loading: true, loaded: false };
 		});
-		builder.addCase(getCartAuth.fulfilled, (state, action) => {
+		builder.addCase(getCartAuth.fulfilled, async (state, action) => {
 			state.shoppingCartAuth = action.payload;
 			state.totalCartQuantity = 0;
 			state.shoppingCartAuth.forEach(
 				(itemProduct) => (state.totalCartQuantity += itemProduct.cartQuantity),
 			);
 			state.meta = { ...state.meta, loading: false, loaded: true };
+			// const fetchProductPromises = action.payload
+			// 	.filter((item) => !item.product)
+			// 	.map((item) => getProduct(item._id));
+			// const productData = await Promise.all(fetchProductPromises);
+			//
+			// // update the shopping cart with the fetched product data
+			// productData.forEach((product, index) => {
+			// 	const itemToUpdate = state.shoppingCartAuth.find(
+			// 		(item) => item._id === action.payload[index]._id
+			// 	);
+			// 	itemToUpdate.product = product;
+			// });
+			// action.payload.forEach((item) => {
+			// 	if (!item.product) fetchProducts(`_id=${item._id}`);
+			// });
 		});
 		builder.addCase(deleteCartAuth.fulfilled, (state, action) => {
 			state.shoppingCartAuth = [];

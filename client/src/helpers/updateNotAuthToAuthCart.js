@@ -1,10 +1,8 @@
-export const updateNotAuthToAuthCart = (cart) => {
-	const transformedCart = {
-		products: Object.entries(cart).map(([productId, cartQuantity]) => ({
-			product: productId,
-			cartQuantity,
-		})),
-	};
-
-	return transformedCart;
+export const updateNotAuthToAuthCart = (notAuthCart, cartAuth) => {
+	const a = cartAuth.map(({ cartQuantity, _id }) => ({ product: _id, cartQuantity }));
+	const b = Object.entries(notAuthCart).map(([productId, cartQuantity]) => ({
+		product: productId,
+		cartQuantity,
+	}));
+	return { products: [...a, ...b] };
 };
