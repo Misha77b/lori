@@ -23,8 +23,8 @@ export const modals = {
 								variant="h5"
 								color="secondary"
 								sx={{
-									fontWeight: "700",
-									fontSize: "30px",
+									fontWeight: "600",
+									fontSize: "20px",
 									lineHeight: "180%",
 									marginBottom: "12px",
 								}}
@@ -33,7 +33,7 @@ export const modals = {
 							</Typography>
 							<Typography
 								component="p"
-								sx={{ fontSize: "18px", lineHeight: " 180%", marginBottom: "50px" }}
+								sx={{ fontSize: "18px", lineHeight: " 180%", marginBottom: "20px" }}
 							>
 								Ваше замовлення № {order} успішно оформлене. Чекайте на дзвінок від нашого фахівця.
 							</Typography>
@@ -41,7 +41,7 @@ export const modals = {
 								color="secondary"
 								variant="contained"
 								sx={{
-									padding: "15px 20px",
+									padding: "10px 10px",
 								}}
 								onClick={() => {
 									onNavigate("/products");

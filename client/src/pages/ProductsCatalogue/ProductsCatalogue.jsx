@@ -58,7 +58,7 @@ const ProductsCatalogue = () => {
 			});
 		}
 		setStartPage(parseInt(searchParams.get("startPage") ?? "1", 10));
-	}, [searchParams, params, filteredData]);
+	}, [startPage, params, filteredData, searchParams]);
 	useEffect(() => {
 		const minPrice = searchParams.get("minPrice");
 		const maxPrice = searchParams.get("maxPrice");
@@ -115,39 +115,41 @@ const ProductsCatalogue = () => {
 			<FiltersPhonesStyledWrapper isMobileSize={isMobileSize}>
 				{isMobileSize && filterBar && <FiltersBlock />}
 				{!isMobileSize && <FiltersBlock />}
-				{productsLoading && <Spinner />}
-				{!productsLoading && (
-					<CatalogueWrapper>
-						{noItems && <NoItemsFoundMessage text="Товарів не знайдено" />}
-						{/* eslint-disable-next-line no-nested-ternary */}
-						{!searchParams.toString().includes("query")
-							? products?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))
-							: dataFromSearch?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))}
-					</CatalogueWrapper>
-				)}
+				<CatalogueWrapper>
+					{(productsLoading || searchLoading) && <Spinner />}
+					{!productsLoading && (
+						<>
+							{noItems && <NoItemsFoundMessage text="Товарів не знайдено" />}
+							{/* eslint-disable-next-line no-nested-ternary */}
+							{!searchParams.toString().includes("query")
+								? products?.map((card, index) => (
+										<ProductCard
+											priceColor="#57646E"
+											key={index}
+											card={card}
+											setNotification={setNotification}
+										/>
+										// eslint-disable-next-line no-mixed-spaces-and-tabs
+								  ))
+								: dataFromSearch?.map((card, index) => (
+										<ProductCard
+											priceColor="#57646E"
+											key={index}
+											card={card}
+											setNotification={setNotification}
+										/>
+										// eslint-disable-next-line no-mixed-spaces-and-tabs
+								  ))}
+						</>
+					)}
+				</CatalogueWrapper>
 			</FiltersPhonesStyledWrapper>
 			<AppPagination
 				pages={Math.ceil(quantity / perPage)}
 				page={startPage}
 				onPageChange={(e, page) => {
-					//setStartPage((prev) => page);
 					setSearchParams((prev) => {
+						setStartPage(() => page);
 						prev.set("startPage", page);
 						return prev;
 					});

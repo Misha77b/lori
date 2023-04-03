@@ -30,7 +30,7 @@ const Modal = ({ children, customWidth, status }) => {
 			document.body.style.overflow = "hidden";
 			return () => {
 				modalRootElement.removeChild(element);
-				document.body.style.overflow = "scroll";
+				document.body.style.overflow = "auto";
 			};
 		}
 		return undefined;
