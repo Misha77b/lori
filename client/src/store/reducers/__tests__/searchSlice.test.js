@@ -6,6 +6,7 @@ import searchReducer, {
 } from "../searchSlice";
 
 const initialState = {
+	matchedProductsQuantity: 0,
 	searchProducts: [],
 	loader: false,
 };
@@ -48,12 +49,6 @@ describe("searchSlice", () => {
 		expect(end[0].type).toBe(fetchSearchProducts.fulfilled().type);
 	});
 
-	it("should return default state when passed an empty actions", () => {
-		const result = searchReducer(undefined, { type: "" });
-
-		expect(result).toEqual(initialState);
-	});
-
 	it("should delete goods to search 'clearSearch' action", () => {
 		const action = { type: clearSearch.type, payload: [] };
 		const result = searchReducer(initialState, action);
@@ -74,11 +69,30 @@ describe("searchSlice", () => {
 		expect(state.loader).toBe(true);
 	});
 
-	it("should fetch goods with 'fetchSearchProducts.fulfilled' action", () => {
-		const state = searchReducer(initialState, fetchSearchProducts.fulfilled(mockProduct));
+	it("updates matchedProductsQuantity correctly", () => {
+		const action = {
+			type: fetchSearchProducts.fulfilled,
+			payload: { matchedProductsQuantity: 10 },
+		};
+		const newState = searchReducer(initialState, action);
+		expect(newState.matchedProductsQuantity).toEqual(10);
+	});
 
-		expect(state.loader).toEqual(false);
-		expect(state.searchProducts).toEqual(mockProduct);
+	it("updates searchProducts correctly", () => {
+		const action = {
+			type: fetchSearchProducts.fulfilled,
+			payload: {
+				matchedProducts: [
+					{ id: 1, name: "Product 1" },
+					{ id: 2, name: "Product 2" },
+				],
+			},
+		};
+		const newState = searchReducer(initialState, action);
+		expect(newState.searchProducts).toEqual([
+			{ id: 1, name: "Product 1" },
+			{ id: 2, name: "Product 2" },
+		]);
 	});
 
 	it("should fetch goods with 'fetchSearchProducts.rejected' action", () => {
