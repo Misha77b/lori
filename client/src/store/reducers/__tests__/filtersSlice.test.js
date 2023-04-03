@@ -1,5 +1,10 @@
 import axios from "axios";
-import filtersReducer, { actionFetchFilters, actionFilters, actionLoad } from "../filtersSlice";
+import filtersReducer, {
+	actionFetchFilters,
+	actionFilters,
+	actionLoad,
+	clearFilters,
+} from "../filtersSlice";
 import { DOMAIN } from "../../../config/API";
 
 const initialState = {
@@ -67,6 +72,13 @@ describe("searchSlice", () => {
 		const result = filtersReducer(initialState, action);
 
 		expect(result.arrFilters).toEqual(mockProduct);
+	});
+
+	it("should delete goods to filter 'clearFilters' action", () => {
+		const action = { type: clearFilters.type, payload: [] };
+		const result = filtersReducer(initialState, action);
+
+		expect(result.arrFilters).toEqual([]);
 	});
 
 	it("should delete goods to filters 'actionLoad' action", () => {

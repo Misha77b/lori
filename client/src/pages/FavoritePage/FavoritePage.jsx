@@ -54,7 +54,7 @@ const FavoritePage = () => {
 	if (!isAuth && unauthLoaded) return <Spinner />;
 	return (
 		<Container>
-			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
+			{notification && <ToastNotification text="Товар успішно переміщено до кошика" />}
 			<div className="cart-products">
 				<Typography
 					className="cart-products--title"

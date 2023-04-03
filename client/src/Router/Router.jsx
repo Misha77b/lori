@@ -42,7 +42,7 @@ function RootRouters() {
 			<Route path="/paymentAndDelivery" element={<PaymentAndDelivery />} />
 			<Route path="/exchangeAndReturn" element={<ExchangeAndReturn />} />
 			<Route path="/contacts" element={<Contacts />} />
-			<Route path="*" element={<NotPage />} />
+			{/* <Route path="*" element={<NotPage />} /> */}
 			<Route
 				path="/profile"
 				element={

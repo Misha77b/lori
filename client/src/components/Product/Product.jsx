@@ -84,7 +84,7 @@ function Product({ props, setNotification }) {
 						</Stack>
 					</div>
 				</div>
-				<Typography variant="h5" gutterBottom sx={{ marginTop: "40px" }}>
+				<Typography variant="h5" gutterBottom sx={{ marginTop: "30px" }}>
 					Характеристика товару:
 				</Typography>
 				<Description props={props} />

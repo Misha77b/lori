@@ -14,38 +14,54 @@ import Spinner from "../../components/Spinner";
 import NoItemsFoundMessage from "./component/NoItemsFoundMessage";
 import useLocationParams from "./hooks";
 import { CatalogueWrapper, FiltersPhonesStyledWrapper } from "./styled";
+import { fetchSearchProducts } from "../../store/reducers/searchSlice";
 
 const ProductsCatalogue = () => {
 	const dispatch = useDispatch();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const productsLoading = useSelector((state) => state.products.loader);
+	const searchLoading = useSelector((state) => state.search.loader);
 	const [products, setProducts] = useState([]);
 	const [notification, setNotification] = useState(false);
-	const [startPage, setStartPage] = useState(1);
+	const [startPage, setStartPage] = useState(searchParams.get("startPage") || 1);
 	const [filteredData, setFilteredData] = useState([]);
 	const [filterBar, openFilterBar] = useState(false);
 	const isMobileSize = useMediaQuery("(max-width:700px)");
-	const perPage = 5;
+	const perPage = 6;
 	const [prevParams, setPrevParams] = useState({ startPage: 1, perPage });
 	const productsQuantity = useSelector(selectProductsQuantity);
+	const searchProductsQuantity = useSelector((state) => state.search.matchedProductsQuantity);
 	const dataFromSearch = useSelector(selectSearch);
 	const [emptyArray, setEmptyArray] = useState(false);
 	const { params } = useLocationParams({ startPage, perPage });
+	const quantity = !searchParams.toString().includes("query")
+		? productsQuantity
+		: searchProductsQuantity;
 	useEffect(() => {
-		setPrevParams(params);
-		dispatch(fetchProducts(params)).then((res) => {
-			setProducts(res.payload.products);
-			if (res.payload.products.length === 0) {
-				setEmptyArray(true);
-			} else {
-				setEmptyArray(false);
-			}
-		});
-	}, [startPage, params, filteredData, dataFromSearch]);
+		/* setPrevParams(params); */
+		if (searchParams.toString().includes("query")) {
+			dispatch(
+				fetchSearchProducts({
+					query: searchParams.get("query"),
+					startPage: searchParams.get("startPage") || 1,
+					perPage,
+				}),
+			);
+		} else {
+			dispatch(fetchProducts(params)).then((res) => {
+				setProducts(res.payload.products);
+				if (res.payload.products.length === 0) {
+					setEmptyArray(true);
+				} else {
+					setEmptyArray(false);
+				}
+			});
+		}
+		setStartPage(parseInt(searchParams.get("startPage") ?? "1", 10));
+	}, [startPage, params, filteredData, searchParams]);
 	useEffect(() => {
-		const urlParams = new URLSearchParams(params);
-		const minPrice = urlParams.get("minPrice");
-		const maxPrice = urlParams.get("maxPrice");
+		const minPrice = searchParams.get("minPrice");
+		const maxPrice = searchParams.get("maxPrice");
 		if (minPrice !== null && maxPrice !== null) {
 			openFilterBar(true);
 		} else {
@@ -53,10 +69,15 @@ const ProductsCatalogue = () => {
 		}
 		setPrevParams(params);
 	}, [params, openFilterBar]);
-	const noItems = emptyArray && dataFromSearch.length === 0;
+	let noItems = true;
+	if (searchParams.get("query")) {
+		noItems = !dataFromSearch.length && !searchLoading;
+	} else {
+		noItems = emptyArray;
+	}
 	return (
 		<Container>
-			{notification && <ToastNotification text="An item has been successfully added to the cart" />}
+			{notification && <ToastNotification text="Товар успішно додано до кошика" />}
 			{isMobileSize && (
 				<Button
 					color="secondary"
@@ -94,49 +115,44 @@ const ProductsCatalogue = () => {
 			<FiltersPhonesStyledWrapper isMobileSize={isMobileSize}>
 				{isMobileSize && filterBar && <FiltersBlock />}
 				{!isMobileSize && <FiltersBlock />}
-				{productsLoading && <Spinner />}
-				{!productsLoading && (
-					<CatalogueWrapper>
-						{/* eslint-disable-next-line no-nested-ternary */}
-						{filteredData.length
-							? filteredData?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))
-							: dataFromSearch.length
-							? dataFromSearch?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))
-							: products?.map((card, index) => (
-									<ProductCard
-										priceColor="#57646E"
-										key={index}
-										card={card}
-										setNotification={setNotification}
-									/>
-									// eslint-disable-next-line no-mixed-spaces-and-tabs
-							  ))}
-						{noItems && <NoItemsFoundMessage text="Товарів не знайдено" />}
-					</CatalogueWrapper>
-				)}
+				<CatalogueWrapper>
+					{(productsLoading || searchLoading) && <Spinner />}
+					{!productsLoading && (
+						<>
+							{noItems && <NoItemsFoundMessage text="Товарів не знайдено" />}
+							{/* eslint-disable-next-line no-nested-ternary */}
+							{!searchParams.toString().includes("query")
+								? products?.map((card, index) => (
+										<ProductCard
+											priceColor="#57646E"
+											key={index}
+											card={card}
+											setNotification={setNotification}
+										/>
+										// eslint-disable-next-line no-mixed-spaces-and-tabs
+								  ))
+								: dataFromSearch?.map((card, index) => (
+										<ProductCard
+											priceColor="#57646E"
+											key={index}
+											card={card}
+											setNotification={setNotification}
+										/>
+										// eslint-disable-next-line no-mixed-spaces-and-tabs
+								  ))}
+						</>
+					)}
+				</CatalogueWrapper>
 			</FiltersPhonesStyledWrapper>
 			<AppPagination
-				pages={Math.ceil(productsQuantity / perPage)}
+				pages={Math.ceil(quantity / perPage)}
 				page={startPage}
 				onPageChange={(e, page) => {
-					setStartPage((prev) => page);
-					setSearchParams(params);
+					setSearchParams((prev) => {
+						setStartPage(() => page);
+						prev.set("startPage", page);
+						return prev;
+					});
 				}}
 			/>
 		</Container>

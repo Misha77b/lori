@@ -14,11 +14,10 @@ const ToastWrapper = styled.div`
 	background-color: #afdfc2;
 	display: block;
 	text-align: end;
-	max-width: 250px;
 	position: fixed;
 	border-radius: 10px;
 	margin: 0 auto 20px auto;
-	padding: 25px 15px;
+	padding: 15px;
 	right: 2%;
 	z-index: 5;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);

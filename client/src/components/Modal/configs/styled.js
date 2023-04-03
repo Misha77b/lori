@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.div`
+	background-color: #ffffff;
 	text-align: center;
-	padding: 40px 85px;
+	padding: 15px 20px;
 `;
 export const LoadingContainer = styled.div`
+	background: transparent;
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;

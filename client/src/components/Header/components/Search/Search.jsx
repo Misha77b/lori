@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Button, TextField, InputAdornment, IconButton } from "@mui/material";
@@ -10,8 +10,8 @@ import useLocationParams from "../../../../pages/ProductsCatalogue/hooks/useLoca
 const Search = React.memo(() => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [input, setInput] = useState("");
 	const [searchParams, setSearchParams] = useSearchParams();
+	const [input, setInput] = useState(searchParams.get("query") ?? "");
 	const { params } = useLocationParams({ query: input });
 	const handleClearSearch = () => {
 		dispatch(clearSearch());
@@ -21,6 +21,11 @@ const Search = React.memo(() => {
 		});
 		setInput("");
 	};
+
+	useEffect(() => {
+		setInput(searchParams.get("query") ?? "");
+	}, [searchParams]);
+
 	return (
 		<Box
 			onSubmit={(e) => e.preventDefault()}
@@ -84,15 +89,15 @@ const Search = React.memo(() => {
 				onClick={() => {
 					if (input.length <= 1) return;
 					setSearchParams((prev) => {
+						const keys = [];
+						prev.forEach((val, key) => {
+							keys.push(key);
+						});
+						keys.forEach((key) => prev.delete(key));
 						prev.set("query", input);
 						return prev;
 					});
-					dispatch(
-						fetchSearchProducts({
-							query: searchParams.get("query"),
-						}),
-					);
-					navigate(`/products?${params}`);
+					navigate(`/products?${searchParams.toString()}`);
 				}}
 				sx={{
 					position: "absolute",
