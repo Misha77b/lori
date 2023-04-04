@@ -11,7 +11,7 @@ const ProductDescription = ({ name, color }) => {
 	);
 };
 const Description = styled.p`
-	margin: 0 0 10px;
+	margin: 0 0 13px;
 	font-family: Open Sans, sans-serif;
 	font-size: 14px;
 	font-weight: 400;

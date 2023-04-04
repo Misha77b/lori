@@ -33,14 +33,15 @@ export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI)
 		return thunkAPI.rejectWithValue(error);
 	}
 });
-export const fetchRegister = createAsyncThunk("user/register", async (object) => {
-	axios
+export const fetchRegister = createAsyncThunk("user/register", async (object, thunkAPI) => {
+	try {
+		const savedCustomer = await axios.post(`${DOMAIN}/customers`, object);
+		return savedCustomer;
+	} catch ({ message }) {
+		console.log("message", message);
 
-		.post(`${DOMAIN}/customers`, object)
-		.then((savedCustomer) => savedCustomer)
-		.catch((err) => {
-			throw err;
-		});
+		return thunkAPI.rejectWithValue(message);
+	}
 });
 
 export const userSlice = createSlice({
@@ -63,17 +64,34 @@ export const userSlice = createSlice({
 			.addCase(fetchAuth.pending, (state) => {
 				state.meta = { ...state.meta, loading: true, loaded: false };
 			})
+			.addCase(fetchRegister.pending, (state) => {
+				state.meta = { ...state.meta, loading: true, loaded: false };
+			})
 			.addCase(fetchAuth.fulfilled, (state, action) => {
 				state.user = action.payload;
 				state.isAuth = true;
 				state.meta = { ...state.meta, loading: false, loaded: true };
 			})
+			.addCase(fetchRegister.fulfilled, (state, action) => {
+				state.user = action.payload;
+				state.meta = { ...state.meta, loading: false, loaded: true };
+			})
 			.addCase(fetchAuth.rejected, (state, action) => {
+				state.isAuth = false;
 				state.meta = {
 					...state.meta,
 					loading: false,
 					loaded: false,
 					error: action.payload,
+				};
+			})
+			.addCase(fetchRegister.rejected, (state, { payload }) => {
+				state.isAuth = false;
+				state.meta = {
+					...state.meta,
+					loading: false,
+					loaded: false,
+					error: payload,
 				};
 			});
 	},
