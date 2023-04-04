@@ -52,8 +52,8 @@ const FavoriteHeartIcon = ({ id }) => {
 			sx={{
 				position: "absolute",
 				cursor: "pointer",
-				fontSize: "40px",
-				top: "-2px",
+				fontSize: "32px",
+				top: "6px",
 			}}
 		/>
 	);

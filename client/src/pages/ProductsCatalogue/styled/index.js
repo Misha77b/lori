@@ -9,6 +9,5 @@ export const CatalogueWrapper = styled.div`
 export const FiltersPhonesStyledWrapper = styled.div`
 	text-align: center;
 	display: grid;
-	gap: 2%;
 	grid-template-columns: ${(props) => (props.isMobileSize ? "auto" : "300px auto")};
 `;
