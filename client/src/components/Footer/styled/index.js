@@ -24,5 +24,5 @@ export const CustomLink = styled(NavLink)(({ theme }) => ({
 
 export const menuLinkItem = {
 	color: "#ffffff",
-	fontSize: "40px",
+	fontSize: "32px",
 };

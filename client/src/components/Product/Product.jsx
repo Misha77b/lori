@@ -55,7 +55,7 @@ function Product({ props, setNotification }) {
 						</div>
 					</div>
 					<div className="block__description">
-						<Stack spacing={4}>
+						<Stack spacing={5}>
 							<ProductPrice currentPrice={currentPrice} />
 							<Typography
 								variant="h3"

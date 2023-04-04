@@ -7,8 +7,8 @@ export const InactiveTextCataloge = () => {
 			fontWeight="fontWeightRegular"
 			sx={{
 				fontSize: "18px",
-				padding: "12px",
 				textAlign: "center",
+				paddingBottom: "10px",
 			}}
 		>
 			Немає в наявності
