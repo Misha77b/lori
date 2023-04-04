@@ -168,27 +168,6 @@ export const cartSlice = createSlice({
 				(itemProduct) => (state.totalCartQuantity += itemProduct.cartQuantity),
 			);
 			state.meta = { ...state.meta, loading: false, loaded: true };
-			// const fetchProductPromises = action.payload
-			// 	.filter((item) => !item.product)
-			// 	.map((item) => getProduct(item._id));
-			// const productData = await Promise.all(fetchProductPromises);
-			//
-			// // update the shopping cart with the fetched product data
-			// productData.forEach((product, index) => {
-			// 	const itemToUpdate = state.shoppingCartAuth.find(
-			// 		(item) => item._id === action.payload[index]._id
-			// 	);
-			// 	itemToUpdate.product = product;
-			// });
-			// action.payload.forEach((item) => {
-			// 	if (!item.product) fetchProducts(`_id=${item._id}`);
-			// });
-		});
-		builder.addCase(deleteCartAuth.fulfilled, (state, action) => {
-			state.shoppingCartAuth = [];
-			state.totalCartQuantity = 0;
-			state.cartAuthTotalSum = 0;
-			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 		builder.addCase(getCartAuth.rejected, (state, action) => {
 			state.meta = {
@@ -198,6 +177,13 @@ export const cartSlice = createSlice({
 				error: action.payload,
 			};
 		});
+		builder.addCase(deleteCartAuth.fulfilled, (state, action) => {
+			state.shoppingCartAuth = [];
+			state.totalCartQuantity = 0;
+			state.cartAuthTotalSum = 0;
+			state.meta = { ...state.meta, loading: false, loaded: true };
+		});
+
 		builder.addCase(updateCartFromNotAuthToAuth.fulfilled, (state, action) => {
 			state.shoppingCartAuth = action.payload.products;
 			state.totalCartQuantity = 0;

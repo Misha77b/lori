@@ -10,6 +10,7 @@ import { getCartAuth, setTotalCartSum, getTotatlAuthCartSum } from "../../store/
 import Spinner from "../../components/Spinner";
 import "./cart.scss";
 import useItemsToRender from "./hooks";
+import { updateNotAuthToAuthCart } from "../../helpers/updateNotAuthToAuthCart";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -92,6 +93,8 @@ const Cart = () => {
 		dispatch(getTotatlAuthCartSum(total));
 		return total;
 	};
+	console.log("authCart", authCart);
+	console.log("notAuthCart", cartItems);
 	if (isAuth && loading) return <Spinner />;
 	if (!isAuth && productsLoading) return <Spinner />;
 	return (

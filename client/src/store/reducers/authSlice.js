@@ -5,7 +5,7 @@ import setAuthToken from "../../config/setAuthToken";
 import { getLocalItem } from "../../helpers/getLocalItem";
 import { getFavorites } from "./favoriteSlice";
 import { fetchCustomer } from "./getCustomerInfoSlice";
-import { addOneProductAuth, getCartAuth, updateCartFromNotAuthToAuth } from "./cartSlice";
+import { getCartAuth, updateCartFromNotAuthToAuth } from "./cartSlice";
 import { updateNotAuthToAuthCart } from "../../helpers/updateNotAuthToAuthCart";
 
 const initialState = {
@@ -23,11 +23,11 @@ export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI)
 		await thunkAPI.dispatch(fetchCustomer());
 		await thunkAPI.dispatch(getCartAuth());
 		const { cart } = thunkAPI.getState();
-		// await thunkAPI.dispatch(
-		// 	updateCartFromNotAuthToAuth(
-		// 		updateNotAuthToAuthCart(cart.shoppingCart, cart.shoppingCartAuth),
-		// 	),
-		// );
+		await thunkAPI.dispatch(
+			updateCartFromNotAuthToAuth(
+				updateNotAuthToAuthCart(cart.shoppingCart, cart.shoppingCartAuth),
+			),
+		);
 		return response.data;
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error);
