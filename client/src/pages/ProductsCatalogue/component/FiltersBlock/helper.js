@@ -19,4 +19,6 @@ export const arrayNameLabel = [
 export const FilterWrapper = styled.div`
 	margin-inline: auto;
 	max-width: 300px;
+	margin-bottom: 30px;
+	padding-right: 20px;
 `;
