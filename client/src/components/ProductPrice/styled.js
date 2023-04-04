@@ -9,7 +9,7 @@ export const PriceWrapper = styled.div`
 export const CurrentPrice = styled.span`
 	font-family: Montserrat, sans-serif;
 	font-weight: 900;
-	font-size: 23px;
+	font-size: 40px;
 	line-height: 29px;
 	color: ${(props) => {
 		if (props.previousPrice) return "#E03737";
