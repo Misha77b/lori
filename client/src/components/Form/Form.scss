@@ -1,5 +1,6 @@
 @import "src/boilerplates/styles/variables";
 .form {
+	background-color: $secondary-color;
 	padding: 40px;
 	display: flex;
 	flex-direction: column;
