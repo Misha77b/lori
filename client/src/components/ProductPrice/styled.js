@@ -30,7 +30,6 @@ export const CurrentPrice = styled.span`
 @media (max-width: 480px) {
 	font-size: 16px;
 	line-height: 20px;
-	pa
 }
 `;
 export const PreviousPrice = styled.span`
