@@ -25,10 +25,7 @@ const ToCartButton = ({ id, setNotification, favorites }) => {
 		<Button
 			color="secondary"
 			variant="contained"
-			/* sx={{
-				...(favorites ? { width: "140px" } : { width: "55%" }),
-				marginTop: "10px",
-			}} */
+			sx={{ maxWidth: "200px" }}
 			onClick={() => {
 				setCartHandler(id);
 				setNotification(true);
