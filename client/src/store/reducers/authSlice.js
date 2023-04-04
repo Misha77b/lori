@@ -24,7 +24,9 @@ export const fetchAuth = createAsyncThunk("user/login", async (object, thunkAPI)
 		await thunkAPI.dispatch(getCartAuth());
 		const { cart } = thunkAPI.getState();
 		await thunkAPI.dispatch(
-			updateCartFromNotAuthToAuth(updateNotAuthToAuthCart(cart.shoppingCart)),
+			updateCartFromNotAuthToAuth(
+				updateNotAuthToAuthCart(cart.shoppingCart, cart.shoppingCartAuth),
+			),
 		);
 		return response.data;
 	} catch (error) {
