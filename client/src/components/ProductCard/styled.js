@@ -15,6 +15,7 @@ export const ProductCardWrapper = styled.div`
 	@media screen and (max-width: 700px) {
 		width: 90%;
 		margin-inline: auto;
+		padding-bottom: 0px;
 	}
 	@media screen and (min-width: 920px) {
 		&:hover {
