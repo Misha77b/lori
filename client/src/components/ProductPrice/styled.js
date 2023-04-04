@@ -4,7 +4,7 @@ export const PriceWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding-bottom: 10px;
+	margin: 7px 0 10px 0;
 `;
 export const CurrentPrice = styled.span`
 	font-family: Montserrat, sans-serif;
