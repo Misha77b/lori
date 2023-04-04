@@ -5,13 +5,14 @@ import styled from "styled-components";
 
 const ProductDescription = ({ name, color }) => {
 	return (
-		<Description>
-			{name} {color}
-		</Description>
+		<>
+			<Description>{name}</Description>
+			<Description>{color}</Description>
+		</>
 	);
 };
 const Description = styled.p`
-	margin: 0 0 10px;
+	margin: 0 auto 10px;
 	font-family: Open Sans, sans-serif;
 	font-size: 14px;
 	font-weight: 400;
