@@ -6,6 +6,8 @@ import { schema as validationSchema, validationSchema2 } from "./Schema";
 import Field from "./Field/Field";
 import "./Form.scss";
 import { fetchAuth, fetchRegister, setIsAuth } from "../../store/reducers/authSlice";
+// eslint-disable-next-line import/named
+import { addMessage } from "../../store/reducers/updateUserInfoSlice";
 import ToastNotification from "../ToastNotification";
 import Spinner from "../Spinner";
 
@@ -29,7 +31,11 @@ const PageForm = ({ status, onClose, onLoginToggle, onRegisterToggle }) => {
 				if (res.payload.token) {
 					dispatch(setIsAuth(true));
 				}
-				if (!error) onClose();
+				if (!error) {
+					onClose();
+				} else {
+					onLoginToggle();
+				}
 			} else {
 				dispatch(fetchRegister(usersData));
 				onLoginToggle();

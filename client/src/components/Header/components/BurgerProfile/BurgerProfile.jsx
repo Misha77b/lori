@@ -85,7 +85,7 @@ const BurgerProfile = React.memo(({ isLoggedIn }) => {
 					onClick={() => {
 						localStorage.removeItem("token");
 						dispatch(setIsAuth(false));
-						navigate("/");
+						navigate("/products");
 					}}
 				>
 					<MenuItem divider onClick={handleCloseBurgerMenu}>
