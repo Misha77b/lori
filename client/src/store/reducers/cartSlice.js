@@ -128,7 +128,7 @@ export const cartSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(addOneProductAuth.pending, (state, action) => {
-			state.meta = { ...state.meta, loading: true, loaded: false };
+			state.meta = { ...state.meta, loading: false, loaded: false };
 		});
 		builder.addCase(addOneProductAuth.fulfilled, (state, action) => {
 			state.shoppingCartAuth = action.payload.products;
@@ -156,6 +156,10 @@ export const cartSlice = createSlice({
 		});
 		builder.addCase(decreaseAmountAuth.fulfilled, (state, action) => {
 			state.shoppingCartAuth = action.payload.products;
+			state.totalCartQuantity = 0;
+			state.shoppingCartAuth.forEach(
+				(itemProduct) => (state.totalCartQuantity += itemProduct.cartQuantity),
+			);
 			state.meta = { ...state.meta, loading: false, loaded: true };
 		});
 		builder.addCase(getCartAuth.pending, (state, action) => {

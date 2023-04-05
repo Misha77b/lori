@@ -8,7 +8,16 @@ import Amount from "../Product/Amount";
 import { deleteOneProduct, removeItemShoppingCart } from "../../store/reducers/cartSlice";
 import { selectShoppingCart } from "../../store/selectors";
 
-const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum, quantity = "" }) => {
+const CartItem = ({
+	deleteProductById,
+	imageUrls,
+	itemNo,
+	dbId,
+	name,
+	currentPrice,
+	setTotalSum,
+	quantity = "",
+}) => {
 	const dispatch = useDispatch();
 	const shoppingCart = useSelector(selectShoppingCart);
 	const isAuth = useSelector((state) => state.auth.isAuth);
@@ -48,6 +57,7 @@ const CartItem = ({ imageUrls, itemNo, dbId, name, currentPrice, setTotalSum, qu
 					className="item__btn"
 					onClick={() => {
 						if (!isAuth) {
+							deleteProductById(dbId);
 							dispatch(removeItemShoppingCart(dbId));
 						} else {
 							dispatch(deleteOneProduct(dbId));
