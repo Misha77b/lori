@@ -5,12 +5,12 @@ export const ProductCardWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	padding: 10px;
+	padding: 14px;
 	position: relative;
 	width: 100%;
 	height: 95%;
 	max-width: 300px;
-	max-height: 550px;
+	max-height: 510px;
 	transition: all 0.3s ease-in;
 	@media screen and (max-width: 700px) {
 		width: 90%;

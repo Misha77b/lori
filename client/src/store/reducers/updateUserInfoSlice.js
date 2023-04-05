@@ -16,6 +16,9 @@ export const updateCustomerInfoSlice = createSlice({
 		removeMessage: (state, action) => {
 			state.message = false;
 		},
+		addMessage: (state, action) => {
+			state.message = true;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchUpdateCustomerInfo.fulfilled, (state, action) => {
@@ -23,6 +26,6 @@ export const updateCustomerInfoSlice = createSlice({
 		});
 	},
 });
-export const { removeMessage } = updateCustomerInfoSlice.actions;
+export const { removeMessage, addMessage } = updateCustomerInfoSlice.actions;
 
 export default updateCustomerInfoSlice.reducer;

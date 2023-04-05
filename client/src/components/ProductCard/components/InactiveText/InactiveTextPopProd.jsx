@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
 import React from "react";
+import { Typography } from "@mui/material";
 
 export const InactiveTextPopProd = () => {
 	return (
@@ -10,8 +10,8 @@ export const InactiveTextPopProd = () => {
 				left: "50%",
 				transform: "translate(-50%)",
 				fontSize: "14px",
-				padding: "8px",
 				textAlign: "center",
+				top: "5px",
 			}}
 		>
 			Немає в наявності

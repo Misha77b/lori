@@ -4,6 +4,7 @@ export const PriceWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin: 7px 0 10px 0;
 `;
 export const CurrentPrice = styled.span`
 	font-family: Montserrat, sans-serif;
@@ -23,10 +24,11 @@ export const CurrentPrice = styled.span`
 @media (max-width: 768px) {
 	font-size: 16px;
 	line-height: 24px;
+	padding-bottom: 8px;
 }
 
 @media (max-width: 480px) {
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 20px;
 }
 `;
