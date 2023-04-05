@@ -10,6 +10,7 @@ import { getCartAuth, setTotalCartSum, getTotatlAuthCartSum } from "../../store/
 import Spinner from "../../components/Spinner";
 import "./cart.scss";
 import useItemsToRender from "./hooks";
+import CategoryTitle from "../../components/CategoryTitle";
 
 const Cart = () => {
 	const dispatch = useDispatch();
@@ -96,7 +97,7 @@ const Cart = () => {
 	return (
 		<Container>
 			<div className="cart__wrapper">
-				<h4 className="cart__title">Корзина</h4>
+				<CategoryTitle text="Кошик" />
 				{!products.length && !authCart.length && <NoItemsFoundMessage />}
 				{!productsLoading && (
 					<Box className="cart">
