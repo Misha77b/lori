@@ -15,7 +15,7 @@ const OrderItem = React.memo(({ item, cartQuantity, deleteCross = false, setNoti
 	return (
 		<>
 			<Grid container className="item-product">
-				<Grid item xs={3} sx={{ display: "flex", alignItems: "center" }}>
+				<Grid item xs={3} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
 					<img className="item-product--img" src={item.imageUrls[0]} alt="product img" />
 				</Grid>
 

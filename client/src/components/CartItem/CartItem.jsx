@@ -38,7 +38,7 @@ const CartItem = ({
 				<h3 className="item__text">{name}</h3>
 			</Box>
 
-			<Box className="itemBlock">
+			<Box className="itemBlock itemBlock__description">
 				<Amount
 					amount={shoppingCart[dbId]}
 					quantityAuth={quantity}
