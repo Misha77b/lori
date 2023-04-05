@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Table, TableHead, TableRow, TableCell, TableBody, Typography, Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import axios from "axios";
+import { Table, TableHead, TableCell, TableBody, Typography, Box } from "@mui/material";
+import { StyledBox, StyledTableRow } from "./styled";
 import { DOMAIN } from "../../../../config/API";
 import { getLocalItem } from "../../../../helpers/getLocalItem";
 import Spinner from "../../../../components/Spinner";
+import NoItemsFoundMessage from "../../../ProductsCatalogue/component/NoItemsFoundMessage";
 
 const OrdersHistory = () => {
-	const StyledTableRow = styled(TableRow)(({ theme }) => ({
-		"&:nth-of-type(odd)": {
-			backgroundColor: "#D3D7DA",
-		},
-	}));
-	const StyledBox = styled(Box)(({ theme }) => ({
-		"&:nth-of-type(odd)": {
-			backgroundColor: "#D3D7DA",
-		},
-	}));
 	const isLoggedIn = useSelector((state) => state.auth.isAuth);
 	const [loading, setLoading] = useState(false);
 	const [orders, setOrders] = useState([]);
@@ -67,7 +58,7 @@ const OrdersHistory = () => {
 									<TableCell align="center">Статус</TableCell>
 								</StyledTableRow>
 							) : (
-								<Typography>Замовлення відсутні</Typography>
+								<NoItemsFoundMessage text="Замовлень ще немає" />
 							)}
 						</TableHead>
 						<TableBody>

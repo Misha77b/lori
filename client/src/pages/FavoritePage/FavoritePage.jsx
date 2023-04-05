@@ -8,6 +8,7 @@ import useItemsToRender from "../Cart/hooks";
 import ToastNotification from "../../components/ToastNotification";
 import Spinner from "../../components/Spinner";
 import NoItemsFoundMessage from "../ProductsCatalogue/component/NoItemsFoundMessage";
+import CategoryTitle from "../../components/CategoryTitle";
 
 const FavoritePage = () => {
 	const dispatch = useDispatch();
@@ -56,14 +57,7 @@ const FavoritePage = () => {
 		<Container>
 			{notification && <ToastNotification text="Товар успішно переміщено до кошика" />}
 			<div className="cart-products">
-				<Typography
-					className="cart-products--title"
-					variant="h3"
-					fontWeight="fontWeightBold"
-					sx={{ fontSize: "18px" }}
-				>
-					Улюблене
-				</Typography>
+				<CategoryTitle text="Улюблене" />
 				<>
 					<Box component="div" className="scroll">
 						{prodsToRender}

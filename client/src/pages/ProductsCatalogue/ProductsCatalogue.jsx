@@ -28,6 +28,7 @@ const ProductsCatalogue = () => {
 	const [filterBar, openFilterBar] = useState(false);
 	const isMobileSize = useMediaQuery("(max-width:700px)");
 	const perPage = 6;
+	let noItems = true;
 	const [prevParams, setPrevParams] = useState({ startPage: 1, perPage });
 	const productsQuantity = useSelector(selectProductsQuantity);
 	const searchProductsQuantity = useSelector((state) => state.search.matchedProductsQuantity);
@@ -69,7 +70,6 @@ const ProductsCatalogue = () => {
 		}
 		setPrevParams(params);
 	}, [params, openFilterBar]);
-	let noItems = true;
 	if (searchParams.get("query")) {
 		noItems = !dataFromSearch.length && !searchLoading;
 	} else {
@@ -151,6 +151,7 @@ const ProductsCatalogue = () => {
 					setSearchParams((prev) => {
 						setStartPage(() => page);
 						prev.set("startPage", page);
+						window.scroll(0, 0);
 						return prev;
 					});
 				}}
