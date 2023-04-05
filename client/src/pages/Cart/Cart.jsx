@@ -22,6 +22,9 @@ const Cart = () => {
 	const authCart = useSelector((state) => state.cart.shoppingCartAuth);
 	const productsLoading = useSelector((state) => state.products.loader);
 	const { loading } = useSelector((state) => state.cart.meta);
+	const deleteProductById = (id) => {
+		setProducts((prev) => prev.filter((el) => el._id !== id));
+	};
 	useEffect(() => {
 		if (!isAuth) return;
 		dispatch(getCartAuth());
@@ -32,8 +35,9 @@ const Cart = () => {
 		if (params === "_id=") return;
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
+			setRender(true);
 		});
-	}, [cartItems]);
+	}, []);
 	useEffect(() => {
 		if (!products.length) {
 			setTotalSum({});
@@ -57,6 +61,7 @@ const Cart = () => {
 						currentPrice={item.product.currentPrice}
 						quantity={item.cartQuantity}
 						setTotalSum={setTotalSum}
+						deleteProductById={deleteProductById}
 					/>
 				);
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
@@ -71,6 +76,7 @@ const Cart = () => {
 						name={name}
 						currentPrice={currentPrice}
 						setTotalSum={setTotalSum}
+						deleteProductById={deleteProductById}
 					/>
 				);
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
