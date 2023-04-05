@@ -129,6 +129,7 @@ const Cart = () => {
 											e.preventDefault();
 											dispatch(setTotalCartSum(countTotalPriceAuth()));
 											navigate("/orders");
+											window.scroll(0, 0);
 										}}
 										className="btn"
 									>

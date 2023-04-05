@@ -49,7 +49,11 @@ const GridItem = () => {
 										{description}
 									</Typography>
 								</Stack>
-								<Link to={`/products?${params.toString()}`} className="link">
+								<Link
+									to={`/products?${params.toString()}`}
+									onClick={() => window.scroll(0, 0)}
+									className="link"
+								>
 									<Button color="primary" variant="contained" sx={button}>
 										Детальніше
 									</Button>
