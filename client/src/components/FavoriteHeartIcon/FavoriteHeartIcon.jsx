@@ -53,7 +53,7 @@ const FavoriteHeartIcon = ({ id }) => {
 				position: "absolute",
 				cursor: "pointer",
 				fontSize: "32px",
-				top: "6px",
+				top: "3px",
 			}}
 		/>
 	);
