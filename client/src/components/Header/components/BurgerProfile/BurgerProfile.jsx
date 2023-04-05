@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import { NavLink, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import { setIsAuth } from "../../../../store/reducers/authSlice";
+import { clearFavorites } from "../../../../store/reducers/favoriteSlice";
 
 const CustomizedMenu = styled(Menu)`
 	& .MuiMenu-paper {
@@ -85,7 +86,9 @@ const BurgerProfile = React.memo(({ isLoggedIn }) => {
 					onClick={() => {
 						localStorage.removeItem("token");
 						dispatch(setIsAuth(false));
-						navigate("/products");
+						dispatch(clearFavorites());
+						dispatch(clearCart());
+						navigate("/");
 					}}
 				>
 					<MenuItem divider onClick={handleCloseBurgerMenu}>
