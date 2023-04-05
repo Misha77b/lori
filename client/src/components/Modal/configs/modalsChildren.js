@@ -24,16 +24,16 @@ export const modals = {
 								color="secondary"
 								sx={{
 									fontWeight: "600",
-									fontSize: "20px",
+									fontSize: "18px",
 									lineHeight: "180%",
-									marginBottom: "12px",
+									margin: "0 32px",
 								}}
 							>
 								Дякуємо, що вибрали нас!
 							</Typography>
 							<Typography
 								component="p"
-								sx={{ fontSize: "18px", lineHeight: " 180%", marginBottom: "20px" }}
+								sx={{ fontSize: "16px", lineHeight: " 180%", marginBottom: "20px" }}
 							>
 								Ваше замовлення № {order} успішно оформлене. Чекайте на дзвінок від нашого фахівця.
 							</Typography>
@@ -41,7 +41,7 @@ export const modals = {
 								color="secondary"
 								variant="contained"
 								sx={{
-									padding: "10px 10px",
+									padding: "8px 8px",
 								}}
 								onClick={() => {
 									onNavigate("/products");

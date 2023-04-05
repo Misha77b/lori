@@ -33,21 +33,16 @@
 .itemBlock {
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
 	gap: 5%;
+	&__description {
+		display: flex;
+		justify-content: space-between;
+	}
 }
 @media screen and (max-width: 600px) {
 	.item {
 		grid-template-columns: 1fr;
 		margin-bottom: 10px;
 		padding-bottom: 10px;
-	}
-	.itemBlock {
-		justify-content: start;
-	}
-}
-@media screen and (max-width: 767px) {
-	.itemBlock {
-		justify-content: start;
 	}
 }

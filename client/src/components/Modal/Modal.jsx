@@ -52,7 +52,7 @@ const Modal = ({ children, customWidth, status }) => {
 							actionModalHandler(null);
 						}}
 					>
-						X
+						&#215;
 					</CloseCross>
 				</div>
 			</div>,
