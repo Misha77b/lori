@@ -35,7 +35,7 @@ const Cart = () => {
 		if (params === "_id=") return;
 		dispatch(fetchProducts(params)).then((res) => {
 			setProducts(res.payload.products);
-			setRender(true);
+			// setRender(true);
 		});
 	}, []);
 	useEffect(() => {

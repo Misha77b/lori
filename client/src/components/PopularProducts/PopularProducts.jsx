@@ -37,7 +37,11 @@ const PopularProducts = ({ advertisement = false }) => {
 						{!advertisement && <CategoryTitle text="Популярні товари" />}
 						{advertisement && <CategoryTitle text="Акційний товар" />}
 						{!advertisement && (
-							<Link style={{ textDecoration: "none" }} to="/products">
+							<Link
+								style={{ textDecoration: "none" }}
+								to="/products"
+								onClick={() => window.scroll(0, 0)}
+							>
 								<Button color="secondary" variant="contained">
 									Усі товари
 								</Button>
