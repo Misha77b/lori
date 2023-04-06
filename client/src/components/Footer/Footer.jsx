@@ -48,7 +48,7 @@ const Footer = () => {
 						fontWeight="fontWeightRegular"
 						fontFamily="Open Sans, sans-serif"
 					>
-						<List>
+						<List data-testid="list-menu">
 							<ListItem sx={menuTitle}>Інформація</ListItem>
 							<ListItem>
 								<CustomLink to="/about">Про нас</CustomLink>
